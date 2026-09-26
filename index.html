@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fonder · Film camera for iPhone</title>
+<meta name="description" content="Fonder is a film camera for iPhone: films fitted to real camera renders, camera-style recipes, Cine video and Film Roll.">
+<link rel="icon" href="/icon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..600&family=Be+Vietnam+Pro:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#f5f3f0; --surface:#ebe7e2; --text:#1c1a18; --muted:#6b6560; --rule:rgba(28,26,24,.14);
+  --accent:#9a6a2c; --accent-soft:rgba(154,106,44,.12);
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Be Vietnam Pro",ui-sans-serif,system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#1c1a18; --surface:#2d2b2b; --text:#f3f2f2; --muted:#bab6b6; --rule:rgba(255,255,255,.14);
+    --accent:#e1ad66; --accent-soft:rgba(225,173,102,.12);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#1c1a18; --surface:#2d2b2b; --text:#f3f2f2; --muted:#bab6b6; --rule:rgba(255,255,255,.14);
+  --accent:#e1ad66; --accent-soft:rgba(225,173,102,.12);
+}
+html,body{background:var(--ground);color:var(--text)}
+body{font:400 16px/1.65 var(--body);padding-inline:16px;padding-block:48px 72px;-webkit-font-smoothing:antialiased}
+main{max-width:680px;margin-inline:auto}
+header{display:grid;gap:10px;padding-bottom:28px;border-bottom:1px solid var(--rule)}
+.eyebrow{font:500 12px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+h1{font:600 clamp(34px,6vw,48px)/1.05 var(--display);letter-spacing:-.01em;margin:0;text-wrap:balance}
+.meta{font-size:14px;color:var(--muted);margin:0}
+.summary{margin:28px 0 8px;padding:20px 22px;background:var(--accent-soft);border-radius:6px}
+.summary h2{margin:0 0 8px;font:600 18px/1.3 var(--display)}
+.summary ul{margin:0;padding-left:20px}
+.summary li{margin:4px 0}
+section{padding-top:30px}
+h2{font:600 22px/1.25 var(--display);margin:0 0 10px;text-wrap:balance}
+h3{font:600 16px/1.3 var(--body);margin:18px 0 4px}
+p,li{max-width:66ch}
+p{margin:0 0 12px}
+ul{margin:0 0 12px;padding-left:20px}
+li{margin:4px 0}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+code{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--surface);padding:1px 5px;border-radius:3px}
+.todo{background:#ffe9a8;color:#1c1a18;padding:1px 6px;border-radius:3px;font-weight:500}
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--rule);font-size:14px;color:var(--muted)}
+nav.top{max-width:680px;margin:0 auto 36px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:14px}
+nav.top .brand{display:flex;align-items:center;gap:10px;font:600 18px/1 var(--display);color:var(--text);text-decoration:none}
+nav.top .brand img{border-radius:7px}
+nav.top span{display:flex;gap:18px}
+nav.top span a{color:var(--muted);text-decoration:none}
+nav.top span a:hover{color:var(--text)}
+.hero{display:grid;gap:18px;padding-block:24px 36px;border-bottom:1px solid var(--rule)}
+.hero img{border-radius:22px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.lede{font-size:19px;color:var(--muted);margin:0;max-width:52ch}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:22px;padding-top:30px}
+.features h2{font-size:18px;margin-bottom:6px}
+.features p{color:var(--muted);font-size:15px;margin:0}
+.status{margin-top:34px;padding:16px 18px;border:1px solid var(--rule);border-radius:6px;font-size:15px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <div class="hero">
+    <img src="/icon.png" alt="Fonder app icon" width="96" height="96">
+    <div class="eyebrow">Film camera for iPhone</div>
+    <h1>Fonder</h1>
+    <p class="lede">Shoot through film looks built from real camera renders. Tune recipes the way a camera does, record Cine video, or load a roll and develop it at the end.</p>
+  </div>
+  <div class="features">
+    <div><h2>Films and recipes</h2><p>Films fitted to real camera renders, with recipe controls for dynamic range, tone, colour, white balance and grain.</p></div>
+    <div><h2>Film Roll</h2><p>Load 24 or 36 exposures, shoot blind, and develop the whole roll when it's done.</p></div>
+    <div><h2>Cine</h2><p>1080p video with your recipe built in, grain that moves with every frame.</p></div>
+  </div>
+  <p class="status">Fonder is in private testing. A public TestFlight beta is coming soon. Questions: <a href="mailto:haint180298@gmail.com">haint180298@gmail.com</a></p>
+  <footer>© 2026 Fonder · <a href="/privacy/">Privacy Policy</a> · <a href="/terms/">Terms of Use</a></footer>
+</main>
+</body>
+</html>
