@@ -1,4 +1,4 @@
-import json, sys, unittest
+import json, re, sys, unittest
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
@@ -81,6 +81,61 @@ class ActionTests(unittest.TestCase):
     def test_external_links_are_safe(self):
         h = b.action_html(dict(BASE), S)
         self.assertEqual(h.count('rel="noopener"'), h.count("<a "))
+
+class PageTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.pages = b.build(ROOT)
+        cls.en = cls.pages["index.html"]
+        cls.vi = cls.pages["vi/index.html"]
+
+    def test_both_pages_built(self):
+        self.assertEqual(sorted(self.pages), ["index.html", "vi/index.html"])
+
+    def test_lang_and_hreflang(self):
+        self.assertIn('<html lang="en"', self.en)
+        self.assertIn('<html lang="vi"', self.vi)
+        for page in (self.en, self.vi):
+            self.assertIn('hreflang="en" href="https://fondercam.online/"', page)
+            self.assertIn('hreflang="vi" href="https://fondercam.online/vi/"', page)
+            self.assertIn('hreflang="x-default" href="https://fondercam.online/"', page)
+
+    def test_no_placeholder_left(self):
+        for page in (self.en, self.vi):
+            self.assertNotIn("{{", page)
+
+    def test_every_chapter_present(self):
+        for page in (self.en, self.vi):
+            for i in range(5):
+                self.assertIn(f'id="ch{i}"', page)
+
+    def test_film_count_filled(self):
+        self.assertIn("39 films", self.en)
+        self.assertIn("39 loại phim", self.vi)
+
+    def test_action_slot_filled(self):
+        self.assertIn("https://www.instagram.com/fonder.app", self.en)
+        self.assertIn("TestFlight sắp mở", self.vi)
+
+    def test_every_image_sized_and_described(self):
+        for page in (self.en, self.vi):
+            for tag in re.findall(r"<img\b[^>]*>", page):
+                self.assertRegex(tag, r'width="\d+"', tag)
+                self.assertRegex(tag, r'height="\d+"', tag)
+                m = re.search(r'alt="([^"]*)"', tag)
+                self.assertIsNotNone(m, tag)
+                if not m.group(1):
+                    self.assertIn('aria-hidden="true"', tag, tag)
+
+    def test_scripts_deferred(self):
+        for tag in re.findall(r"<script\b[^>]*src=[^>]*>", self.en):
+            self.assertIn("defer", tag)
+
+    def test_pages_are_current(self):
+        for rel, content in self.pages.items():
+            self.assertEqual((ROOT / rel).read_text(encoding="utf-8"), content,
+                             f"{rel} is stale: run python3 tools/build_home.py")
+
 
 if __name__ == "__main__":
     unittest.main()
