@@ -128,6 +128,7 @@ html.motion .print-developed{opacity:0}
 html.motion .print-latent{opacity:1;filter:grayscale(1) contrast(.2) brightness(1.8)}
 html.motion .ticket{transform:translateY(-110%)}
 html.motion .ch-ticket .pin{overflow:hidden}
+html.motion .ch-develop .pin{overflow:hidden}
 @media (min-width:700px){
   html.motion .envelope{display:block;position:absolute;inset:auto 0 0 0;height:40%;background:#d8c7a6;z-index:2}
 }
