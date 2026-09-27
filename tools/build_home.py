@@ -106,20 +106,24 @@ def action_html(cfg, s):
             f'<img src="/img/home/app-store-badge.svg" width="156" height="52" alt="{html.escape(s["action_appstore_alt"])}"></a>')
 
 
-FAN_FILMS = [("olive-neg", "Olive Neg"), ("lantern-neg", "Lantern Neg"), ("toffee-neg", "Toffee Neg"),
-             ("guava-neg", "Guava Neg"), ("ink-neg", "Ink Neg"), ("pollen-neg", "Pollen Neg")]
+# Chapter 3's prints, in fan order: (file in img/home/prints, the film it was shot on).
+# tools/roll_images.py makes the files from the source renders.
+FAN_PRINTS = [("01", "Dusk"), ("02", "Dusk"), ("03", "Dusk"),
+              ("04", "Toffee Neg"), ("05", "Toffee Neg"), ("06", "Toffee Neg")]
 
 # A 1x1 transparent GIF: the src for chapter images until home.js's IntersectionObserver
 # swaps in data-src as their chapter approaches. The <noscript> twin covers the no-JS path.
 LAZY_PLACEHOLDER = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
 
 
-def fan_html(s):
+def fan_html(s, root=ROOT):
     items = []
-    for i, (fid, name) in enumerate(FAN_FILMS):
-        alt = fill(s["alt_ch3_print"], {"film": name})
-        items.append(f'<li class="print-card" style="--i:{i}"><img hidden src="{LAZY_PLACEHOLDER}" data-src="/img/home/prints/{fid}.jpg" width="1200" height="800" '
-                     f'alt="{alt}"><noscript><img src="/img/home/prints/{fid}.jpg" width="1200" height="800" alt="{alt}"></noscript><span class="pencil">{html.escape(name)}</span></li>')
+    for i, (fid, film) in enumerate(FAN_PRINTS):
+        src = f"/img/home/prints/{fid}.jpg"
+        w, h = jpeg_size(root / src.lstrip("/"))   # each print keeps its own ratio (3:2 or 4:3)
+        alt = fill(s["alt_ch3_print"], {"film": film})
+        items.append(f'<li class="print-card" style="--i:{i}"><img hidden src="{LAZY_PLACEHOLDER}" data-src="{src}" width="{w}" height="{h}" '
+                     f'alt="{alt}"><noscript><img src="{src}" width="{w}" height="{h}" alt="{alt}"></noscript><span class="pencil">{html.escape(film)}</span></li>')
     return "".join(items)
 
 
