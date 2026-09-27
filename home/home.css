@@ -152,10 +152,10 @@ h2{font-size:clamp(34px,7vw,72px);line-height:1}
 
 /* 4 · Ticket */
 .ch-ticket{--ground:var(--paper);--prev-ground:var(--paper);--ink:var(--paper-ink);--muted:#5d5246;--accent:#9a6a2c}
-.ch-ticket .pin{justify-items:center}
+.ch-ticket .pin{justify-items:center;gap:0}
+/* The ticket feeds out of this slot under the printer bar; the slot clips it until it's printed. */
+.slot{margin-top:-9px;padding:0 14px 28px;overflow:hidden}
 .printer{position:relative;z-index:3;width:min(92vw,420px);height:18px;border-radius:9px;background:#2b2724}
-/* Paper-coloured cover above the printer slot, so the ticket appears from under the bar, not over it. */
-html.motion .printer::before{content:"";position:absolute;left:-8px;right:-8px;bottom:50%;height:100vh;background:var(--ground)}
 .ticket{width:min(88vw,380px);background:#fffdf7;color:var(--paper-ink);padding:26px 22px 30px;display:grid;gap:10px;text-align:center;
   box-shadow:0 12px 30px rgba(60,40,20,.25);
   -webkit-mask:radial-gradient(8px at 50% 100%,transparent 98%,#000) 50% 100%/18px 100% repeat-x;
@@ -185,6 +185,7 @@ html.motion .ch-develop .app-tabs .tab-on.t-develop{opacity:1}
 html.motion .app-bar-fill{transform:scaleX(0)}
 html.motion .ticket{transform:translateY(-110%)}
 html.motion .ch-ticket .pin{overflow:hidden}
+html.motion .ch-prints .pin{overflow:hidden}
 @media (min-width:700px){
   html.motion .envelope{display:block;position:absolute;inset:auto 0 0 0;height:40%;background:#d8c7a6;z-index:2}
 }
