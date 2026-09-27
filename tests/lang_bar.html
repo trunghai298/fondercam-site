@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8">
+<script src="/home/home.js"></script>
+<pre id="out"></pre>
+<script>
+const f = window.FonderHome.langBar;
+const broken = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); } };
+const mem = (v) => ({ getItem: () => v, setItem() {} });
+const cases = [
+  ['vi phone on /',           f({ path: '/',    navigatorLanguages: ['vi-VN'], storage: mem(null) }), 'show'],
+  ['vi phone on /vi/',        f({ path: '/vi/', navigatorLanguages: ['vi-VN'], storage: mem(null) }), 'hide'],
+  ['en phone on /',           f({ path: '/',    navigatorLanguages: ['en-US'], storage: mem(null) }), 'hide'],
+  ['vi phone, dismissed',     f({ path: '/',    navigatorLanguages: ['vi'],    storage: mem('dismissed') }), 'hide'],
+  ['vi phone, storage fails', f({ path: '/',    navigatorLanguages: ['vi'],    storage: broken }), 'show'],
+];
+document.getElementById('out').textContent = cases.map(([n, got, want]) => `${got === want ? 'ok' : 'FAIL'} ${n}`).join('\n');
+</script>
