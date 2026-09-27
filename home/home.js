@@ -115,4 +115,12 @@
     input.addEventListener('input', set);
     set();
   });
+
+  if (location.search.includes('probe=overflow')) {
+    addEventListener('load', () => setTimeout(() => {
+      const bad = [...document.querySelectorAll('body *')].filter((e) => e.scrollWidth > e.clientWidth + 1
+        && getComputedStyle(e).overflowX === 'visible' && e.clientWidth > 0).map((e) => `${e.tagName}.${e.className}`);
+      document.body.setAttribute('data-overflow', bad.length ? bad.join(',') : 'none');
+    }, 500));
+  }
 })();
