@@ -175,8 +175,9 @@
   };
 
   Home.chapters.ticket = (gsap) => {
-    gsap.timeline({ scrollTrigger: { trigger: '#ch4', start: 'top 60%', end: 'top 10%', scrub: 0.5 } })
-      .to('#ch4 .ticket', { yPercent: 0, y: 0, duration: 1, ease: 'steps(12)' });  // printed out line by line
+    // The ticket feeds out from under the printer, gliding with the scroll.
+    gsap.timeline({ scrollTrigger: { trigger: '#ch4', start: 'top 70%', end: 'top 5%', scrub: 1 } })
+      .to('#ch4 .ticket', { yPercent: 0, y: 0, duration: 1, ease: 'power1.out' });
   };
 
   // Chapter images load as their chapter approaches — independent of motion/Reduce Motion,

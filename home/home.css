@@ -153,7 +153,9 @@ h2{font-size:clamp(34px,7vw,72px);line-height:1}
 /* 4 · Ticket */
 .ch-ticket{--ground:var(--paper);--prev-ground:var(--paper);--ink:var(--paper-ink);--muted:#5d5246;--accent:#9a6a2c}
 .ch-ticket .pin{justify-items:center}
-.printer{width:min(92vw,420px);height:18px;border-radius:9px;background:#2b2724}
+.printer{position:relative;z-index:3;width:min(92vw,420px);height:18px;border-radius:9px;background:#2b2724}
+/* Paper-coloured cover above the printer slot, so the ticket appears from under the bar, not over it. */
+html.motion .printer::before{content:"";position:absolute;left:-8px;right:-8px;bottom:50%;height:100vh;background:var(--ground)}
 .ticket{width:min(88vw,380px);background:#fffdf7;color:var(--paper-ink);padding:26px 22px 30px;display:grid;gap:10px;text-align:center;
   box-shadow:0 12px 30px rgba(60,40,20,.25);
   -webkit-mask:radial-gradient(8px at 50% 100%,transparent 98%,#000) 50% 100%/18px 100% repeat-x;
