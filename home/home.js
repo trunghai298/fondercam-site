@@ -16,8 +16,8 @@
     gsap.registerPlugin(ScrollTrigger);
     // The `motion` class goes on *before* the builders run, not after: several chapters use
     // gsap.to()/gsap.from() tweens whose start or end value is the element's live CSS at
-    // ScrollTrigger-creation time (e.g. #ch2 .print-latent/.print-developed opacity, which only
-    // differs between the motion and no-motion CSS). Adding the class after building would make
+    // ScrollTrigger-creation time (e.g. the #ch2 phone's frame and state-layer opacities, which
+    // only differ between the motion and no-motion CSS). Adding the class after building would make
     // those tweens capture the no-motion values and animate nowhere. Each builder still runs in
     // its own try/catch, and if any of them throws, everything is rolled back — the class comes
     // off and every ScrollTrigger already created is killed — so a broken chapter never leaves
@@ -112,11 +112,57 @@
   };
 
   Home.chapters.develop = (gsap) => {
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ch2', start: 'top top', end: '+=140%', scrub: 0.8, pin: '#ch2 .pin' } });
-    // Blank paper → the image slowly comes up, the latent grey fading as the colour rises.
-    tl.to('#ch2 .print-developed', { opacity: 1, duration: 0.6, ease: 'power2.inOut' }, 0.35)
-      .to('#ch2 .print-latent', { opacity: 0, duration: 0.3 }, 0.7)
-      .fromTo('#ch2 .tray', { rotation: -0.6 }, { rotation: 0.6, duration: 1, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+    // Fonder's Developing screen on the phone. Timeline units: 0–10 develops the roll (the
+    // percentage, the stage bar and the frames, one by one), 10–10.6 swaps to the Developed
+    // screen, and the rest holds it. Only opacity and transforms are tweened; the counters are
+    // text, written from onUpdate.
+    const q = (sel) => document.querySelector(`#ch2 ${sel}`);
+    const app = q('.app');
+    const total = Number(app.dataset.total);
+    const pct = q('.app-pct');
+    const frameLine = q('.app-frameline');
+    const footLine = q('.f-dev');
+    const pad = (n) => String(n).padStart(2, '0');
+    const fillTpl = (el, n) => { el.textContent = el.dataset.tpl.replace('{n}', pad(n)).replace('{total}', total); };
+    const DEV = 10;
+    let shown = -1;
+    let tl = null;
+    const update = () => {
+      if (!tl) return;   // ScrollTrigger can render the timeline while it is still being created.
+      const p = Math.min(Math.max(tl.time() / DEV, 0), 1);
+      const pc = Math.round(p * 100);
+      if (pc === shown) return;
+      shown = pc;
+      pct.textContent = pc;
+      const n = Math.min(total, Math.floor(p * total) + 1);
+      fillTpl(frameLine, n);
+      fillTpl(footLine, n);
+    };
+    tl = gsap.timeline({
+      scrollTrigger: { trigger: '#ch2 .phone', start: 'center center', end: '+=220%', scrub: 0.6, pin: '#ch2 .pin' },
+      onUpdate: update,
+    });
+    tl.to('#ch2 .app-bar-fill', { scaleX: 1, duration: DEV, ease: 'none' }, 0);
+    // Stage tabs: the amber layer crossfades from DEVELOP to FIX to SCAN.
+    tl.to('#ch2 .t-develop', { opacity: 0, duration: 0.2 }, DEV * 0.5)
+      .to('#ch2 .t-fix', { opacity: 1, duration: 0.2 }, DEV * 0.5)
+      .to('#ch2 .t-fix', { opacity: 0, duration: 0.2 }, DEV * 0.8)
+      .to('#ch2 .t-scan', { opacity: 1, duration: 0.2 }, DEV * 0.8);
+    // Each frame: dark numbered slot -> faint latent image -> full, then its number turns amber.
+    const step = DEV / total;
+    gsap.utils.toArray('#ch2 .app-frame').forEach((frame, i) => {
+      const at = i * step;
+      const img = frame.querySelector('img');
+      tl.to(img, { opacity: 0.3, duration: step * 0.3, ease: 'none' }, at)
+        .to(img, { opacity: 1, duration: step * 0.55, ease: 'power1.in' }, at + step * 0.35)
+        .to(frame.querySelector('.fn-on'), { opacity: 1, duration: step * 0.1 }, at + step * 0.9)
+        .to(frame.querySelector('.fn-dim'), { opacity: 0, duration: step * 0.1 }, at + step * 0.9);
+    });
+    // Developed: status, count, meta, note and footer swap; the stage tabs go.
+    tl.to('#ch2 :is(.st-dev,.c-dev,.m-dev,.n-dev,.f-dev,.app-tabs)', { opacity: 0, duration: 0.3 }, DEV + 0.1)
+      .to('#ch2 :is(.st-done,.c-done,.m-done,.n-done,.f-done)', { opacity: 1, duration: 0.3 }, DEV + 0.3)
+      .to({}, { duration: 1.4 }, DEV + 0.6);
+    update();
   };
 
   Home.chapters.prints = (gsap) => {

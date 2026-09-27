@@ -78,12 +78,30 @@
         <h2>{{ch2_title}}</h2>
         <p>{{ch2_body}}</p>
       </div>
-      <div class="tray">
-        <div class="print">
-          <img class="print-latent" hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/develop-before.jpg" width="1600" height="1067" alt="" aria-hidden="true">
-          <noscript><img class="print-latent" src="/img/home/develop-before.jpg" width="1600" height="1067" alt="" aria-hidden="true"></noscript>
-          <img class="print-developed" hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/develop-after.jpg" width="1600" height="1067" alt="{{alt_ch2_print}}">
-          <noscript><img class="print-developed" src="/img/home/develop-after.jpg" width="1600" height="1067" alt="{{alt_ch2_print}}"></noscript>
+      <div class="phone" role="img" aria-label="{{alt_ch2_phone}}">
+        <div class="phone-screen">
+          <div class="app" data-total="{{develop_total}}">
+            <div class="app-head">
+              <span class="app-back"><svg viewBox="0 0 10 16" aria-hidden="true"><path d="M8 2 2 8l6 6"/></svg>{{app_camera}}</span>
+              <p class="app-title">Afterglow Neg<span class="app-status"><span class="st-dev">{{app_developing}}</span><span class="st-done">{{app_developed}}</span></span></p>
+            </div>
+            <div class="app-progress">
+              <p class="app-count"><span class="c-dev"><span class="app-pct">0</span><small>%</small></span><span class="c-done">{{develop_total}}<small>{{app_photos}}</small></span></p>
+              <p class="app-meta"><span class="m-dev"><span class="app-frameline" data-tpl="{{app_frame_of}}"></span><br>{{app_negatives_only}}</span><span class="m-done">{{app_developed_on}}<br>{{app_loaded_on}}</span></p>
+            </div>
+            <div class="app-tabs">
+              <span class="tab"><span class="tab-dim">{{app_tab_develop}}</span><span class="tab-on t-develop">{{app_tab_develop}}</span></span>
+              <span class="tab"><span class="tab-dim">{{app_tab_fix}}</span><span class="tab-on t-fix">{{app_tab_fix}}</span></span>
+              <span class="tab"><span class="tab-dim">{{app_tab_scan}}</span><span class="tab-on t-scan">{{app_tab_scan}}</span></span>
+              <span class="app-bar"><span class="app-bar-fill"></span></span>
+            </div>
+            <p class="app-note"><svg viewBox="0 0 12 16" aria-hidden="true"><rect x="1.5" y="7" width="9" height="7.5" rx="1.5"/><path d="M3.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg><span class="n-stack"><span class="n-dev">{{app_note_developing}}</span><span class="n-done">{{app_note_developed}}</span></span></p>
+            <div class="app-sheet">{{sheet_html}}</div>
+            <div class="app-foot">
+              <p class="f-dev" data-tpl="{{app_developing_frame}}"></p>
+              <p class="f-done"><span class="f-icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8M5 7l3 3 3-3M3 10v3h10v-3"/></svg></span><span class="f-icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 10V2M5 5l3-3 3 3M4 7H3v7h10V7h-1"/></svg></span><span class="f-btn">{{app_load_another}}</span></p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="compare">

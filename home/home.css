@@ -76,10 +76,63 @@ h2{font-size:clamp(34px,7vw,72px);line-height:1}
 
 /* 2 · Develop */
 .ch-develop{--ground:var(--safelight);--prev-ground:var(--plastic);--ink:#ffe9dc;--muted:#f1c9b8;--accent:#ffb070}
-.tray{border-radius:14px;padding:18px;background:linear-gradient(#240503,#190302);box-shadow:inset 0 0 40px rgba(0,0,0,.7)}
-.print{position:relative;aspect-ratio:3/2;background:#f6efe2;padding:10px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.print img{position:absolute;inset:10px;width:calc(100% - 20px);height:calc(100% - 20px);object-fit:cover}
-.print-latent{opacity:0}
+/* Above the light-leak join, so the phone isn't veiled at the start of the pin. */
+.ch-develop .pin{position:relative;z-index:2}
+@media (min-width:900px){ .ch-develop .pin{grid-template-areas:"copy phone" "compare phone"} .ch-develop .copy{grid-area:copy} .ch-develop .compare{grid-area:compare} .ch-develop .phone{grid-area:phone} }
+
+/* The phone: Fonder's Developing screen as live HTML. Its insides are sized in --u, one point of a
+   402-pt-wide iPhone screen (the screen is a size container), with a 9px floor on small text. */
+.phone{--pw:min(270px,70vw);justify-self:center;position:relative;width:var(--pw);padding:calc(var(--pw) * .035);
+  border-radius:calc(var(--pw) * .17);background:#0a0908;
+  box-shadow:0 0 0 1.5px #5a524b,0 0 0 3px #1d1a18,0 30px 70px rgba(0,0,0,.6),0 0 90px rgba(255,90,40,.12)}
+.phone::before,.phone::after{content:"";position:absolute;width:3px;border-radius:2px;background:#3d3733}
+.phone::before{left:-4px;top:20%;height:9%;box-shadow:0 calc(var(--pw) * .25) 0 #3d3733}
+.phone::after{right:0;width:0;top:26%;height:14%;box-shadow:2.5px 0 0 1.5px #3d3733}
+.phone-screen{container-type:inline-size;position:relative;aspect-ratio:402/874;border-radius:calc(var(--pw) * .135);overflow:hidden;background:#1c1a18}
+.app{--u:calc(100cqw / 402);--app-amber:#dca760;--app-muted:#b3aca3;--app-dim:#6a645d;
+  position:absolute;inset:0;padding:calc(66 * var(--u)) calc(20 * var(--u)) 0;color:#f1ede7;font-family:var(--body);line-height:1.3}
+.app p{margin:0}
+.app::before{content:"";position:absolute;top:calc(11 * var(--u));left:50%;width:calc(124 * var(--u));height:calc(36 * var(--u));translate:-50% 0;border-radius:99px;background:#000}
+.app svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.app-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:calc(56 * var(--u))}
+.app-back{display:flex;white-space:nowrap;align-items:center;gap:calc(8 * var(--u));font-size:max(9px,calc(16 * var(--u)))}
+.app-back svg{width:calc(9 * var(--u));height:calc(15 * var(--u))}
+.app-title{display:grid;justify-items:center;font-size:max(10px,calc(18 * var(--u)))}
+.app-status,.n-stack,.app-count,.app-meta,.app-foot{display:grid}
+.app-status>*,.n-stack>*,.app-count>*,.app-meta>*,.app-foot>*{grid-area:1/1}
+.app-status{justify-items:center;font:500 max(9px,calc(10 * var(--u))) var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--app-amber);white-space:nowrap}
+.app-progress{display:flex;justify-content:space-between;align-items:flex-end;margin-top:calc(30 * var(--u))}
+.app-count{align-items:baseline;font-size:calc(66 * var(--u));font-weight:400;line-height:.9;letter-spacing:-.03em}
+.app-count small{font-size:max(9px,calc(16 * var(--u)));letter-spacing:0;margin-left:calc(8 * var(--u));color:var(--app-muted)}
+.c-dev small{color:#f1ede7}
+.app-meta{text-align:right;justify-items:end;font-size:max(9px,calc(15 * var(--u)));color:var(--app-muted);line-height:1.45}
+.app-tabs{position:relative;display:flex;gap:calc(26 * var(--u));margin-top:calc(16 * var(--u));padding-bottom:calc(14 * var(--u));
+  font:500 max(9px,calc(12 * var(--u))) var(--body);letter-spacing:.22em;text-transform:uppercase}
+.tab{display:grid}.tab>*{grid-area:1/1}
+.tab-dim{color:#57524c}.tab-on{color:var(--app-amber)}
+.app-bar{position:absolute;left:0;right:0;bottom:0;height:calc(3 * var(--u));min-height:2px;background:#3a3633;border-radius:2px;overflow:hidden}
+.app-bar-fill{position:absolute;inset:0;background:var(--app-amber);transform-origin:left center}
+.app-note{display:flex;gap:calc(10 * var(--u));align-items:flex-start;margin-top:calc(16 * var(--u))!important;font-size:max(9px,calc(14 * var(--u)));color:#d9d3cb}
+.app-note svg{flex:none;width:calc(12 * var(--u));height:calc(16 * var(--u));margin-top:.1em;color:var(--app-muted)}
+.app-sheet{display:grid;gap:calc(10 * var(--u));margin:calc(14 * var(--u)) calc(-6 * var(--u)) 0}
+.app-strip{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:calc(6 * var(--u));padding:calc(16 * var(--u)) calc(8 * var(--u));background:#0f0e0d;border-radius:2px}
+.app-strip::before,.app-strip::after{content:"";position:absolute;left:calc(4 * var(--u));right:calc(4 * var(--u));height:calc(4 * var(--u));
+  background:repeating-linear-gradient(90deg,#34302d 0 calc(8 * var(--u)),transparent 0 calc(14 * var(--u)))}
+.app-strip::before{top:calc(5 * var(--u))}.app-strip::after{bottom:calc(5 * var(--u))}
+.app-frame{position:relative}
+.app-slot{display:grid;place-items:center;aspect-ratio:3/2;background:#1f1d1b;border-radius:2px;color:#5f5a54;font-size:max(9px,calc(15 * var(--u)))}
+.app-frame img{position:absolute;left:0;top:0;width:100%;aspect-ratio:3/2;height:auto;object-fit:cover;border-radius:2px;background:none}
+.app-fn{display:grid;margin-top:calc(5 * var(--u));font:500 max(9px,calc(10 * var(--u)))/1 var(--mono);letter-spacing:.08em}
+.app-fn>*{grid-area:1/1}.fn-dim{color:#5f5a54}.fn-on{color:var(--app-amber)}
+.app-foot{position:absolute;left:0;right:0;bottom:0;height:calc(96 * var(--u));place-items:center;padding:0 calc(20 * var(--u)) calc(14 * var(--u));
+  background:#1c1a18;border-top:1px solid #2f2c29;font-size:max(9px,calc(15 * var(--u)));color:var(--app-muted)}
+.f-done{display:flex;gap:calc(10 * var(--u));width:100%;height:calc(50 * var(--u))}
+.f-icon{display:grid;place-items:center;flex:none;width:calc(50 * var(--u));border:1px solid #3a3633;border-radius:calc(4 * var(--u));color:#e8e3dc}
+.f-icon svg{width:calc(18 * var(--u));height:calc(18 * var(--u))}
+.f-btn{flex:1;display:grid;place-items:center;border:1px solid var(--app-amber);border-radius:calc(4 * var(--u));color:var(--app-amber);font-weight:500;font-size:max(10px,calc(16 * var(--u)))}
+/* Without motion (no JS, Reduce Motion) the screen shows its finished state: developed, all 12 photos. */
+.st-dev,.c-dev,.m-dev,.n-dev,.f-dev,.fn-dim,.app-tabs{opacity:0}
+@media (min-width:900px){ .phone{--pw:clamp(240px,calc((100svh - 150px) * .45),300px)} }
 .compare{position:relative;aspect-ratio:3/2;overflow:hidden;border-radius:6px;--split:50%}
 .compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .compare-after{clip-path:inset(0 0 0 var(--split))}
@@ -127,11 +180,12 @@ h2{font-size:clamp(34px,7vw,72px);line-height:1}
 /* Start states: only when home.js has enabled motion (never with no JS or Reduce Motion). */
 html.motion .canister{transform:translateX(-120vw) rotate(-540deg)}
 html.motion .leader{transform:scaleX(0)}
-html.motion .print-developed{opacity:0}
-html.motion .print-latent{opacity:1;filter:grayscale(1) contrast(.2) brightness(1.8)}
+html.motion .ch-develop :is(.st-dev,.c-dev,.m-dev,.n-dev,.f-dev,.fn-dim,.app-tabs){opacity:1}
+html.motion .ch-develop :is(.st-done,.c-done,.m-done,.n-done,.f-done,.fn-on,.tab-on,.app-frame img){opacity:0}
+html.motion .ch-develop .app-tabs .tab-on.t-develop{opacity:1}
+html.motion .app-bar-fill{transform:scaleX(0)}
 html.motion .ticket{transform:translateY(-110%)}
 html.motion .ch-ticket .pin{overflow:hidden}
-html.motion .ch-develop .pin{overflow:hidden}
 @media (min-width:700px){
   html.motion .envelope{display:block;position:absolute;inset:auto 0 0 0;height:40%;background:#d8c7a6;z-index:2}
 }

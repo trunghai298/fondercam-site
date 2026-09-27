@@ -123,6 +123,25 @@ def fan_html(s):
     return "".join(items)
 
 
+DEVELOP_FRAMES = 12
+
+
+def sheet_html():
+    """The #ch2 phone's contact sheet: strips of four frames, each a numbered dark slot with
+    its developed photo on top (hidden until home.js develops it, or shown when motion is off)."""
+    strips = []
+    for start in range(1, DEVELOP_FRAMES + 1, 4):
+        frames = []
+        for n in range(start, start + 4):
+            src = f"/img/home/develop/f{n:02d}.jpg"
+            frames.append(f'<div class="app-frame"><span class="app-slot">{n:02d}</span>'
+                          f'<img hidden src="{LAZY_PLACEHOLDER}" data-src="{src}" width="240" height="160" alt="" aria-hidden="true">'
+                          f'<noscript><img src="{src}" width="240" height="160" alt="" aria-hidden="true"></noscript>'
+                          f'<span class="app-fn"><span class="fn-dim">{n:02d} ▸</span><span class="fn-on">{n:02d} ▸</span></span></div>')
+        strips.append(f'<div class="app-strip">{"".join(frames)}</div>')
+    return "".join(strips)
+
+
 def render_page(template, strings, cfg, lang):
     en_home, vi_home = "https://fondercam.online/", "https://fondercam.online/vi/"
     values = dict(strings)
@@ -135,6 +154,8 @@ def render_page(template, strings, cfg, lang):
         "alt_lang": "vi" if lang == "en" else "en",
         "action_html": action_html(cfg, strings),
         "fan_html": fan_html(strings),
+        "sheet_html": sheet_html(),
+        "develop_total": str(DEVELOP_FRAMES),
     })
     return fill(template, values)
 
