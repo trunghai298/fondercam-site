@@ -103,13 +103,17 @@ def action_html(cfg, s):
 FAN_FILMS = [("olive-neg", "Olive Neg"), ("lantern-neg", "Lantern Neg"), ("toffee-neg", "Toffee Neg"),
              ("guava-neg", "Guava Neg"), ("ink-neg", "Ink Neg"), ("pollen-neg", "Pollen Neg")]
 
+# A 1x1 transparent GIF: the src for chapter images until home.js's IntersectionObserver
+# swaps in data-src as their chapter approaches. The <noscript> twin covers the no-JS path.
+LAZY_PLACEHOLDER = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+
 
 def fan_html(s):
     items = []
     for i, (fid, name) in enumerate(FAN_FILMS):
         alt = fill(s["alt_ch3_print"], {"film": name})
-        items.append(f'<li class="print-card" style="--i:{i}"><img src="/img/home/prints/{fid}.jpg" width="1200" height="800" '
-                     f'loading="lazy" alt="{alt}"><span class="pencil">{html.escape(name)}</span></li>')
+        items.append(f'<li class="print-card" style="--i:{i}"><img hidden src="{LAZY_PLACEHOLDER}" data-src="/img/home/prints/{fid}.jpg" width="1200" height="800" '
+                     f'alt="{alt}"><noscript><img src="/img/home/prints/{fid}.jpg" width="1200" height="800" alt="{alt}"></noscript><span class="pencil">{html.escape(name)}</span></li>')
     return "".join(items)
 
 

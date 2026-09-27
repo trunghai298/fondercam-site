@@ -116,6 +116,34 @@
     set();
   });
 
+  // Chapter images load as their chapter approaches — independent of motion/Reduce Motion,
+  // since it's about network weight, not animation. Each image starts `hidden` (with a
+  // placeholder src) so no-JS visitors only ever see the <noscript> twin's real image.
+  // Once this script runs, though, it un-hides them straight away — a `hidden` (display:none)
+  // element has no geometry, so IntersectionObserver could never detect it coming into view.
+  // What stays deferred until the swap is the real network fetch (the data-src -> src swap).
+  document.addEventListener('DOMContentLoaded', () => {
+    const lazyImages = [...document.querySelectorAll('img[data-src]')];
+    if (!lazyImages.length) return;
+    lazyImages.forEach((img) => { img.hidden = false; });
+    const swap = (img) => {
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    };
+    if (!('IntersectionObserver' in window)) {
+      lazyImages.forEach(swap);
+      return;
+    }
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        swap(entry.target);
+        obs.unobserve(entry.target);
+      });
+    }, { rootMargin: '100% 0px' });
+    lazyImages.forEach((img) => io.observe(img));
+  });
+
   if (location.search.includes('probe=overflow')) {
     addEventListener('load', () => setTimeout(() => {
       const bad = [...document.querySelectorAll('body *')].filter((e) => e.scrollWidth > e.clientWidth + 1

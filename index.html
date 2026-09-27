@@ -16,7 +16,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Be+Vietnam+Pro:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Patrick+Hand&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..700&family=Be+Vietnam+Pro:wght@400;500&family=JetBrains+Mono:wght@500&family=Patrick+Hand&display=swap">
 <link rel="stylesheet" href="/home/home.css">
 <script defer src="/vendor/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="/vendor/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -62,9 +62,9 @@
       </div>
       <div class="viewfinder">
         <div class="strip">
-          <figure class="frame"><img src="/img/home/shoot-1.jpg" width="1600" height="1067" loading="lazy" alt="A tree-lined street in Hà Nội with parked motorbikes"><figcaption class="datestamp" data-date="'26 9 14"></figcaption></figure>
-          <figure class="frame"><img src="/img/home/shoot-2.jpg" width="1600" height="1067" loading="lazy" alt="West Lake with the city skyline"><figcaption class="datestamp" data-date="'26 9 20"></figcaption></figure>
-          <figure class="frame"><img src="/img/home/shoot-3.jpg" width="1600" height="1067" loading="lazy" alt="An old-quarter shop front at dusk"><figcaption class="datestamp" data-date="'26 9 27"></figcaption></figure>
+          <figure class="frame"><img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/shoot-1.jpg" width="1200" height="800" alt="A tree-lined street in Hà Nội with parked motorbikes"><noscript><img src="/img/home/shoot-1.jpg" width="1200" height="800" alt="A tree-lined street in Hà Nội with parked motorbikes"></noscript><figcaption class="datestamp" data-date="'26 9 14"></figcaption></figure>
+          <figure class="frame"><img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/shoot-2.jpg" width="1200" height="800" alt="West Lake with the city skyline"><noscript><img src="/img/home/shoot-2.jpg" width="1200" height="800" alt="West Lake with the city skyline"></noscript><figcaption class="datestamp" data-date="'26 9 20"></figcaption></figure>
+          <figure class="frame"><img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/shoot-3.jpg" width="1200" height="800" alt="An old-quarter shop front at dusk"><noscript><img src="/img/home/shoot-3.jpg" width="1200" height="800" alt="An old-quarter shop front at dusk"></noscript><figcaption class="datestamp" data-date="'26 9 27"></figcaption></figure>
         </div>
         <div class="flash" aria-hidden="true"></div>
       </div>
@@ -80,13 +80,17 @@
       </div>
       <div class="tray">
         <div class="print">
-          <img class="print-latent" src="/img/home/develop-before.jpg" width="1600" height="1067" loading="lazy" alt="" aria-hidden="true">
-          <img class="print-developed" src="/img/home/develop-after.jpg" width="1600" height="1067" loading="lazy" alt="A café sign at night, developed in the darkroom tray">
+          <img class="print-latent" hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/develop-before.jpg" width="1600" height="1067" alt="" aria-hidden="true">
+          <noscript><img class="print-latent" src="/img/home/develop-before.jpg" width="1600" height="1067" alt="" aria-hidden="true"></noscript>
+          <img class="print-developed" hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/develop-after.jpg" width="1600" height="1067" alt="A café sign at night, developed in the darkroom tray">
+          <noscript><img class="print-developed" src="/img/home/develop-after.jpg" width="1600" height="1067" alt="A café sign at night, developed in the darkroom tray"></noscript>
         </div>
       </div>
       <div class="compare">
-        <img class="compare-before" src="/img/home/develop-before.jpg" width="1600" height="1067" loading="lazy" alt="" aria-hidden="true">
-        <img class="compare-after" src="/img/home/develop-after.jpg" width="1600" height="1067" loading="lazy" alt="A café sign at night, developed in the darkroom tray">
+        <img class="compare-before" hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/develop-before.jpg" width="1600" height="1067" alt="" aria-hidden="true">
+        <noscript><img class="compare-before" src="/img/home/develop-before.jpg" width="1600" height="1067" alt="" aria-hidden="true"></noscript>
+        <img class="compare-after" hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/develop-after.jpg" width="1600" height="1067" alt="A café sign at night, developed in the darkroom tray">
+        <noscript><img class="compare-after" src="/img/home/develop-after.jpg" width="1600" height="1067" alt="A café sign at night, developed in the darkroom tray"></noscript>
         <label class="compare-label"><span class="sr-only">Compare as shot and developed</span>
           <input type="range" min="0" max="100" value="50" aria-label="Compare as shot and developed">
         </label>
@@ -103,9 +107,10 @@
         <p>Load a roll, shoot it blind, then develop it all at once — with a border and a date stamp if you like.</p>
       </div>
       <div class="envelope" aria-hidden="true"></div>
-      <ul class="fan"><li class="print-card" style="--i:0"><img src="/img/home/prints/olive-neg.jpg" width="1200" height="800" loading="lazy" alt="The same street scene through the film Olive Neg"><span class="pencil">Olive Neg</span></li><li class="print-card" style="--i:1"><img src="/img/home/prints/lantern-neg.jpg" width="1200" height="800" loading="lazy" alt="The same street scene through the film Lantern Neg"><span class="pencil">Lantern Neg</span></li><li class="print-card" style="--i:2"><img src="/img/home/prints/toffee-neg.jpg" width="1200" height="800" loading="lazy" alt="The same street scene through the film Toffee Neg"><span class="pencil">Toffee Neg</span></li><li class="print-card" style="--i:3"><img src="/img/home/prints/guava-neg.jpg" width="1200" height="800" loading="lazy" alt="The same street scene through the film Guava Neg"><span class="pencil">Guava Neg</span></li><li class="print-card" style="--i:4"><img src="/img/home/prints/ink-neg.jpg" width="1200" height="800" loading="lazy" alt="The same street scene through the film Ink Neg"><span class="pencil">Ink Neg</span></li><li class="print-card" style="--i:5"><img src="/img/home/prints/pollen-neg.jpg" width="1200" height="800" loading="lazy" alt="The same street scene through the film Pollen Neg"><span class="pencil">Pollen Neg</span></li></ul>
+      <ul class="fan"><li class="print-card" style="--i:0"><img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/prints/olive-neg.jpg" width="1200" height="800" alt="The same street scene through the film Olive Neg"><noscript><img src="/img/home/prints/olive-neg.jpg" width="1200" height="800" alt="The same street scene through the film Olive Neg"></noscript><span class="pencil">Olive Neg</span></li><li class="print-card" style="--i:1"><img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/prints/lantern-neg.jpg" width="1200" height="800" alt="The same street scene through the film Lantern Neg"><noscript><img src="/img/home/prints/lantern-neg.jpg" width="1200" height="800" alt="The same street scene through the film Lantern Neg"></noscript><span class="pencil">Lantern Neg</span></li><li class="print-card" style="--i:2"><img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/prints/toffee-neg.jpg" width="1200" height="800" alt="The same street scene through the film Toffee Neg"><noscript><img src="/img/home/prints/toffee-neg.jpg" width="1200" height="800" alt="The same street scene through the film Toffee Neg"></noscript><span class="pencil">Toffee Neg</span></li><li class="print-card" style="--i:3"><img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/prints/guava-neg.jpg" width="1200" height="800" alt="The same street scene through the film Guava Neg"><noscript><img src="/img/home/prints/guava-neg.jpg" width="1200" height="800" alt="The same street scene through the film Guava Neg"></noscript><span class="pencil">Guava Neg</span></li><li class="print-card" style="--i:4"><img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/prints/ink-neg.jpg" width="1200" height="800" alt="The same street scene through the film Ink Neg"><noscript><img src="/img/home/prints/ink-neg.jpg" width="1200" height="800" alt="The same street scene through the film Ink Neg"></noscript><span class="pencil">Ink Neg</span></li><li class="print-card" style="--i:5"><img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/prints/pollen-neg.jpg" width="1200" height="800" alt="The same street scene through the film Pollen Neg"><noscript><img src="/img/home/prints/pollen-neg.jpg" width="1200" height="800" alt="The same street scene through the film Pollen Neg"></noscript><span class="pencil">Pollen Neg</span></li></ul>
       <figure class="contact">
-        <img src="/img/home/contact.jpg" width="1600" height="1100" loading="lazy" alt="A contact sheet of a developed roll">
+        <img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/contact.jpg" width="1600" height="1100" alt="A contact sheet of a developed roll">
+        <noscript><img src="/img/home/contact.jpg" width="1600" height="1100" alt="A contact sheet of a developed roll"></noscript>
         <figcaption>A developed roll, straight from Film Roll.</figcaption>
       </figure>
     </div>

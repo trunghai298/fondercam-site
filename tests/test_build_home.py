@@ -163,7 +163,7 @@ class ImageTests(unittest.TestCase):
 
     def test_every_referenced_image_exists(self):
         for page in b.build(ROOT).values():
-            for src in re.findall(r'src="(/img/home/[^"]+)"', page):
+            for src in re.findall(r'(?:src|data-src)="(/img/home/[^"]+)"', page):
                 self.assertTrue((ROOT / src.lstrip("/")).exists(), src)
 
 
