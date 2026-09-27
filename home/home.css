@@ -34,7 +34,7 @@ a{color:var(--accent);text-underline-offset:3px}
 
 /* Chapters: each is at least one screen, text wraps, never clips. */
 .chapter{position:relative;background:var(--ground);color:var(--ink);padding:0 16px}
-.pin{min-height:100svh;max-width:1080px;margin:0 auto;padding:72px 0 64px;display:grid;gap:28px;align-content:center}
+.pin{position:relative;z-index:2;min-height:100svh;max-width:1080px;margin:0 auto;padding:72px 0 64px;display:grid;gap:28px;align-content:center}
 .kicker{font:500 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0}
 h1,h2{font-family:var(--display);font-weight:700;letter-spacing:-.02em;text-wrap:balance;margin:0}
 h1{font-size:clamp(56px,14vw,148px);line-height:.9}
@@ -75,7 +75,6 @@ h2{font-size:clamp(34px,7vw,72px);line-height:1}
 /* 2 · Develop */
 .ch-develop{--ground:var(--safelight);--prev-ground:var(--plastic);--ink:#ffe9dc;--muted:#f1c9b8;--accent:#ffb070}
 /* Above the light-leak join, so the phone isn't veiled at the start of the pin. */
-.ch-develop .pin{position:relative;z-index:2}
 @media (min-width:900px){ .ch-develop .pin{grid-template-areas:"copy phone" "compare phone"} .ch-develop .copy{grid-area:copy} .ch-develop .compare{grid-area:compare} .ch-develop .phone{grid-area:phone} }
 
 /* The phone: Fonder's Developing screen as live HTML. Its insides are sized in --u, one point of a
