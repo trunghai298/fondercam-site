@@ -44,5 +44,23 @@
     });
   };
 
+  Home.chapters.develop = (gsap) => {
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ch2', start: 'top top', end: '+=140%', scrub: 0.8, pin: '#ch2 .pin' } });
+    // Blank paper → the image slowly comes up, the latent grey fading as the colour rises.
+    tl.to('#ch2 .print-developed', { opacity: 1, duration: 0.6, ease: 'power2.inOut' }, 0.35)
+      .to('#ch2 .print-latent', { opacity: 0, duration: 0.3 }, 0.7)
+      .fromTo('#ch2 .tray', { rotation: -0.6 }, { rotation: 0.6, duration: 1, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0);
+  };
+
   document.addEventListener('DOMContentLoaded', start);
+
+  // The slider works with or without motion: it only sets a CSS variable.
+  document.addEventListener('DOMContentLoaded', () => {
+    const box = document.querySelector('.compare');
+    const input = box && box.querySelector('input');
+    if (!input) return;
+    const set = () => box.style.setProperty('--split', `${input.value}%`);
+    input.addEventListener('input', set);
+    set();
+  });
 })();

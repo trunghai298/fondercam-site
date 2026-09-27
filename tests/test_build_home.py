@@ -167,5 +167,14 @@ class ImageTests(unittest.TestCase):
                 self.assertTrue((ROOT / src.lstrip("/")).exists(), src)
 
 
+class SliderTests(unittest.TestCase):
+    def test_slider_is_a_labelled_range(self):
+        for page in b.build(ROOT).values():
+            m = re.search(r'<input type="range"[^>]*>', page)
+            self.assertIsNotNone(m)
+            self.assertRegex(m.group(0), r'aria-label="[^"]+"')
+            self.assertIn('min="0"', m.group(0)); self.assertIn('max="100"', m.group(0))
+
+
 if __name__ == "__main__":
     unittest.main()
