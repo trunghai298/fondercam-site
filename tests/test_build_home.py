@@ -137,5 +137,14 @@ class PageTests(unittest.TestCase):
                              f"{rel} is stale: run python3 tools/build_home.py")
 
 
+@unittest.skipUnless(__import__("os").environ.get("HOME_SHOTS"), "set HOME_SHOTS=1 to run the browser checks")
+class BrowserTests(unittest.TestCase):
+    def test_nothing_overflows_at_390_in_vietnamese(self):
+        import subprocess
+        out = subprocess.run([sys.executable, str(ROOT / "tools/shots.py"), "--overflow", "/vi/", "390"],
+                             capture_output=True, text=True, check=True).stdout
+        self.assertEqual(out.strip(), "overflow: none")
+
+
 if __name__ == "__main__":
     unittest.main()
