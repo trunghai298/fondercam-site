@@ -55,8 +55,8 @@ h2{font-size:clamp(34px,7vw,72px);line-height:1}
 .ch-load .pin{justify-items:start}
 .canister-wrap{position:relative;width:min(40vw,200px)}
 .canister{width:100%;aspect-ratio:1/1;background:none;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
-.leader{position:absolute;left:78%;top:50%;width:min(72vw,580px);aspect-ratio:1600/301;translate:0 -50%;transform-origin:left center;
-  background:url(/img/home/film-strip.png) left center/auto 100% repeat-x;
+.leader{position:absolute;left:78%;top:50%;width:min(72vw,580px);aspect-ratio:8/3;translate:0 -50%;transform-origin:left center;
+  background:url(/img/home/film-strip.svg) left center/auto 100% repeat-x;
   -webkit-mask:linear-gradient(90deg,#000 85%,transparent);
   mask:linear-gradient(90deg,#000 85%,transparent)}
 .hint{font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}

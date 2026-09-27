@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="120" viewBox="0 0 320 120">
+  <!-- Two frames of colour-negative leader; tiles horizontally (background repeat-x). -->
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7a3a14"/>
+      <stop offset=".5" stop-color="#a8561f"/>
+      <stop offset="1" stop-color="#7a3a14"/>
+    </linearGradient>
+    <linearGradient id="window" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5a2a0f"/>
+      <stop offset="1" stop-color="#3e1c09"/>
+    </linearGradient>
+    <g id="holes">
+      <rect x="4" y="0" width="10" height="13" rx="2.5"/>
+      <rect x="24" y="0" width="10" height="13" rx="2.5"/>
+      <rect x="44" y="0" width="10" height="13" rx="2.5"/>
+      <rect x="64" y="0" width="10" height="13" rx="2.5"/>
+      <rect x="84" y="0" width="10" height="13" rx="2.5"/>
+      <rect x="104" y="0" width="10" height="13" rx="2.5"/>
+      <rect x="124" y="0" width="10" height="13" rx="2.5"/>
+      <rect x="144" y="0" width="10" height="13" rx="2.5"/>
+    </g>
+  </defs>
+  <rect width="320" height="120" fill="url(#base)"/>
+  <!-- Sprocket holes, top and bottom, in the page ground so the page shows through. -->
+  <g fill="#161412">
+    <use href="#holes" y="6"/><use href="#holes" x="160" y="6"/>
+    <use href="#holes" y="101"/><use href="#holes" x="160" y="101"/>
+  </g>
+  <!-- Frame windows -->
+  <rect x="6" y="26" width="148" height="64" rx="4" fill="url(#window)"/>
+  <rect x="166" y="26" width="148" height="64" rx="4" fill="url(#window)"/>
+  <!-- Edge printing in the rebate -->
+  <g fill="#f2b27a" fill-opacity=".75" font-family="ui-monospace,Menlo,monospace" font-size="7" font-weight="700" letter-spacing="1">
+    <text x="8" y="23">FONDER 400</text>
+    <text x="168" y="23">FONDER 400</text>
+    <text x="126" y="98">12 ▸</text>
+    <text x="286" y="98">13 ▸</text>
+  </g>
+</svg>
