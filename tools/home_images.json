@@ -1,0 +1,13 @@
+[
+  {"out": "img/home/shoot-1.jpg",  "raw": "DSCF6296", "film": "lost-summer-neg", "crop": "3:2"},
+  {"out": "img/home/shoot-2.jpg",  "raw": "DSCF8912", "film": "olive-neg",       "crop": "3:2"},
+  {"out": "img/home/shoot-3.jpg",  "raw": "DSCF8970", "film": "afterglow-neg",   "crop": "3:2-above-heads"},
+  {"out": "img/home/develop-before.jpg", "raw": "DSCF8971", "film": null,       "crop": "3:2-above-heads"},
+  {"out": "img/home/develop-after.jpg",  "raw": "DSCF8971", "film": "lantern-neg", "crop": "3:2-above-heads"},
+  {"out": "img/home/prints/olive-neg.jpg",   "raw": "DSCF6296", "film": "olive-neg",   "crop": "3:2", "long": 1200},
+  {"out": "img/home/prints/lantern-neg.jpg", "raw": "DSCF6296", "film": "lantern-neg", "crop": "3:2", "long": 1200},
+  {"out": "img/home/prints/toffee-neg.jpg",  "raw": "DSCF6296", "film": "toffee-neg",  "crop": "3:2", "long": 1200},
+  {"out": "img/home/prints/guava-neg.jpg",   "raw": "DSCF6296", "film": "guava-neg",   "crop": "3:2", "long": 1200},
+  {"out": "img/home/prints/ink-neg.jpg",     "raw": "DSCF6296", "film": "ink-neg",     "crop": "3:2", "long": 1200},
+  {"out": "img/home/prints/pollen-neg.jpg",  "raw": "DSCF6296", "film": "pollen-neg",  "crop": "3:2", "long": 1200}
+]

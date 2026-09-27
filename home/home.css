@@ -53,7 +53,7 @@ h2{font-size:clamp(34px,7vw,72px);line-height:1}
 .ch-load{--ground:var(--charcoal)}
 .ch-load .pin{justify-items:start}
 .canister-wrap{position:relative;width:min(40vw,200px)}
-.canister{width:100%;aspect-ratio:2/3;background:none;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.canister{width:100%;aspect-ratio:1/1;background:none;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
 .leader{position:absolute;left:78%;top:58%;height:22%;width:min(55vw,420px);transform-origin:left center;
   background:linear-gradient(#3b2a1c,#2a1d12);
   -webkit-mask:linear-gradient(90deg,#000 88%,transparent),repeating-linear-gradient(90deg,#000 0 10px,transparent 10px 16px) top/100% 14% no-repeat;

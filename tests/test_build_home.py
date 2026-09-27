@@ -146,5 +146,26 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(out.strip(), "overflow: none")
 
 
+class ImageTests(unittest.TestCase):
+    def test_images_pass_the_check(self):
+        b.check_images(ROOT)
+
+    def test_check_refuses_exif(self):
+        import tempfile, shutil
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d); (root / "img/home").mkdir(parents=True)
+            # A minimal JPEG with an APP1 Exif segment, then SOF0 1x1.
+            data = (b"\xff\xd8" + b"\xff\xe1\x00\x08Exif\x00\x00"
+                    + b"\xff\xc0\x00\x0b\x08\x00\x01\x00\x01\x01\x01\x11\x00" + b"\xff\xd9")
+            (root / "img/home/x.jpg").write_bytes(data)
+            with self.assertRaisesRegex(b.BuildError, "metadata"):
+                b.check_images(root)
+
+    def test_every_referenced_image_exists(self):
+        for page in b.build(ROOT).values():
+            for src in re.findall(r'src="(/img/home/[^"]+)"', page):
+                self.assertTrue((ROOT / src.lstrip("/")).exists(), src)
+
+
 if __name__ == "__main__":
     unittest.main()

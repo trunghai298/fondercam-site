@@ -10,6 +10,7 @@ Only the standard library is used.
 import html
 import json
 import re
+import struct
 import sys
 from pathlib import Path
 
@@ -139,9 +140,49 @@ def build(root):
             "vi/index.html": render_page(template, strings["vi"], cfg, "vi")}
 
 
+def jpeg_size(path):
+    data = path.read_bytes()
+    if data[:2] != b"\xff\xd8":
+        raise BuildError(f"{path} is not a JPEG")
+    i = 2
+    while i < len(data) - 3:
+        if data[i] != 0xFF:
+            i += 1
+            continue
+        marker = data[i + 1]
+        if marker in (0xD8, 0x01) or 0xD0 <= marker <= 0xD7:
+            i += 2
+            continue
+        length = struct.unpack(">H", data[i + 2:i + 4])[0]
+        if 0xC0 <= marker <= 0xCF and marker not in (0xC4, 0xC8, 0xCC):
+            h, w = struct.unpack(">HH", data[i + 5:i + 9])
+            return w, h
+        i += 2 + length
+    raise BuildError(f"no size found in {path}")
+
+
+def check_images(root, budget=3_200_000, long_edge=1600):
+    total = 0
+    for path in sorted((root / "img/home").rglob("*")):
+        if not path.is_file():
+            continue
+        total += path.stat().st_size
+        if path.suffix.lower() == ".jpg":
+            data = path.read_bytes()
+            if b"Exif\x00" in data[:65536] or b"http://ns.adobe.com/xap" in data[:65536]:
+                raise BuildError(f"{path.relative_to(root)} still carries metadata (EXIF/XMP)")
+            w, h = jpeg_size(path)
+            if max(w, h) > long_edge:
+                raise BuildError(f"{path.relative_to(root)} is {w}x{h}; long edge must be ≤ {long_edge}")
+    if total > budget:
+        raise BuildError(f"img/home totals {total} bytes; budget is {budget}")
+
+
 def main(argv):
     check = "--check" in argv
     try:
+        if check:
+            check_images(ROOT)
         pages = build(ROOT)
     except BuildError as e:
         sys.exit(f"build_home: {e}")
