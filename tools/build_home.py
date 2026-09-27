@@ -26,7 +26,7 @@ class BuildError(Exception):
     pass
 
 
-def validate_config(cfg):
+def validate_config(cfg, root=None):
     if cfg.get("stage") not in STAGES:
         raise BuildError(f"config stage must be one of {STAGES}, got {cfg.get('stage')!r}")
     n = cfg.get("filmCount")
@@ -41,11 +41,17 @@ def validate_config(cfg):
             raise BuildError(f"config {key} is required")
     if cfg["stage"] in ("testflight", "appstore") and not cfg.get(cfg["stage"]):
         raise BuildError(f"config stage is {cfg['stage']} but its link ({cfg['stage']}) is empty")
+    if cfg["stage"] == "appstore":
+        badge = Path(root if root is not None else ROOT) / "img/home/app-store-badge.svg"
+        if not badge.exists():
+            raise BuildError("config stage is appstore but img/home/app-store-badge.svg does not exist — "
+                              "add Apple's official badge art before switching to this stage")
 
 
 def load_config(path):
-    cfg = json.loads(Path(path).read_text(encoding="utf-8"))
-    validate_config(cfg)
+    path = Path(path)
+    cfg = json.loads(path.read_text(encoding="utf-8"))
+    validate_config(cfg, root=path.parent)
     return cfg
 
 

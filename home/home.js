@@ -5,14 +5,38 @@
 
   const noop = () => {};
   Home.chapters = { load: noop, shoot: noop, develop: noop, prints: noop, ticket: noop };
+  // Replaced with real players once the sound toggle wires up (only when motion is on); until
+  // then, and always when sound is off, these are safe no-ops.
+  Home.playAdvance = noop;
+  Home.playShutter = noop;
 
   function start() {
     const { gsap, ScrollTrigger } = window;
     if (reduce || !gsap || !ScrollTrigger) return;   // End states stay; the page reads as a static page.
     gsap.registerPlugin(ScrollTrigger);
-    Home.motion = true;
+    // The `motion` class goes on *before* the builders run, not after: several chapters use
+    // gsap.to()/gsap.from() tweens whose start or end value is the element's live CSS at
+    // ScrollTrigger-creation time (e.g. #ch2 .print-latent/.print-developed opacity, which only
+    // differs between the motion and no-motion CSS). Adding the class after building would make
+    // those tweens capture the no-motion values and animate nowhere. Each builder still runs in
+    // its own try/catch, and if any of them throws, everything is rolled back — the class comes
+    // off and every ScrollTrigger already created is killed — so a broken chapter never leaves
+    // the page half-wired; it falls back to its plain no-motion end state instead.
     document.documentElement.classList.add('motion');
-    for (const build of Object.values(Home.chapters)) build(gsap);
+    let ok = true;
+    for (const build of Object.values(Home.chapters)) {
+      try {
+        build(gsap);
+      } catch (e) {
+        ok = false;
+      }
+    }
+    if (!ok) {
+      document.documentElement.classList.remove('motion');
+      ScrollTrigger.getAll().forEach((st) => st.kill());
+      return;
+    }
+    Home.motion = true;
     let t = 0;
     addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => ScrollTrigger.refresh(), 200); });
   }
@@ -58,10 +82,33 @@
     tl.addLabel('f1');
     frames.forEach((f, i) => {
       if (i === 0) return;
-      if (i === frames.length - 1) tl.to('#ch1 .flash', { opacity: 0.9, duration: 0.05 }).to('#ch1 .flash', { opacity: 0, duration: 0.25 });
+      if (i === frames.length - 1) {
+        tl.to('#ch1 .flash', { opacity: 0.9, duration: 0.05 }).call(() => Home.playShutter());
+        tl.to('#ch1 .flash', { opacity: 0, duration: 0.25 });
+      }
       tl.to(frames, { yPercent: `-=105`, duration: 0.5, ease: 'steps(6)' });
       tl.addLabel(`f${i + 1}`);
     });
+    // Play the advance click once each time the scrub crosses a frame label (f2, f3, …), in
+    // either direction. A tl.call() placed exactly at the last label — which sits at the
+    // timeline's own total duration — turns out not to reliably fire in GSAP when the scrub
+    // lands exactly on that boundary, so label crossings are detected on every render instead,
+    // by comparing the previous and current time against each label's time. onComplete and
+    // onReverseComplete are added as a guaranteed-fire backstop for that same boundary case (a
+    // single large scroll jump can skip the one render that would otherwise catch it); both
+    // reuse the same lastTime bookkeeping so a crossing is never counted twice.
+    const frameLabelTimes = Object.entries(tl.labels).filter(([name]) => name !== 'f1').map(([, t]) => t);
+    let lastTime = 0;
+    const checkLabelCrossings = () => {
+      const now = tl.time();
+      frameLabelTimes.forEach((t) => {
+        if ((lastTime < t && now >= t) || (lastTime > t && now <= t)) Home.playAdvance();
+      });
+      lastTime = now;
+    };
+    tl.eventCallback('onUpdate', checkLabelCrossings);
+    tl.eventCallback('onComplete', checkLabelCrossings);
+    tl.eventCallback('onReverseComplete', checkLabelCrossings);
   };
 
   Home.chapters.develop = (gsap) => {
@@ -86,6 +133,44 @@
       .to('#ch4 .ticket', { yPercent: 0, y: 0, duration: 1, ease: 'steps(12)' });  // printed out line by line
   };
 
+  // Chapter images load as their chapter approaches — independent of motion/Reduce Motion,
+  // since it's about network weight, not animation. Each image starts `hidden` (with a
+  // placeholder src) so no-JS visitors only ever see the <noscript> twin's real image.
+  // Once this script runs, though, it un-hides them straight away — a `hidden` (display:none)
+  // element has no geometry, so IntersectionObserver could never detect it coming into view.
+  // What stays deferred until the swap is the real network fetch (the data-src -> src swap).
+  // Registered *before* `start()` below: start() builds the ScrollTriggers that pin each
+  // chapter, and those measure real layout — if the lazy images were still `hidden` (zero box)
+  // at that point, the pins would measure the wrong heights.
+  document.addEventListener('DOMContentLoaded', () => {
+    const lazyImages = [...document.querySelectorAll('img[data-src]')];
+    if (!lazyImages.length) return;
+    lazyImages.forEach((img) => { img.hidden = false; });
+    let refreshTimer = null;
+    const requestRefresh = () => {
+      if (!Home.motion || !window.ScrollTrigger) return;
+      clearTimeout(refreshTimer);
+      refreshTimer = setTimeout(() => window.ScrollTrigger.refresh(), 150);
+    };
+    const swap = (img) => {
+      img.addEventListener('load', requestRefresh, { once: true });
+      img.src = img.dataset.src;
+      img.removeAttribute('data-src');
+    };
+    if (!('IntersectionObserver' in window)) {
+      lazyImages.forEach(swap);
+      return;
+    }
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        swap(entry.target);
+        obs.unobserve(entry.target);
+      });
+    }, { rootMargin: '100% 0px' });
+    lazyImages.forEach((img) => io.observe(img));
+  });
+
   document.addEventListener('DOMContentLoaded', start);
 
   // Sound toggle: only offered once motion (and start()) has run, so it must be registered after start().
@@ -102,8 +187,10 @@
       btn.textContent = on ? btn.dataset.on : btn.dataset.off;
       if (on) shutter.play().catch(() => {});      // The click itself unlocks audio.
     });
-    window.ScrollTrigger.create({ trigger: '#ch1', start: 'top top', end: '+=160%',
-      onUpdate: (self) => { if (on && Math.abs(self.getVelocity()) > 50) { advance.currentTime = 0; advance.play().catch(() => {}); } } });
+    // The ch1 timeline calls these at each frame label and at the flash (see Home.chapters.shoot)
+    // instead of restarting the clip on every scroll tick, which used to make it stutter.
+    Home.playAdvance = () => { if (on) { advance.currentTime = 0; advance.play().catch(() => {}); } };
+    Home.playShutter = () => { if (on) { shutter.currentTime = 0; shutter.play().catch(() => {}); } };
   });
 
   // The slider works with or without motion: it only sets a CSS variable.
@@ -114,34 +201,6 @@
     const set = () => box.style.setProperty('--split', `${input.value}%`);
     input.addEventListener('input', set);
     set();
-  });
-
-  // Chapter images load as their chapter approaches — independent of motion/Reduce Motion,
-  // since it's about network weight, not animation. Each image starts `hidden` (with a
-  // placeholder src) so no-JS visitors only ever see the <noscript> twin's real image.
-  // Once this script runs, though, it un-hides them straight away — a `hidden` (display:none)
-  // element has no geometry, so IntersectionObserver could never detect it coming into view.
-  // What stays deferred until the swap is the real network fetch (the data-src -> src swap).
-  document.addEventListener('DOMContentLoaded', () => {
-    const lazyImages = [...document.querySelectorAll('img[data-src]')];
-    if (!lazyImages.length) return;
-    lazyImages.forEach((img) => { img.hidden = false; });
-    const swap = (img) => {
-      img.src = img.dataset.src;
-      img.removeAttribute('data-src');
-    };
-    if (!('IntersectionObserver' in window)) {
-      lazyImages.forEach(swap);
-      return;
-    }
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        swap(entry.target);
-        obs.unobserve(entry.target);
-      });
-    }, { rootMargin: '100% 0px' });
-    lazyImages.forEach((img) => io.observe(img));
   });
 
   if (location.search.includes('probe=overflow')) {

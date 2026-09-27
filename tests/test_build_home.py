@@ -37,6 +37,22 @@ class ConfigTests(unittest.TestCase):
         self.assertEqual(cfg["instagram"], "https://www.instagram.com/fonder.app")
         self.assertEqual(cfg["threads"], "https://www.threads.com/@fonder.app")
 
+    def test_appstore_stage_refused_without_badge_art(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            (root / "img/home").mkdir(parents=True)
+            with self.assertRaisesRegex(b.BuildError, "app-store-badge"):
+                b.validate_config(dict(BASE, stage="appstore", appstore="https://apps.apple.com/app/id1"), root=root)
+
+    def test_appstore_stage_allowed_once_badge_art_exists(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            (root / "img/home").mkdir(parents=True)
+            (root / "img/home/app-store-badge.svg").write_text("<svg></svg>")
+            b.validate_config(dict(BASE, stage="appstore", appstore="https://apps.apple.com/app/id1"), root=root)
+
 class StringTests(unittest.TestCase):
     def test_parity_names_missing_keys(self):
         with self.assertRaisesRegex(b.BuildError, "only in en: b"):
@@ -165,6 +181,29 @@ class ImageTests(unittest.TestCase):
         for page in b.build(ROOT).values():
             for src in re.findall(r'(?:src|data-src)="(/img/home/[^"]+)"', page):
                 self.assertTrue((ROOT / src.lstrip("/")).exists(), src)
+
+
+_ATTR = re.compile(r'([\w-]+)="([^"]*)"')
+
+
+def _attrs(tag):
+    return dict(_ATTR.findall(tag))
+
+
+class LazyNoScriptTests(unittest.TestCase):
+    def test_every_lazy_image_has_a_matching_noscript_twin(self):
+        for page in b.build(ROOT).values():
+            lazy_imgs = re.findall(r'<img\b[^>]*data-src="[^"]*"[^>]*>', page)
+            self.assertTrue(lazy_imgs)
+            pairs = re.findall(r'(<img\b[^>]*data-src="[^"]*"[^>]*>)\s*<noscript>(<img\b[^>]*>)</noscript>', page)
+            self.assertEqual(len(pairs), len(lazy_imgs),
+                              "every img[data-src] must be immediately followed by a <noscript><img> twin")
+            for lazy_tag, noscript_tag in pairs:
+                lazy, twin = _attrs(lazy_tag), _attrs(noscript_tag)
+                self.assertEqual(twin.get("src"), lazy.get("data-src"), lazy_tag)
+                self.assertEqual(twin.get("width"), lazy.get("width"), lazy_tag)
+                self.assertEqual(twin.get("height"), lazy.get("height"), lazy_tag)
+                self.assertEqual(twin.get("alt", ""), lazy.get("alt", ""), lazy_tag)
 
 
 class SliderTests(unittest.TestCase):
