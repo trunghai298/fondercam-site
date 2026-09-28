@@ -1,4 +1,4 @@
 [
-  {"out": "img/home/develop-before.jpg", "raw": "DSCF8971", "film": null, "crop": "3:2-above-heads"},
-  {"out": "img/home/develop-after.jpg", "raw": "DSCF8971", "film": "lantern-neg", "crop": "3:2-above-heads"}
+  {"out": "img/home/develop-before.jpg", "raw": "DSCF9002", "film": null, "recipe": "no film (RAW decode, sharpening 0, as-shot light)", "crop": "3:2 full frame"},
+  {"out": "img/home/develop-after.jpg", "raw": "DSCF9002", "film": "toffee-neg", "recipe": "roll:toffee-neg (RollDevelopment.recipe)", "crop": "3:2 full frame"}
 ]

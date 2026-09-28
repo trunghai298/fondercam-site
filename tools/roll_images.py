@@ -6,6 +6,15 @@ and date stamp already baked in — never re-rendered, never cropped).
 
 Writes img/home/shoot-1..3.jpg, prints/01..06.jpg, develop/f01..f12.jpg, contact.jpg and og.jpg.
 Needs macOS sips, ffmpeg, exiftool and Google Chrome. Every output is stripped of metadata.
+
+  python3 tools/roll_images.py --slider BEFORE.png AFTER.png
+
+Encodes chapter 2's before/after slider pair (img/home/develop-before.jpg, develop-after.jpg).
+Both halves are Fonder engine renders of one RAW (DSCF9002.RAF, Hai's X-T3), 1600 px on the long
+edge, made with FilmKit from the filmcam repo: "before" with no film (the app's RAW decode:
+sharpening 0, the RAW's as-shot scene light), "after" with the Roll develop recipe for Toffee Neg
+(RollDevelopment.recipe: the film at full strength, Colour +3 and the rest). This step only
+fits them to 3:2 and encodes them.
 """
 import html, shutil, subprocess, sys, tempfile
 from pathlib import Path
@@ -111,7 +120,20 @@ p{{position:absolute;left:72px;top:428px;width:360px;margin:0;font:400 30px/1.3 
     png_to_jpeg(png, dest, q=3)
 
 
+def slider(before, after):
+    for png, name in ((before, "develop-before"), (after, "develop-after")):
+        dest = OUT / f"{name}.jpg"
+        # Centre-crop to 3:2 (a no-op for a full X-T3 frame), then 1600 px wide at ~q78.
+        run(FFMPEG, "-loglevel", "error", "-y", "-i", str(png), "-vf",
+            "crop='min(iw,ih*3/2)':'min(ih,iw*2/3)',scale=1600:1067:flags=lanczos", "-q:v", "4", "-map_metadata", "-1", str(dest))
+        strip(dest)
+
+
 def main(argv):
+    if argv[:1] == ["--slider"]:
+        slider(Path(argv[1]), Path(argv[2]))
+        print("roll_images: wrote develop-before.jpg, develop-after.jpg")
+        return
     src = Path(argv[0] if argv else Path.home() / "Downloads/today").expanduser()
     heic = lambda name: src / f"{name}.HEIC"
     with tempfile.TemporaryDirectory() as d:
