@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-16",
+  "chapter": "film-engine",
+  "title": "Black and white with real colour filters",
+  "body": [
+    "Black-and-white films used to be a plain grey conversion. On 16 September they got a channel mixer, so each mono film behaves as if it were shot through a colour filter: a red filter darkens a blue sky, a green one lightens leaves."
+  ],
+  "images": [
+    {
+      "file": "img/02-lake-mono-filters.jpg",
+      "alt": "The lake in colour, in Silver Mono, and in Scarlet Sky Mono, where the sky and water turn much darker.",
+      "caption": "Silver Mono is close to a neutral conversion. Scarlet Sky Mono carries a red filter, so the blue sky and water drop toward black while the white buildings stay bright."
+    }
+  ]
+}

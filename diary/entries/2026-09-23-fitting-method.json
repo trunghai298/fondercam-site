@@ -1,0 +1,70 @@
+{
+  "date": "2026-09-23",
+  "chapter": "fitting",
+  "title": "How a film is fitted to the camera",
+  "body": [
+    "Until 23 September every film was authored by eye. Then I started fitting films to the camera's own renders, from pairs of the same shutter press: the RAW, and the camera's picture of it with one simulation and every other control neutral.",
+    {
+      "steps": [
+        "**Collect pairs.** One shutter press each: the RAW plus the simulation's rendering of it, at DR100 with tone, colour, colour chrome and grain off. Either the camera's own JPEG, or the maker's RAW converter changing only the simulation, checked against its settings sidecar.",
+        "**Develop the RAW the way Fonder does.** Sharpening off and the camera's own white balance, so the film learns only Fonder's picture → the camera's picture.",
+        "**Align.** The converter's lens correction magnifies the frame by 1.3–1.5% and bends it differently, so a tile aligner with a radial plus smooth-field model brings each pair to within 0.04–0.34 px. (It read vertical offsets upside down at first, which smeared the early proofs; fixed the same day.)",
+        "**Sample.** Both images are averaged in linear light onto a 966×644 grid, one sample per 8×8 sensor pixels, and sorted by colour band and tone zone. Clipped areas, edges and thin cells are left out, and the tool reports which colours are still unmeasured.",
+        "**Fit.** Bake a candidate film, render it through the real pipeline, compare with the camera in ΔE2000 and OKLab with every pair weighted equally, and adjust one number at a time until nothing improves. A chroma-tail term keeps the strongest colours from coming out pale.",
+        "**Check.** Leave one pair out and score the film on it, compare against no film and every other film, render every RAW in full and look at it, and check that hues turn rather than fade.",
+        "**Name it,** and set its first recipe from a recipe I actually shoot on the camera."
+      ]
+    },
+    {
+      "table": {
+        "head": [
+          "Chip",
+          "Film",
+          "Source",
+          "Pairs",
+          "ΔE2000, no film → film"
+        ],
+        "rows": [
+          [
+            "CC",
+            "Memoir Chrome",
+            "camera JPEG, colour chart",
+            "47 patches",
+            "fitted on the chart"
+          ],
+          [
+            "RA",
+            "Diary Neg",
+            "camera JPEG, two bodies",
+            "9",
+            "3.42 → 1.89"
+          ],
+          [
+            "NN",
+            "Afterglow Neg",
+            "RAW converter",
+            "10",
+            "4.01 → 2.09"
+          ],
+          [
+            "CN",
+            "Lost Summer Neg",
+            "RAW converter",
+            "15 (12 fitted)",
+            "7.21 → 2.60"
+          ]
+        ]
+      }
+    },
+    {
+      "note": "Mean ΔE2000 over the fitted pairs. Around 2 is a difference you can see side by side but hardly on its own. Some of the RA, NN and CN pairs aren't my photos, so those comparisons aren't shown here."
+    }
+  ],
+  "images": [
+    {
+      "file": "img/05-chart-camera-vs-films.jpg",
+      "alt": "A colour chart four times: the camera's JPEG, Memoir Chrome, no film, and Lost Summer Neg.",
+      "caption": "My chart RAW (DSCF6531) against the camera's own JPEG of it. Top: the camera in CC, and Memoir Chrome, the film fitted to CC. Bottom: no film, and Lost Summer Neg, fitted to CN, which turns the magenta patch dusty rose and the reds toward brick."
+    }
+  ]
+}

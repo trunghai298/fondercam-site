@@ -1,0 +1,52 @@
+{
+  "date": "2026-09-27",
+  "chapter": "film-roll",
+  "title": "Five strong-push films",
+  "body": [
+    "Five new colour negatives arrived with Roll mode. Like Olive Neg, each one tints the shadows, the midtones and the highlights at full strength, where most films only tint the ends.",
+    {
+      "table": {
+        "head": [
+          "Film",
+          "ISO",
+          "Look"
+        ],
+        "rows": [
+          [
+            "Lantern Neg",
+            "800",
+            "Teal-cyan shadows and midtones, amber lamps and highlights, gold skin"
+          ],
+          [
+            "Toffee Neg",
+            "200",
+            "Toffee midtones, chocolate shadows, cream highlights; ochre leaves, a dusty teal sky"
+          ],
+          [
+            "Guava Neg",
+            "400",
+            "Pink-rose through every tone, khaki greens, a lavender sky, crimson reds"
+          ],
+          [
+            "Ink Neg",
+            "400",
+            "Navy shadows and midtones, cream highlights, warm reds against the blue"
+          ],
+          [
+            "Pollen Neg",
+            "200",
+            "Sunny yellow over every tone, lime foliage, a deep blue sky, open shadows"
+          ]
+        ]
+      }
+    },
+    "They have no recipes yet, so the Films list now shows every film, not only those with a recipe. Each can still be shot on its own, loaded into a roll, or used to make a recipe."
+  ],
+  "images": [
+    {
+      "file": "img/19-strong-films-street.jpg",
+      "alt": "The same street in Korea seven times: no film, Olive Neg, Lantern Neg, Toffee Neg, Guava Neg, Ink Neg and Pollen Neg.",
+      "caption": "DSCF0028, a street in Korea, with no film, Olive Neg for reference, and the five new films at full strength."
+    }
+  ]
+}

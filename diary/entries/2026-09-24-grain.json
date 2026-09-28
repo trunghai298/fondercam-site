@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-24",
+  "chapter": "halation-starburst-grain",
+  "title": "Grain the recipe owns, on a cleaner scale",
+  "body": [
+    "Grain started as one global slider. On 15 September it became a grey, film-like grain matched against a reference camera's, and on 17 September each recipe got its own amount, so a recipe that promises grain carries it.",
+    "On 24 September the grain was rebuilt: finer and cleaner, with every recipe's grain moved onto the new scale. On that scale 30–40 is a light grain that reads as film, 60 is a coarse fast-film grain and 100 is the heaviest. Grain is sized for the resolution it's rendered at, so it looks the same on a phone screen and in a full-size file."
+  ],
+  "images": [
+    {
+      "file": "img/04-grain-closeup.jpg",
+      "alt": "Three 100% crops of a blue parking sign with a large P and Korean lettering: no grain, a fine colour grain, and a coarse black-and-white grain.",
+      "caption": "100% crops from a 4000-pixel render of DSCF0028, a street in Korea. City Neg 400 carries a light, small grain (35); Grit 1600 a large, heavy one (75)."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "date": "2026-09-27",
+  "chapter": "film-roll",
+  "title": "Film Roll: load, shoot blind, develop",
+  "body": [
+    "Film Roll is the third mode on the pill, next to Still and Cine. You pick a film (every film is available) and a roll of 12, 24 or 36 exposures. The roll stays locked to that film until it's developed. While shooting you see either negatives or no preview at all, and the last-shot tile only plays the film advancing.",
+    "When the roll is finished, you develop it. You choose a border (none, weathered or scanned) and, if you like, a date stamp from each frame's capture time. The stamp is drawn as amber seven-segment digits with a soft glow, the way old compact cameras printed it, in four formats such as `'26 9 27` or `27 9 '26 14:32`.",
+    "Every roll develops under one lab recipe, the same for every film, tuned for what a good lab scan would give:",
+    {
+      "list": [
+        "Colour +3 with weak colour chrome and weak colour chrome blue (none of the three on black-and-white film)",
+        "Highlight −1, Shadow +0.5",
+        "Dynamic Range Auto up to DR200, decided per frame",
+        "AWB with no shifts, Clarity −1, Sharpness −1",
+        "A light, fine grain (25 on colour, 30 on black and white), halation 10 and vignette 10"
+      ]
+    },
+    "Roll photos live only in their roll: they stay out of the Photos grid and its counts, and a Card or Overlay share prints the film name and frame number instead of settings. The same release added multi-select in Photos, to save, share or delete several photos at once."
+  ],
+  "images": [
+    {
+      "file": "img/17-roll-contact-toffee.jpg",
+      "alt": "A contact sheet of twelve frames on Toffee Neg: a lake among limestone hills, a moored boat, a wooden skiff, a road, and a tiled jetty, each with an amber date stamp.",
+      "caption": "A real 12-exposure roll of Toffee Neg, shot on my phone at a lake and developed with the weathered border and the date stamp."
+    },
+    {
+      "file": "img/18-roll-dusk-prints.jpg",
+      "alt": "Four prints from a Dusk roll: a lake under a thatched roof, a ferry with a red flag, floating houses below a mountain, and the same village through trees, each with a date stamp.",
+      "caption": "Four frames from a roll of Dusk, developed with the weathered border and the `27 9 '26` stamp."
+    }
+  ]
+}

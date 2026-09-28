@@ -1,0 +1,95 @@
+/* Diary styles. Fonts and tokens follow /home/home.css (self-hosted, OFL licences in /fonts). */
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/be-vietnam-pro-400-vietnamese.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/be-vietnam-pro-400-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/be-vietnam-pro-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/be-vietnam-pro-500-vietnamese.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/be-vietnam-pro-500-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Be Vietnam Pro';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/be-vietnam-pro-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-500-vietnamese.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-500-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/bricolage-grotesque-700-opsz72-vietnamese.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/bricolage-grotesque-700-opsz72-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/bricolage-grotesque-700-opsz72-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/bricolage-grotesque-600-opsz18-vietnamese.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/bricolage-grotesque-600-opsz18-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/bricolage-grotesque-600-opsz18-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+:root{
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Be Vietnam Pro",ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --amber:#e1ad66; --charcoal:#161412; --plastic:#2a2826; --paper:#efe6d6; --paper-ink:#1f1a14;
+  --ground:var(--charcoal); --ink:#f3efe8; --muted:#bdb4a8; --accent:var(--amber);
+  --rule:rgba(255,255,255,.14); --accent-soft:rgba(225,173,102,.12);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ground);color:var(--ink)}
+body{font:400 16px/1.65 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* Header and footer: the homepage's. */
+.site-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;display:flex;justify-content:space-between;align-items:center;height:60px;
+  padding:12px 16px;background:rgba(22,20,18,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.brand{display:flex;gap:10px;align-items:center;color:var(--ink);text-decoration:none;font:600 18px var(--display)}
+.brand img{border-radius:7px}
+.site-nav nav{display:flex;gap:16px;align-items:center;font-size:14px}
+.site-nav nav a{color:var(--muted);text-decoration:none}
+.site-nav nav a[aria-current]{color:var(--ink)}
+.site-footer{margin-top:64px;padding:40px 16px 56px;background:var(--paper);color:var(--paper-ink);text-align:center;font-size:14px}
+.site-footer p{margin:0 0 10px}
+.site-footer nav{display:flex;gap:18px;justify-content:center}
+.site-footer a{color:var(--paper-ink)}
+
+/* Page */
+main{max-width:680px;margin-inline:auto;padding:40px 16px 0}
+header.intro-head{display:grid;gap:12px;padding-bottom:28px;border-bottom:1px solid var(--rule)}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font:700 clamp(38px,8vw,60px)/1 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+.meta{font-size:14px;color:var(--muted);margin:0}
+.lede{font-size:18px;color:var(--muted);margin:0;max-width:60ch}
+.summary{margin:28px 0 8px;padding:20px 22px;background:var(--accent-soft);border-radius:6px}
+.summary h2{margin:0 0 8px;font:600 18px/1.3 var(--display)}
+.summary p{margin:0 0 6px}
+h2{font:600 22px/1.25 var(--display);margin:0 0 10px;text-wrap:balance}
+p,li{max-width:66ch}
+p{margin:0 0 12px}
+ul{margin:0 0 12px;padding-left:20px}
+li{margin:4px 0}
+code{font:500 13px var(--mono);background:var(--plastic);padding:1px 5px;border-radius:3px}
+.num{font:500 12px/1 var(--mono);color:var(--accent);letter-spacing:.06em;margin-right:10px;font-variant-numeric:tabular-nums}
+nav.toc{margin:28px 0 0}
+nav.toc h2{font:600 18px/1.3 var(--display);margin:0 0 8px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:2px 20px}
+nav.toc li{margin:0}
+nav.toc a{display:block;padding:5px 0;color:var(--ink);text-decoration:none;font-size:15px}
+nav.toc a:hover{color:var(--accent)}
+.chapter{padding-top:44px;scroll-margin-top:72px}
+.chapter>h2{font-size:26px;display:flex;align-items:baseline;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.intro{color:var(--muted)}
+.entry{padding-top:18px;scroll-margin-top:72px}
+.entry+.entry{margin-top:14px;border-top:1px dashed var(--rule)}
+.entry h3{font:600 19px/1.3 var(--display);margin:2px 0 8px}
+.entry h3 a{color:inherit;text-decoration:none}
+.entry h3 a:hover{color:var(--accent)}
+.date{font:500 12px/1.4 var(--mono);color:var(--muted);margin:0}
+figure{margin:18px 0 22px}
+figure img{display:block;width:100%;height:auto;border-radius:4px;background:var(--plastic)}
+figcaption{font-size:14px;color:var(--muted);margin-top:8px;max-width:66ch}
+@media (min-width:760px){
+  figure{margin-inline:calc(-1 * min(140px, (100vw - 712px) / 2))}
+  figcaption{margin-inline:min(140px, (100vw - 712px) / 2)}
+}
+.steps{margin:0 0 12px;padding-left:22px}
+.steps li{margin:6px 0}
+.tablewrap{overflow-x:auto;margin:6px 0 12px}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td{font-variant-numeric:tabular-nums}
+.note{font-size:14px;color:var(--muted)}
+/* A portrait picture stays at a readable size instead of filling the wide column. */
+figure.portrait{margin-inline:0}
+figure.portrait img{max-width:min(100%,440px);margin-inline:auto}
+figure.portrait figcaption{margin-inline:0}

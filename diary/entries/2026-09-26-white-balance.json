@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-26",
+  "chapter": "white-balance",
+  "title": "White balance, measured on the camera",
+  "body": [
+    "White balance now works the way it does on the camera. A preset is an absolute light: Daylight under a warm bulb turns the picture orange, because the correction runs from the light the scene was actually lit by to the preset's light, not relative to auto white balance.",
+    "The presets were measured on my X-T3: one chart RAW converted at each preset and along a kelvin ladder from 3200 to 8300 K, then fitted through Fonder's own graph, with Daylight pinned to the camera's dial. Cloudy is derived, halfway between Daylight and Shade in mired.",
+    {
+      "table": {
+        "head": [
+          "Preset",
+          "Kelvin (camera scale)",
+          "Tint"
+        ],
+        "rows": [
+          [
+            "Incandescent",
+            "3093 K",
+            "−7.6"
+          ],
+          [
+            "Fluorescent",
+            "4345 K",
+            "+87.7"
+          ],
+          [
+            "Daylight",
+            "5026 K",
+            "+7.7"
+          ],
+          [
+            "Cloudy (derived)",
+            "5414 K",
+            "+2.7"
+          ],
+          [
+            "Shade",
+            "5866 K",
+            "−2.4"
+          ]
+        ]
+      }
+    },
+    "Apple's kelvin and the camera's aren't on the same scale: the same RAW reads 5981 K in Core Image and 5026 K on the camera's dial, 31.8 mired apart, so every reading is moved onto the camera's scale first. The phone's live reading is used in the viewfinder, and a RAW's own as-shot light when it's imported.",
+    "The same day a seventh choice, **K**, made a fixed kelvin one tap away, so a camera recipe like “5200K, R+1 B−6” can be entered as written."
+  ],
+  "images": [
+    {
+      "file": "img/12-wb-kelvin-ladder.jpg",
+      "alt": "A colour chart at 3200, 4000, 5600 and 8300 kelvin, the camera's renders above Fonder's.",
+      "caption": "The kelvin ladder on DSCF6533: the camera's conversions (top) and Fonder with the same fixed kelvin (bottom). The cool end still runs a little bluer in Fonder."
+    },
+    {
+      "file": "img/13-wb-presets.jpg",
+      "alt": "A colour chart under the Incandescent, Daylight and Shade presets, the camera's renders above Fonder's.",
+      "caption": "The presets on the same RAW. On the neutral patches the camera and Fonder differ by 0.005–0.013 in OKLab a/b, against 0.02–0.07 between a preset and Daylight on the camera itself."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "date": "2026-09-28",
+  "chapter": "film-roll",
+  "title": "A longer rewind, and 36-exposure rolls that develop",
+  "body": [
+    "The rewind now follows the length of the roll: 1.8 s for 12 exposures, 2.8 s for 24 and 3.6 s for 36, easing slow–fast–slow. Each frame wound back gives one light crank tick, with a small knock on the canister. The canister is bigger now and sits on a soft panel with a faint amber glow.",
+    "The more important fix was underneath. Developing a 24 or 36-exposure roll crashed the app after about 15 frames. Each frame renders twice (a preview, then full resolution) on serial queues that only freed their temporary buffers when they went idle, and during a roll they never do. About 150 MB per ProRAW frame piled up until iOS killed the app. Now both queues release memory after every frame.",
+    {
+      "table": {
+        "head": [
+          "Frames developed",
+          "0",
+          "6",
+          "12",
+          "15",
+          "36"
+        ],
+        "rows": [
+          [
+            "Before",
+            "554 MB",
+            "1.5 GB",
+            "2.1 GB",
+            "2.3 GB, climbing",
+            "35 of 36 developed"
+          ],
+          [
+            "After",
+            "552 MB",
+            "333 MB",
+            "208 MB",
+            "247 MB",
+            "flat ~210–260 MB, 36 of 36"
+          ]
+        ]
+      }
+    },
+    {
+      "note": "Memory footprint as each frame lands, from a test that develops 36 frames. Real 24 and 36-exposure rolls now develop on an iPhone 16 Pro."
+    }
+  ],
+  "images": [
+    {
+      "file": "img/20-rewind-36.jpg",
+      "alt": "Four stages of a film strip winding into a canister: full strip at 0 seconds, a quarter wound at 1.2 seconds, mostly wound at 2.4 seconds, and only the turned canister at 3.6 seconds.",
+      "caption": "The timing of a 36-exposure rewind, from a test render made before the canister grew: 9 of 36 ticks at 1.2 s, 26 at 2.4 s, all 36 at 3.6 s."
+    }
+  ]
+}

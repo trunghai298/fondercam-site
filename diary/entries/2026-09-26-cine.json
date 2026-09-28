@@ -1,0 +1,58 @@
+{
+  "date": "2026-09-26",
+  "chapter": "cine",
+  "title": "Cine: video with the recipe baked in",
+  "body": [
+    "Cine records 1080p at 30 fps with the recipe in every frame. Frames go through the same render graph as photos, then to HEVC with AAC sound. It records at the ratio on screen, cut before the render so no discarded pixel is ever graded.",
+    "At 30 fps a frame has 33 ms. The first phone take of the heaviest recipe, Nightshade 800, averaged 32.1 ms: right at the edge, with dropped camera frames and a stall on every recipe switch. What brought it down:",
+    {
+      "list": [
+        "**Grain from a bank.** Three grain fields rendered once and dealt out with a shift each frame, so the grain still moves: 5.3 → 1.7 ms.",
+        "**Halation glow at half resolution:** 5.2 → 3.5 ms, with no visible difference (mean ΔE 0.001).",
+        "**4:2:0 straight to the encoder,** and every camera buffer copied and released at once, which ended the out-of-buffer drops.",
+        "**The recipe locked during a take** and prepared between takes, so nothing is baked on the frame path."
+      ]
+    },
+    "After that the same recipe ran at 21.1 ms mean over 50 seconds with no dropped frames, and lighter recipes sit around 16–18 ms.",
+    "Heat came next. A hot phone pushed frames to 35–52 ms, and one frame took 822 ms: the first frame at a new render size was compiling its kernels. Now every rung of the render-scale ladder is warmed before the take. While the phone is cool the render steps 100 → 85 → 75%; at serious heat it can go on to 65% and 50%, with the glow at a quarter, and it climbs back only once the phone has cooled and the rung above will fit. The file stays 1080p throughout.",
+    {
+      "table": {
+        "head": [
+          "Take",
+          "Mean",
+          "p95",
+          "Written / dropped"
+        ],
+        "rows": [
+          [
+            "Nightshade 800, 50 s",
+            "21.1 ms",
+            "24.1 ms",
+            "1509 / 0"
+          ],
+          [
+            "Acid Cross, 88 s",
+            "16.5 ms",
+            "—",
+            "2645 / 0"
+          ],
+          [
+            "Summer Chrome, 40 s, warm phone",
+            "17.9 ms",
+            "21.6 ms",
+            "1210 / 0"
+          ],
+          [
+            "Still Air 100, 62 s, reaching serious heat",
+            "19.5 ms",
+            "25.5 ms",
+            "1779 / 9"
+          ]
+        ]
+      }
+    },
+    {
+      "note": "iPhone 16 Pro, 1080p30."
+    }
+  ]
+}
