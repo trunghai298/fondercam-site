@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{meta_title}}</title>
+<meta name="description" content="{{meta_description}}">
+<link rel="canonical" href="{{canonical}}">
+<link rel="alternate" hreflang="en" href="https://fondercam.online/">
+<link rel="alternate" hreflang="vi" href="https://fondercam.online/vi/">
+<link rel="alternate" hreflang="x-default" href="https://fondercam.online/">
+<meta property="og:title" content="{{meta_title}}">
+<meta property="og:description" content="{{meta_description}}">
+<meta property="og:image" content="https://fondercam.online/img/home/og.jpg">
+<link rel="icon" href="/icon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+{{font_preload_html}}
+<link rel="stylesheet" href="/home/home.css">
+<script>
+// Before first paint: when motion will run, its start states apply now (not after load), and each
+// pinned chapter reserves its scroll length until home.js swaps that for the real pin (no shift).
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion', 'pins');
+</script>
+<script defer src="/vendor/gsap/3.12.5/gsap.min.js"></script>
+<script defer src="/vendor/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script defer src="/home/grain.js"></script>
+<script defer src="/home/home.js"></script>
+</head>
+<body data-lang="{{lang}}">
+<canvas class="grain" aria-hidden="true"></canvas>
+<div class="lang-bar" hidden lang="vi">
+  <p>{{lang_bar_text}}</p>
+  <a class="lang-bar-yes" href="/vi/" hreflang="vi" lang="vi">{{lang_bar_yes}}</a>
+  <button class="lang-bar-no" type="button">{{lang_bar_no}}</button>
+</div>
+<header class="site-nav">
+  <a class="brand" href="{{home_href}}"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
+  <nav>
+    <a href="{{alt_href}}" hreflang="{{alt_lang}}" lang="{{alt_lang}}">{{lang_switch_label}}</a>
+    <button class="sound-toggle" type="button" aria-pressed="false" aria-label="{{sound_on}}" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><g class="waves"><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/></g><g class="mute"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg></button>
+  </nav>
+</header>
+<main>
+  <section id="ch0" class="chapter ch-load">
+    <div class="pin">
+      <p class="kicker">{{ch0_kicker}}</p>
+      <div class="canister-wrap">
+        <picture><source srcset="/img/home/canisters/olive-neg.webp" type="image/webp"><img class="canister" src="/img/home/canisters/olive-neg.png" width="320" height="320" alt="{{alt_canister}}" fetchpriority="high"></picture>
+        <div class="leader" aria-hidden="true"></div>
+      </div>
+      <h1>{{ch0_title}}</h1>
+      <p class="lead">{{ch0_line}}</p>
+      <p class="hint" aria-hidden="true">{{ch0_hint}}</p>
+    </div>
+  </section>
+
+  <section id="ch1" class="chapter ch-shoot">
+    <div class="pin">
+      <div class="copy">
+        <p class="kicker">{{ch1_kicker}}</p>
+        <h2>{{ch1_title}}</h2>
+        <p>{{ch1_body}}</p>
+        <p class="modes">{{ch1_modes_html}}</p>
+      </div>
+      <div class="phone phone-cam" role="img" aria-label="{{alt_ch1_phone}}">
+        <div class="phone-screen">
+          <div class="cam" data-daylight="{{cam_daylight}}" data-preset="{{cam_preset}}" data-fixed="{{cam_fixed_kelvin}}">
+            <svg class="cam-sprite" aria-hidden="true"><defs>
+              <symbol id="ci-photos" viewBox="0 0 24 24"><rect x="6" y="3.5" width="15" height="12" rx="2"/><path d="M3 7.5v11a2 2 0 0 0 2 2h12"/><path d="m8 13.5 3.5-4 3 3 2-2 3 3"/><circle cx="16.5" cy="7.5" r="1.2"/></symbol>
+              <symbol id="ci-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="8.2" stroke-dasharray="2.6 3.84" stroke-width="2.6"/><circle cx="12" cy="12" r="6.4"/></symbol>
+              <symbol id="ci-bolt" viewBox="0 0 24 24"><path d="M13.5 2.5 5 13.5h6.5l-1 8 8.5-11h-6.5z"/></symbol>
+              <symbol id="ci-menu" viewBox="0 0 24 24"><path d="M3 6.5h18M6 12h12M9.5 17.5h5"/></symbol>
+              <symbol id="ci-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></symbol>
+              <symbol id="ci-bulb" viewBox="0 0 24 24"><path d="M9 17.5h6M10 20.5h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V17h5v-1.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+              <symbol id="ci-tube" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="6" rx="1.5"/><path d="M6 14.5l-1 3M12 14.5v3.5M18 14.5l1 3"/></symbol>
+              <symbol id="ci-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .5-8 6 6 0 0 0-11.4 1.6A3.3 3.3 0 0 0 7 18.5z"/></symbol>
+              <symbol id="ci-shade" viewBox="0 0 24 24"><path d="M3.5 11 12 4.5l8.5 6.5M6 9.5v10h12v-10M10 19.5v-5h4v5"/></symbol>
+              <symbol id="ci-grain" viewBox="0 0 24 24"><g fill="currentColor" stroke="none"><circle cx="6" cy="6" r="1.6"/><circle cx="12" cy="6" r="1.6"/><circle cx="18" cy="6" r="1.6"/><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/><circle cx="6" cy="18" r="1.6"/><circle cx="12" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></g></symbol>
+              <symbol id="ci-tone" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 0 0 16z" fill="currentColor"/></symbol>
+              <symbol id="ci-thermo" viewBox="0 0 24 24"><path d="M10 14.2V5a2 2 0 0 1 4 0v9.2a4 4 0 1 1-4 0z"/><path d="M12 9v7"/></symbol>
+              <symbol id="ci-double" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="12" height="12" rx="2"/><rect x="8.5" y="8.5" width="12" height="12" rx="2"/></symbol>
+              <symbol id="ci-film" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 3v18M16 3v18M4 7.5h4M4 12h4M4 16.5h4M16 7.5h4M16 12h4M16 16.5h4"/></symbol>
+              <symbol id="ci-border" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><rect x="7.5" y="7.5" width="9" height="9" fill="currentColor"/></symbol>
+              <symbol id="ci-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></symbol>
+              <symbol id="ci-focus" viewBox="0 0 24 24"><path d="M3.5 8V3.5H8M16 3.5h4.5V8M20.5 16v4.5H16M8 20.5H3.5V16"/></symbol>
+              <symbol id="ci-x" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+              <symbol id="ci-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+            </defs></svg>
+            <div class="cam-top">
+              <svg class="ci"><use href="#ci-photos"/></svg>
+              <p class="cam-title"><span class="cam-name">Still Air 100</span><span class="cam-film">Memoir Chrome</span></p>
+              <svg class="ci"><use href="#ci-gear"/></svg>
+            </div>
+            <div class="cam-vf">
+              {{cam_vf_html}}
+              <i class="vf-guides"></i>
+              <i class="vf-corners"></i><i class="vf-corners vf-snap"></i>
+              <i class="vf-cross"></i>
+              <p class="hud hud-tl"><span class="hud-k">WB</span><span class="hud-v cam-wb">7000K</span></p>
+              <p class="hud hud-tr"><span class="hud-v hud-auto">2:3</span></p>
+              <p class="hud hud-bl"><span class="hud-k">ISO</span><span class="hud-v hud-auto">{{cam_auto}}</span></p>
+              <p class="hud hud-br"><span class="hud-k">S</span><span class="hud-v hud-auto">{{cam_auto}}</span></p>
+              <p class="vf-zoom"><b>24</b> MM <span>1×</span></p>
+              <i class="vf-flash"></i>
+            </div>
+            <div class="cam-controls">
+              <div class="cam-actions">
+                <svg class="ci"><use href="#ci-bolt"/></svg>
+                <p class="cam-pill"><span class="pill-on">{{cam_still}}</span><span>{{cam_cine}}</span><span>{{cam_roll}}</span></p>
+                <svg class="ci"><use href="#ci-menu"/></svg>
+              </div>
+              <div class="cam-bottom">
+                <div class="cam-recent">{{cam_recent_html}}</div>
+                <i class="cam-shutter"></i>
+                <div class="cam-can"><i class="can-body can-1"></i><i class="can-body can-2"></i><i class="can-body can-3"></i><i class="can-body can-4"></i></div>
+              </div>
+            </div>
+            <div class="cam-shot">{{cam_shot_html}}</div>
+            <div class="cam-sheet">
+              <i class="sheet-handle"></i>
+              <p class="sheet-head"><span class="cap-t sheet-kind">{{cam_recipe}}</span><span class="sheet-name">Still Air 100</span></p>
+              <div class="sheet-strip"><div class="sheet-track">{{cam_strip_html}}</div></div>
+            </div>
+            <div class="cam-panel">
+              <i class="sheet-handle"></i>
+              <div class="pg pg-grid">
+                <p><i><svg class="ci"><use href="#ci-grain"/></svg></i><span class="cap-t">{{cam_grain}}</span></p>
+                <p><i><svg class="ci"><use href="#ci-tone"/></svg></i><span class="cap-t">{{cam_m_tone}}</span></p>
+                <p class="pg-hit"><i><svg class="ci"><use href="#ci-thermo"/></svg></i><span class="cap-t">{{cam_m_wb}}</span></p>
+                <p><i><svg class="ci"><use href="#ci-double"/></svg></i><span class="cap-t">{{cam_m_double}}</span></p>
+                <p><i><svg class="ci"><use href="#ci-film"/></svg></i><span class="cap-t">{{cam_recipe}}</span></p>
+                <p><i><svg class="ci"><use href="#ci-sun"/></svg></i><span class="cap-t">{{cam_m_exposure}}</span></p>
+                <p><i><svg class="ci"><use href="#ci-border"/></svg></i><span class="cap-t">{{cam_m_border}}</span></p>
+                <p><i><svg class="ci"><use href="#ci-doc"/></svg></i><span class="cap-t">{{cam_m_format}}</span></p>
+                <p><i><svg class="ci"><use href="#ci-focus"/></svg></i><span class="cap-t">{{cam_m_focus}}</span></p>
+              </div>
+              <div class="pg pg-wb">
+                <p class="pg-head"><svg class="ci"><use href="#ci-x"/></svg><span class="cap-t">{{cam_white_balance}}</span><b class="wb-a">A</b></p>
+                <p class="wb-read"><span class="wb-big">7000K</span><span class="wb-cap">{{cam_fixed_kelvin}}</span></p>
+                <div class="wb-choices">
+                  <p class="wb-c"><b>AWB</b><i></i></p>
+                  <p class="wb-c"><svg class="ci"><use href="#ci-bulb"/></svg><i></i></p>
+                  <p class="wb-c"><svg class="ci"><use href="#ci-tube"/></svg><i></i></p>
+                  <p class="wb-c wb-sun"><svg class="ci"><use href="#ci-sun"/></svg><svg class="ci on"><use href="#ci-sun"/></svg><i></i><i class="dot-on"></i></p>
+                  <p class="wb-c"><svg class="ci"><use href="#ci-cloud"/></svg><i></i></p>
+                  <p class="wb-c"><svg class="ci"><use href="#ci-shade"/></svg><i></i></p>
+                  <p class="wb-c wb-k"><b>K</b><b class="on">K</b><i></i><i class="dot-on"></i></p>
+                </div>
+                <div class="wb-kel"><span>{{cam_kelvin}}</span><b>−</b><span class="kel-track"><i class="kel-pos"><i class="kel-knob"></i></i></span><b>+</b><span class="kel-v">7000K</span></div>
+                <div class="wb-pad"><i class="pad-knob"></i></div>
+                <p class="wb-shift"><span>{{cam_colour_shift}}</span><span class="shift-v">R +4  B −5</span></p>
+              </div>
+              <div class="pg pg-grain">
+                <p class="pg-head"><svg class="ci"><use href="#ci-back"/></svg><span class="cap-t">{{cam_grain}}</span><b></b></p>
+                <p class="gr-row"><span>{{cam_grain}}</span><span class="gr-v">75</span></p>
+                <span class="gr-track"><i class="gr-fill"></i><i class="gr-pos"><i class="gr-knob"></i></i></span>
+                <p class="gr-row"><span>{{cam_grain_size}}</span></p>
+                <p class="gr-seg"><span class="on">{{cam_small}}</span><span>{{cam_large}}</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ch2" class="chapter ch-develop">
+    <div class="pin">
+      <div class="copy">
+        <p class="kicker">{{ch2_kicker}}</p>
+        <h2>{{ch2_title}}</h2>
+        <p>{{ch2_body}}</p>
+      </div>
+      <div class="phone" role="img" aria-label="{{alt_ch2_phone}}">
+        <div class="phone-screen">
+          <div class="app" data-total="{{develop_total}}">
+            <div class="app-head">
+              <span class="app-back"><svg viewBox="0 0 10 16" aria-hidden="true"><path d="M8 2 2 8l6 6"/></svg>{{app_camera}}</span>
+              <p class="app-title">Toffee Neg<span class="app-status"><span class="st-dev">{{app_developing}}</span><span class="st-done">{{app_developed}}</span></span></p>
+            </div>
+            <div class="app-progress">
+              <p class="app-count"><span class="c-dev"><span class="app-pct">0</span><small>%</small></span><span class="c-done">{{develop_total}}<small>{{app_photos}}</small></span></p>
+              <p class="app-meta"><span class="m-dev"><span class="app-frameline" data-tpl="{{app_frame_of}}"></span><br>{{app_negatives_only}}</span><span class="m-done">{{app_developed_on}}<br>{{app_loaded_on}}</span></p>
+            </div>
+            <div class="app-tabs">
+              <span class="tab"><span class="tab-dim">{{app_tab_develop}}</span><span class="tab-on t-develop">{{app_tab_develop}}</span></span>
+              <span class="tab"><span class="tab-dim">{{app_tab_fix}}</span><span class="tab-on t-fix">{{app_tab_fix}}</span></span>
+              <span class="tab"><span class="tab-dim">{{app_tab_scan}}</span><span class="tab-on t-scan">{{app_tab_scan}}</span></span>
+              <span class="app-bar"><span class="app-bar-fill"></span></span>
+            </div>
+            <p class="app-note"><svg viewBox="0 0 12 16" aria-hidden="true"><rect x="1.5" y="7" width="9" height="7.5" rx="1.5"/><path d="M3.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg><span class="n-stack"><span class="n-dev">{{app_note_developing}}</span><span class="n-done">{{app_note_developed}}</span></span></p>
+            <div class="app-sheet">{{sheet_html}}</div>
+            <div class="app-foot">
+              <p class="f-dev" data-tpl="{{app_developing_frame}}"></p>
+              <p class="f-done"><span class="f-icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8M5 7l3 3 3-3M3 10v3h10v-3"/></svg></span><span class="f-icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 10V2M5 5l3-3 3 3M4 7H3v7h10V7h-1"/></svg></span><span class="f-btn">{{app_load_another}}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="compare">
+        <img class="compare-before" hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/develop-before.jpg" width="1600" height="1067" alt="" aria-hidden="true">
+        <noscript><img class="compare-before" src="/img/home/develop-before.jpg" width="1600" height="1067" alt="" aria-hidden="true"></noscript>
+        <img class="compare-after" hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/develop-after.jpg" width="1600" height="1067" alt="{{alt_ch2_print}}">
+        <noscript><img class="compare-after" src="/img/home/develop-after.jpg" width="1600" height="1067" alt="{{alt_ch2_print}}"></noscript>
+        <label class="compare-label"><span class="sr-only">{{ch2_slider_label}}</span>
+          <input type="range" min="0" max="100" value="50" aria-label="{{ch2_slider_label}}">
+        </label>
+        <span class="compare-tag before">{{ch2_before}}</span><span class="compare-tag after">{{ch2_after}}</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="ch3" class="chapter ch-prints">
+    <div class="pin">
+      <div class="copy">
+        <p class="kicker">{{ch3_kicker}}</p>
+        <h2>{{ch3_title}}</h2>
+        <p>{{ch3_body}}</p>
+      </div>
+      <div class="envelope" aria-hidden="true"></div>
+      <ul class="fan">{{fan_html}}</ul>
+      <figure class="contact">
+        <img hidden src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="/img/home/contact.jpg" width="1600" height="1100" alt="{{alt_ch3_contact}}">
+        <noscript><img src="/img/home/contact.jpg" width="1600" height="1100" alt="{{alt_ch3_contact}}"></noscript>
+        <figcaption>{{ch3_contact_caption}}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="ch4" class="chapter ch-ticket">
+    <div class="pin">
+      <div class="printer" aria-hidden="true"></div>
+      <div class="slot">
+      <article class="ticket">
+        <p class="kicker">{{ch4_kicker}}</p>
+        <p class="ticket-no">{{ch4_ticket_no}}</p>
+        <div class="action">{{action_html}}</div>
+      </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <p>{{footer_line}}</p>
+  <nav><a href="/privacy/">{{nav_privacy}}</a><a href="/terms/">{{nav_terms}}</a></nav>
+</footer>
+</body>
+</html>
