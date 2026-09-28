@@ -89,3 +89,7 @@ th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);verti
 th{font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 td{font-variant-numeric:tabular-nums}
 .note{font-size:14px;color:var(--muted)}
+/* A portrait picture stays at a readable size instead of filling the wide column. */
+figure.portrait{margin-inline:0}
+figure.portrait img{max-width:min(100%,440px);margin-inline:auto}
+figure.portrait figcaption{margin-inline:0}

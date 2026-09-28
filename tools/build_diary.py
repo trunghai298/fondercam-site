@@ -86,7 +86,8 @@ def figure(img, entry_file):
         if not img.get(key):
             fail(f"{entry_file}: image {img['file']} needs '{key}'")
     w, h = jpeg_size(path)
-    return (f'<figure><img src="{html.escape(img["file"])}" alt="{html.escape(img["alt"])}" '
+    cls = ' class="portrait"' if h > 1.3 * w else ''
+    return (f'<figure{cls}><img src="{html.escape(img["file"])}" alt="{html.escape(img["alt"])}" '
             f'width="{w}" height="{h}" loading="lazy" decoding="async">'
             f'<figcaption>{inline(img["caption"])}</figcaption></figure>')
 
