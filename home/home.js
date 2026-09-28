@@ -65,7 +65,7 @@
   });
 
   Home.chapters.load = (gsap) => {
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ch0', start: 'top top', end: '+=70%', scrub: 0.6, pin: '#ch0 .pin' } });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ch0', start: 'top top', end: '+=45%', scrub: 0.6, pin: '#ch0 .pin' } });
     // The canister rolls in on load (a short intro, not scroll-bound), then the scroll pulls the leader.
     gsap.to('#ch0 .canister', { x: 0, rotation: 0, duration: 1.4, ease: 'power3.out', delay: 0.2 });
     tl.to('#ch0 .leader', { scaleX: 1, ease: 'none', duration: 1 })

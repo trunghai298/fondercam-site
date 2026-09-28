@@ -52,7 +52,7 @@ h2{font-size:clamp(34px,7vw,72px);line-height:1}
 
 /* 0 · Load */
 .ch-load{--ground:var(--charcoal)}
-.ch-load .pin{justify-items:start}
+.ch-load .pin{justify-items:start;min-height:78svh;padding-bottom:16px}
 .canister-wrap{position:relative;width:min(40vw,200px)}
 .canister{width:100%;aspect-ratio:1/1;background:none;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
 .leader{position:absolute;left:80%;top:52%;width:min(44vw,300px);aspect-ratio:8/3;translate:0 -50%;transform-origin:left center;
