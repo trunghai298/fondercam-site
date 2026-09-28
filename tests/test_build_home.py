@@ -127,11 +127,11 @@ class PageTests(unittest.TestCase):
 
     def test_film_count_filled(self):
         self.assertIn("39 films", self.en)
-        self.assertIn("39 loại phim", self.vi)
+        self.assertIn("39 màu phim", self.vi)
 
     def test_action_slot_filled(self):
         self.assertIn("https://www.instagram.com/fonder.app", self.en)
-        self.assertIn("TestFlight sắp mở", self.vi)
+        self.assertIn("Sắp mở thử nghiệm trên TestFlight", self.vi)
 
     def test_every_image_sized_and_described(self):
         for page in (self.en, self.vi):
