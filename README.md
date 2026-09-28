@@ -15,7 +15,7 @@ edit the sources below, then rebuild.
   `python3 tools/build_home.py --check` verifies config, strings, image budget
   and that the committed pages match the sources, without writing anything.
 - **Photos:** `python3 tools/roll_images.py [SOURCE_DIR]` makes the shoot, print, roll-thumbnail,
-  contact-sheet and share images from Film Roll renders (HEIC, default `~/Downloads/today`), keeping
+  contact-sheet and share images from Film Roll renders (HEIC, default `~/Downloads/new shooting`), keeping
   every border and date stamp and stripping metadata. The photo-to-slot mapping is at the top of the script.
   Needs sips, ffmpeg, exiftool and Chrome.
 - **Switching the stage:** set `stage` in `config.json` to `follow`, `testflight`

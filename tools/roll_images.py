@@ -2,7 +2,7 @@
 """Make the homepage photos from Hai's Film Roll renders (final Fonder HEICs: film look, border
 and date stamp already baked in — never re-rendered, never cropped).
 
-  python3 tools/roll_images.py [SOURCE_DIR]     (default: ~/Downloads/today)
+  python3 tools/roll_images.py [SOURCE_DIR]     (default: ~/Downloads/new shooting)
 
 Writes img/home/prints/01..06.jpg, develop/f01..f12.jpg, contact.jpg and og.jpg.
 Needs macOS sips, ffmpeg, exiftool and Google Chrome. Every output is stripped of metadata.
@@ -43,7 +43,7 @@ ROLL = [
     (f"{TOFFEE}/render 2", "Toffee Neg"), (f"{TOFFEE}/render 3", "Toffee Neg"),
     (f"{TOFFEE}/render 4", "Toffee Neg"), (f"{TOFFEE}/render 5", "Toffee Neg"),
     (f"{TOFFEE}/render 7", "Toffee Neg"), (f"{TOFFEE}/render copy 2", "Toffee Neg"),
-    (f"{DUSK}/render 5", "Dusk"),
+    ("../Toffee Neg 0436", "Toffee Neg"),   # ~/Downloads/Toffee Neg 0436.heic, pontoon tiles
 ]
 
 # Chapter 3 prints, in fan order: (source, film). tools/build_home.py FAN_PRINTS labels them.
@@ -157,7 +157,7 @@ def main(argv):
         slider(Path(argv[1]), Path(argv[2]))
         print("roll_images: wrote develop-before.jpg, develop-after.jpg")
         return
-    src = Path(argv[0] if argv else Path.home() / "Downloads/today").expanduser()
+    src = Path(argv[0] if argv else Path.home() / "Downloads/new shooting").expanduser()
     heic = lambda name: src / f"{name}.HEIC"
     with tempfile.TemporaryDirectory() as d:
         work = Path(d)
