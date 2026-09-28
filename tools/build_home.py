@@ -183,6 +183,15 @@ def sheet_html():
     return "".join(strips)
 
 
+def font_preload_html(lang):
+    """Preload what the first screen draws: the headline's face and the body text (the Vietnamese
+    page's accents are a separate subset). The rest load on use (unicode-range in home.css)."""
+    files = ["bricolage-grotesque-700-opsz72-latin", "be-vietnam-pro-400-latin"]
+    if lang == "vi":
+        files.append("be-vietnam-pro-400-vietnamese")
+    return "\n".join(f'<link rel="preload" href="/fonts/{f}.woff2" as="font" type="font/woff2" crossorigin>' for f in files)
+
+
 def render_page(template, strings, cfg, lang):
     en_home, vi_home = "https://fondercam.online/", "https://fondercam.online/vi/"
     values = dict(strings)
@@ -196,6 +205,7 @@ def render_page(template, strings, cfg, lang):
         "action_html": action_html(cfg, strings),
         "fan_html": fan_html(strings),
         "sheet_html": sheet_html(),
+        "font_preload_html": font_preload_html(lang),
         "cam_vf_html": cam_vf_html(),
         "cam_strip_html": cam_strip_html(),
         "cam_recent_html": cam_recent_html(),

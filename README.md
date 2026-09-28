@@ -22,6 +22,9 @@ edit the sources below, then rebuild.
   or `appstore`, and fill in that stage's link. `appstore` also requires
   `img/home/app-store-badge.svg` to exist (Apple's badge art isn't checked in
   yet, so that stage isn't usable until it is).
+- **Fonts:** self-hosted in `/fonts` (Google Fonts' latin, latin-ext and Vietnamese subsets, OFL —
+  the licences are beside them); `home/home.css` declares them with their unicode ranges, and the
+  build preloads the headline and body faces the first screen draws.
 - **Tests:** `python3 -m unittest discover -s tests -v` runs the build/string/image
   checks. `HOME_SHOTS=1 python3 -m unittest discover -s tests -v` additionally runs
   the headless-Chrome overflow check.

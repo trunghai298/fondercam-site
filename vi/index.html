@@ -14,10 +14,15 @@
 <meta property="og:image" content="https://fondercam.online/img/home/og.jpg">
 <link rel="icon" href="/icon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..700&family=Be+Vietnam+Pro:wght@400;500&family=JetBrains+Mono:wght@500&family=Patrick+Hand&display=swap">
+<link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/be-vietnam-pro-400-vietnamese.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/home/home.css">
+<script>
+// Before first paint: when motion will run, its start states apply now (not after load), and each
+// pinned chapter reserves its scroll length until home.js swaps that for the real pin (no shift).
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion', 'pins');
+</script>
 <script defer src="/vendor/gsap/3.12.5/gsap.min.js"></script>
 <script defer src="/vendor/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script defer src="/home/grain.js"></script>
@@ -31,7 +36,7 @@
   <button class="lang-bar-no" type="button">Đóng</button>
 </div>
 <header class="site-nav">
-  <a class="brand" href="/vi/"><img src="/icon.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
+  <a class="brand" href="/vi/"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
   <nav>
     <a href="/" hreflang="en" lang="en">English</a>
     <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Bật âm thanh" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><g class="waves"><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/></g><g class="mute"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg></button>
@@ -42,7 +47,7 @@
     <div class="pin">
       <p class="kicker">Lắp cuộn phim</p>
       <div class="canister-wrap">
-        <img class="canister" src="/img/home/canisters/olive-neg.png" width="320" height="320" alt="Một hộp phim Fonder">
+        <picture><source srcset="/img/home/canisters/olive-neg.webp" type="image/webp"><img class="canister" src="/img/home/canisters/olive-neg.png" width="320" height="320" alt="Một hộp phim Fonder" fetchpriority="high"></picture>
         <div class="leader" aria-hidden="true"></div>
       </div>
       <h1>Fonder</h1>

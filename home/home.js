@@ -12,7 +12,10 @@
 
   function start() {
     const { gsap, ScrollTrigger } = window;
-    if (reduce || !gsap || !ScrollTrigger) return;   // End states stay; the page reads as a static page.
+    const root = document.documentElement;
+    // The head's script set `motion` and `pins` before first paint (see home.css). With no motion
+    // they come off: end states stay, and the page reads as a static page.
+    if (reduce || !gsap || !ScrollTrigger) { root.classList.remove('motion', 'pins'); return; }
     gsap.registerPlugin(ScrollTrigger);
     // The `motion` class goes on *before* the builders run, not after: several chapters use
     // gsap.to()/gsap.from() tweens whose start or end value is the element's live CSS at
@@ -22,7 +25,8 @@
     // its own try/catch, and if any of them throws, everything is rolled back — the class comes
     // off and every ScrollTrigger already created is killed — so a broken chapter never leaves
     // the page half-wired; it falls back to its plain no-motion end state instead.
-    document.documentElement.classList.add('motion');
+    root.classList.add('motion');
+    root.classList.remove('pins');   // the pins' own spacers take over the reserved lengths now
     let ok = true;
     for (const build of Object.values(Home.chapters)) {
       try {
