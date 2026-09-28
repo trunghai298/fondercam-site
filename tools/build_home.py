@@ -127,6 +127,43 @@ def fan_html(s, root=ROOT):
     return "".join(items)
 
 
+def lazy_img(src, w, h, cls=""):
+    """A decorative chapter image that loads as its chapter approaches, with its no-JS twin."""
+    c = f' class="{cls}"' if cls else ""
+    return (f'<img{c} hidden src="{LAZY_PLACEHOLDER}" data-src="{src}" width="{w}" height="{h}" alt="" aria-hidden="true">'
+            f'<noscript><img{c} src="{src}" width="{w}" height="{h}" alt="" aria-hidden="true"></noscript>')
+
+
+# Chapter 1's viewfinder, in the order the scroll shows them (tools/roll_images.py --still makes them).
+# The last is the finished state, and the one shown without motion.
+STILL_FRAMES = ["01-summer", "02-hanoi", "03-amber", "04-stillair", "05-k3200", "06-k7000", "07-grain"]
+# The recipe strip: (look id, name, the fitted simulation's letters the app puts on its tile, or "").
+STILL_STRIP = [("summer", "Summer Chrome", ""), ("hanoi", "Ha Noi Chrome", ""), ("amber", "Amber 400", ""),
+               ("chrome50", "Chrome 50", ""), ("stillair", "Still Air 100", "CC"), ("ordinaryday", "Ordinary Day 200", "RA")]
+STILL_ACTIVE = "stillair"
+
+
+def cam_vf_html():
+    return "".join(lazy_img(f"/img/home/still/{n}.jpg", 600, 900, f"vf vf-{i + 1}") for i, n in enumerate(STILL_FRAMES))
+
+
+def cam_strip_html():
+    tiles = []
+    for i, (lid, name, badge) in enumerate(STILL_STRIP):
+        on = " is-on" if lid == STILL_ACTIVE else ""
+        chip = f'<span class="sw-chip">{badge}</span>' if badge else ""
+        tiles.append(f'<div class="sw sw-{i}{on}"><div class="sw-img">{lazy_img(f"/img/home/still/sw-{lid}.jpg", 128, 128)}{chip}'
+                     f'<i class="sw-ring"></i></div><p class="sw-name"><span class="sw-dim">{html.escape(name)}</span>'
+                     f'<span class="sw-on">{html.escape(name)}</span></p></div>')
+    return "".join(tiles)
+
+
+def cam_recent_html():
+    # The last shot before the scroll's, then the one the scroll takes (the finished frame).
+    return (lazy_img("/img/home/develop/f05.jpg", 240, 160, "rc-old")
+            + lazy_img(f"/img/home/still/{STILL_FRAMES[-1]}.jpg", 600, 900, "rc-new"))
+
+
 DEVELOP_FRAMES = 12
 
 
@@ -159,6 +196,10 @@ def render_page(template, strings, cfg, lang):
         "action_html": action_html(cfg, strings),
         "fan_html": fan_html(strings),
         "sheet_html": sheet_html(),
+        "cam_vf_html": cam_vf_html(),
+        "cam_strip_html": cam_strip_html(),
+        "cam_recent_html": cam_recent_html(),
+        "cam_shot_html": lazy_img(f"/img/home/still/{STILL_FRAMES[-1]}.jpg", 600, 900),
         "develop_total": str(DEVELOP_FRAMES),
     })
     return fill(template, values)

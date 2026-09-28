@@ -1,4 +1,5 @@
 [
   {"out": "img/home/develop-before.jpg", "raw": "DSCF9002", "film": null, "recipe": "no film (RAW decode, sharpening 0, as-shot light)", "crop": "3:2 full frame"},
-  {"out": "img/home/develop-after.jpg", "raw": "DSCF9002", "film": "toffee-neg", "recipe": "roll:toffee-neg (RollDevelopment.recipe)", "crop": "3:2 full frame"}
+  {"out": "img/home/develop-after.jpg", "raw": "DSCF9002", "film": "toffee-neg", "recipe": "roll:toffee-neg (RollDevelopment.recipe)", "crop": "3:2 full frame"},
+  {"out": "img/home/still/*.jpg", "raw": "IMG_0303 (X-T3 JPEG, imported: no measured light)", "film": "catalogue recipes", "recipe": "tools/roll_images.py --still", "crop": "2:3 full frame"}
 ]

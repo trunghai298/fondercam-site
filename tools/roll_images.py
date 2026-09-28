@@ -4,7 +4,7 @@ and date stamp already baked in — never re-rendered, never cropped).
 
   python3 tools/roll_images.py [SOURCE_DIR]     (default: ~/Downloads/today)
 
-Writes img/home/shoot-1..3.jpg, prints/01..06.jpg, develop/f01..f12.jpg, contact.jpg and og.jpg.
+Writes img/home/prints/01..06.jpg, develop/f01..f12.jpg, contact.jpg and og.jpg.
 Needs macOS sips, ffmpeg, exiftool and Google Chrome. Every output is stripped of metadata.
 
   python3 tools/roll_images.py --slider BEFORE.png AFTER.png
@@ -15,6 +15,15 @@ edge, made with FilmKit from the filmcam repo: "before" with no film (the app's 
 sharpening 0, the RAW's as-shot scene light), "after" with the Roll develop recipe for Toffee Neg
 (RollDevelopment.recipe: the film at full strength, Colour +3 and the rest). This step only
 fits them to 3:2 and encodes them.
+
+  python3 tools/roll_images.py --still RENDER_DIR
+
+Encodes chapter 1's Still-mode phone (img/home/still/): the viewfinder frames 01..07.png (600x900 from
+Hai's own X-T3 JPEG IMG_0303.jpg, a portrait 2:3 frame, decoded as the app imports a JPEG: no measured
+light, so the scene is taken as daylight), rendered by FilmKit through the
+catalogue's recipes at the camera's default strength: Summer Chrome, Ha Noi Chrome, Amber 400, Still
+Air 100, then Still Air 100 at WB 3200K, at 7000K, and at 7000K with Grain 75) and the recipe
+strip's swatches sw-<look id>.png.
 """
 import html, shutil, subprocess, sys, tempfile
 from pathlib import Path
@@ -25,9 +34,6 @@ FFMPEG = shutil.which("ffmpeg") or "/opt/homebrew/bin/ffmpeg"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
 TOFFEE, DUSK = "Toffe Neg", "Dusk"   # source folder names ("Toffe" is how the folder is spelled)
-
-# Chapter 1 viewfinder, in order.
-SHOOT = [f"{TOFFEE}/render 7", f"{DUSK}/render copy", f"{DUSK}/render"]
 
 # The roll on the phone and on the contact sheet: (source, film), frames 01..12 in shooting order.
 ROLL = [
@@ -129,7 +135,24 @@ def slider(before, after):
         strip(dest)
 
 
+def still(render_dir):
+    dest = OUT / "still"
+    dest.mkdir(parents=True, exist_ok=True)
+    for png in sorted(render_dir.glob("*.png")):
+        out = dest / f"{png.stem}.jpg"
+        # Swatches: a centred square, 128 px (a 64-pt tile at 2x); viewfinder frames as rendered.
+        swatch = png.stem.startswith("sw-")
+        vf = "crop='min(iw,ih)':'min(iw,ih)',scale=128:128:flags=lanczos" if swatch else "null"
+        # Frames at q:v 8: foliage is costly, and the phone shows them at ~280 px wide.
+        run(FFMPEG, "-loglevel", "error", "-y", "-i", str(png), "-vf", vf, "-q:v", "5" if swatch else "8", "-map_metadata", "-1", str(out))
+        strip(out)
+
+
 def main(argv):
+    if argv[:1] == ["--still"]:
+        still(Path(argv[1]))
+        print("roll_images: wrote still/*.jpg")
+        return
     if argv[:1] == ["--slider"]:
         slider(Path(argv[1]), Path(argv[2]))
         print("roll_images: wrote develop-before.jpg, develop-after.jpg")
@@ -138,8 +161,6 @@ def main(argv):
     heic = lambda name: src / f"{name}.HEIC"
     with tempfile.TemporaryDirectory() as d:
         work = Path(d)
-        for i, name in enumerate(SHOOT, 1):
-            to_jpeg(heic(name), OUT / f"shoot-{i}.jpg", 1200, quality=62)
         for i, (name, _film) in enumerate(PRINTS, 1):
             to_jpeg(heic(name), OUT / f"prints/{i:02d}.jpg", 900, quality=62)
         frames = []
@@ -158,7 +179,7 @@ def main(argv):
         og_src = work / "og-photo.jpg"
         to_jpeg(heic(OG_PHOTO), og_src, 1400, quality=92)
         og_image(work, og_src, OUT / "og.jpg")
-    print("roll_images: wrote shoot-1..3, prints/01..06, develop/f01..f12, contact.jpg, og.jpg")
+    print("roll_images: wrote prints/01..06, develop/f01..f12, contact.jpg, og.jpg")
 
 
 if __name__ == "__main__":

@@ -65,7 +65,7 @@
   });
 
   Home.chapters.load = (gsap) => {
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ch0', start: 'top top', end: '+=120%', scrub: 0.6, pin: '#ch0 .pin' } });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ch0', start: 'top top', end: '+=70%', scrub: 0.6, pin: '#ch0 .pin' } });
     // The canister rolls in on load (a short intro, not scroll-bound), then the scroll pulls the leader.
     gsap.to('#ch0 .canister', { x: 0, rotation: 0, duration: 1.4, ease: 'power3.out', delay: 0.2 });
     tl.to('#ch0 .leader', { scaleX: 1, ease: 'none', duration: 1 })
@@ -74,41 +74,121 @@
   };
 
   Home.chapters.shoot = (gsap) => {
-    const frames = gsap.utils.toArray('#ch1 .frame');
-    gsap.set(frames, { yPercent: (i) => i * 105 });
-    gsap.set('#ch1 .strip', { display: 'block', position: 'relative', aspectRatio: '3 / 2' });
-    gsap.set(frames, { position: 'absolute', inset: 0 });
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ch1', start: 'top top', end: '+=160%', scrub: 0.5, pin: '#ch1 .pin', snap: { snapTo: 'labels', duration: 0.25 } } });
-    tl.addLabel('f1');
-    frames.forEach((f, i) => {
-      if (i === 0) return;
-      if (i === frames.length - 1) {
-        tl.to('#ch1 .flash', { opacity: 0.9, duration: 0.05 }).call(() => Home.playShutter());
-        tl.to('#ch1 .flash', { opacity: 0, duration: 0.25 });
-      }
-      tl.to(frames, { yPercent: `-=105`, duration: 0.5, ease: 'steps(6)' });
-      tl.addLabel(`f${i + 1}`);
-    });
-    // Play the advance click once each time the scrub crosses a frame label (f2, f3, …), in
-    // either direction. A tl.call() placed exactly at the last label — which sits at the
-    // timeline's own total duration — turns out not to reliably fire in GSAP when the scrub
-    // lands exactly on that boundary, so label crossings are detected on every render instead,
-    // by comparing the previous and current time against each label's time. onComplete and
-    // onReverseComplete are added as a guaranteed-fire backstop for that same boundary case (a
-    // single large scroll jump can skip the one render that would otherwise catch it); both
-    // reuse the same lastTime bookkeeping so a crossing is never counted twice.
-    const frameLabelTimes = Object.entries(tl.labels).filter(([name]) => name !== 'f1').map(([, t]) => t);
+    // Fonder's camera in Still mode. Timeline units: the recipe strip comes up (1) and steps
+    // through three recipes (2, 3, 4) to Still Air 100; the controls panel opens (5.3) on White
+    // balance, which goes from the recipe's Daylight to 3200K (7) and 7000K (8); the Grain page
+    // takes grain from 30 to 75 (9.2); the panel closes and the shutter fires (11), the frame
+    // dropping into the recents tile. Only opacity and transforms are tweened; the readouts are
+    // text, written from onUpdate. The recipes and their white balance are the app's catalogue.
+    const q = (sel) => document.querySelector(`#ch1 ${sel}`);
+    const all = (sel) => gsap.utils.toArray(`#ch1 ${sel}`);
+    const cam = q('.cam');
+    const L = { daylight: cam.dataset.daylight, preset: cam.dataset.preset, fixed: cam.dataset.fixed };
+    const RECIPES = [
+      { name: 'Summer Chrome', film: 'Daylight Cine', wb: 'AWB −200K', at: 0 },
+      { name: 'Ha Noi Chrome', film: 'Harbour Cool', wb: 'AWB −100K', at: 2 },
+      { name: 'Amber 400', film: 'Amber Neg', wb: 'AWB −300K', at: 3 },
+      { name: 'Still Air 100', film: 'Memoir Chrome', wb: L.daylight, at: 4 },
+    ];
+    const WB = [   // Still Air's own Daylight preset, then the K choice at two kelvins
+      { at: 0, hud: null, big: L.daylight, cap: L.preset, kel: '' },
+      { at: 7, hud: '3200K', big: '3200K', cap: L.fixed, kel: '3200K' },
+      { at: 8, hud: '7000K', big: '7000K', cap: L.fixed, kel: '7000K' },
+    ];
+    const GRAIN_AT = 9.2, GRAIN_LEN = 0.6;
+    const TRACK_STEP = 100 / 6;                 // the strip is six 82-pt columns
+    const trackX = (i) => 32.52 - i * TRACK_STEP;   // tile i centred in the sheet
+    const STRIP_INDEX = [0, 1, 2, 4];           // where each recipe sits on the strip
+    const els = {
+      name: q('.cam-name'), film: q('.cam-film'), wb: q('.cam-wb'), sheetName: q('.sheet-name'),
+      big: q('.wb-big'), cap: q('.wb-cap'), kel: q('.kel-v'), grain: q('.gr-v'),
+    };
+    const setText = (el, s) => { if (el.textContent !== s) el.textContent = s; };
+    const last = (list, t) => list.reduce((cur, s) => (t >= s.at ? s : cur), list[0]);
+    let tl = null;
+    const update = () => {
+      if (!tl) return;
+      const t = tl.time();
+      const r = last(RECIPES, t), w = last(WB, t);
+      setText(els.name, r.name); setText(els.sheetName, r.name); setText(els.film, r.film);
+      setText(els.wb, w.hud || r.wb);
+      setText(els.big, w.big); setText(els.cap, w.cap); setText(els.kel, w.kel);
+      const g = Math.min(Math.max((t - GRAIN_AT) / GRAIN_LEN, 0), 1);
+      setText(els.grain, String(Math.round(30 + 45 * g)));
+    };
+    // Where the scrub crosses a step, the tick of a control changing (and the shutter at 11).
+    const ticks = [2, 3, 4, 7, 8];
     let lastTime = 0;
-    const checkLabelCrossings = () => {
+    const sounds = () => {
       const now = tl.time();
-      frameLabelTimes.forEach((t) => {
-        if ((lastTime < t && now >= t) || (lastTime > t && now <= t)) Home.playAdvance();
-      });
+      const crossed = (at) => (lastTime < at && now >= at) || (lastTime > at && now <= at);
+      ticks.forEach((at) => { if (crossed(at)) Home.playAdvance(); });
+      if (crossed(11)) Home.playShutter();
       lastTime = now;
     };
-    tl.eventCallback('onUpdate', checkLabelCrossings);
-    tl.eventCallback('onComplete', checkLabelCrossings);
-    tl.eventCallback('onReverseComplete', checkLabelCrossings);
+    gsap.set(q('.cam-sheet'), { yPercent: 105 });
+    gsap.set(q('.cam-panel'), { yPercent: 110 });
+    gsap.set(q('.sheet-track'), { xPercent: trackX(0) });
+    gsap.set(q('.kel-pos'), { xPercent: 40 });   // Daylight's 5500 K on the 2500–10000 K bar
+    gsap.set(q('.gr-pos'), { xPercent: 30 });
+    tl = gsap.timeline({
+      scrollTrigger: { trigger: '#ch1 .phone', start: 'center center', end: '+=160%', scrub: 0.6, pin: '#ch1 .pin' },
+      onUpdate: () => { update(); sounds(); },
+    });
+    const vf = all('.cam-vf img.vf');
+    const vfIn = (n, at, d = 0.35) => tl.to(vf.filter((img) => img.classList.contains(`vf-${n}`)), { opacity: 1, duration: d }, at);
+    // The recipe strip.
+    tl.to(q('.cam-controls'), { opacity: 0, duration: 0.3 }, 1)
+      .to(q('.cam-sheet'), { yPercent: 0, duration: 0.4, ease: 'power2.out' }, 1);
+    const tiles = all('.sw');
+    RECIPES.slice(1).forEach((r, k) => {
+      const i = k + 1, at = r.at;
+      const from = tiles[STRIP_INDEX[i - 1]], to = tiles[STRIP_INDEX[i]];
+      vfIn(i + 1, at);
+      tl.to(q('.sheet-track'), { xPercent: trackX(STRIP_INDEX[i]), duration: 0.35, ease: 'power2.inOut' }, at)
+        .to(from.querySelectorAll('.sw-ring, .sw-on'), { opacity: 0, duration: 0.2 }, at)
+        .to(from.querySelector('.sw-dim'), { opacity: 1, duration: 0.2 }, at)
+        .to(to.querySelectorAll('.sw-ring, .sw-on'), { opacity: 1, duration: 0.2 }, at + 0.15)
+        .to(to.querySelector('.sw-dim'), { opacity: 0, duration: 0.2 }, at + 0.15)
+        .to(q(`.can-${i}`), { opacity: 0, duration: 0.3 }, at)
+        .to(q(`.can-${i + 1}`), { opacity: 1, duration: 0.3 }, at);
+    });
+    tl.to(q('.cam-sheet'), { yPercent: 105, duration: 0.4, ease: 'power2.in' }, 4.8);
+    // The controls panel: the grid, then White balance.
+    // The panel is sized for White balance; the shorter pages sit lower, their empty foot off
+    // the bottom of the screen (the app's panel is sized to its page).
+    tl.to(q('.cam-panel'), { yPercent: 24.7, duration: 0.4, ease: 'power2.out' }, 5.3)
+      .to(q('.cam-panel'), { yPercent: 0, duration: 0.3, ease: 'power2.inOut' }, 6)
+      .to(q('.pg-grid'), { opacity: 0, duration: 0.25 }, 6)
+      .to(q('.pg-wb'), { opacity: 1, duration: 0.25 }, 6.1);
+    vfIn(5, 7);
+    tl.to(q('.wb-sun').querySelectorAll('.on, .dot-on'), { opacity: 0, duration: 0.2 }, 7)
+      .to(q('.wb-k').querySelectorAll('.on, .dot-on'), { opacity: 1, duration: 0.2 }, 7)
+      .to(q('.kel-pos'), { xPercent: (3200 - 2500) / 75, duration: 0.35, ease: 'power2.inOut' }, 7)
+      .to(q('.kel-pos'), { xPercent: (7000 - 2500) / 75, duration: 0.45, ease: 'power2.inOut' }, 8);
+    vfIn(6, 8, 0.45);
+    // Grain.
+    tl.to(q('.pg-wb'), { opacity: 0, duration: 0.25 }, 8.8)
+      .to(q('.pg-grain'), { opacity: 1, duration: 0.25 }, 8.9)
+      .to(q('.cam-panel'), { yPercent: 46, duration: 0.3, ease: 'power2.inOut' }, 8.8)
+      .to(q('.gr-fill'), { scaleX: 0.75, duration: GRAIN_LEN, ease: 'none' }, GRAIN_AT)
+      .to(q('.gr-pos'), { xPercent: 75, duration: GRAIN_LEN, ease: 'none' }, GRAIN_AT);
+    vfIn(7, GRAIN_AT, GRAIN_LEN);
+    // Close, and take the picture.
+    tl.to(q('.cam-panel'), { yPercent: 110, duration: 0.4, ease: 'power2.in' }, 10.2)
+      .to(q('.cam-controls'), { opacity: 1, duration: 0.3 }, 10.45)
+      .to(q('.vf-flash'), { opacity: 0.85, duration: 0.05 }, 11)
+      .to(q('.vf-flash'), { opacity: 0, duration: 0.3 }, 11.05)
+      .to(q('.vf-snap'), { opacity: 1, duration: 0.05 }, 11)
+      .to(q('.vf-snap'), { opacity: 0, duration: 0.4 }, 11.4)
+      .to(q('.cam-shutter'), { scale: 0.92, duration: 0.08 }, 11)
+      .to(q('.cam-shutter'), { scale: 1, duration: 0.15 }, 11.1)
+      .to(q('.cam-shot'), { opacity: 1, duration: 0.02 }, 11.1)
+      .to(q('.cam-shot'), { xPercent: -38.9, yPercent: 73, scale: 0.127, duration: 0.6, ease: 'power2.in' }, 11.15)
+      .to(q('.cam-recent .rc-new'), { opacity: 1, duration: 0.15 }, 11.7)
+      .to(q('.cam-shot'), { opacity: 0, duration: 0.15 }, 11.75)
+      .to({}, { duration: 1.2 }, 11.9);
+    update();
   };
 
   Home.chapters.develop = (gsap) => {
@@ -139,7 +219,7 @@
       fillTpl(footLine, n);
     };
     tl = gsap.timeline({
-      scrollTrigger: { trigger: '#ch2 .phone', start: 'center center', end: '+=220%', scrub: 0.6, pin: '#ch2 .pin' },
+      scrollTrigger: { trigger: '#ch2 .phone', start: 'center center', end: '+=120%', scrub: 0.6, pin: '#ch2 .pin' },
       onUpdate: update,
     });
     tl.to('#ch2 .app-bar-fill', { scaleX: 1, duration: DEV, ease: 'none' }, 0);
@@ -167,7 +247,7 @@
 
   Home.chapters.prints = (gsap) => {
     const cards = gsap.utils.toArray('#ch3 .print-card');
-    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ch3', start: 'top top', end: '+=160%', scrub: 0.6, pin: '#ch3 .pin' } });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: '#ch3', start: 'top top', end: '+=100%', scrub: 0.6, pin: '#ch3 .pin' } });
     // The envelope slides away and the prints fan out from a stack.
     tl.from(cards, { y: 160, rotation: 0, opacity: 0, stagger: 0.12, duration: 0.5, ease: 'power2.out' })
       .to('#ch3 .envelope', { yPercent: 100, duration: 0.4 }, 0)
@@ -176,7 +256,7 @@
 
   Home.chapters.ticket = (gsap) => {
     // The ticket feeds out from under the printer, gliding with the scroll.
-    gsap.timeline({ scrollTrigger: { trigger: '#ch4', start: 'top 70%', end: 'top 5%', scrub: 1 } })
+    gsap.timeline({ scrollTrigger: { trigger: '#ch4', start: 'top 85%', end: 'bottom bottom', scrub: 1 } })
       .to('#ch4 .ticket', { yPercent: 0, y: 0, duration: 1, ease: 'power1.out' });
   };
 
@@ -234,7 +314,7 @@
       btn.textContent = on ? btn.dataset.on : btn.dataset.off;
       if (on) shutter.play().catch(() => {});      // The click itself unlocks audio.
     });
-    // The ch1 timeline calls these at each frame label and at the flash (see Home.chapters.shoot)
+    // The ch1 timeline calls these as the scrub crosses a control change and the shutter (see Home.chapters.shoot)
     // instead of restarting the clip on every scroll tick, which used to make it stutter.
     Home.playAdvance = () => { if (on) { advance.currentTime = 0; advance.play().catch(() => {}); } };
     Home.playShutter = () => { if (on) { shutter.currentTime = 0; shutter.play().catch(() => {}); } };
