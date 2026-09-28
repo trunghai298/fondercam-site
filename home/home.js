@@ -311,7 +311,6 @@
     btn.addEventListener('click', () => {
       on = !on;
       btn.setAttribute('aria-pressed', String(on));
-      btn.textContent = on ? btn.dataset.on : btn.dataset.off;
       if (on) shutter.play().catch(() => {});      // The click itself unlocks audio.
     });
     // The ch1 timeline calls these as the scrub crosses a control change and the shutter (see Home.chapters.shoot)

@@ -33,9 +33,8 @@
 <header class="site-nav">
   <a class="brand" href="{{home_href}}"><img src="/icon.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
   <nav>
-    <a href="/diary/">{{nav_diary}}</a>
     <a href="{{alt_href}}" hreflang="{{alt_lang}}" lang="{{alt_lang}}">{{lang_switch_label}}</a>
-    <button class="sound-toggle" type="button" aria-pressed="false" data-on="{{sound_on}}" data-off="{{sound_off}}" hidden>{{sound_off}}</button>
+    <button class="sound-toggle" type="button" aria-pressed="false" aria-label="{{sound_on}}" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><g class="waves"><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/></g><g class="mute"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg></button>
   </nav>
 </header>
 <main>
@@ -240,7 +239,7 @@
 </main>
 <footer class="site-footer">
   <p>{{footer_line}}</p>
-  <nav><a href="/diary/">{{nav_diary}}</a><a href="/privacy/">{{nav_privacy}}</a><a href="/terms/">{{nav_terms}}</a></nav>
+  <nav><a href="/privacy/">{{nav_privacy}}</a><a href="/terms/">{{nav_terms}}</a></nav>
 </footer>
 </body>
 </html>

@@ -47,7 +47,7 @@ ROLL = [
 ]
 
 # Chapter 3 prints, in fan order: (source, film). tools/build_home.py FAN_PRINTS labels them.
-PRINTS = [(f"{DUSK}/render 2", "Dusk"), (f"{DUSK}/render 3", "Dusk"), (f"{DUSK}/render 4", "Dusk"),
+PRINTS = [(f"{DUSK}/render 2", "Dusk"), (f"{DUSK}/render 3", "Dusk"), ("../render", "Dusk"),   # the flag boat, ~/Downloads/render.HEIC; replaced the gate print (faces)
           (f"{TOFFEE}/IMG_0201", "Toffee Neg"), (f"{TOFFEE}/render copy 2", "Toffee Neg"),
           (f"{TOFFEE}/render 2", "Toffee Neg")]
 
