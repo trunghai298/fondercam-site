@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-25",
+  "chapter": "calibration",
+  "title": "Controls calibrated against the camera",
+  "body": [
+    "Until then the recipe controls were educated guesses. On 25 September each was measured against the camera, one at a time: colour, white-balance shift, highlight, shadow, dynamic range and colour chrome. For each one I converted the same RAW in the camera's own converter with only that control changed, and fitted Fonder's control to match.",
+    "Then every recipe was retuned onto the calibrated controls so it kept the look already approved. Most landed within 2 ΔE of their old look."
+  ],
+  "images": [
+    {
+      "file": "img/11-colour-control.jpg",
+      "alt": "A colour chart at Colour −4, 0 and +4, the camera's renders above Fonder's.",
+      "caption": "DSCF6533 at Colour −4, 0 and +4. Top: the camera's conversions in CC. Bottom: Fonder, Memoir Chrome with the same Colour setting."
+    }
+  ]
+}

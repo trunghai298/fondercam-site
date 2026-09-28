@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-25",
+  "chapter": "onboarding",
+  "title": "A four-slide intro",
+  "body": [
+    "On 25 September the one-line opening screen became four slides: film, not filters; recipes that behave like a camera; shoot RAW and change your mind later; and make it yours. The camera permission is asked for at the end, never earlier. The slide pictures are pre-rendered through the same render graph as everything else."
+  ],
+  "images": [
+    {
+      "file": "img/10-intro-lake.jpg",
+      "alt": "The lake as shot, and with the first slide's recipe: a softer, cyan-leaning sky and water.",
+      "caption": "The first slide's idea on my lake RAW: the frame as shot, and a private recipe on Lost Summer Neg (DR100, Highlight −1, Shadow +0.5, Colour +3, strong colour chrome, B−4, Clarity −2). In the app a divider sweeps between the two."
+    }
+  ]
+}

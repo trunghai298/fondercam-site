@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-11",
+  "chapter": "film-engine",
+  "title": "A film should change colour, not just fade it",
+  "body": [
+    "The film colour engine went in on 11 September. Each film is a handful of colour moves (which hues turn, how quickly saturation rolls off, where the tones sit) baked into a 3D lookup table. The viewfinder, the capture and the export all run the same graph, so what you see while shooting is what you get.",
+    "The first palette mostly paled colours, which isn't what film does. Widening the chroma knee and re-authoring every film fixed that, and set a rule I still use: a film has to reinterpret hues, red toward orange and blue toward navy, not just take colour away."
+  ],
+  "images": [
+    {
+      "file": "img/01-lake-early-looks.jpg",
+      "alt": "The same lake and skyline in six versions: no film, Summer Chrome, Ha Noi Chrome, Amber 400, Harbour Neg and Dream Haze 400.",
+      "caption": "One RAW of a Hanoi lake through some of the first looks, rendered with today's engine. Each one takes the blue of the sky and the water somewhere different. From DSCF8912."
+    }
+  ]
+}

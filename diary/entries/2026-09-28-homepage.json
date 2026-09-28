@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-28",
+  "chapter": "website",
+  "title": "A new homepage",
+  "body": [
+    "fondercam.online has a new homepage, in English and Vietnamese. It tells the app as one roll of film: shoot, develop, print. The pictures are from my own Film Roll shoot, with their borders and date stamps. The fonts are served from the site itself, and this diary now shares its header and footer."
+  ],
+  "images": [
+    {
+      "file": "img/21-homepage.jpg",
+      "alt": "The Fonder share card: an Olive Neg canister, the word Fonder, and a lake print with a date stamp.",
+      "caption": "The homepage's share image."
+    }
+  ]
+}

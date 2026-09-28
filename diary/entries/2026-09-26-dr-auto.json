@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-26",
+  "chapter": "dr-auto",
+  "title": "Dynamic Range Auto",
+  "body": [
+    "Dynamic range lets a recipe hold highlights by exposing lower and lifting the picture back, as the camera's DR200 and DR400 do. It now has **Auto**, which picks DR100 or DR200 (or DR400 when the ceiling allows) from how much of the scene is close to clipping.",
+    "The measure is the share of the frame whose brightest channel is at or above 90% of DR100's white, on a 256-pixel grid. It uses the brightest channel rather than brightness because a saturated blue sky clips in blue long before it looks bright.",
+    {
+      "table": {
+        "head": [
+          "Choice",
+          "Steps up at",
+          "Steps down below"
+        ],
+        "rows": [
+          [
+            "DR200",
+            "1.5%",
+            "0.75%"
+          ],
+          [
+            "DR400 (only with a 400 ceiling)",
+            "18%, or 0.5% past DR200's white",
+            "12%"
+          ]
+        ]
+      }
+    },
+    "It was calibrated on 35 frames: sun-and-shade and blown-sky scenes measure 2.6–35% and go to DR200, evenly lit scenes stay at DR100, and so does a colour chart. In the viewfinder it waits 0.5 s before stepping up and 1.5 s before stepping down, so it doesn't flicker. A RAW is measured from its own decode, and a Cine take locks its choice at the start."
+  ],
+  "images": [
+    {
+      "file": "img/14-dynamic-range.jpg",
+      "alt": "A colour chart on a wooden table at DR100, DR200 and DR400, the camera's renders above Fonder's.",
+      "caption": "DSCF6535, indoors at ISO 800: the camera's DR100, DR200 and DR400 conversions (top) and Fonder's (bottom). Nothing on the chart clips, so the three should look almost the same, and on both sides they do."
+    }
+  ]
+}

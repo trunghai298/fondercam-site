@@ -1,0 +1,59 @@
+[
+  {
+    "id": "film-engine",
+    "title": "Film engine and first looks",
+    "intro": "A film in Fonder is a set of colour moves baked into one lookup table, run through the same render graph as the viewfinder and the export."
+  },
+  {
+    "id": "halation-starburst-grain",
+    "title": "Halation, starburst and grain",
+    "intro": "The effects that make a frame read as film."
+  },
+  {
+    "id": "fitting",
+    "title": "Fitting the camera simulations",
+    "intro": "Four films were fitted to real camera renders instead of being authored by eye."
+  },
+  {
+    "id": "skin",
+    "title": "Skin"
+  },
+  {
+    "id": "recipes",
+    "title": "Recipes",
+    "intro": "Recipes sit on top of films: dynamic range, tone, colour, white balance, grain and the rest."
+  },
+  {
+    "id": "onboarding",
+    "title": "The intro"
+  },
+  {
+    "id": "calibration",
+    "title": "Calibration and retune"
+  },
+  {
+    "id": "white-balance",
+    "title": "White balance"
+  },
+  {
+    "id": "cine",
+    "title": "Cine video"
+  },
+  {
+    "id": "dr-auto",
+    "title": "Dynamic Range Auto"
+  },
+  {
+    "id": "viewfinder-share",
+    "title": "Viewfinder, preview and share"
+  },
+  {
+    "id": "film-roll",
+    "title": "Film Roll",
+    "intro": "A third camera mode: load a film, shoot the roll without seeing it, then develop."
+  },
+  {
+    "id": "website",
+    "title": "The website"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-14",
+  "chapter": "halation-starburst-grain",
+  "title": "Halation that real photos actually reach",
+  "body": [
+    "Halation is the warm glow film gets around bright things, from light bouncing back through the emulsion. My first version only switched on above a threshold real photos almost never reached, so it did nothing. The fix on 14 September let it bloom at every dynamic range, at a level ordinary highlights reach. A later gain fix made it stronger, and on 23 September every look's halation was halved to match."
+  ],
+  "images": [
+    {
+      "file": "img/03-halation-sign.jpg",
+      "alt": "Two crops of a café front: one plain, one with a soft warm glow around the lit Premium Beer sign and the bright sky.",
+      "caption": "Night Market 800 on a café front, with halation off and at the recipe's 30. The glow appears only around the brightest parts: the lit sign and the sky behind the leaves. From DSCF8971, cropped above the street."
+    }
+  ]
+}

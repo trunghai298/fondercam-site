@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-26",
+  "chapter": "viewfinder-share",
+  "title": "A viewfinder without glass, and sharing with stats",
+  "body": [
+    "The viewfinder lost its gradient scrims; every readout now carries its own shadow. The corner marks grow amber when a photo is taken, then settle. In Cine they stay amber for the whole take and a red edge runs round the frame; held sideways, a header with the film name and a REC pill runs along the top.",
+    "The photo preview prints the recipe and film on the picture, with five figures along the bottom: ISO, white balance, DR, highlight and shadow.",
+    "Share now offers three choices: **Photo only**, **Card** (the photo on a dark band with the recipe, the film and those five figures) and **Overlay** (the preview's label burned in). Card and Overlay drop location data before sharing."
+  ],
+  "images": [
+    {
+      "file": "img/15-share-card.jpg",
+      "alt": "A street photo on a dark card. Below it: City Neg 400, Lost Summer Neg, and a row reading ISO 160, WB AWB R+2 B−3, DR 400, Highlight −2, Shadow +1.5.",
+      "caption": "A Card, drawn to the app's layout from DSCF6296 in City Neg 400."
+    }
+  ]
+}
