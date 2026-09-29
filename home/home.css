@@ -319,7 +319,11 @@ html[lang=vi] .cam-pill{letter-spacing:.04em}
 .btn-primary{background:#9a6a2c}
 
 /* Language suggestion */
-.lang-bar{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+/* The bottom bars — the language suggestion and the analytics question (home/consent.js styles its
+   own) — stack in one fixed column, so on a first visit both show without covering each other. */
+.bars{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.bars>*{pointer-events:auto}
+.lang-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;
   background:var(--paper);color:var(--paper-ink);padding:12px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 .lang-bar p{margin:0;flex:1 1 180px}
 .lang-bar a,.lang-bar button{min-height:40px;font:inherit}

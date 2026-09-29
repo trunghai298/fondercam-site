@@ -3,6 +3,7 @@
 
   --overflow PATH WIDTH   print "overflow: none" or the offending elements
   --lang-bar              print the tests/lang_bar.html results
+  --consent               print the tests/consent.html results (home/consent.js's decision)
   --matrix OUTDIR         screenshot every chapter: 390/1280 × en/vi × motion/reduce × js/nojs
 """
 import base64, json, os, re, shutil, socket, struct, subprocess, sys, time, urllib.request
@@ -34,6 +35,13 @@ def overflow(path, width):
                  f"--dump-dom", f"{BASE}{path}?probe=overflow")
     m = re.search(r'data-overflow="([^"]*)"', dom)
     return f"overflow: {m.group(1) if m else 'probe missing'}"
+
+
+def consent():
+    dom = chrome("--virtual-time-budget=3000", "--dump-dom", f"{BASE}/tests/consent.html")
+    import html
+    m = re.search(r'<pre id="out">(.*?)</pre>', dom, re.S)
+    return html.unescape(m.group(1)) if m else "no output"
 
 
 def lang_bar():
@@ -173,6 +181,8 @@ if __name__ == "__main__":
     a = sys.argv[1:]
     if a[:1] == ["--overflow"]:
         print(with_server(lambda: overflow(a[1], int(a[2]))))
+    elif a[:1] == ["--consent"]:
+        print(with_server(consent))
     elif a[:1] == ["--lang-bar"]:
         print(with_server(lang_bar))
     elif a[:1] == ["--matrix"]:

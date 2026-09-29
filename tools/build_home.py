@@ -41,6 +41,8 @@ def validate_config(cfg, root=None):
             raise BuildError(f"config {key} is required")
     if cfg["stage"] in ("testflight", "appstore") and not cfg.get(cfg["stage"]):
         raise BuildError(f"config stage is {cfg['stage']} but its link ({cfg['stage']}) is empty")
+    if "ga4" in cfg and not re.fullmatch(r"G-[A-Z0-9]{6,12}", str(cfg["ga4"])):
+        raise BuildError(f"config ga4 must be a GA4 measurement id like G-XXXXXXXXXX, got {cfg['ga4']!r}")
     if cfg["stage"] == "appstore":
         badge = Path(root if root is not None else ROOT) / "img/home/app-store-badge.svg"
         if not badge.exists():
@@ -197,6 +199,7 @@ def render_page(template, strings, cfg, lang):
     values = dict(strings)
     values.update({
         "lang": lang,
+        "stage": cfg["stage"],
         "film_count": str(cfg["filmCount"]),
         "canonical": en_home if lang == "en" else vi_home,
         "home_href": "/" if lang == "en" else "/vi/",
@@ -264,11 +267,33 @@ def check_images(root, budget=3_200_000, long_edge=1600):
         raise BuildError(f"img/home totals {total} bytes; budget is {budget}")
 
 
+CONSENT_PAGES = ["index.html", "vi/index.html", "diary/index.html", "privacy/index.html", "terms/index.html"]
+
+
+def check_consent(root, cfg):
+    """Analytics is one id in two places — config.json and home/consent.js — and every page that
+    counts must load consent.js and carry the banner it asks with. Nothing loads Google otherwise."""
+    gid = cfg.get("ga4")
+    if not gid:
+        return
+    js = (Path(root) / "home/consent.js").read_text(encoding="utf-8")
+    if f"const ID = '{gid}';" not in js:
+        raise BuildError(f"home/consent.js does not carry config ga4 {gid}")
+    for rel in CONSENT_PAGES:
+        page = (Path(root) / rel).read_text(encoding="utf-8")
+        if '<script defer src="/home/consent.js"></script>' not in page:
+            raise BuildError(f"{rel} does not load /home/consent.js")
+        if not re.search(r'<div class="consent-bar" hidden>.*?<button class="consent-yes" type="button">[^<]+</button>'
+                         r'\s*<button class="consent-no" type="button">[^<]+</button>', page, re.S):
+            raise BuildError(f"{rel} has no consent banner with named OK and No buttons")
+
+
 def main(argv):
     check = "--check" in argv
     try:
         if check:
             check_images(ROOT)
+            check_consent(ROOT, load_config(ROOT / "config.json"))
         pages = build(ROOT)
     except BuildError as e:
         sys.exit(f"build_home: {e}")
