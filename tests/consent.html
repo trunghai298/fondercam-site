@@ -1,0 +1,19 @@
+<!doctype html><meta charset="utf-8">
+<script src="/home/consent.js"></script>
+<pre id="out"></pre>
+<script>
+const f = window.FonderConsent.decide;
+const broken = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); } };
+const mem = (v) => ({ getItem: (k) => (k === 'fonder-analytics' ? v : null), setItem() {} });
+const cases = [
+  ['no answer yet',   f(mem(null)),    'ask'],
+  ['agreed',          f(mem('yes')),   'load'],
+  ['declined',        f(mem('no')),    'none'],
+  ['anything else',   f(mem('maybe')), 'ask'],
+  ['storage blocked', f(broken),       'ask'],
+  ['no storage',      f(null),         'ask'],
+  ['track is a no-op before OK', (window.FonderConsent.track('chapter_view', { chapter: 'ch0_load' }), String(!!window.dataLayer)), 'false'],
+  ['nothing loaded before an answer', String(!!window.gtag || [...document.scripts].some((s) => s.src.includes('googletagmanager'))), 'false'],
+];
+document.getElementById('out').textContent = cases.map(([n, got, want]) => `${got === want ? 'ok' : 'FAIL'} ${n}`).join('\n');
+</script>

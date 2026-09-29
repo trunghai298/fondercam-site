@@ -53,6 +53,38 @@ class ConfigTests(unittest.TestCase):
             (root / "img/home/app-store-badge.svg").write_text("<svg></svg>")
             b.validate_config(dict(BASE, stage="appstore", appstore="https://apps.apple.com/app/id1"), root=root)
 
+class ConsentTests(unittest.TestCase):
+    def test_ga4_id_must_look_like_one(self):
+        for bad in ["", "UA-123", "G-", "g-xy9h5lmrp0", "G-XY9H5LMRP0 "]:
+            with self.assertRaisesRegex(b.BuildError, "ga4", msg=bad):
+                b.validate_config(dict(BASE, ga4=bad))
+        b.validate_config(dict(BASE, ga4="G-XY9H5LMRP0"))
+
+    def test_repo_consent_matches_config_on_every_page(self):
+        b.check_consent(ROOT, b.load_config(ROOT / "config.json"))
+
+    def test_consent_id_mismatch_refused(self):
+        import tempfile, shutil
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            (root / "home").mkdir()
+            (root / "home/consent.js").write_text("const ID = 'G-AAAAAAAAAA';")
+            with self.assertRaisesRegex(b.BuildError, "consent.js"):
+                b.check_consent(root, dict(BASE, ga4="G-XY9H5LMRP0"))
+
+    def test_banner_buttons_are_named_in_both_languages(self):
+        for page in b.build(ROOT).values():
+            m = re.search(r'<div class="consent-bar" hidden>(.*?)</div>', page, re.S)
+            self.assertIsNotNone(m)
+            names = re.findall(r'<button class="consent-(?:yes|no)" type="button">([^<]+)</button>', m.group(1))
+            self.assertEqual(len(names), 2)
+            self.assertTrue(all(n.strip() for n in names))
+
+    def test_nothing_from_google_in_the_markup(self):
+        for rel in b.CONSENT_PAGES:
+            self.assertNotIn("googletagmanager", (ROOT / rel).read_text(encoding="utf-8"), rel)
+
+
 class StringTests(unittest.TestCase):
     def test_parity_names_missing_keys(self):
         with self.assertRaisesRegex(b.BuildError, "only in en: b"):
@@ -155,6 +187,13 @@ class PageTests(unittest.TestCase):
 
 @unittest.skipUnless(__import__("os").environ.get("HOME_SHOTS"), "set HOME_SHOTS=1 to run the browser checks")
 class BrowserTests(unittest.TestCase):
+    def test_consent_decision(self):
+        import subprocess
+        out = subprocess.run([sys.executable, str(ROOT / "tools/shots.py"), "--consent"],
+                             capture_output=True, text=True, check=True).stdout
+        self.assertNotIn("FAIL", out)
+        self.assertEqual(out.count("ok "), 8, out)
+
     def test_nothing_overflows_at_390_in_vietnamese(self):
         import subprocess
         out = subprocess.run([sys.executable, str(ROOT / "tools/shots.py"), "--overflow", "/vi/", "390"],

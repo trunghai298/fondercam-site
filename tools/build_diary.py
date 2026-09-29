@@ -156,6 +156,7 @@ TEMPLATE = """<!DOCTYPE html>
 <link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/diary/diary.css">
+<script defer src="/home/consent.js"></script>
 </head>
 <body>
 <header class="site-nav">
@@ -189,6 +190,11 @@ TEMPLATE = """<!DOCTYPE html>
   <p>Made in Hà Nội by Trung Hai.</p>
   <nav><a href="/diary/">Diary</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
 </footer>
+<div class="consent-bar" hidden>
+  <p>This site uses Google Analytics to count visits. OK?</p>
+  <button class="consent-yes" type="button">OK</button>
+  <button class="consent-no" type="button">No thanks</button>
+</div>
 </body>
 </html>
 """

@@ -35,3 +35,12 @@ edit the sources below, then rebuild.
   `python3 tools/shots.py --lang-bar` and `python3 tools/shots.py --matrix <outdir>`
   (screenshots every chapter across widths, languages, motion/reduced-motion and
   JS/no-JS).
+
+## Analytics
+
+Google Analytics 4 (`ga4` in `config.json`) runs only after a visitor says OK on the banner: `home/consent.js`
+stores the choice in `localStorage` (`fonder-analytics`) and makes no request to Google before then or after
+"No thanks". Every page (home EN/VI, diary, privacy, terms) loads it and carries the banner; `tools/build_home.py
+--check` holds the id in `consent.js` equal to `config.json` and checks each page. The homepage sends
+`chapter_view`, `slider_touch`, `action_click`, `lang_bar_accept` and `diary_click`, plus `page_lang` on every
+page view; `python3 tools/shots.py --consent` runs the consent decision's browser checks.

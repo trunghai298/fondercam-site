@@ -4,6 +4,7 @@
   "nav_home": "Home", "nav_diary": "Diary", "nav_privacy": "Privacy", "nav_terms": "Terms",
   "lang_switch_label": "Tiếng Việt", "lang_bar_text": "Xem trang này bằng tiếng Việt?", "lang_bar_yes": "Xem tiếng Việt", "lang_bar_no": "Đóng",
   "sound_on": "Sound on", "sound_off": "Sound off",
+  "consent_text": "This site uses Google Analytics to count visits. OK?", "consent_ok": "OK", "consent_no": "No thanks",
   "ch0_kicker": "Load a roll",
   "ch0_title": "Fonder",
   "ch0_line": "A film camera for iPhone.",

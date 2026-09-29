@@ -26,13 +26,21 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 <script defer src="/vendor/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script defer src="/home/grain.js"></script>
 <script defer src="/home/home.js"></script>
+<script defer src="/home/consent.js"></script>
 </head>
 <body data-lang="en">
 <canvas class="grain" aria-hidden="true"></canvas>
+<div class="bars">
 <div class="lang-bar" hidden lang="vi">
   <p>Xem trang này bằng tiếng Việt?</p>
   <a class="lang-bar-yes" href="/vi/" hreflang="vi" lang="vi">Xem tiếng Việt</a>
   <button class="lang-bar-no" type="button">Đóng</button>
+</div>
+<div class="consent-bar" hidden>
+  <p>This site uses Google Analytics to count visits. OK?</p>
+  <button class="consent-yes" type="button">OK</button>
+  <button class="consent-no" type="button">No thanks</button>
+</div>
 </div>
 <header class="site-nav">
   <a class="brand" href="/"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
@@ -43,7 +51,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
   </nav>
 </header>
 <main>
-  <section id="ch0" class="chapter ch-load">
+  <section id="ch0" class="chapter ch-load" data-chapter="ch0_load">
     <div class="pin">
       <p class="kicker">Load a roll</p>
       <div class="canister-wrap">
@@ -56,7 +64,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
-  <section id="ch1" class="chapter ch-shoot">
+  <section id="ch1" class="chapter ch-shoot" data-chapter="ch1_shoot">
     <div class="pin">
       <div class="copy">
         <p class="kicker">01 · Shoot</p>
@@ -166,7 +174,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
-  <section id="ch2" class="chapter ch-develop">
+  <section id="ch2" class="chapter ch-develop" data-chapter="ch2_develop">
     <div class="pin">
       <div class="copy">
         <p class="kicker">02 · Develop</p>
@@ -212,7 +220,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
-  <section id="ch3" class="chapter ch-prints">
+  <section id="ch3" class="chapter ch-prints" data-chapter="ch3_prints">
     <div class="pin">
       <div class="copy">
         <p class="kicker">03 · Prints</p>
@@ -229,14 +237,14 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
-  <section id="ch4" class="chapter ch-ticket">
+  <section id="ch4" class="chapter ch-ticket" data-chapter="ch4_ticket">
     <div class="pin">
       <div class="printer" aria-hidden="true"></div>
       <div class="slot">
       <article class="ticket">
         <p class="kicker">04 · Your roll is ready</p>
         <p class="ticket-no">No. 0001</p>
-        <div class="action"><p class="action-title">TestFlight opens soon</p><p class="action-body">Follow Fonder to get the link first.</p><p class="action-buttons"><a class="btn" href="https://www.instagram.com/fonder.app" rel="noopener" target="_blank">Instagram</a><a class="btn" href="https://www.threads.com/@fonder.app" rel="noopener" target="_blank">Threads</a></p></div>
+        <div class="action" data-stage="follow"><p class="action-title">TestFlight opens soon</p><p class="action-body">Follow Fonder to get the link first.</p><p class="action-buttons"><a class="btn" href="https://www.instagram.com/fonder.app" rel="noopener" target="_blank">Instagram</a><a class="btn" href="https://www.threads.com/@fonder.app" rel="noopener" target="_blank">Threads</a></p></div>
       </article>
       </div>
     </div>

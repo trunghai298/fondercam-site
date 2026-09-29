@@ -25,13 +25,21 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 <script defer src="/vendor/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script defer src="/home/grain.js"></script>
 <script defer src="/home/home.js"></script>
+<script defer src="/home/consent.js"></script>
 </head>
 <body data-lang="{{lang}}">
 <canvas class="grain" aria-hidden="true"></canvas>
+<div class="bars">
 <div class="lang-bar" hidden lang="vi">
   <p>{{lang_bar_text}}</p>
   <a class="lang-bar-yes" href="/vi/" hreflang="vi" lang="vi">{{lang_bar_yes}}</a>
   <button class="lang-bar-no" type="button">{{lang_bar_no}}</button>
+</div>
+<div class="consent-bar" hidden>
+  <p>{{consent_text}}</p>
+  <button class="consent-yes" type="button">{{consent_ok}}</button>
+  <button class="consent-no" type="button">{{consent_no}}</button>
+</div>
 </div>
 <header class="site-nav">
   <a class="brand" href="{{home_href}}"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
@@ -42,7 +50,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
   </nav>
 </header>
 <main>
-  <section id="ch0" class="chapter ch-load">
+  <section id="ch0" class="chapter ch-load" data-chapter="ch0_load">
     <div class="pin">
       <p class="kicker">{{ch0_kicker}}</p>
       <div class="canister-wrap">
@@ -55,7 +63,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
-  <section id="ch1" class="chapter ch-shoot">
+  <section id="ch1" class="chapter ch-shoot" data-chapter="ch1_shoot">
     <div class="pin">
       <div class="copy">
         <p class="kicker">{{ch1_kicker}}</p>
@@ -165,7 +173,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
-  <section id="ch2" class="chapter ch-develop">
+  <section id="ch2" class="chapter ch-develop" data-chapter="ch2_develop">
     <div class="pin">
       <div class="copy">
         <p class="kicker">{{ch2_kicker}}</p>
@@ -211,7 +219,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
-  <section id="ch3" class="chapter ch-prints">
+  <section id="ch3" class="chapter ch-prints" data-chapter="ch3_prints">
     <div class="pin">
       <div class="copy">
         <p class="kicker">{{ch3_kicker}}</p>
@@ -228,14 +236,14 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
-  <section id="ch4" class="chapter ch-ticket">
+  <section id="ch4" class="chapter ch-ticket" data-chapter="ch4_ticket">
     <div class="pin">
       <div class="printer" aria-hidden="true"></div>
       <div class="slot">
       <article class="ticket">
         <p class="kicker">{{ch4_kicker}}</p>
         <p class="ticket-no">{{ch4_ticket_no}}</p>
-        <div class="action">{{action_html}}</div>
+        <div class="action" data-stage="{{stage}}">{{action_html}}</div>
       </article>
       </div>
     </div>
