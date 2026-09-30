@@ -37,7 +37,6 @@ a{color:var(--accent);text-underline-offset:3px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
 /* Grain: a fixed overlay; grain.js draws it. */
-.grain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50;opacity:.07;mix-blend-mode:overlay}
 
 /* Header and footer */
 .site-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;display:flex;justify-content:space-between;align-items:center;height:60px;
