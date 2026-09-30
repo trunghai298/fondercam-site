@@ -3,6 +3,7 @@
   "chapter": "dr-auto",
   "title": "Dynamic Range Auto",
   "body": [
+    "The why, in one sentence: bright skies were the easiest thing to lose, and flattening every picture to protect them made the rest worse — so the choice is now made per frame.",
     "Dynamic range lets a recipe hold highlights by exposing lower and lifting the picture back, as the camera's DR200 and DR400 do. It now has **Auto**, which picks DR100 or DR200 (or DR400 when the ceiling allows) from how much of the scene is close to clipping.",
     "The measure is the share of the frame whose brightest channel is at or above 90% of DR100's white, on a 256-pixel grid. It uses the brightest channel rather than brightness because a saturated blue sky clips in blue long before it looks bright.",
     {

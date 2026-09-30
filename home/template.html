@@ -15,7 +15,7 @@
 <link rel="icon" href="/icon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {{font_preload_html}}
-<link rel="stylesheet" href="/home/home.css?v=2">
+<link rel="stylesheet" href="/home/home.css?v=3">
 <script>
 // Before first paint: when motion will run, its start states apply now (not after load), and each
 // pinned chapter reserves its scroll length until home.js swaps that for the real pin (no shift).
@@ -42,8 +42,8 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 <header class="site-nav">
   <a class="brand" href="{{home_href}}"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
   <nav>
-    <a href="/recipes/">{{nav_recipes}}</a>
-    <a href="/diary/">{{nav_diary}}</a>
+    <a href="{{recipes_href}}">{{nav_recipes}}</a>
+    <a href="{{diary_href}}">{{nav_diary}}</a>
     <a href="{{alt_href}}" hreflang="{{alt_lang}}" lang="{{alt_lang}}">{{lang_switch_label}}</a>
     <button class="sound-toggle" type="button" aria-pressed="false" aria-label="{{sound_on}}" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><g class="waves"><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/></g><g class="mute"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg></button>
   </nav>
@@ -58,7 +58,17 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
       </div>
       <h1>{{ch0_title}}</h1>
       <p class="lead">{{ch0_line}}</p>
+      <p class="cta-line"><a class="btn btn-load" href="#ch4">{{ch0_cta}}</a></p>
       <p class="hint" aria-hidden="true">{{ch0_hint}}</p>
+    </div>
+  </section>
+
+  <section id="ch0b" class="chapter ch-why" data-chapter="ch0b_why">
+    <div class="pin">
+      <p class="kicker">{{why_kicker}}</p>
+      <h2>{{why_title}}</h2>
+      <p class="why-cycle">{{why_cycle}}</p>
+      <p class="why-line">{{why_line}}</p>
     </div>
   </section>
 
@@ -67,6 +77,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
       <div class="copy">
         <p class="kicker">{{ch1_kicker}}</p>
         <h2>{{ch1_title}}</h2>
+        <p class="copy-lead">{{ch1_lead}}</p>
         <p>{{ch1_body}}</p>
         <p class="modes">{{ch1_modes_html}}</p>
       </div>
@@ -114,7 +125,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
             <div class="cam-controls">
               <div class="cam-actions">
                 <svg class="ci"><use href="#ci-bolt"/></svg>
-                <p class="cam-pill"><span class="pill-on">{{cam_still}}</span><span>{{cam_cine}}</span><span>{{cam_roll}}</span></p>
+                <p class="cam-pill"><span class="pill-on">{{cam_still}}</span><span>{{cam_roll}}</span></p>
                 <svg class="ci"><use href="#ci-menu"/></svg>
               </div>
               <div class="cam-bottom">
@@ -177,6 +188,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
       <div class="copy">
         <p class="kicker">{{ch2_kicker}}</p>
         <h2>{{ch2_title}}</h2>
+        <p class="copy-lead">{{ch2_lead}}</p>
         <p>{{ch2_body}}</p>
       </div>
       <div class="phone" role="img" aria-label="{{alt_ch2_phone}}">
@@ -218,11 +230,26 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
+  <section id="ch2b" class="chapter ch-roll" data-chapter="ch2b_roll">
+    <div class="pin">
+      <div class="copy">
+        <p class="kicker">{{roll_kicker}}</p>
+        <h2>{{roll_title}}</h2>
+        <p>{{roll_body}}</p>
+      </div>
+      <div class="roll-visual" aria-hidden="true">
+        <p class="roll-count"><span class="roll-num">01</span><span class="roll-cap">{{roll_exposures_left}}</span></p>
+        <p class="roll-develop">{{roll_develop}}</p>
+      </div>
+    </div>
+  </section>
+
   <section id="ch3" class="chapter ch-prints" data-chapter="ch3_prints">
     <div class="pin">
       <div class="copy">
         <p class="kicker">{{ch3_kicker}}</p>
         <h2>{{ch3_title}}</h2>
+        <p class="copy-lead">{{ch3_lead}}</p>
         <p>{{ch3_body}}</p>
       </div>
       <div class="envelope" aria-hidden="true"></div>
@@ -240,8 +267,19 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
       <p class="kicker">{{rteaser_kicker}}</p>
       <h2>{{rteaser_title}}</h2>
       <p class="rteaser-body">{{rteaser_body}}</p>
+      <ul class="rteaser-lines">{{rteaser_lines_html}}</ul>
       <p class="swatch-line" aria-hidden="true"><i style="background:#30393c"></i><i style="background:#ad5545"></i><i style="background:#d9a074"></i><i style="background:#5d7d3c"></i><i style="background:#5f88c6"></i><i style="background:#e4d4c8"></i></p>
-      <a class="btn" href="/recipes/">{{rteaser_link}}</a>
+      <a class="btn" href="{{recipes_href}}">{{rteaser_link}}</a>
+    </div>
+  </section>
+
+  <section id="ch3c" class="chapter ch-diary-teaser" data-chapter="ch3c_diary">
+    <div class="pin">
+      <p class="kicker">{{dteaser_kicker}}</p>
+      <h2>{{dteaser_title}}</h2>
+      <p class="rteaser-body">{{dteaser_body}}</p>
+      <ul class="diary-cards">{{diary_cards_html}}</ul>
+      <a class="btn" href="{{diary_href}}">{{dteaser_link}}</a>
     </div>
   </section>
 
@@ -260,7 +298,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 </main>
 <footer class="site-footer">
   <p>{{footer_line}}</p>
-  <nav><a href="/recipes/">{{nav_recipes}}</a><a href="/diary/">{{nav_diary}}</a><a href="/privacy/">{{nav_privacy}}</a><a href="/terms/">{{nav_terms}}</a></nav>
+  <nav><a href="{{recipes_href}}">{{nav_recipes}}</a><a href="{{diary_href}}">{{nav_diary}}</a><a href="/privacy/">{{nav_privacy}}</a><a href="/terms/">{{nav_terms}}</a></nav>
 </footer>
 </body>
 </html>

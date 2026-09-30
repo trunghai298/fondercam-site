@@ -3,6 +3,7 @@
   "chapter": "cine",
   "title": "Cine: video with the recipe baked in",
   "body": [
+    "The why, in one sentence: a look that works on one photo is useless in video if the phone drops frames rendering thirty of them a second — every frame gets 33 ms, and that number shaped everything below.",
     "Cine records 1080p at 30 fps with the recipe in every frame. Frames go through the same render graph as photos, then to HEVC with AAC sound. It records at the ratio on screen, cut before the render so no discarded pixel is ever graded.",
     "At 30 fps a frame has 33 ms. The first phone take of the heaviest recipe, Nightshade 800, averaged 32.1 ms: right at the edge, with dropped camera frames and a stall on every recipe switch. What brought it down:",
     {

@@ -26,8 +26,7 @@
       chips.forEach((c) => { c.classList.toggle('is-on', c === chip); c.setAttribute('aria-pressed', String(c === chip)); });
       img.srcset = chip.dataset.srcset;
       img.src = chip.dataset.img;
-      caption.textContent = chip.dataset.label === 'No recipe'
-        ? 'No recipe — straight off the phone' : chip.dataset.label;
+      caption.textContent = chip.dataset.caption || chip.dataset.label;
       if (window.FonderConsent) window.FonderConsent.track('scene_pick', { look: chip.dataset.label });
     };
     chips.forEach((chip) => chip.addEventListener('click', () => select(chip)));

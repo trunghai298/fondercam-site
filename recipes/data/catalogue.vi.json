@@ -1,0 +1,240 @@
+{
+  "looks": {
+    "summer": {
+      "description": "Nắng trưa trở nên ấm thay vì trắng, còn bầu trời phía sau vẫn giữ xanh thay vì bị bạc. Tường trắng hay kính chắn gió chuyển mềm ở vùng sáng nhất, trong khi da người vẫn giữ hơi ấm và phần còn lại của khung dần lạnh hơn.",
+      "guidance": "Ánh sáng giữa trưa ở nơi thoáng, có vùng sáng rõ trong khung hình để tận dụng khả năng giữ chi tiết vùng sáng."
+    },
+    "hanoi": {
+      "description": "Bầu trời trắng ẩm nhưng vẫn giữ được ranh giới; gạch và tường trát ẩm được làm dịu bớt độ cứng; xanh dương và xanh lá của cửa hàng hay mặt nước vẫn tách biệt thay vì hòa lẫn. Trọng lượng thị giác nằm ở phần dưới khung, trong khi bầu trời vẫn luôn giữ được một chút thông tin.",
+      "guidance": "Ánh sáng thành phố ẩm, mờ sương, khi bầu trời trắng còn mọi thứ bên dưới vẫn giữ màu."
+    },
+    "amber": {
+      "description": "Ánh sáng ấm cuối ngày được xử lý theo hướng mềm: vùng sáng không cháy trắng, vùng tối không rơi hẳn xuống đen, và những chi tiết đủ sáng — như tóc bắt nắng hay một chiếc ly — có quầng sáng nhẹ lan quanh. Da lên ấm và dịu, trong khi bầu trời phía sau có chiều sâu hơn.",
+      "guidance": "Ánh sáng ấm từ góc thấp chiếu lên người; công thức này ít phát huy hiệu quả trong những ngày xám trời, ánh sáng đều."
+    },
+    "chrome50": {
+      "description": "Màu sắc ở mức đậm nhất: đỏ vẫn giữ nguyên sắc đỏ dưới nắng gắt, xanh lá sâu hơn thay vì sáng lên, còn bầu trời tối dần về phía trên khung thay vì bị bạc màu. Vùng tối khép lại, khiến tổng thể đậm, chắc và hơi nghiêm.",
+      "guidance": "Nắng có hướng trên chủ thể chịu được độ tương phản cao; với bầu trời nhạt, công thức này sẽ dễ làm mất chi tiết."
+    },
+    "gold": {
+      "description": "Một kiểu ảnh chụp nhanh ấm áp: màu đậm, vùng sáng ngả đào và ánh sáng lan ra rộng hơn một chút. Các góc tối nhất không chạm hẳn tới đen, nên tổng thể giống ảnh rửa từ máy minilab hơn là ảnh scan, đồng thời làm da người trông dễ chịu hơn.",
+      "guidance": "Người trong ánh sáng chiều ấm; đây không phải là công thức dành cho phong cảnh."
+    },
+    "slate": {
+      "description": "Màu lạnh, yên và phẳng dưới bầu trời ít tương phản: xanh dương vẫn nhạt và sáng, tím được giảm bớt, không chi tiết nào có cảm giác được chiếu nắng. Bê tông, vải và mây đều giữ được kết cấu, còn trọng lượng thị giác nằm ở phần thấp của khung.",
+      "guidance": "Những ngày xám và các chủ thể mang tông lạnh, khi ánh sáng yếu cần trông như một lựa chọn có chủ ý thay vì một điều phải chấp nhận."
+    },
+    "harbour": {
+      "description": "Nước và cây cối là trọng tâm của khung hình — xanh biển và cyan được đẩy lên rõ, còn các màu khác giữ tương đối tự nhiên — và không có cạnh nào quá gắt. Bề mặt mềm hơn và hơi ấm nhẹ, khiến cảnh ướt trong bóng râm trông yên bình thay vì lạnh lẽo.",
+      "guidance": "Bến cảng, hồ bơi và những ngày mưa ướt, khi bạn muốn giữ màu của nước mà không cần cảm giác quá sắc nét."
+    },
+    "velour": {
+      "description": "Giống một bản in bị để ngoài sáng quá lâu: màu dịu đi nhưng chưa biến mất, vùng đen chỉ xuống tới xám và toàn khung phủ một sắc ấm đồng đều. Da lên nhạt và mịn, còn độ nặng của hình ảnh giữ khá đều từ góc này sang góc kia.",
+      "guidance": "Chụp người trong nhà dưới ánh sáng cửa sổ; nắng gắt không phù hợp với cách nâng sáng vùng tối của công thức này."
+    },
+    "ember": {
+      "description": "Ánh lửa, bóng đèn và đèn hậu xe trở nên nóng hơn thực tế, quầng sáng lan vào vùng tối xung quanh trong khi phần tối vẫn giữ độ sâu. Gần như không còn sắc lạnh nào trong khung — ngay cả bóng tối cũng hơi ngả ấm, và khuôn mặt cạnh lửa nhận trọn sắc nóng đó.",
+      "guidance": "Lửa, bóng đèn và đèn hậu xe sau khi trời tối; dưới ánh sáng ban ngày, hiệu ứng chỉ còn thành một lớp cam."
+    },
+    "noon": {
+      "description": "Một bức ảnh tự nhiên với màu sắc nhỉnh hơn một chút: trắng vẫn trắng, vùng tối vẫn mở, các góc sáng gần như phần giữa và không có yếu tố nào bị ép theo một tâm trạng nhất định. Đây là điểm xuất phát trung tính để các phong cách khác trong bộ đi xa hơn.",
+      "guidance": "Khi ánh sáng vốn đã đẹp và bạn chỉ muốn tập trung vào bức ảnh, không phải vào công thức màu."
+    },
+    "tungsten": {
+      "description": "Một căn phòng chiếu sáng bằng bóng đèn sẽ lên gần trung tính — tường trắng vẫn trắng, da vẫn tự nhiên — trong khi cửa sổ và mọi thứ bên ngoài vùng ánh sáng đó chuyển sang xanh lạnh. Bóng đèn nở quầng, còn khuôn mặt cạnh đèn vẫn giữ được chi tiết thay vì cháy sáng.",
+      "guidance": "Phòng được chiếu bằng bóng đèn; mang công thức này ra ngoài trời giữa trưa và mọi thứ sẽ ngả xanh."
+    },
+    "carbon": {
+      "description": "Đen trắng với sắc đen thực sự: bóng đổ mạnh trên tường sáng, cạnh vẫn rõ nét và không có quầng sáng. Sắc xám gần trung tính hơn là lạnh, đó cũng là điểm khác biệt so với Silver Mono trên cùng nền phim.",
+      "guidance": "Kiến trúc, bóng đổ sắc nét và bất cứ chủ thể nào có đường nét đáng để giữ lại."
+    },
+    "silver": {
+      "description": "Đen trắng giữ được cả đám mây sáng nhất lẫn chiếc áo tối nhất trong cùng một khung, với dải xám dài, lạnh và cạnh mềm. Không có gì quá gắt, vùng tối vẫn mở và sắc xanh-xám tự nhiên của nền phim được giữ lại.",
+      "guidance": "Những ngày ánh sáng phẳng, âm u và mọi cảnh cần giữ vùng tối sáng thoáng, còn chi tiết."
+    },
+    "pastel": {
+      "description": "Mọi thứ sáng và dịu hơn một chút, vùng trắng có sắc hồng rất nhẹ, còn vùng sáng nhạt dần thay vì cháy thẳng tới trắng. Vàng giữ màu tốt hơn các sắc khác, nên một chi tiết ấm vẫn nổi bật trong tổng thể nhạt như phấn.",
+      "guidance": "Ánh sáng ban ngày dịu trên các chủ thể sáng màu; những màu mạnh trong cảnh sẽ được làm dịu, chứ không bị đẩy lên."
+    },
+    "meadow": {
+      "description": "Cỏ và lá trở thành phần sáng nhất trong khung, ngả vàng ấm thay vì lạnh, khiến cánh đồng sáng lên thay vì tối xuống. Từng ngọn cỏ và cành cây vẫn tách bạch, không hòa thành một mảng, còn bầu trời phía trên vẫn giữ được chi tiết.",
+      "guidance": "Không gian đồng quê rộng mở vào mùa hè; khoảng dư sáng hai stop giúp giữ lại chi tiết của bầu trời."
+    },
+    "verdant": {
+      "description": "Xanh lá trở nên sâu, lạnh và nặng thay vì sáng, khiến tán lá tối hơn bầu trời phía sau. Bên trong mảng tối đó, từng cành vẫn còn rõ, còn các sắc đỏ và cam được giảm để không cạnh tranh với màu xanh.",
+      "guidance": "Những mảng xanh dày dưới ánh sáng mạnh; trong trời âm u, chúng sẽ trở nên nặng và tối."
+    },
+    "rust": {
+      "description": "Hợp với đất khô, lớp sơn cũ và kim loại oxy hóa: các sắc ấm dồn về một tông gỉ thống nhất, còn xanh lá chuyển sang ô-liu và vàng rơm. Xanh dương bị ghìm mạnh, nên toàn ảnh không còn cảm giác tươi hay mát.",
+      "guidance": "Đất khô, lớp sơn cũ và kim loại gỉ dưới ánh nắng thấp."
+    },
+    "dusk": {
+      "description": "Bầu trời khoảng 20 phút sau hoàng hôn: hồng và tím còn giữ trong mây, phần trên và phần dưới bầu trời tách nhau rõ ràng, chuyển sắc mượt thay vì thành từng nấc. Mặt đất phía dưới vẫn đủ chi tiết, không chìm thành một mảng tối bẩn.",
+      "guidance": "Khoảng nửa giờ trước hoặc sau hoàng hôn, khi bầu trời xuất hiện trong khung hình."
+    },
+    "nightshade": {
+      "description": "Một con phố lạnh sau khi trời tối: bầu trời chuyển xanh đậm, vùng tối vẫn sâu và chỉ các bóng đèn mới nở quầng. Hạt phim hiện rõ trên toàn khung, còn khuôn mặt giữ vừa đủ hơi ấm để tách khỏi phần còn lại đã ngả xanh.",
+      "guidance": "Đường phố về đêm, tránh nguồn sáng ấm; công thức này chủ ý làm cảnh dưới đèn dây tóc ngả lạnh."
+    },
+    "magic": {
+      "description": "Dành cho cảnh chụp ngược nắng thấp: sắc vàng lan qua mọi thứ được ánh sáng chạm tới, còn mặt trời vẫn giữ hình tròn thay vì nở thành một mảng trắng. Da người được chủ động giữ lại khỏi sắc ấm quá mức, nên chủ thể vẫn tự nhiên trong khi cảnh vật xung quanh chuyển vàng.",
+      "guidance": "Chụp thẳng về phía mặt trời thấp; công thức này được tạo ra cho ngược sáng, không phải nắng chiếu từ trên cao."
+    },
+    "neon": {
+      "description": "Biển hiệu sáng giữ được màu thay vì cháy trắng ở giữa, và ánh sáng phản chiếu trên mặt đường ướt cũng giữ được màu sắc. Giữa các biển hiệu, bóng tối sâu và sạch; da người vẫn tự nhiên để biển hiệu trở thành điểm nổi bật nhất trong khung.",
+      "guidance": "Biển hiệu phát sáng và mặt đường ướt; công thức này cần một nguồn sáng có màu để phát huy hiệu ứng."
+    },
+    "acid": {
+      "description": "Mỗi màu đều dịch sang sắc kế bên — cỏ ngả xanh lam-lục, cánh cửa đỏ ngả cam, bức tường xanh ngả tím — và màu da cũng dịch theo. Vùng trắng ám xanh lá, vùng tối ám magenta, khiến tổng thể giống một cuộn phim tráng sai hơn là một hiệu ứng chỉnh màu có chủ ý.",
+      "guidance": "Hiệu ứng chuyển màu rõ rệt, phù hợp nhất với chủ thể đơn giản dưới ánh sáng đều, ít tương phản."
+    },
+    "sepia": {
+      "description": "Một bản in đen trắng tông ấm: vùng tối mang sắc nâu, rồi chuyển dần sang hơi ấm sáng hơn khi ảnh sáng lên. Các sắc xám trung gian có cảm giác của ảnh in hơn là âm bản, khiến toàn ảnh mang vẻ đã nhuốm thời gian.",
+      "guidance": "Chủ thể tĩnh và những bề mặt cũ; sắc màu gợi cảm giác thời gian, nên dễ lệch tông với một khung cảnh quá hiện đại."
+    },
+    "haze": {
+      "description": "Ánh sáng lan ra khỏi vùng sáng và tiếp tục phủ khắp khung, khiến ảnh có cảm giác phát sáng trong khi vùng tối không bao giờ khép hẳn. Độ bão hòa giảm còn khoảng một nửa, và da là thứ cuối cùng còn giữ được chút màu — nhợt, mịn và rất mơ màng.",
+      "guidance": "Ngược sáng và chủ thể sáng màu; với cảnh đêm, công thức này có thể làm mọi thứ mờ nhòe gần như biến mất."
+    },
+    "scarlet": {
+      "description": "Bầu trời gần như đen, mây trắng nổi rõ, cây cối tối đi và da người sáng hơn đáng kể. Đây là phong cách có tính đồ họa mạnh nhất trong bộ: ưu tiên hình khối trước, sắc độ sau.",
+      "guidance": "Bầu trời xanh có mây; vào ngày âm u, kính lọc này gần như không có gì để tách lớp."
+    },
+    "fern": {
+      "description": "Đen trắng theo cách đảo ngược thông thường: hàng cây bụi sáng lên trên nền ngôi nhà tối, gân lá vẫn rõ, còn bầu trời hạ về xám trung tính. Nếu Scarlet Sky Mono làm tối bầu trời để đẩy mây lên, công thức này lại nâng cây cối và kéo bầu trời xuống gần chúng hơn.",
+      "guidance": "Bất cứ cảnh nào có nhiều mảng xanh và đường nét rõ; công thức này làm da mặt tối đi khoảng nửa stop, nên không phù hợp với chân dung."
+    },
+    "grit": {
+      "description": "Đen và trắng chiếm phần lớn khung hình, gần như không còn nhiều sắc xám ở giữa. Hạt phim thô phủ toàn ảnh, các góc tối khép vào khung. Khuôn mặt trở thành hình khối hơn là tập hợp sắc độ, còn vùng sáng đi thẳng tới trắng mà không có đoạn chuyển mềm.",
+      "guidance": "Những cảnh thiếu sáng đến mức bình thường bạn có thể không buồn chụp; với cảnh nhẹ nhàng, công thức này sẽ quá mạnh."
+    },
+    "matte": {
+      "description": "Đen trắng không cố tạo kịch tính: những vùng mà công thức khác sẽ đẩy xuống đen thì ở đây vẫn giữ xám, chi tiết được giữ lại gần như khắp nơi và cạnh không bị tăng độ gắt. Đây là bản đơn sắc yên tĩnh nhất trong bộ.",
+      "guidance": "Ánh sáng phẳng hoặc trong bóng râm, khi vùng tối vẫn cần giữ được chi tiết; công thức này sẽ không làm một cảnh nhạt trở nên sắc và mạnh hơn."
+    },
+    "selenium": {
+      "description": "Một bản in đen trắng tông lạnh: xanh tím mạnh nhất ở vùng tối rồi dịu dần về xanh thuần hơn khi ảnh sáng lên. Có thể xem đây là Sepia Mono theo hướng lạnh — cùng chuyển động tông màu nhưng đảo chiều.",
+      "guidance": "Ánh sáng lạnh và chủ thể yên tĩnh; sắc độ này rất dễ bị lấn át trong một cảnh có tông ấm."
+    },
+    "snowglass": {
+      "description": "Phim dương bản tông lạnh được tinh chỉnh cho mùa đông: không dùng phần dự phòng vùng sáng để giữ vùng tối sạch, đồng thời giảm vùng sáng để tuyết và mây vẫn tách biệt, không hòa lẫn. Xanh dương được nhấn mạnh nhất, giúp phân biệt băng, nước và bầu trời. Màu da được tăng nhẹ để khuôn mặt dưới ánh sáng lạnh không bị nhợt nhạt.",
+      "guidance": "Ánh sáng lạnh với chi tiết trắng trong khung hình như tuyết, mây hoặc nước. Không phù hợp với cảnh tông ấm."
+    },
+    "sunday": {
+      "description": "Công thức dành riêng cho chân dung. Vùng sáng được giảm mạnh và vùng tối được nâng để giữ chi tiết ở cả hai phía khuôn mặt. Tổng thể được làm mềm có chủ ý, không tăng độ sắc cạnh hay độ nét. Sắc ấm gợi ánh đèn trong phòng hơn là ánh nắng. Công thức cũng phù hợp với ảnh chụp động vật.",
+      "guidance": "Chụp người trong nhà, dưới ánh sáng cửa sổ hoặc đèn ấm. Không phù hợp với phong cảnh vì dễ khiến ảnh thiếu chiều sâu."
+    },
+    "petal": {
+      "description": "Dành cho những ngày ánh sáng dịu. Lá non được nâng sáng thay vì làm đậm, hồng và vàng nhạt giữ vẻ nhẹ nhàng, bầu trời vẫn thoáng. Sự mềm mại là nét chính của công thức; ngay cả cảnh có màu đậm cũng được thể hiện dịu hơn.",
+      "guidance": "Chồi non dưới ánh sáng dịu. Ít phù hợp với nắng gắt hoặc cây lá xanh đậm giữa mùa hè."
+    },
+    "harvest": {
+      "description": "Sắc thu được tạo từ những mảng xanh: lá ngả ô liu, các màu ấm quy tụ về sắc nâu đỏ gỉ sắt đậm, giúp tán cây chuyển mùa nổi bật thành một mảng màu trên nền trời tối hơn. Hai stop dự phòng vùng sáng giúp giữ chi tiết khi có mặt trời ở góc thấp. Hạt phim bổ sung chất thô mộc cho không khí mùa thu.",
+      "guidance": "Lá chuyển màu dưới ánh nắng thấp. Với cây lá xanh giữa mùa hè, ảnh dễ trông xỉn màu."
+    },
+    "ferry": {
+      "description": "Ánh neon trong không khí ẩm. Vùng đen được nâng sáng thay vì nén tối, quầng sáng được để lan rộng và hạt phim thô tạo cảm giác đêm ấm áp, gần gũi thay vì sắc nét. Màu đỏ và biển hiệu nổi bật; đường nét được làm dịu để lớp không khí giữa bạn và ánh đèn cũng hiện diện trong ảnh.",
+      "guidance": "Nhiều biển hiệu sáng về đêm, lý tưởng nhất khi có mặt nước hoặc đường ướt để phản chiếu. Đêm khô ráo, không khí trong sẽ ít phát huy hiệu ứng lan sáng."
+    },
+    "electric": {
+      "description": "Một sắc đêm lạnh, trong và sắc nét hơn. Vùng đen được làm sâu thay vì nâng sáng; ánh sáng được thể hiện lạnh hơn để biển hiệu LED mang sắc trắng xanh thay vì hổ phách. Các đường nét được nhấn mạnh, giúp mặt đường ướt vẫn rõ nét. Quầng sáng được giới hạn, không lan xa, còn hạt phim mịn hơn so với công thức tông ấm cùng nhóm.",
+      "guidance": "Biển hiệu tông lạnh và đường phố ướt về đêm. Dưới đèn ấm, công thức sẽ làm màu lệch khỏi ánh sáng thực tế."
+    },
+    "quarter": {
+      "description": "Phố cũ giữa ban ngày. Tường vàng ngả màu mù tạt, xanh lá chuyển xanh rêu, đỏ phai thành đỏ gạch. Vùng đen được nâng sáng để giữ cảm giác không khí ẩm trong ảnh. Toàn bộ khung hình ấm lên nhẹ mà không ngả cam.",
+      "guidance": "Tường cũ, cửa chớp và mái ngói dưới ánh sáng ban ngày. Ít phù hợp với phố hiện đại vì thiếu các bề mặt mang dấu vết thời gian."
+    },
+    "sunwash": {
+      "description": "Mùa hè trong ký ức. Vùng sáng được giảm cho dịu, vùng tối được nâng, màu sắc nhạt đi đôi chút và tông ấm tăng lên, gợi một tấm ảnh kỳ nghỉ cất lâu trong ngăn kéo. Tổng thể mềm mại với một chút hạt phim, không nhấn vào độ sắc nét.",
+      "guidance": "Cảnh ban ngày sáng rõ mà bạn muốn tạo cảm giác hoài niệm. Công thức sẽ làm dịu cả những cảnh vốn cần độ sắc và tương phản mạnh."
+    },
+    "windowface": {
+      "description": "Một người bên cửa sổ, phần còn lại của căn phòng lùi vào tối. Vùng sáng được giữ cho khung cửa chứ không phải cho khuôn mặt, nên bên sáng vẫn còn nét và bên tối vẫn còn chi tiết; da được nâng lên một chút rồi giữ nguyên ở đó, và màu xanh lá trong phòng bị đẩy ra sau. Ánh sáng ban ngày qua cửa kính lạnh hơn đèn trong nhà, và công thức này được đặt cho thứ ánh sáng đó.",
+      "guidance": "Khuôn mặt bên cửa sổ, được chiếu sáng từ một phía. Công thức cần độ chuyển từ sáng sang tối; khuôn mặt được chiếu sáng đều sẽ ít thấy hiệu quả."
+    },
+    "whisker": {
+      "description": "Làm cho lông thú, thứ đòi hỏi hai điều khó nhất cùng lúc: giữ bộ lông trắng trước khi nó cháy, và mở bộ lông đen trước khi nó bết lại. Ở đây cả hai đều được đẩy đến hết mức. Phần chi tiết nhỏ được nâng lên thay vì bị làm mượt đi — lông mà thiếu nó thì chỉ còn là một mảng xám — và màu xanh lá được giữ thấp để bãi cỏ không lấn át con vật ngồi trên đó.",
+      "guidance": "Động vật dưới ánh sáng dịu, trong nhà hoặc bóng râm thoáng. Nắng gắt dễ vượt quá khả năng giữ chi tiết vùng sáng của công thức."
+    },
+    "lakemist": {
+      "description": "Buổi sáng lạnh và ẩm trên mặt nước, khi bờ bên kia chỉ còn là một gợi ý chứ không phải một đường nét. Mọi thứ có thể làm bức ảnh sắc lại đều được lấy đi để màu lam của chính cuốn phim trở thành chủ thể: không chỗ nào trong khung hình đen hẳn, màu được giữ gần với xám, và lớp không khí giữa bạn với bờ bên kia được để nguyên. Bốn góc không tối đi, vì sương mù không có mép.",
+      "guidance": "Sương mù, mặt nước và ánh sáng sớm. Cảnh có vùng đen sâu dễ bị bạc màu thiếu tự nhiên thay vì mềm mại."
+    },
+    "latesupper": {
+      "description": "Một bàn ăn lúc đêm muộn, dưới thứ đèn mà căn phòng sẵn có. Nước sốt vẫn đỏ và nước dùng vẫn vàng óng trong khi đầu lạnh của quang phổ bị đẩy sang một bên — đó là điều khiến một căn phòng ấm đọc ra là ấm chứ không phải là cam. Khoảng sáng dư được dành cho màu trắng của cái bát, và việc cân bằng màu dừng lại sớm một chút để thức ăn không bị đổi màu. Hạt phim hiện lên đúng kiểu phim nhạy cao chụp trong nhà — thấy được, nhưng không thô.",
+      "guidance": "Đồ ăn và người dưới ánh đèn ấm trong nhà vào ban đêm. Không phù hợp với ánh sáng ban ngày vì sắc xanh được đẩy mạnh khiến vùng cửa sổ mất tự nhiên."
+    },
+    "nightmarket": {
+      "description": "Vẫn cuốn phim đó nhưng ở ngoài trời và ồn ào. Khoảng tối giữa các quầy được để nguyên là tối, chỗ nào bóng đèn với tới thì được mở hết ra, và chính những bóng đèn được cho phép loè sáng. Bức ảnh được làm mềm đi cho khói và không khí ẩm, còn màu được thả xa hơn bất cứ đâu ở đây. Công thức giả định ánh sáng pha trộn — đèn dây tóc, đèn huỳnh quang và LED trong cùng một khung hình — nên cân bằng màu nằm ở giữa chúng chứ không nghiêng về bên nào. Hạt phim thô, như trên bất cứ cuốn phim nhạy cao nào bị đẩy vào một con phố tối.",
+      "guidance": "Bóng đèn không chụp, hơi nước và biển hiệu về đêm. Cần có nguồn sáng trong khung hình để tạo hiệu ứng quầng sáng."
+    },
+    "stillair": {
+      "description": "Memoir Chrome với màu xanh dương được rút bớt và một lớp hạt nhẹ phủ lên. Bầu trời quang lắng xuống thành màu xanh xám dịu và đám mây trắng ngả sang màu kem, trong khi gạch và đất nung đậm lại thành màu đỏ trầm, còn kính ngả sang xanh mòng két. Màu sắc đầy đặn hơn một chút so với bản thân cuộn phim, nhưng những vùng sáng nhất bị kìm lại nhiều và bức ảnh nghiêng về phía tối, nên nó cần nhiều ánh sáng hơn mức cảnh vật có vẻ cần. Các đường viền và chi tiết nhỏ được làm mềm, và một lớp hạt nhẹ và mịn phủ lên mọi thứ, kèm một quầng sáng mờ ở các mép sáng và các góc tối đi gần như không đáng kể.",
+      "guidance": "Phố xá nắng đẹp và gạch ấm dưới ánh sáng tốt. Hãy cho nó sáng hơn một chút so với mức máy ảnh đề xuất, nếu không khung hình sẽ tối và xám; vào một ngày u ám nó chỉ trở nên nhạt nhẽo."
+    },
+    "ordinaryday": {
+      "description": "Diary Neg với màu sắc được đẩy lên và vùng tối được mở ra. Màu xanh lá và màu vàng nổi lên tươi tắn, sống động, màu đỏ vẫn giữ sắc đỏ thẫm, bầu trời xanh vẫn sáng lên và ngả về xanh lục lam, và da giữ được độ ấm. Cả khung hình được đẩy ấm lên một chút, vùng tối được nâng lên nên bóng râm dưới tán cây hiện ra màu xám dịu thay vì màu đen, còn những vùng sáng vẫn sáng và trong. Hoàn toàn không có hạt phim: một bức ảnh thường ngày trong trẻo, hơi mềm, chỉ kèm một quầng sáng mờ và các góc tối đi rất nhẹ.",
+      "guidance": "Ánh sáng ban ngày thường nhật — việc vặt, những con phố rợp bóng cây, những người bạn quen — khi bạn muốn ngày hôm đó trông tươi và trong hơn một chút so với cảm giác lúc ấy. Không dành cho những cảnh u buồn: nó mở sáng mọi vùng tối."
+    },
+    "lastorders": {
+      "description": "Butter Neg nhắm vào một khuôn mặt được chiếu sáng gắt từ phía máy ảnh trong một căn phòng nhỏ về đêm — tấm ảnh chụp vội lúc cuối bữa tối. Tường, thực đơn và áo sơ mi trắng chuyển màu kem, da ngả vàng óng, và mảng sáng nơi ánh đèn rọi lên má hay trán được hạ xuống thay vì cháy trắng. Màu đỏ trên biển hiệu giữ nguyên sức nặng, chiếc áo khoác tối màu hiện ra màu xanh navy, và màu đen vẫn sâu với một chút lạnh ở rìa. Bức ảnh hơi mềm và không có hạt phim, kèm một quầng sáng trên những gì bị ánh đèn rọi mạnh nhất, và các góc tối dần như căn phòng lùi xa phía sau người trong ảnh.",
+      "guidance": "Người ở cự ly gần sau khi trời tối — một bàn ăn, một quán nhậu, một người bạn được chính đèn của máy ảnh chiếu sáng. Công thức này cần một khuôn mặt trong khung hình; một cảnh ban ngày chỉ ngả vàng mà thôi."
+    },
+    "shoebox": {
+      "description": "Diary Neg như một cuộn phim bị bỏ quên quá lâu trong ngăn kéo. Màu sắc mỏng đi thành một dư âm bạc màu, phủ bụi của chính nó, bầu trời trắng chìm xuống thành màu xám hồng ấm và những bức tường nhạt màu ngả sang sắc tím nhạt, trong khi vùng tối vẫn tối. Những vùng sáng nhất trĩu xuống thay vì rực lên, nên cả bức ảnh tối và phẳng trừ khi được cho thật nhiều ánh sáng. Chi tiết trở nên mềm, và một lớp hạt nhẹ, mềm phủ lên mọi thứ, kèm một quầng sáng dịu quanh các mép sáng và các góc tối đi nhẹ nhàng. Không có gì trông mới; mọi thứ trông như vừa được tìm thấy.",
+      "guidance": "Những ngày nắng và những con phố bình thường mà bạn muốn trông như đã nhiều năm tuổi. Hãy cho nó sáng hơn nhiều so với mức máy ảnh đề xuất; trong ánh sáng yếu, bức ảnh sẽ trở nên đục."
+    },
+    "neg1998": {
+      "description": "Afterglow Neg như một tấm ảnh chụp vội từ một mùa hè cuối thập niên chín mươi. Cả bức ảnh ngả ấm với một chút sắc ô liu, nên bức tường màu kem chuyển sang màu kaki, giấy nâu ngả vàng óng và khung cửa sổ nhạt màu ngả sang xanh xám, trong khi hoa đỏ và các màu ấm vẫn đầy đặn và đậm đà. Vùng tối được nâng lên thành màu nâu xám dịu thay vì màu đen, và những vùng sáng rực lên mà không gắt, nên khung hình trông nhẹ nhàng hơn là mạnh mẽ. Các đường viền và chi tiết nhỏ được làm mềm, và một lớp hạt phim nhẹ và mịn phủ lên mọi thứ, kèm một quầng sáng mờ ở các mép sáng và các góc tối đi nhẹ nhàng.",
+      "guidance": "Những ngày nắng ngoài trời: đường phố, những bức tường đầy nắng, hoa, bạn bè ngoài trời. Hãy cho nó sáng hơn từ một phần ba đến một khẩu so với mức máy ảnh đề xuất; nếu thiếu sáng, màu sắc trở nên đục và vùng tối chuyển sang màu nâu phẳng lì."
+    },
+    "folio": {
+      "description": "Lost Summer Neg như một cuộn phim mùa hè thường ngày. Màu sắc trầm và hơi phai: bầu trời xanh trong nhạt đi gần thành màu xám dịu, mái tôn xanh chuyển sang xám xanh mòng két, mặt tiền cửa hàng màu đỏ ngả về đỏ son và bức tường hồng ngả về màu cá hồi, trong khi tường trắng vẫn sạch với chỉ một chút ấm. Các sắc độ mềm và đều, những bức tường sáng được giữ không bị chói và vùng tối được mở ra một chút, còn các đường viền và chi tiết nhỏ được làm mềm, hoàn toàn không có hạt: bầu trời và những bức tường trơn vẫn mịn. Một quầng sáng mờ nằm ở các mép sáng và các góc tối đi nhẹ nhàng.",
+      "guidance": "Những ngày hè thường nhật: đường phố, sinh hoạt, chuyến đi và bạn bè ngoài trời đủ sáng. Dưới nắng gắt giữa trưa và bầu trời sáng, tăng dải tương phản lên DR200 để giữ chi tiết vùng sáng nhất. Phơi sáng theo mức máy ảnh đề xuất hoặc tăng tối đa 2/3 stop; nếu thiếu sáng, màu dễ bị đục."
+    },
+    "cityneg": {
+      "description": "Lost Summer Neg được đẩy về phía một buổi chiều phố thị ấm áp. Màu sắc đầy đặn: vải đỏ và đèn lồng thành màu đỏ đậm và sâu, làn da ấm và ánh vàng, còn mái hiên, trái cây và biển hiệu giữ trọn sức nặng, trong khi bầu trời quang nhạt đi thành màu xám ấm dịu và hiệu ứng màu xanh mạnh giữ cho áo xanh và biển hiệu xanh đậm lại. Những vùng sáng nhất được kéo lùi nhiều nên tường trắng và bầu trời không bao giờ bị chói, còn vùng tối sâu hơn một bậc, nên ô cửa và mặt tiền cửa hàng vẫn giữ được sức nặng. Chi tiết nhỏ được làm mềm một chút, các đường viền vẫn giữ độ sắc, và một lớp hạt nhẹ và mịn phủ lên mọi thứ, kèm một quầng sáng mờ ở các mép sáng và các góc tối đi nhẹ nhàng.",
+      "guidance": "Đường phố, chợ và người trong thành phố vào ban ngày, dưới nắng hoặc bóng râm thoáng. Phơi sáng theo mức máy ảnh đề xuất; phần vùng sáng được giảm giúp giữ chi tiết tường và bầu trời. Trong bóng râm sâu hoặc lúc chạng vạng, giảm thông số Vùng tối một mức để tránh mất chi tiết trong bóng tối."
+    },
+    "underpass": {
+      "description": "Olive Neg nhắm vào một người đứng dưới dãy đèn tuýp sau khi trời tối — một lối đi ngầm, một cầu thang, một hành lang lúc khuya. Tường, gạch men và sàn nhà chuyển sang màu xanh lá, vùng tối cũng xanh theo, còn khuôn mặt ngả vàng và vàng ô liu với một chút bóng nhẹ nơi ánh đèn chạm vào, nổi bật ấm áp giữa căn phòng. Chiếc áo khoác nâu vẫn giữ độ đậm, màu đen vẫn sâu, và nguồn sáng mạnh nhất dịu thành màu kem nhạt thay vì trắng gắt. Bức ảnh mở ra mềm, hơi phẳng và không có hạt phim, với một quầng sáng nhẹ quanh đèn và các góc tối dần như mép của một khung phim.",
+      "guidance": "Một người dưới ánh đèn trần vào ban đêm — một lối đi, một cầu thang, một trạm xe buýt, một căn phòng lúc khuya. Công thức này cần một khuôn mặt trong khung hình và không có màu nào khác quá mạnh; ban ngày nó chỉ làm mọi thứ ngả màu ô liu."
+    }
+  },
+  "films": {
+    "daylight-cine": "Vùng tối lạnh, vùng sáng ấm, khuôn mặt nằm giữa hai thái cực: bóng tối hơi ngả xanh lam-lục còn highlight chuyển vàng kim, khiến hai đầu khung hình mang hai sắc thái khác nhau. Chỉ màu da được bảo vệ — đậm hơn và sáng hơn một chút, đồng thời dịu ở vùng bắt sáng để vẫn giữ chi tiết. Các màu còn lại được tiết chế, nên cảm giác màu chủ yếu nằm ở vùng tối và vùng sáng.",
+    "harbour-cool": "Cyan được đẩy gần tới giới hạn và sáng hơn, còn xanh dương ngả về cyan rồi sâu hơn, khiến nước và bầu trời trở thành hai vùng màu nổi bật nhất trong khung. Cam, vàng và tím được giảm, màu da không được bảo vệ riêng nên khuôn mặt cũng dịu theo. Tông sáng tối gần như không đổi — toàn bộ hiệu ứng đến từ màu sắc.",
+    "amber-neg": "Da ấm nổi trên nền trời nặng: đỏ ngả cam và đậm hơn, càng sáng càng ấm, trong khi xanh dương ngả tím và tối xuống. Vì vậy khuôn mặt ấm lên còn bầu trời phía sau chìm sâu hơn. Màu da được ghìm lại để không chạy quá xa theo đỏ, đồng thời vùng sáng nhất được làm mềm để gò má vẫn giữ được khối.",
+    "chrome-slide": "Đây là phim dương bản duy nhất trong bộ, và nó mang đúng đặc tính đó: mọi màu đều đậm, xanh lá sâu nhất và ngả về xanh dương, còn vùng tối khép lại thay vì mở ra. Bầu trời trở nên sâu hơn chứ không nhạt đi. Màu da không được bảo vệ riêng, nên khuôn mặt nhận trọn độ đậm màu — cái giá tự nhiên của một bức ảnh dày và chắc như vậy.",
+    "overcast": "Màu được rút bớt thay vì đẩy lên: tím, cyan, xanh dương và xanh lá đều giảm, còn cả vùng tối lẫn vùng sáng đều được làm phai. Riêng xanh dương được làm sáng hơn, để bầu trời trắng phẳng vẫn nhẹ thay vì nặng xám, và toàn ảnh phủ một sắc lạnh đồng nhất. Da giữ màu tốt hơn bất kỳ phim nào khác — nhờ vậy cảm giác giống thời tiết lạnh hơn là lỗi màu.",
+    "faded-print": "Giống một bản in bị để ngoài sáng quá lâu: màu sắc đều bị rút bớt, vùng trung gian phẳng hơn và vùng tối được nâng nên đen không bao giờ xuống thật sâu. Cả vùng tối lẫn vùng sáng cùng mang một sắc ấm ngả vàng, thay vì chia thành hai tông khác nhau như các phim âm bản. Khuôn mặt cũng phai màu theo tổng thể.",
+    "ember": "Sắc đỏ mạnh nhất trong bộ, và càng về vùng sáng càng nóng hơn, khiến những chi tiết vốn ấm trở nên rực rõ. Xanh dương bị giảm mạnh ở cả hai đầu tông, trong khi vùng tối lẫn vùng sáng đều được làm ấm, nên gần như không còn sắc lạnh trong khung. Da không được bảo vệ riêng, vì vậy khuôn mặt nhận trực tiếp sắc đỏ — không hợp ánh sáng ban ngày nhưng rất hợp ánh lửa.",
+    "diary-neg": "Cuộn phim âm bản thường ngày, cho ra đúng nơi chốn thay vì một phong cách: màu sắc nằm ngay dưới mức đậm trọn vẹn ở khắp nơi, trừ màu vàng và màu xanh lá tươi vẫn giữ nguyên sức nặng, còn các sắc độ sáng tối được để nguyên như cảnh vật vốn có. Màu đỏ ngả thêm một bậc về phía đỏ thẫm và màu cam ngả một bậc về phía đỏ; xanh dương ngả về xanh lục lam và sáng lên, nên bầu trời vẫn thoáng đãng, còn hồng tím bị làm dịu mạnh nhất và nghiêng về phía tím. Da giữ nguyên độ ấm vốn có, đậm đà hơn một chút so với màu sắc xung quanh.",
+    "tungsten-cine": "Cân bằng cho ánh sáng đèn: xanh dương ngả sang xanh lục lam, đồng thời sắc lục lam được nâng sáng, nên cửa sổ hoặc màn hình trong phòng có đèn mang sắc xanh lạnh thay vì tím. Vùng tối hơi ngả lạnh và xanh ngọc, còn vùng sáng ngả hổ phách, giúp tách biệt bóng râm với ánh đèn thay vì cùng làm ấm cả hai như Ember. Sắc đỏ và cam chỉ được tăng nhẹ. Da giữ màu tự nhiên và dịu hơn ở vùng bắt sáng, nên khuôn mặt gần đèn vẫn giữ được chi tiết, không bị cháy sáng.",
+    "silver-cool": "Một sắc xám hơi lạnh với lớp ám xanh đồng đều từ vùng tối qua trung gian đến vùng sáng, chỉ mạnh khoảng một phần ba so với Selenium Mono. Vì sắc ám không thay đổi theo độ sáng, công thức có thể loại bỏ hoàn toàn hoặc giữ nguyên mà chất xám vẫn nhất quán. Hai công thức dựa trên phim này đi theo đúng hai hướng đó: một cứng và gần trung tính, một dài tông và lạnh.",
+    "pastel-day": "Toàn bộ ảnh được nâng nhẹ nhưng rút màu không đều: xanh lá giảm nhiều nhất, sau đó là tím, magenta, đỏ và xanh dương, còn vàng gần như giữ nguyên. Vì vậy một bức tường vàng vẫn nổi màu trong khi phần còn lại ngả phấn. Vùng sáng hơi ám hồng và phai dần, còn vùng tối gần như không bị tác động — đó là lý do ảnh không bị trắng sữa như Dream Haze.",
+    "meadow": "Tán lá theo hướng ấm: xanh lá ngả vàng và đậm hơn, vàng-xanh sáng lên, khiến lá sáng thay vì chìm sâu. Gần như không màu nào khác thay đổi — đỏ, cam, cyan và magenta giữ gần nguyên, còn da chỉ sáng lên một chút mà không đổi sắc. Bầu trời phía sau tối nhẹ.",
+    "verdant": "Xanh lá được đẩy đến giới hạn, ngả sang xanh dương và tối hơn, tạo tán lá sâu và lạnh — trái ngược hẳn với sắc lá sáng, ấm của Meadow. Các tông vàng-xanh được tăng đáng kể, còn đỏ, cam, tím và magenta đều được giảm bớt để khung hình xanh không bị màu khác lấn át. Công thức này không ưu tiên giữ tông da, nên khuôn mặt sẽ bị ảnh hưởng trực tiếp bởi cách các sắc xanh được xử lý.",
+    "rust": "Đỏ và cam tiến gần nhau và cùng đậm hơn, khiến toàn bộ dải màu ấm gom về một sắc oxy hóa thống nhất. Xanh lá ngả vàng và mất độ tươi, biến tán lá thành ô-liu, còn xanh dương bị ghìm mạnh. Các màu từ vàng qua tới magenta đều được giảm, vùng tối cũng được làm ấm, nên gần như không còn sắc lạnh để cân bằng.",
+    "dusk": "Trọng tâm nằm ở dải tím: tím ngả xanh dương và đậm hơn, magenta ngả đỏ và mạnh hơn nữa, trong khi đỏ, cam và xanh lá được giảm. Xanh dương tối xuống và ngả tím nhiều hơn ở vùng thấp, giúp phần trên và phần dưới của bầu trời tách nhau rõ. Vùng tối chuyển xanh tím, highlight hơi hồng và khuôn mặt cũng lạnh đi theo tổng thể.",
+    "nightshade": "Bầu trời tối nhất trong bộ: xanh dương được làm sâu, mạnh và càng xuống thấp càng ngả xanh rõ hơn, đi cùng sắc tím mạnh nhất toàn bộ nền phim. Vùng tối dày hơn và ngả violet, đối lập với highlight lạnh. Da là chi tiết ấm hiếm hoi còn lại, nên khuôn mặt vẫn tách khỏi một khung hình đã ngả xanh gần như hoàn toàn.",
+    "magic-hour": "Vàng là màu mạnh nhất và ngả về cam, phủ lên một sắc ấm chạy xuyên suốt vùng tối, trung gian và vùng sáng — lớp ám vàng kim mạnh nhất trong bộ. Da được chủ động kéo theo hướng ngược lại, ghìm bớt và ngả đỏ để khuôn mặt không bị cam quá mức. Xanh dương vẫn giữ sắc nhưng tối hơn, nên bầu trời sâu mà vẫn xanh.",
+    "neon-night": "Ba màu được đẩy cùng lúc — đỏ, magenta và cyan — trong khi vàng được ghìm lại, khiến biển hiệu tách rõ khỏi con phố mà nó đang chiếu sáng. Vùng tối sâu hơn và ngả xanh; nguồn sáng mạnh được làm dịu đủ sớm để giữ màu thay vì cháy trắng. Da gần như không đổi, nên khuôn mặt vẫn tự nhiên giữa các biển hiệu.",
+    "acid-cross": "Tất cả màu đều dịch theo cùng một vòng: cỏ ngả xanh lam-lục, cánh cửa đỏ ngả cam, tường xanh ngả tím. Riêng magenta đi ngược chiều, khiến tổng thể giống một cuộn phim tráng sai hơn là một hiệu ứng có chủ đích. Không có cơ chế bảo vệ màu da, và vì đây là phim màu có tương phản mạnh nhất trong bộ, da cũng dịch màu và trở nên cứng hơn.",
+    "sepia-mono": "Đen trắng tông ấm, càng sáng càng ngả vàng: vùng tối mang sắc nâu rồi chuyển dần sang hơi ấm nhẹ hơn ở vùng sáng. Vùng tối được nâng thay vì làm sâu, còn trung gian chỉ được tăng nhẹ, nên tổng thể giống ảnh in hơn là âm bản. Đây là bản đối xứng của Selenium Mono, vốn chạy cùng chuyển động theo chiều ngược lại và làm sâu vùng tối.",
+    "dream-haze": "Khoảng một nửa màu sắc bị rút đi, mạnh nhất ở xanh lá và xanh dương; vùng tối được nâng nên gần như không có chi tiết nào chạm tới đen. Đây là phim mềm và nhạt nhất trong bộ: bầu trời sáng có thể gần như trắng giấy, còn cả vùng tối lẫn vùng sáng đều mất độ nặng. Da bị giảm màu ít hơn phần còn lại, nên khuôn mặt vẫn là chi tiết có màu rõ nhất.",
+    "scarlet-mono": "Đen trắng qua kính lọc đỏ, cũng là bộ lọc mạnh nhất trong nhóm: bầu trời xanh trong có thể xuống gần đen, khiến mây nổi bật rõ. Đỏ và cam được nâng, còn cyan, xanh dương và tím bị hạ. Da sáng lên đáng kể — có thể làm một số khuôn mặt đẹp hơn nhưng cũng có thể xóa bớt kết cấu da. Với trời mù hoặc quá nhạt, hiệu ứng sẽ yếu vì bộ lọc không còn đủ khác biệt màu để tách.",
+    "fern-mono": "Đen trắng qua kính lọc xanh lá: lá và cỏ sáng lên, trong khi bầu trời và mây cùng hạ về xám. Đỏ và cam đi theo hướng ngược lại, vì vậy bộ lọc vừa làm cây cối sáng hơn vừa khiến da người tối hơn.",
+    "grit-mono": "Bản đen trắng cứng nhất trong bộ ở cả hai đầu tông: vùng tối dày hơn bất kỳ phim nào khác, vùng trung gian được đẩy mạnh, còn vùng sáng đi thẳng tới trắng mà không có đoạn chuyển mềm. Hoàn toàn không phủ tông màu — chỉ còn xám trung tính rất trực diện. Kính lọc vàng nhẹ hoạt động mạnh nhất ở đây, nên bầu trời tối xuống nhiều nhất.",
+    "matte-mono": "Bản đen trắng mềm nhất ở cả hai đầu tông: vùng tối được nâng để không chạm hẳn tới đen, vùng trung gian được dịu xuống và vùng sáng chuyển mềm. Không phủ màu — chỉ là xám trung tính sạch. Kính lọc vàng rất nhẹ, nên bầu trời tối xuống ít hơn bất kỳ nền phim nào khác.",
+    "selenium-mono": "Đen trắng tông lạnh với màu sắc thay đổi theo độ sáng: vùng tối ngả violet, chuyển qua xanh tím rồi về xanh thuần hơn khi ảnh sáng lên. Vùng tối được làm sâu và trung gian chắc hơn, tạo cảm giác khép lại giống ảnh in. Đây là bản đối xứng của Sepia Mono — cùng chuyển động tông màu nhưng đảo chiều — và có lớp ám mạnh hơn Silver Cool nhiều.",
+    "frost-chrome": "Loại phim dương bản thứ hai, thiên về tông lạnh. Vùng tối ngả rõ sang xanh lục lam, vùng trắng vẫn trong và sắc vàng được giảm để cảnh mùa đông không tự ngả ấm. Màu đỏ giữ độ rõ thay vì chuyển cam, còn xanh lục lam được nhấn mạnh nhất, giúp băng, nước, kính và bầu trời tách biệt thay vì hòa thành một mảng xám nhạt. Màu da được tăng nhẹ để khuôn mặt dưới ánh sáng lạnh không bị nhợt nhạt.",
+    "rose-neg": "Được thiết kế cho ảnh chụp người. Màu đỏ và cam gần như giữ nguyên để môi và quần áo tông ấm giữ đúng màu. Hồng tím và xanh lá được giảm để hậu cảnh không lấn át khuôn mặt. Da được giảm nhẹ độ đậm màu và nâng sáng; vùng bắt sáng chuyển dịu sớm, giúp gò má mịn màng thay vì ngả cam. Vùng tối được nâng sáng, tổng thể mềm mại để khuôn mặt dưới ánh sáng gắt vẫn giữ được sắc độ. Hiệu ứng tương tự cũng phù hợp với lông thú.",
+    "bloom-neg": "Dành cho cây lá mới đâm chồi. Lá non được nâng sáng và tăng màu thay vì làm tối, tạo cảm giác ánh sáng xuyên qua hàng cây mùa xuân thay vì một mảng xanh sẫm. Hồng và vàng nhạt giữ vẻ nhẹ nhàng, xanh dương ngả sang xanh lục lam để bầu trời thoáng hơn. Vùng sáng chuyển dịu sớm, tạo nét mềm mịn ở rìa cánh hoa trắng. Màu da giữ nguyên. Tổng thể nhẹ nhàng, phù hợp với những tháng có ánh sáng dịu và màu sắc thanh nhã.",
+    "memoir-chrome": "Cuộn phim dương bản trầm lặng, loại dùng để in một phóng sự trên tạp chí: màu được kìm xuống ở khắp nơi trừ màu cam, vẫn giữ trọn độ đậm, và mọi màu ấm đều ngả thêm một bậc về phía đỏ. Xanh dương ngả về xanh lục lam và sáng lên thay vì đậm lại, còn tím và hồng tím bị kéo lại mạnh nhất, nên bầu trời trông như không khí và một biển đèn neon bớt chói. Da được làm dịu đi một chút, vùng tối khép lại thành màu đen sâu, và những vùng trắng sáng nhất hạ xuống nhẹ nhàng thay vì cháy trắng.",
+    "butter-neg": "Cuộn phim âm bản chụp vội ấm áp, được quét như một tiệm ảnh góc phố ngày trước vẫn in: mọi vùng sáng và vùng giữa ngả về màu vàng bơ pha chút xanh lá, nên tường trắng, giấy và áo sơ mi chuyển màu kem thay vì màu cam. Da chuyển sang màu đào vàng óng ấm áp thay vì hồng hay cam, bớt vàng hơn một bậc so với bức tường phía sau, và phần sáng nhất trên da được hạ xuống nhẹ nhàng. Màu đỏ vẫn đậm và giữ nguyên chỗ của nó, màu cam ngả về vàng óng, xanh lá ngả sang màu ô liu, còn xanh dương và xanh lục lam được làm dịu về phía xanh navy và xanh mòng két. Vùng tối nhất vẫn sâu và hơi ngả lạnh, nên một bộ vest tối màu hiện ra màu xanh navy giữa căn phòng ấm. Nếu Peach Neg và Amber Neg ấm về phía cam, thì cuộn này ấm về phía vàng.",
+    "afterglow-neg": "Cuộn phim âm bản như một tấm ảnh in đã nằm nhiều năm trong album: những vùng sáng nhất ấm lên thành màu hổ phách dịu, những vùng tối nhất hơi nhấc lên khỏi màu đen, và những vùng trắng sáng nhất hạ xuống nhẹ nhàng thay vì cháy trắng. Màu sắc được kìm lại ở hầu khắp mọi nơi, nhiều nhất là xanh lá và hồng tím, nên cây cỏ trở nên trầm lặng thay vì tươi mới. Chỉ riêng xanh dương giữ trọn độ đậm, ngả về xanh lục lam và sáng lên, nên bầu trời vẫn thoáng đãng và trong trẻo. Màu đỏ ngả thêm một bậc về phía cam và trông như màu gạch, còn màu vàng nghiêng về màu hổ phách. Da giữ nguyên độ ấm vốn có.",
+    "lost-summer-neg": "Một cuộn phim âm bản cứng và khô, như một tấm ảnh in mùa hè đã phai màu nhưng vẫn giữ được độ gắt: độ tương phản dốc, nên vùng tối khép lại thật sâu và vùng sáng lên sạch, còn màu sắc rút khỏi những màu nhạt, xỉn trong khi những màu đậm vẫn giữ được phần lớn sức nặng. Các sắc màu dịch chuyển chứ không chỉ nhạt đi. Màu đỏ ngả về phía cam và trông như màu gạch, màu vàng nghiêng về phía cam, màu xanh lá chuyển sang xanh mòng két, còn màu xanh lục lam ngả về xanh dương và là màu duy nhất giữ trọn độ đậm. Xanh dương ngả về xanh lục lam và sáng lên, nên bầu trời vẫn nhạt và thoáng. Vùng tối mất màu với một chút sắc xanh mòng két, còn những vùng sáng nhất ấm lên nhẹ về phía màu hồng đào. Da giữ được nhiều màu hơn mọi thứ xung quanh.",
+    "olive-neg": "Cuộn phim âm bản ban đêm được in dưới ánh đèn tuýp chập chờn: một màu xanh lá nằm ở vùng tối và vùng giữa của khung hình, nên tường xám, gạch men và sàn nhà chuyển sang màu xanh chai thẫm, còn những phần sáng nhất vẫn là màu kem nhạt phảng phất xanh. Làn da không chạy theo căn phòng mà ngả sang vàng và vàng ô liu óng ánh, một quầng ấm giữa nền xanh, và ngay cả khuôn mặt trong bóng râm vẫn giữ sắc vàng thay vì xám đi. Vải và gỗ màu nâu vẫn giữ độ đậm và ngả về ô liu, màu đỏ ngả về cam, còn xanh dương và tím được làm dịu gần như biến mất. Vùng tối nhất vẫn sâu và pha chút xanh lá, cả bức ảnh mềm và hơi phẳng, như một cảnh phim được chiếu sáng từ trần nhà. Nếu Verdant làm cây lá xanh hơn và Butter Neg ấm về phía vàng, thì cuộn này làm căn phòng xanh lại và con người ánh vàng."
+  }
+}

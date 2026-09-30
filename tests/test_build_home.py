@@ -163,7 +163,7 @@ class PageTests(unittest.TestCase):
 
     def test_action_slot_filled(self):
         self.assertIn("https://www.instagram.com/fonder.app", self.en)
-        self.assertIn("Sắp mở thử nghiệm trên TestFlight", self.vi)
+        self.assertIn("Vẫn còn những tấm ảnh bạn chưa chụp.", self.vi)
 
     def test_every_image_sized_and_described(self):
         for page in (self.en, self.vi):
@@ -243,6 +243,42 @@ class LazyNoScriptTests(unittest.TestCase):
                 self.assertEqual(twin.get("width"), lazy.get("width"), lazy_tag)
                 self.assertEqual(twin.get("height"), lazy.get("height"), lazy_tag)
                 self.assertEqual(twin.get("alt", ""), lazy.get("alt", ""), lazy_tag)
+
+
+class ViPagesTests(unittest.TestCase):
+    """The Vietnamese recipes and diary pages: built, in Vietnamese, and paired with English."""
+    PAIRS = [("recipes/index.html", "vi/recipes/index.html", "/recipes/", "/vi/recipes/"),
+             ("diary/index.html", "vi/diary/index.html", "/diary/", "/vi/diary/")]
+
+    def test_vi_pages_exist_and_declare_their_language(self):
+        for en_rel, vi_rel, _, _ in self.PAIRS:
+            self.assertIn('<html lang="en">', (ROOT / en_rel).read_text(encoding="utf-8"))
+            self.assertIn('<html lang="vi">', (ROOT / vi_rel).read_text(encoding="utf-8"))
+
+    def test_each_pair_carries_hreflang_alternates_and_canonical(self):
+        for en_rel, vi_rel, en_url, vi_url in self.PAIRS:
+            for rel, self_url in ((en_rel, en_url), (vi_rel, vi_url)):
+                page = (ROOT / rel).read_text(encoding="utf-8")
+                self.assertIn(f'<link rel="canonical" href="https://fondercam.online{self_url}">', page, rel)
+                self.assertIn(f'hreflang="en" href="https://fondercam.online{en_url}"', page, rel)
+                self.assertIn(f'hreflang="vi" href="https://fondercam.online{vi_url}"', page, rel)
+
+    def test_language_toggle_links_the_other_page(self):
+        for en_rel, vi_rel, en_url, vi_url in self.PAIRS:
+            self.assertIn(f'href="{vi_url}" hreflang="vi"', (ROOT / en_rel).read_text(encoding="utf-8"))
+            self.assertIn(f'href="{en_url}" hreflang="en"', (ROOT / vi_rel).read_text(encoding="utf-8"))
+
+    def test_vi_recipes_build_fails_on_a_missing_key(self):
+        sys.path.insert(0, str(ROOT / "tools"))
+        import build_recipes as br
+        tr = br.make_tr("vi", {})
+        with self.assertRaisesRegex(b.BuildError, "missing key"):
+            tr("hero.title", "What a recipe is")
+
+    def test_vi_homepage_links_vi_recipes_and_diary(self):
+        vi = (ROOT / "vi/index.html").read_text(encoding="utf-8")
+        self.assertIn('href="/vi/recipes/"', vi)
+        self.assertIn('href="/vi/diary/"', vi)
 
 
 class SliderTests(unittest.TestCase):

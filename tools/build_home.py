@@ -7,6 +7,7 @@ Usage (from the repository root):
   python3 tools/build_home.py --check  # verify config, strings, images and that pages are current
 Only the standard library is used.
 """
+import csv
 import html
 import json
 import re
@@ -185,6 +186,59 @@ def sheet_html():
     return "".join(strips)
 
 
+# The recipes teaser samples these occasion lines (the owner's own, EN and VI) from
+# recipes/data/occasions.csv at build time — never hard-coded copy.
+TEASER_OCCASIONS = ["ordinaryday", "summer", "neon"]
+
+
+def load_occasions(root=None):
+    """recipes/data/occasions.csv keyed by recipe id (owner-written, owner-translated)."""
+    path = Path(root if root is not None else ROOT) / "recipes/data/occasions.csv"
+    if not path.exists():
+        raise BuildError(f"{path.relative_to(ROOT)} is missing")
+    with path.open(encoding="utf-8-sig", newline="") as f:
+        return {row["id"]: row for row in csv.DictReader(f)}
+
+
+def rteaser_lines_html(occasions, lang):
+    key = "occasion_vi" if lang == "vi" else "occasion_en"
+    items = []
+    for oid in TEASER_OCCASIONS:
+        if oid not in occasions:
+            raise BuildError(f"teaser occasion {oid!r} is not in recipes/data/occasions.csv")
+        row = occasions[oid]
+        check_names({f"occasions.csv {oid}": row[key] + " " + row["name"]})
+        items.append(f'<li><span class="rt-occ">{html.escape(row[key])}</span>'
+                     f'<span class="rt-name">{html.escape(row["name"])}</span></li>')
+    return "".join(items)
+
+
+def diary_cards_html(lang="en", root=None, count=3):
+    """The homepage diary block's cards: the latest entries' real dates and titles, read
+    from the diary's own source files at build time (so a retitle shows up here too).
+    The Vietnamese page links its own diary and shows the owner's translated titles."""
+    import build_diary
+    base = Path(root if root is not None else ROOT)
+    entries = []
+    for f in sorted((base / "diary/entries").glob("*.json")):
+        e = json.loads(f.read_text(encoding="utf-8"))
+        entries.append((e["date"], f.stem, e["title"]))
+    if not entries:
+        raise BuildError("diary/entries is empty; the diary block needs entries")
+    vi = build_diary.load_vi_strings(base) if lang == "vi" else {}
+    href, dfmt = ("/vi/diary/", build_diary.nice_date_vi) if lang == "vi" else ("/diary/", build_diary.nice_date)
+    items = []
+    for date, slug, title in sorted(entries, reverse=True)[:count]:
+        if lang == "vi":
+            key = f"{slug}.title"
+            if key not in vi:
+                raise BuildError(f"diary/strings.vi.csv is missing {key}")
+            title = vi[key]
+        items.append(f'<li><a href="{href}#{html.escape(slug)}"><span class="dc-date">{html.escape(dfmt(date))}</span>'
+                     f'<span class="dc-title">{html.escape(title)}</span></a></li>')
+    return "".join(items)
+
+
 def font_preload_html(lang):
     """Preload what the first screen draws: the headline's face and the body text (the Vietnamese
     page's accents are a separate subset). The rest load on use (unicode-range in home.css)."""
@@ -205,6 +259,8 @@ def render_page(template, strings, cfg, lang):
         "home_href": "/" if lang == "en" else "/vi/",
         "alt_href": "/vi/" if lang == "en" else "/",
         "alt_lang": "vi" if lang == "en" else "en",
+        "recipes_href": "/recipes/" if lang == "en" else "/vi/recipes/",
+        "diary_href": "/diary/" if lang == "en" else "/vi/diary/",
         "action_html": action_html(cfg, strings),
         "fan_html": fan_html(strings),
         "sheet_html": sheet_html(),
@@ -214,6 +270,8 @@ def render_page(template, strings, cfg, lang):
         "cam_recent_html": cam_recent_html(),
         "cam_shot_html": lazy_img(f"/img/home/still/{STILL_FRAMES[-1]}.jpg", 600, 900),
         "develop_total": str(DEVELOP_FRAMES),
+        "rteaser_lines_html": rteaser_lines_html(load_occasions(), lang),
+        "diary_cards_html": diary_cards_html(lang),
     })
     return fill(template, values)
 
@@ -267,7 +325,8 @@ def check_images(root, budget=3_200_000, long_edge=1600):
         raise BuildError(f"img/home totals {total} bytes; budget is {budget}")
 
 
-CONSENT_PAGES = ["index.html", "vi/index.html", "diary/index.html", "recipes/index.html", "privacy/index.html", "terms/index.html"]
+CONSENT_PAGES = ["index.html", "vi/index.html", "diary/index.html", "vi/diary/index.html",
+                 "recipes/index.html", "vi/recipes/index.html", "privacy/index.html", "terms/index.html"]
 
 
 def check_consent(root, cfg):
