@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fonder — a film camera for iPhone</title>
-<meta name="description" content="Fonder turns your iPhone into a film camera: 39 films, recipes you set like a camera, and Film Roll — shoot a roll, then develop it.">
+<meta name="description" content="Fonder is a film camera for iPhone: 39 films, recipes you set like a camera, and Film Roll — shoot a roll, then develop it.">
 <link rel="canonical" href="https://fondercam.online/">
 <link rel="alternate" hreflang="en" href="https://fondercam.online/">
 <link rel="alternate" hreflang="vi" href="https://fondercam.online/vi/">
 <link rel="alternate" hreflang="x-default" href="https://fondercam.online/">
 <meta property="og:title" content="Fonder — a film camera for iPhone">
-<meta property="og:description" content="Fonder turns your iPhone into a film camera: 39 films, recipes you set like a camera, and Film Roll — shoot a roll, then develop it.">
+<meta property="og:description" content="Fonder is a film camera for iPhone: 39 films, recipes you set like a camera, and Film Roll — shoot a roll, then develop it.">
 <meta property="og:image" content="https://fondercam.online/img/home/og.jpg">
 <link rel="icon" href="/icon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/home/home.css?v=2">
+<link rel="stylesheet" href="/home/home.css?v=3">
 <script>
 // Before first paint: when motion will run, its start states apply now (not after load), and each
 // pinned chapter reserves its scroll length until home.js swaps that for the real pin (no shift).
@@ -52,14 +52,24 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 <main>
   <section id="ch0" class="chapter ch-load" data-chapter="ch0_load">
     <div class="pin">
-      <p class="kicker">Load a roll</p>
+      <p class="kicker">00 · Load</p>
       <div class="canister-wrap">
         <picture><source srcset="/img/home/canisters/olive-neg.webp" type="image/webp"><img class="canister" src="/img/home/canisters/olive-neg.png" width="320" height="320" alt="A Fonder film canister" fetchpriority="high"></picture>
         <div class="leader" aria-hidden="true"></div>
       </div>
-      <h1>Fonder</h1>
-      <p class="lead">A film camera for iPhone.</p>
+      <h1>The feeling of film, not just the look.</h1>
+      <p class="lead">A film camera for iPhone that brings back limited frames, anticipation, and the joy of seeing a roll for the first time.</p>
+      <p class="cta-line"><a class="btn btn-load" href="#ch4">Load a roll</a></p>
       <p class="hint" aria-hidden="true">Scroll to advance the film</p>
+    </div>
+  </section>
+
+  <section id="ch0b" class="chapter ch-why" data-chapter="ch0b_why">
+    <div class="pin">
+      <p class="kicker">Why Fonder</p>
+      <h2>Phone cameras became nearly perfect. Somewhere along the way, taking photos became less exciting.</h2>
+      <p class="why-cycle">Shoot. Check. Delete. Reshoot. Edit. Post.</p>
+      <p class="why-line">Fonder slows that down. Pick a film, trust the frame, and keep living.</p>
     </div>
   </section>
 
@@ -67,9 +77,10 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     <div class="pin">
       <div class="copy">
         <p class="kicker">01 · Shoot</p>
-        <h2>Set it like a camera.</h2>
-        <p>Still mode opens on a recipe, with the white balance and exposure in the corners of the frame. Pick a recipe on any of 39 films, then set it like a camera: white balance, dynamic range, grain, colour. Still, Cine and Roll.</p>
-        <p class="modes"><span>Still</span><span>Cine</span><span>Roll</span></p>
+        <h2>Pick a film. Then forget about it.</h2>
+        <p class="copy-lead">Load the look you want before the moment happens. Set it once. Then shoot.</p>
+        <p>Still mode opens on a recipe, with the white balance and exposure in the corners of the frame. Pick a recipe on any of 39 films, then set it like a camera: white balance, dynamic range, grain, colour. Still and Roll.</p>
+        <p class="modes"><span>Still</span><span>Roll</span></p>
       </div>
       <div class="phone phone-cam" role="img" aria-label="Fonder&#x27;s camera in Still mode on an iPhone: choosing a recipe from the strip, then setting white balance and grain from the controls, the viewfinder changing with each">
         <div class="phone-screen">
@@ -115,7 +126,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
             <div class="cam-controls">
               <div class="cam-actions">
                 <svg class="ci"><use href="#ci-bolt"/></svg>
-                <p class="cam-pill"><span class="pill-on">Still</span><span>Cine</span><span>Roll</span></p>
+                <p class="cam-pill"><span class="pill-on">Still</span><span>Roll</span></p>
                 <svg class="ci"><use href="#ci-menu"/></svg>
               </div>
               <div class="cam-bottom">
@@ -177,7 +188,8 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     <div class="pin">
       <div class="copy">
         <p class="kicker">02 · Develop</p>
-        <h2>Developed on your phone.</h2>
+        <h2>See it when the roll is done.</h2>
+        <p class="copy-lead">Half the fun is not knowing.</p>
         <p>Films fitted to real camera renders, not filters painted by eye. Halation, grain and the whole look are rendered on the iPhone, in the viewfinder and in the photo.</p>
       </div>
       <div class="phone" role="img" aria-label="Fonder on an iPhone, developing a roll of Toffee Neg: twelve frames come up one by one on the contact sheet">
@@ -219,11 +231,26 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
+  <section id="ch2b" class="chapter ch-roll" data-chapter="ch2b_roll">
+    <div class="pin">
+      <div class="copy">
+        <p class="kicker">Film Roll</p>
+        <h2>Stop checking every photo.</h2>
+        <p>Load 12, 24 or 36 exposures. Take the picture and move on. No deleting the bad ones. No taking twelve versions of the good ones. Finish your roll. Then see what you got.</p>
+      </div>
+      <div class="roll-visual" aria-hidden="true">
+        <p class="roll-count"><span class="roll-num">01</span><span class="roll-cap">exposures left</span></p>
+        <p class="roll-develop">Develop</p>
+      </div>
+    </div>
+  </section>
+
   <section id="ch3" class="chapter ch-prints" data-chapter="ch3_prints">
     <div class="pin">
       <div class="copy">
         <p class="kicker">03 · Prints</p>
         <h2>Two rolls, one afternoon.</h2>
+        <p class="copy-lead">Nothing important happened. That’s why you’ll be glad you photographed it.</p>
         <p>Load a roll, shoot it blind, then develop it all at once — with a border and a date stamp if you like.</p>
       </div>
       <div class="envelope" aria-hidden="true"></div>
@@ -241,8 +268,19 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
       <p class="kicker">The recipes</p>
       <h2>What a recipe is</h2>
       <p class="rteaser-body">A film character plus the darkroom decisions around it. Every recipe Fonder ships, taken apart on one frame — and one scene developed through them all.</p>
+      <ul class="rteaser-lines"><li><span class="rt-occ">For nothing special.</span><span class="rt-name">Ordinary Day 200</span></li><li><span class="rt-occ">For days you&#x27;ll miss in December.</span><span class="rt-name">Summer Chrome</span></li><li><span class="rt-occ">For staying out too late.</span><span class="rt-name">Neon Night</span></li></ul>
       <p class="swatch-line" aria-hidden="true"><i style="background:#30393c"></i><i style="background:#ad5545"></i><i style="background:#d9a074"></i><i style="background:#5d7d3c"></i><i style="background:#5f88c6"></i><i style="background:#e4d4c8"></i></p>
       <a class="btn" href="/recipes/">Browse the recipes</a>
+    </div>
+  </section>
+
+  <section id="ch3c" class="chapter ch-diary-teaser" data-chapter="ch3c_diary">
+    <div class="pin">
+      <p class="kicker">The diary</p>
+      <h2>Building Fonder in public</h2>
+      <p class="rteaser-body">Notes from making the films, breaking things, fixing them, and trying to make an iPhone feel a little more like a camera again.</p>
+      <ul class="diary-cards"><li><a href="/diary/#2026-09-28-rewind-and-memory"><span class="dc-date">28 September 2026</span><span class="dc-title">36 shots worked. Developing them didn&#x27;t.</span></a></li><li><a href="/diary/#2026-09-28-homepage"><span class="dc-date">28 September 2026</span><span class="dc-title">A new homepage</span></a></li><li><a href="/diary/#2026-09-27-strong-push-films"><span class="dc-date">27 September 2026</span><span class="dc-title">Five strong-push films</span></a></li></ul>
+      <a class="btn" href="/diary/">Read the development diary →</a>
     </div>
   </section>
 
@@ -253,7 +291,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
       <article class="ticket">
         <p class="kicker">04 · Your roll is ready</p>
         <p class="ticket-no">No. 0001</p>
-        <div class="action" data-stage="follow"><p class="action-title">TestFlight opens soon</p><p class="action-body">Follow Fonder to get the link first.</p><p class="action-buttons"><a class="btn" href="https://www.instagram.com/fonder.app" rel="noopener" target="_blank">Instagram</a><a class="btn" href="https://www.threads.com/@fonder.app" rel="noopener" target="_blank">Threads</a></p></div>
+        <div class="action" data-stage="follow"><p class="action-title">There are photos you haven’t taken yet.</p><p class="action-body">Fonder is coming to iPhone. Join the first group to load a roll.</p><p class="action-buttons"><a class="btn" href="https://www.instagram.com/fonder.app" rel="noopener" target="_blank">Instagram</a><a class="btn" href="https://www.threads.com/@fonder.app" rel="noopener" target="_blank">Threads</a></p></div>
       </article>
       </div>
     </div>

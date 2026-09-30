@@ -1,7 +1,7 @@
 {
   "date": "2026-09-28",
   "chapter": "film-roll",
-  "title": "A longer rewind, and 36-exposure rolls that develop",
+  "title": "36 shots worked. Developing them didn't.",
   "body": [
     "The rewind now follows the length of the roll: 1.8 s for 12 exposures, 2.8 s for 24 and 3.6 s for 36, easing slow–fast–slow. Each frame wound back gives one light crank tick, with a small knock on the canister. The canister is bigger now and sits on a soft panel with a faint amber glow.",
     "The more important fix was underneath. Developing a 24 or 36-exposure roll crashed the app after about 15 frames. Each frame renders twice (a preview, then full resolution) on serial queues that only freed their temporary buffers when they went idle, and during a roll they never do. About 150 MB per ProRAW frame piled up until iOS killed the app. Now both queues release memory after every frame.",

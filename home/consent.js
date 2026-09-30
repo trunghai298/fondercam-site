@@ -73,11 +73,13 @@ box-shadow:0 10px 30px rgba(0,0,0,.35);font:400 15px/1.4 "Be Vietnam Pro",ui-san
     on('.compare input', 'input', () => track('slider_touch'), true);
     on('.lang-bar-yes', 'click', () => track('lang_bar_accept'));
     if (document.querySelector('main .chapter')) {
-      on('.site-nav a[href="/diary/"]', 'click', () => track('diary_click', { from: 'header' }));
-      on('.site-footer a[href="/diary/"]', 'click', () => track('diary_click', { from: 'footer' }));
-      on('.site-nav a[href="/recipes/"]', 'click', () => track('recipes_click', { from: 'header' }));
-      on('.site-footer a[href="/recipes/"]', 'click', () => track('recipes_click', { from: 'footer' }));
-      on('main a[href="/recipes/"]', 'click', () => track('recipes_click', { from: 'teaser' }));
+      // $= matches both languages' pages: /diary/ and /vi/diary/, /recipes/ and /vi/recipes/.
+      on('.site-nav a[href$="/diary/"]', 'click', () => track('diary_click', { from: 'header' }));
+      on('.site-footer a[href$="/diary/"]', 'click', () => track('diary_click', { from: 'footer' }));
+      on('main a[href*="/diary/"]', 'click', () => track('diary_click', { from: 'home_block' }));
+      on('.site-nav a[href$="/recipes/"]', 'click', () => track('recipes_click', { from: 'header' }));
+      on('.site-footer a[href$="/recipes/"]', 'click', () => track('recipes_click', { from: 'footer' }));
+      on('main a[href$="/recipes/"]', 'click', () => track('recipes_click', { from: 'teaser' }));
     }
     // A chapter counts as seen when any of it crosses the middle of the screen — pinned chapters are
     // several screens tall, so a share of their area would never be reached. Only a sent view retires a

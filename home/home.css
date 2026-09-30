@@ -64,6 +64,7 @@ h1{font-size:clamp(56px,14vw,148px);line-height:.9}
 h2{font-size:clamp(34px,7vw,72px);line-height:1}
 .copy{display:grid;gap:14px;max-width:34ch}
 .copy p{margin:0;color:var(--muted);overflow-wrap:anywhere}
+.copy .copy-lead{color:var(--ink);font-size:clamp(17px,2.6vw,21px)}
 .lead{font-size:clamp(20px,3.4vw,28px);margin:0}
 @media (min-width:900px){ .ch-shoot .pin,.ch-develop .pin{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:center} }
 
@@ -76,6 +77,18 @@ h2{font-size:clamp(34px,7vw,72px);line-height:1}
 /* 0 · Load */
 .ch-load{--ground:var(--charcoal)}
 .ch-load .pin{justify-items:start;min-height:78svh;padding-bottom:16px}
+.ch-load h1{font-size:clamp(42px,10vw,104px)}
+.ch-load .lead{color:var(--muted);max-width:44ch}
+.cta-line{margin:0}
+.btn.btn-load{background:var(--amber);color:var(--charcoal);box-shadow:0 3px 0 rgba(0,0,0,.6)}
+.btn.btn-load:active{box-shadow:0 1px 0 rgba(0,0,0,.6)}
+
+/* 0b · Why Fonder: a plain text strip, no motion (like the recipes teaser). */
+.ch-why{--ground:var(--charcoal);--prev-ground:var(--charcoal)}
+.ch-why .pin{justify-items:start;gap:16px;min-height:0;padding:72px 0 64px}
+.ch-why h2{font-size:clamp(26px,4.6vw,44px);max-width:26ch}
+.why-cycle{margin:0;font:500 13px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.why-line{margin:0;font-size:clamp(18px,2.8vw,24px);max-width:36ch}
 .canister-wrap{position:relative;width:min(40vw,200px)}
 .canister{width:100%;aspect-ratio:1/1;background:none;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
 .leader{position:absolute;left:80%;top:52%;width:min(44vw,300px);aspect-ratio:8/3;translate:0 -50%;transform-origin:left center;
@@ -133,7 +146,7 @@ html[lang=vi] .cap-t{text-transform:none}
 .vf-flash{position:absolute;inset:0;background:#fff;opacity:0}
 .cam-controls{position:absolute;left:0;right:0;top:calc(737 * var(--u))}
 .cam-actions{display:flex;align-items:center;justify-content:space-between;height:calc(48 * var(--u));padding:0 calc(38 * var(--u))}
-.cam-pill{position:relative;display:grid;grid-template-columns:repeat(3,1fr);width:calc(236 * var(--u));height:calc(42 * var(--u));align-items:center;text-align:center;
+.cam-pill{position:relative;display:grid;grid-template-columns:repeat(2,1fr);width:calc(180 * var(--u));height:calc(42 * var(--u));align-items:center;text-align:center;
   border:1px solid var(--c-hair);border-radius:99px;font-size:max(9px,calc(11 * var(--u)));letter-spacing:.16em;color:var(--c-muted);white-space:nowrap}
 html[lang=en] .cam-pill{text-transform:uppercase}
 html[lang=vi] .cam-pill{letter-spacing:.04em}
@@ -293,8 +306,27 @@ html[lang=vi] .cam-pill{letter-spacing:.04em}
 .compare-tag{position:absolute;bottom:10px;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;background:rgba(0,0,0,.55);color:#fff;padding:4px 8px;border-radius:4px}
 .compare-tag.before{left:10px}.compare-tag.after{right:10px}
 
+/* 2b · Film Roll: the roll counter counting down as the section passes, no pin. */
+.ch-roll{--ground:var(--charcoal);--prev-ground:var(--safelight);--accent:var(--amber)}
+.ch-roll .pin{justify-items:start;gap:28px;min-height:0;padding:72px 0 64px}
+@media (min-width:900px){ .ch-roll .pin{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:center} }
+.roll-visual{display:grid;gap:14px;justify-items:start}
+@media (min-width:900px){ .roll-visual{justify-self:center} }
+.roll-count{display:flex;align-items:baseline;gap:14px;margin:0}
+.roll-num{font:500 clamp(64px,16vw,110px)/0.9 var(--mono);letter-spacing:.04em;color:var(--amber);
+  font-variant-numeric:tabular-nums;min-width:2ch;text-shadow:0 0 22px rgba(225,173,102,.35)}
+.roll-num.is-low{color:var(--led);text-shadow:0 0 22px rgba(255,138,30,.45)}
+.roll-cap{font:500 12px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.roll-develop{display:inline-flex;align-items:center;min-height:40px;margin:0;padding:0 20px;border:1.5px solid var(--amber);border-radius:99px;
+  color:var(--amber);font:500 13px var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  background:repeating-linear-gradient(90deg,rgba(225,173,102,.14) 0 1px,transparent 1px 8px)}
+@keyframes roll-pulse{50%{opacity:.45}}
+html.motion .roll-num.is-low{animation:roll-pulse .9s ease-in-out infinite}
+html.motion .roll-develop{opacity:.25}
+html.motion .roll-develop.is-on{opacity:1}
+
 /* 3 · Prints */
-.ch-prints{--ground:var(--paper);--prev-ground:var(--safelight);--ink:var(--paper-ink);--muted:#5d5246;--accent:var(--pencil)}
+.ch-prints{--ground:var(--paper);--prev-ground:var(--charcoal);--ink:var(--paper-ink);--muted:#5d5246;--accent:var(--pencil)}
 .envelope{display:none}
 .fan{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
 .print-card{background:#fbf7ef;padding:8px 8px 34px;box-shadow:0 8px 20px rgba(60,40,20,.25);position:relative;transform:rotate(calc((var(--i) - 2.5) * 1.6deg))}
@@ -309,8 +341,23 @@ html[lang=vi] .cam-pill{letter-spacing:.04em}
 .ch-recipes-teaser .pin{justify-items:start;gap:14px;min-height:0;padding:64px 0 56px}
 .ch-recipes-teaser h2{font-size:clamp(28px,5vw,48px)}
 .rteaser-body{margin:0;color:var(--muted);max-width:52ch}
+.rteaser-lines{list-style:none;margin:8px 0 2px;padding:0;display:grid;gap:8px}
+.rteaser-lines li{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.rt-occ{font:400 22px var(--hand);color:var(--pencil)}
+.rt-name{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#8a6a3c}
 .swatch-line{margin:4px 0 6px;display:flex;gap:5px}
 .swatch-line i{width:26px;height:17px;border-radius:4px;border:1px solid rgba(31,26,20,.18)}
+
+/* 3c · Diary teaser: same paper strip as the recipes teaser, entry cards from the diary itself. */
+.ch-diary-teaser{--ground:var(--paper);--prev-ground:var(--paper);--ink:var(--paper-ink);--muted:#5d5246;--accent:var(--pencil)}
+.ch-diary-teaser .pin{justify-items:start;gap:14px;min-height:0;padding:56px 0 56px}
+.ch-diary-teaser h2{font-size:clamp(28px,5vw,48px)}
+.diary-cards{list-style:none;margin:6px 0 8px;padding:0;display:grid;gap:12px;width:100%}
+@media (min-width:800px){ .diary-cards{grid-template-columns:repeat(3,1fr)} }
+.diary-cards a{display:grid;gap:4px;align-content:start;background:#fbf7ef;box-shadow:0 6px 16px rgba(60,40,20,.15);
+  border-radius:4px;padding:14px 16px;text-decoration:none;color:var(--paper-ink)}
+.dc-date{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8a6a3c}
+.dc-title{font:600 17px/1.3 var(--display);letter-spacing:-.01em}
 
 /* 4 · Ticket */
 .ch-ticket{--ground:var(--paper);--prev-ground:var(--paper);--ink:var(--paper-ink);--muted:#5d5246;--accent:#9a6a2c}

@@ -4,20 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fonder — máy ảnh phim cho iPhone</title>
-<meta name="description" content="Fonder biến iPhone của bạn thành máy ảnh phim: 39 màu phim, công thức tùy chỉnh như trên máy ảnh và chế độ Cuộn phim — chụp hết cuộn rồi tráng.">
+<meta name="description" content="Fonder là máy ảnh phim cho iPhone: 39 màu phim, công thức chỉnh như trên máy ảnh và Film Roll — chụp hết một cuộn rồi mới tráng.">
 <link rel="canonical" href="https://fondercam.online/vi/">
 <link rel="alternate" hreflang="en" href="https://fondercam.online/">
 <link rel="alternate" hreflang="vi" href="https://fondercam.online/vi/">
 <link rel="alternate" hreflang="x-default" href="https://fondercam.online/">
 <meta property="og:title" content="Fonder — máy ảnh phim cho iPhone">
-<meta property="og:description" content="Fonder biến iPhone của bạn thành máy ảnh phim: 39 màu phim, công thức tùy chỉnh như trên máy ảnh và chế độ Cuộn phim — chụp hết cuộn rồi tráng.">
+<meta property="og:description" content="Fonder là máy ảnh phim cho iPhone: 39 màu phim, công thức chỉnh như trên máy ảnh và Film Roll — chụp hết một cuộn rồi mới tráng.">
 <meta property="og:image" content="https://fondercam.online/img/home/og.jpg">
 <link rel="icon" href="/icon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-vietnamese.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/home/home.css?v=2">
+<link rel="stylesheet" href="/home/home.css?v=3">
 <script>
 // Before first paint: when motion will run, its start states apply now (not after load), and each
 // pinned chapter reserves its scroll length until home.js swaps that for the real pin (no shift).
@@ -44,8 +44,8 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 <header class="site-nav">
   <a class="brand" href="/vi/"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
   <nav>
-    <a href="/recipes/">Công thức</a>
-    <a href="/diary/">Nhật ký</a>
+    <a href="/vi/recipes/">Công thức</a>
+    <a href="/vi/diary/">Nhật ký</a>
     <a href="/" hreflang="en" lang="en">English</a>
     <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Bật âm thanh" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><g class="waves"><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/></g><g class="mute"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg></button>
   </nav>
@@ -53,14 +53,24 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 <main>
   <section id="ch0" class="chapter ch-load" data-chapter="ch0_load">
     <div class="pin">
-      <p class="kicker">Lắp cuộn phim</p>
+      <p class="kicker">00 · Lắp phim</p>
       <div class="canister-wrap">
         <picture><source srcset="/img/home/canisters/olive-neg.webp" type="image/webp"><img class="canister" src="/img/home/canisters/olive-neg.png" width="320" height="320" alt="Một hộp phim Fonder" fetchpriority="high"></picture>
         <div class="leader" aria-hidden="true"></div>
       </div>
-      <h1>Fonder</h1>
-      <p class="lead">Máy ảnh phim cho iPhone.</p>
+      <h1>Cảm giác chụp phim, không chỉ là màu phim.</h1>
+      <p class="lead">Một chiếc máy ảnh phim cho iPhone, mang lại cảm giác giới hạn từng khung hình, sự chờ đợi và niềm vui khi lần đầu xem trọn một cuộn ảnh.</p>
+      <p class="cta-line"><a class="btn btn-load" href="#ch4">Lắp cuộn phim</a></p>
       <p class="hint" aria-hidden="true">Cuộn xuống để lên phim</p>
+    </div>
+  </section>
+
+  <section id="ch0b" class="chapter ch-why" data-chapter="ch0b_why">
+    <div class="pin">
+      <p class="kicker">Vì sao có Fonder</p>
+      <h2>Camera điện thoại ngày càng hoàn hảo. Nhưng đâu đó trên chặng đường ấy, việc chụp ảnh lại bớt vui hơn.</h2>
+      <p class="why-cycle">Chụp. Xem lại. Xóa. Chụp lại. Chỉnh. Đăng.</p>
+      <p class="why-line">Fonder làm nhịp đó chậm lại. Chọn một màu phim, tin vào khung hình rồi tiếp tục sống trong khoảnh khắc.</p>
     </div>
   </section>
 
@@ -68,9 +78,10 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     <div class="pin">
       <div class="copy">
         <p class="kicker">01 · Chụp</p>
-        <h2>Tùy chỉnh như trên máy ảnh.</h2>
-        <p>Chế độ Ảnh mở sẵn một công thức, với thông số cân bằng trắng và phơi sáng ở các góc khung hình. Chọn công thức trên một trong 39 màu phim, rồi tùy chỉnh như trên máy ảnh: cân bằng trắng, dải tương phản, hạt phim và màu sắc. Ba chế độ: Ảnh, Video và Cuộn phim.</p>
-        <p class="modes"><span>Ảnh</span><span>Video</span><span>Cuộn phim</span></p>
+        <h2>Chọn một màu phim. Rồi quên nó đi.</h2>
+        <p class="copy-lead">Chọn trước cảm giác bạn muốn cho bức ảnh, rồi cứ thế mà chụp.</p>
+        <p>Chế độ Still mở cùng một công thức, với cân bằng trắng và phơi sáng ngay ở các góc khung hình. Chọn công thức từ bất kỳ màu phim nào trong 39 màu phim, rồi chỉnh như trên máy ảnh: cân bằng trắng, dải tương phản, hạt phim và màu sắc. Dùng cho cả Still và Roll.</p>
+        <p class="modes"><span>Ảnh</span><span>Cuộn phim</span></p>
       </div>
       <div class="phone phone-cam" role="img" aria-label="Máy ảnh Fonder ở chế độ Ảnh trên iPhone: chọn công thức từ dải công thức, rồi chỉnh cân bằng trắng và hạt phim bằng các nút tùy chỉnh. Khung ngắm thay đổi theo từng lựa chọn.">
         <div class="phone-screen">
@@ -116,7 +127,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
             <div class="cam-controls">
               <div class="cam-actions">
                 <svg class="ci"><use href="#ci-bolt"/></svg>
-                <p class="cam-pill"><span class="pill-on">Ảnh</span><span>Video</span><span>Cuộn phim</span></p>
+                <p class="cam-pill"><span class="pill-on">Ảnh</span><span>Cuộn phim</span></p>
                 <svg class="ci"><use href="#ci-menu"/></svg>
               </div>
               <div class="cam-bottom">
@@ -178,7 +189,8 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     <div class="pin">
       <div class="copy">
         <p class="kicker">02 · Tráng phim</p>
-        <h2>Tráng phim ngay trên điện thoại.</h2>
+        <h2>Xem ảnh khi cuộn phim đã hết.</h2>
+        <p class="copy-lead">Một nửa niềm vui nằm ở việc chưa biết ảnh sẽ ra sao.</p>
         <p>Mỗi màu phim được tinh chỉnh theo ảnh từ máy ảnh thật, không phải bộ lọc pha màu theo cảm tính. Quầng sáng, hạt phim và toàn bộ hiệu ứng được xử lý ngay trên iPhone, cả trong khung ngắm lẫn ảnh chụp.</p>
       </div>
       <div class="phone" role="img" aria-label="Fonder trên iPhone đang tráng một cuộn Toffee Neg: mười hai kiểu ảnh lần lượt hiện lên trên bảng ảnh cả cuộn">
@@ -220,11 +232,26 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
+  <section id="ch2b" class="chapter ch-roll" data-chapter="ch2b_roll">
+    <div class="pin">
+      <div class="copy">
+        <p class="kicker">Cuộn phim</p>
+        <h2>Đừng xem lại từng tấm nữa.</h2>
+        <p>Lắp cuộn 12, 24 hoặc 36 kiểu. Chụp xong rồi đi tiếp. Không xóa tấm chưa ưng. Không chụp mười hai lần cùng một khoảnh khắc. Chụp hết cuộn, rồi mới xem mình đã có gì.</p>
+      </div>
+      <div class="roll-visual" aria-hidden="true">
+        <p class="roll-count"><span class="roll-num">01</span><span class="roll-cap">kiểu còn lại</span></p>
+        <p class="roll-develop">Tráng phim</p>
+      </div>
+    </div>
+  </section>
+
   <section id="ch3" class="chapter ch-prints" data-chapter="ch3_prints">
     <div class="pin">
       <div class="copy">
         <p class="kicker">03 · Ảnh in</p>
         <h2>Hai cuộn phim, một buổi chiều.</h2>
+        <p class="copy-lead">Chẳng có gì đặc biệt xảy ra. Chính vì thế sau này bạn sẽ vui vì mình đã chụp lại.</p>
         <p>Lắp một cuộn phim, chụp mà không xem trước, rồi tráng cả cuộn cùng lúc. Thêm viền và dấu ngày chụp nếu thích.</p>
       </div>
       <div class="envelope" aria-hidden="true"></div>
@@ -241,9 +268,20 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     <div class="pin">
       <p class="kicker">Công thức</p>
       <h2>Công thức là gì</h2>
-      <p class="rteaser-body">Một chất phim cùng những quyết định phòng tối quanh nó. Mọi công thức Fonder mang theo, được tháo rời trên một khung hình — và một khung cảnh được tráng qua tất cả (trang tiếng Anh).</p>
+      <p class="rteaser-body">Một chất phim cùng những quyết định phòng tối quanh nó. Mọi công thức Fonder mang theo, được tháo rời trên một khung hình — và một khung cảnh được tráng qua tất cả.</p>
+      <ul class="rteaser-lines"><li><span class="rt-occ">Cho những ngày chẳng có gì đặc biệt.</span><span class="rt-name">Ordinary Day 200</span></li><li><span class="rt-occ">Cho những ngày bạn sẽ nhớ khi tháng Mười Hai về.</span><span class="rt-name">Summer Chrome</span></li><li><span class="rt-occ">Cho những đêm về quá muộn.</span><span class="rt-name">Neon Night</span></li></ul>
       <p class="swatch-line" aria-hidden="true"><i style="background:#30393c"></i><i style="background:#ad5545"></i><i style="background:#d9a074"></i><i style="background:#5d7d3c"></i><i style="background:#5f88c6"></i><i style="background:#e4d4c8"></i></p>
-      <a class="btn" href="/recipes/">Xem các công thức</a>
+      <a class="btn" href="/vi/recipes/">Xem các công thức</a>
+    </div>
+  </section>
+
+  <section id="ch3c" class="chapter ch-diary-teaser" data-chapter="ch3c_diary">
+    <div class="pin">
+      <p class="kicker">Nhật ký</p>
+      <h2>Xây Fonder công khai, từng bước một</h2>
+      <p class="rteaser-body">Những ghi chép về việc làm màu phim, làm hỏng mọi thứ, sửa lại chúng — và cố khiến chiếc iPhone cho cảm giác giống một chiếc máy ảnh hơn một chút.</p>
+      <ul class="diary-cards"><li><a href="/vi/diary/#2026-09-28-rewind-and-memory"><span class="dc-date">28/9/2026</span><span class="dc-title">36 kiểu chụp thì ổn. Đến lúc tráng thì không.</span></a></li><li><a href="/vi/diary/#2026-09-28-homepage"><span class="dc-date">28/9/2026</span><span class="dc-title">Trang chủ mới</span></a></li><li><a href="/vi/diary/#2026-09-27-strong-push-films"><span class="dc-date">27/9/2026</span><span class="dc-title">Năm màu phim đẩy mạnh</span></a></li></ul>
+      <a class="btn" href="/vi/diary/">Đọc nhật ký phát triển →</a>
     </div>
   </section>
 
@@ -254,7 +292,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
       <article class="ticket">
         <p class="kicker">04 · Cuộn phim của bạn đã sẵn sàng</p>
         <p class="ticket-no">Số 0001</p>
-        <div class="action" data-stage="follow"><p class="action-title">Sắp mở thử nghiệm trên TestFlight</p><p class="action-body">Theo dõi Fonder để nhận liên kết sớm nhất.</p><p class="action-buttons"><a class="btn" href="https://www.instagram.com/fonder.app" rel="noopener" target="_blank">Instagram</a><a class="btn" href="https://www.threads.com/@fonder.app" rel="noopener" target="_blank">Threads</a></p></div>
+        <div class="action" data-stage="follow"><p class="action-title">Vẫn còn những tấm ảnh bạn chưa chụp.</p><p class="action-body">Fonder sắp có mặt trên iPhone. Hãy là một trong những người đầu tiên được lắp cuộn phim đầu tiên.</p><p class="action-buttons"><a class="btn" href="https://www.instagram.com/fonder.app" rel="noopener" target="_blank">Instagram</a><a class="btn" href="https://www.threads.com/@fonder.app" rel="noopener" target="_blank">Threads</a></p></div>
       </article>
       </div>
     </div>
@@ -262,7 +300,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 </main>
 <footer class="site-footer">
   <p>Được Trung Hai tạo nên tại Hà Nội.</p>
-  <nav><a href="/recipes/">Công thức</a><a href="/diary/">Nhật ký</a><a href="/privacy/">Quyền riêng tư</a><a href="/terms/">Điều khoản</a></nav>
+  <nav><a href="/vi/recipes/">Công thức</a><a href="/vi/diary/">Nhật ký</a><a href="/privacy/">Quyền riêng tư</a><a href="/terms/">Điều khoản</a></nav>
 </footer>
 </body>
 </html>

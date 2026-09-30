@@ -2,10 +2,13 @@
    this file only adds what this page draws. Grounds alternate the homepage's way. */
 
 .rc-hero{--ground:var(--charcoal)}
+.rc-find{--ground:var(--charcoal);--prev-ground:var(--charcoal)}
 .rc-anatomy{--ground:var(--plastic);--prev-ground:var(--charcoal);--accent:var(--led)}
 .rc-scene{--ground:var(--charcoal);--prev-ground:var(--plastic)}
 .rc-build{--ground:var(--plastic);--prev-ground:var(--charcoal);--accent:var(--led)}
-.rc-catalogue{--ground:var(--paper);--prev-ground:var(--plastic);--ink:var(--paper-ink);--muted:#5d5246;--accent:var(--pencil)}
+.rc-featured{--ground:var(--paper);--prev-ground:var(--plastic);--ink:var(--paper-ink);--muted:#5d5246;--accent:var(--pencil)}
+.rc-choose,.rc-before,.rc-manifesto,.rc-cta{--ground:var(--paper);--prev-ground:var(--paper);--ink:var(--paper-ink);--muted:#5d5246;--accent:var(--pencil)}
+.rc-catalogue{--ground:var(--paper);--prev-ground:var(--paper);--ink:var(--paper-ink);--muted:#5d5246;--accent:var(--pencil)}
 
 /* No pinned scroll play here: chapters size to their content. */
 .chapter .wrap{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:72px 0 64px;display:grid;gap:22px}
@@ -58,12 +61,44 @@
 .b-slider i::after{content:"";position:absolute;left:62%;top:50%;width:12px;height:12px;border-radius:50%;
   background:#f3f2f2;translate:-50% -50%}
 
+/* Featured close readings */
+.features{display:grid;gap:20px}
+.feature{background:#fbf7ef;box-shadow:0 8px 20px rgba(60,40,20,.18);border-radius:4px;overflow:hidden;display:grid}
+@media (min-width:800px){ .feature{grid-template-columns:minmax(0,2fr) minmax(0,3fr)} .feature>img{height:100%;object-fit:cover} }
+.feature>img{width:100%}
+.feature-body{padding:18px 18px 22px;display:grid;gap:10px;align-content:start}
+.feature-kind{margin:0;font:500 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#8a6a3c}
+.feature-body h3{margin:0;font:600 26px var(--display);letter-spacing:-.01em;color:var(--paper-ink)}
+.feature-occ{margin:-4px 0 0;font:400 21px var(--hand);color:var(--pencil)}
+.feature-intro{margin:0;font-size:15px;line-height:1.55;color:#4c4338}
+.feature-best,.feature-when{margin:0;font-size:14px;line-height:1.55;color:#4c4338}
+.feature-best b,.feature-when b,.feature-look b{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#8a6a3c}
+.feature-look{list-style:none;margin:0;padding:10px 0 2px;display:grid;gap:7px;border-top:1px solid rgba(31,26,20,.12)}
+.feature-look li{font-size:14px;line-height:1.5;color:#4c4338}
+.feature-links{margin:2px 0 0;display:flex;gap:16px;flex-wrap:wrap;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.feature-links a{color:#8a6a3c}
+
+/* The moment picker */
+.picks{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.picks li{display:flex;justify-content:space-between;align-items:baseline;gap:10px 18px;flex-wrap:wrap;
+  padding:13px 0;border-bottom:1px solid rgba(31,26,20,.15)}
+.pick-when{font-size:16px;color:var(--paper-ink)}
+.pick-films{font:500 12px var(--mono);letter-spacing:.08em}
+.pick-films a{color:#8a6a3c}
+
+/* Before-the-shutter, manifesto and the closing CTA */
+.anatomy-link{margin:0;font-size:15px;color:var(--muted)}
+.anatomy-link a{color:#8a6a3c}
+.rc-manifesto .wrap,.rc-cta .wrap{padding-top:40px}
+.rc-cta .wrap{padding-bottom:88px}
+
 /* Catalogue */
 .cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
 .recipe-card{background:#fbf7ef;box-shadow:0 8px 20px rgba(60,40,20,.18);border-radius:4px;overflow:hidden;
   display:grid;grid-template-rows:auto 1fr}
 .recipe-card>img{width:100%}
 .card-body{padding:14px 14px 18px;display:grid;gap:8px;align-content:start}
+.card-occasion{margin:0 0 -4px;font-style:italic;font-size:13.5px;line-height:1.4;color:var(--pencil)}
 .card-body h3{margin:0;font:600 20px var(--display);letter-spacing:-.01em;color:var(--paper-ink)}
 .card-film{margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:500 11px var(--mono);
   letter-spacing:.12em;text-transform:uppercase;color:#8a6a3c}

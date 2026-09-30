@@ -4,7 +4,7 @@
   window.FonderHome = Home;
 
   const noop = () => {};
-  Home.chapters = { load: noop, shoot: noop, develop: noop, prints: noop, ticket: noop };
+  Home.chapters = { load: noop, shoot: noop, develop: noop, roll: noop, prints: noop, ticket: noop };
   // Replaced with real players once the sound toggle wires up (only when motion is on); until
   // then, and always when sound is off, these are safe no-ops.
   Home.playAdvance = noop;
@@ -246,6 +246,32 @@
     tl.to('#ch2 :is(.st-dev,.c-dev,.m-dev,.n-dev,.f-dev,.app-tabs)', { opacity: 0, duration: 0.3 }, DEV + 0.1)
       .to('#ch2 :is(.st-done,.c-done,.m-done,.n-done,.f-done)', { opacity: 1, duration: 0.3 }, DEV + 0.3)
       .to({}, { duration: 1.4 }, DEV + 0.6);
+    update();
+  };
+
+  Home.chapters.roll = (gsap) => {
+    // The Film Roll counter, counting down as the section passes — text only, no pin.
+    // Timeline units 0–5 step through STEPS (one unit each), 5–6 is the Develop moment.
+    // Without motion the section simply shows its end state: 01 left, Develop lit.
+    const num = document.querySelector('#ch2b .roll-num');
+    const develop = document.querySelector('#ch2b .roll-develop');
+    const STEPS = [24, 17, 8, 3, 1];
+    let tl = null;
+    let shown = '';
+    const update = () => {
+      if (!tl) return;
+      const t = tl.time();
+      const v = STEPS[Math.min(STEPS.length - 1, Math.max(0, Math.floor(t)))];
+      const s = String(v).padStart(2, '0');
+      if (s !== shown) { shown = s; num.textContent = s; }
+      num.classList.toggle('is-low', v <= 3);         // the last frames pulse, like the app
+      develop.classList.toggle('is-on', t >= 5);
+    };
+    tl = gsap.timeline({
+      scrollTrigger: { trigger: '#ch2b .roll-visual', start: 'top 85%', end: 'top 25%', scrub: 0.6 },
+      onUpdate: update,
+    });
+    tl.to({}, { duration: 6 });
     update();
   };
 
