@@ -284,6 +284,12 @@ html[lang=vi] .cam-pill{letter-spacing:.04em}
 .compare-after{clip-path:inset(0 0 0 var(--split))}
 .compare input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
 .compare::after{content:"";position:absolute;top:0;bottom:0;left:var(--split);width:2px;background:#fff;box-shadow:0 0 8px rgba(0,0,0,.5)}
+/* The grip on the divider: ◂ ▸ so the slider reads as draggable at a glance. Decorative and
+   inert (empty content, pointer-events none — the input keeps every pointer event). z-index
+   lifts it above the two absolutely-positioned photos, which otherwise paint over a ::before. */
+.compare::before{content:"";position:absolute;z-index:2;pointer-events:none;top:50%;left:var(--split);width:34px;height:34px;translate:-50% -50%;border-radius:50%;
+  background:rgba(0,0,0,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M9.5 7 4.5 12l5 5zM14.5 7l5 5-5 5z'/%3E%3C/svg%3E") center/20px no-repeat;
+  border:1.5px solid rgba(255,255,255,.9);box-shadow:0 2px 8px rgba(0,0,0,.5)}
 .compare:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
 .compare-tag{position:absolute;bottom:10px;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;background:rgba(0,0,0,.55);color:#fff;padding:4px 8px;border-radius:4px}
 .compare-tag.before{left:10px}.compare-tag.after{right:10px}
@@ -298,6 +304,14 @@ html[lang=vi] .cam-pill{letter-spacing:.04em}
 .contact{margin:0;display:grid;gap:8px}
 .contact img{width:100%;aspect-ratio:16/11}
 .contact figcaption{font:400 20px var(--hand);color:var(--pencil)}
+
+/* 3b · Recipes teaser: a light strip on the same paper, not pinned. */
+.ch-recipes-teaser{--ground:var(--paper);--prev-ground:var(--paper);--ink:var(--paper-ink);--muted:#5d5246;--accent:var(--pencil)}
+.ch-recipes-teaser .pin{justify-items:start;gap:14px;min-height:0;padding:64px 0 56px}
+.ch-recipes-teaser h2{font-size:clamp(28px,5vw,48px)}
+.rteaser-body{margin:0;color:var(--muted);max-width:52ch}
+.swatch-line{margin:4px 0 6px;display:flex;gap:5px}
+.swatch-line i{width:26px;height:17px;border-radius:4px;border:1px solid rgba(31,26,20,.18)}
 
 /* 4 · Ticket */
 .ch-ticket{--ground:var(--paper);--prev-ground:var(--paper);--ink:var(--paper-ink);--muted:#5d5246;--accent:#9a6a2c}

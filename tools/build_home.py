@@ -267,7 +267,7 @@ def check_images(root, budget=3_200_000, long_edge=1600):
         raise BuildError(f"img/home totals {total} bytes; budget is {budget}")
 
 
-CONSENT_PAGES = ["index.html", "vi/index.html", "diary/index.html", "privacy/index.html", "terms/index.html"]
+CONSENT_PAGES = ["index.html", "vi/index.html", "diary/index.html", "recipes/index.html", "privacy/index.html", "terms/index.html"]
 
 
 def check_consent(root, cfg):
