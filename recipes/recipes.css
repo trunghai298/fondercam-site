@@ -1,0 +1,82 @@
+/* The recipes page: home.css does fonts, nav, footer, chapters and the compare slider;
+   this file only adds what this page draws. Grounds alternate the homepage's way. */
+
+.rc-hero{--ground:var(--charcoal)}
+.rc-anatomy{--ground:var(--plastic);--prev-ground:var(--charcoal);--accent:var(--led)}
+.rc-scene{--ground:var(--charcoal);--prev-ground:var(--plastic)}
+.rc-build{--ground:var(--plastic);--prev-ground:var(--charcoal);--accent:var(--led)}
+.rc-catalogue{--ground:var(--paper);--prev-ground:var(--plastic);--ink:var(--paper-ink);--muted:#5d5246;--accent:var(--pencil)}
+
+/* No pinned scroll play here: chapters size to their content. */
+.chapter .wrap{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:72px 0 64px;display:grid;gap:22px}
+.rc-hero .wrap{padding-top:48px}
+.wrap .lead{font-size:clamp(17px,2.6vw,22px);color:var(--muted);max-width:62ch;margin:0}
+.wrap .lead em{color:var(--ink);font-style:normal}
+.note{font-size:14px;color:var(--muted);max-width:62ch;margin:0}
+
+/* Anatomy cards */
+.settings{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.setting{background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;display:grid;gap:10px;align-content:start}
+.rc-catalogue .setting{background:#fbf7ef}
+.setting h3{margin:0;font:600 19px var(--display);letter-spacing:-.01em}
+.setting p{margin:0;font-size:14.5px;line-height:1.55;color:var(--muted)}
+.setting .compare{margin-top:2px}
+.setting-text{border-style:dashed}
+.setting-foot{font:500 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);opacity:.85}
+.rc-hero h1{font-size:clamp(38px,8vw,84px)}
+
+/* One scene, every film */
+.scene-stage{margin:0;display:grid;gap:10px}
+.scene-stage img{width:100%;border-radius:8px}
+.scene-stage figcaption{font:400 19px var(--hand);color:var(--accent)}
+.scene-chips{display:flex;flex-wrap:wrap;gap:8px}
+.scene-chip{font:500 12px var(--mono);letter-spacing:.08em;color:var(--muted);background:none;
+  border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:8px 13px;cursor:pointer;min-height:36px}
+.scene-chip.is-on{color:var(--charcoal);background:var(--amber);border-color:var(--amber)}
+.chip-badge{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:99px;background:rgba(255,138,30,.18);
+  color:var(--led);font-size:9px;letter-spacing:.1em;text-transform:uppercase}
+.scene-chip.is-on .chip-badge{background:rgba(0,0,0,.18);color:inherit}
+
+/* Build-your-own phone frames, in the homepage camera's own materials */
+.builder-frames{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.bframe{margin:0;display:grid;gap:10px}
+.bscreen{width:min(100%,300px);aspect-ratio:9/16;border-radius:22px;border:1px solid rgba(255,255,255,.14);background:#1c1a18;
+  padding:16px 14px;display:grid;gap:12px;align-content:start;box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.bframe figcaption{font-size:14px;color:var(--muted)}
+.b-top{margin:0;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.b-top span{font:500 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--amber)}
+.b-top b{font:500 13px var(--body);color:#f3f2f2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.b-photo{aspect-ratio:3/2;border-radius:8px;background:
+  linear-gradient(180deg,#7fa7c3 0 45%,#c9c2ae 45% 62%,#5d6b4e 62% 100%);filter:saturate(.9)}
+.b-photo-warm{filter:sepia(.35) saturate(1.05)}
+.b-rows{display:grid;gap:8px}
+.b-rows p{margin:0;display:flex;justify-content:space-between;font-size:12.5px;color:#bab6b6;
+  border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:7px}
+.b-val{color:#f3f2f2}
+.b-slider{display:flex;align-items:center;gap:8px;font:500 9px var(--mono);color:#bab6b6}
+.b-slider i{flex:1;height:3px;border-radius:2px;background:linear-gradient(90deg,#7fa7c3,#e1ad66);position:relative}
+.b-slider i::after{content:"";position:absolute;left:62%;top:50%;width:12px;height:12px;border-radius:50%;
+  background:#f3f2f2;translate:-50% -50%}
+
+/* Catalogue */
+.cards{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.recipe-card{background:#fbf7ef;box-shadow:0 8px 20px rgba(60,40,20,.18);border-radius:4px;overflow:hidden;
+  display:grid;grid-template-rows:auto 1fr}
+.recipe-card>img{width:100%}
+.card-body{padding:14px 14px 18px;display:grid;gap:8px;align-content:start}
+.card-body h3{margin:0;font:600 20px var(--display);letter-spacing:-.01em;color:var(--paper-ink)}
+.card-film{margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:500 11px var(--mono);
+  letter-spacing:.12em;text-transform:uppercase;color:#8a6a3c}
+.palette{display:inline-flex;gap:3px}
+.palette i{width:18px;height:12px;border-radius:3px;border:1px solid rgba(31,26,20,.18)}
+.card-desc{margin:0;font-size:14px;line-height:1.55;color:#4c4338}
+.card-grain{margin:0;font-size:12.5px;color:#5d5246}
+.card-grain b{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#8a6a3c}
+.card-when{margin:0;font:400 17px var(--hand);color:var(--pencil)}
+.card-scene{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#8a6a3c;justify-self:start}
+
+/* Phone width: one column already via auto-fill; keep gutters and the stage honest. */
+@media (max-width:420px){
+  .chapter .wrap{padding:56px 0 48px}
+  .settings,.cards{grid-template-columns:1fr}
+}

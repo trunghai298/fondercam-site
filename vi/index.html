@@ -17,7 +17,7 @@
 <link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-vietnamese.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/home/home.css">
+<link rel="stylesheet" href="/home/home.css?v=2">
 <script>
 // Before first paint: when motion will run, its start states apply now (not after load), and each
 // pinned chapter reserves its scroll length until home.js swaps that for the real pin (no shift).
@@ -46,6 +46,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 <header class="site-nav">
   <a class="brand" href="/vi/"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
   <nav>
+    <a href="/recipes/">Công thức</a>
     <a href="/diary/">Nhật ký</a>
     <a href="/" hreflang="en" lang="en">English</a>
     <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Bật âm thanh" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><g class="waves"><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/></g><g class="mute"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg></button>
@@ -238,6 +239,16 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
+  <section id="ch3b" class="chapter ch-recipes-teaser" data-chapter="ch3b_recipes">
+    <div class="pin">
+      <p class="kicker">Công thức</p>
+      <h2>Công thức là gì</h2>
+      <p class="rteaser-body">Một chất phim cùng những quyết định phòng tối quanh nó. Mọi công thức Fonder mang theo, được tháo rời trên một khung hình — và một khung cảnh được tráng qua tất cả (trang tiếng Anh).</p>
+      <p class="swatch-line" aria-hidden="true"><i style="background:#30393c"></i><i style="background:#ad5545"></i><i style="background:#d9a074"></i><i style="background:#5d7d3c"></i><i style="background:#5f88c6"></i><i style="background:#e4d4c8"></i></p>
+      <a class="btn" href="/recipes/">Xem các công thức</a>
+    </div>
+  </section>
+
   <section id="ch4" class="chapter ch-ticket" data-chapter="ch4_ticket">
     <div class="pin">
       <div class="printer" aria-hidden="true"></div>
@@ -253,7 +264,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 </main>
 <footer class="site-footer">
   <p>Được Trung Hai tạo nên tại Hà Nội.</p>
-  <nav><a href="/diary/">Nhật ký</a><a href="/privacy/">Quyền riêng tư</a><a href="/terms/">Điều khoản</a></nav>
+  <nav><a href="/recipes/">Công thức</a><a href="/diary/">Nhật ký</a><a href="/privacy/">Quyền riêng tư</a><a href="/terms/">Điều khoản</a></nav>
 </footer>
 </body>
 </html>

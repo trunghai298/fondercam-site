@@ -1,0 +1,1274 @@
+{
+  "recipes": [
+    {
+      "id": "summer",
+      "name": "Summer Chrome",
+      "film": {
+        "id": "daylight-cine",
+        "name": "Daylight Cine",
+        "palette": [
+          "#30393c",
+          "#ad5545",
+          "#d9a074",
+          "#5d7d3c",
+          "#5f88c6",
+          "#e4d4c8"
+        ],
+        "line": "Cool shadows, warm highlights, and a face sitting between them: the dark parts go faintly blue-green while the bright parts go golden, so the two ends of the frame disagree. Skin is the only thing protected — a little richer, a little brighter, and eased where the light lands, so a cheek in the sun keeps its detail. Everything else is trimmed back, so only the ends of the picture are coloured."
+      },
+      "description": "Midday sun comes back warm rather than white, and the sky behind it keeps its blue instead of bleaching out. A white wall or a windscreen rounds off gently at its brightest edge, and faces hold their warmth while the rest of the frame cools away from them.",
+      "guidance": "Open midday light with a real highlight in frame for the headroom to hold.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "hanoi",
+      "name": "Ha Noi Chrome",
+      "film": {
+        "id": "harbour-cool",
+        "name": "Harbour Cool",
+        "palette": [
+          "#32393e",
+          "#ac545c",
+          "#cb9c72",
+          "#3e8256",
+          "#2792c6",
+          "#ded7c9"
+        ],
+        "line": "Cyan runs to its limit and brightens, and blue is turned toward it and deepened, so water and sky end up the strongest and most coloured things in the frame. Orange, yellow and purple are each pulled back, and nothing protects skin, so a face goes quiet with them. The tone is barely touched — the colour does all the work."
+      },
+      "description": "A white, humid sky that still has an edge to it, damp brick and render with the hardness taken off, and the blues and greens of shopfronts and water staying apart instead of running into one another. The weight of the picture sits low, under a sky that is never allowed to go blank.",
+      "guidance": "Humid, hazy city light where the sky is white and nothing below it is.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "amber",
+      "name": "Amber 400",
+      "film": {
+        "id": "amber-neg",
+        "name": "Amber Neg",
+        "palette": [
+          "#35393e",
+          "#b24d35",
+          "#e5ac7a",
+          "#5f7c3d",
+          "#5f7cb6",
+          "#e1d3c6"
+        ],
+        "line": "Warm skin against a heavy sky. Reds turn toward orange and gain weight, growing warmer still as they brighten, while blue turns toward violet and darkens — so a face warms as the sky behind it goes down. Skin is held back from following the reds too far and eased at its brightest, so a lit cheek keeps its shape."
+      },
+      "description": "Late warm light printed soft: nothing burns out, nothing falls to black, and anything bright enough — sunlit hair, a glass — spreads a little glow around itself. Skin runs warm and gentle while the sky behind it sits heavier.",
+      "guidance": "Low warm light on people; it has nothing to give a flat grey day.",
+      "grain": {
+        "strength": 20,
+        "large": false
+      }
+    },
+    {
+      "id": "chrome50",
+      "name": "Chrome 50",
+      "film": {
+        "id": "chrome-slide",
+        "name": "Chrome Slide",
+        "palette": [
+          "#313337",
+          "#b84d3a",
+          "#e1a675",
+          "#008b4d",
+          "#3f90cc",
+          "#d9d8d5"
+        ],
+        "line": "The one slide film here, and it behaves like one: every colour heavy, green deepest of all and turned toward blue, and the dark end closing up instead of opening. A sky goes deep rather than pale. Nothing holds skin back, so a face takes the full weight of the colour — the honest cost of a picture this dense."
+      },
+      "description": "Colour at its heaviest: red that stays red in full sun, green that goes deep rather than bright, and a sky that darkens toward the top of the frame instead of washing out. The dark parts close up rather than opening, so the picture reads dense and a little severe.",
+      "guidance": "Directional sun on a subject that can take contrast; it will crush a dull sky.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "gold",
+      "name": "Nineties Gold",
+      "film": {
+        "id": "amber-neg",
+        "name": "Amber Neg",
+        "palette": [
+          "#35393e",
+          "#b24d35",
+          "#e5ac7a",
+          "#5f7c3d",
+          "#5f7cb6",
+          "#e1d3c6"
+        ],
+        "line": "Warm skin against a heavy sky. Reds turn toward orange and gain weight, growing warmer still as they brighten, while blue turns toward violet and darkens — so a face warms as the sky behind it goes down. Skin is held back from following the reds too far and eased at its brightest, so a lit cheek keeps its shape."
+      },
+      "description": "A warm snapshot: strong colour, peach through the bright parts, and light that spreads out of them further than it should. The darkest corners never quite arrive at black, so it reads like a print from a shop machine rather than a scan, and faces are flattered by it.",
+      "guidance": "People in warm evening light; it is not a landscape tool.",
+      "grain": {
+        "strength": 20,
+        "large": false
+      }
+    },
+    {
+      "id": "slate",
+      "name": "Slate 100",
+      "film": {
+        "id": "overcast",
+        "name": "Overcast",
+        "palette": [
+          "#353f46",
+          "#a4565a",
+          "#c89971",
+          "#4a7f53",
+          "#79b5e4",
+          "#cfd5d6"
+        ],
+        "line": "Colour taken out rather than pushed: purple, cyan, blue and green all drained back, and both ends of the picture faded. Blue is the one thing lightened, so a flat white sky stays pale instead of turning leaden, and a single cool tint runs right through. Skin keeps more colour here than on any other film — the only thing allowed to, and the reason it reads as weather rather than as a fault."
+      },
+      "description": "Cold, quiet colour under a flat sky: blue stays pale and lifted, purples fall away, and nothing anywhere looks sunlit. Concrete, cloth and cloud all keep their texture, and the weight of the picture stays low in the frame.",
+      "guidance": "Grey days and cold subjects, where weak light should look chosen rather than endured.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "harbour",
+      "name": "Harbour Neg",
+      "film": {
+        "id": "harbour-cool",
+        "name": "Harbour Cool",
+        "palette": [
+          "#32393e",
+          "#ac545c",
+          "#cb9c72",
+          "#3e8256",
+          "#2792c6",
+          "#ded7c9"
+        ],
+        "line": "Cyan runs to its limit and brightens, and blue is turned toward it and deepened, so water and sky end up the strongest and most coloured things in the frame. Orange, yellow and purple are each pulled back, and nothing protects skin, so a face goes quiet with them. The tone is barely touched — the colour does all the work."
+      },
+      "description": "Water and greenery carry the picture — sea-green and cyan come up strong while everything else stays ordinary — and no edge in it is hard. Surfaces go soft and faintly warm, so a wet, shaded scene feels calm rather than cold.",
+      "guidance": "Harbours, pools and wet weather, when you want the water's colour and none of the sharpness.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "velour",
+      "name": "Velour 160",
+      "film": {
+        "id": "faded-print",
+        "name": "Faded Print",
+        "palette": [
+          "#3f3e3f",
+          "#a05a4d",
+          "#c29874",
+          "#627944",
+          "#607ead",
+          "#ddd1c2"
+        ],
+        "line": "A print left out too long: every colour drained back, the middle flattened, and the dark end lifted so black never arrives. Both ends carry the same yellowed warmth rather than splitting into two, which is what separates it from the negatives — one colour of age, not two. Faces fade along with the paper."
+      },
+      "description": "A print left too long in the light: colour muted but not gone, blacks sitting at grey, and one even warmth over the whole frame rather than two. Skin comes out pale and smooth, and the picture keeps the same level weight corner to corner.",
+      "guidance": "Window light and people indoors; hard sun would fight the lifted shadows.",
+      "grain": {
+        "strength": 15,
+        "large": false
+      }
+    },
+    {
+      "id": "ember",
+      "name": "Ember 800",
+      "film": {
+        "id": "ember",
+        "name": "Ember",
+        "palette": [
+          "#3a3536",
+          "#bb440f",
+          "#e7ad73",
+          "#627d3a",
+          "#5776a5",
+          "#e4d0c3"
+        ],
+        "line": "The strongest red in the catalogue, and it runs hotter still toward the light, so anything already warm ignites. Blue is crushed at both ends and the dark and bright parts are both warmed, so nothing cool is left anywhere in the frame. Nothing holds skin back — a face takes the red straight, which is what makes it wrong in daylight and right by a fire."
+      },
+      "description": "Firelight, bulbs and tail lights come back hotter than they were, spilling glow into the dark around them while the dark itself stays dark. Nothing cool survives anywhere — even the shadows lean warm, and a face by a fire takes the heat straight.",
+      "guidance": "Fire, bulbs and tail lights after dark; in daylight it is just orange.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "noon",
+      "name": "Noon Neg",
+      "film": {
+        "id": "diary-neg",
+        "name": "Diary Neg",
+        "palette": [
+          "#3a3c3e",
+          "#b45d63",
+          "#cc9d77",
+          "#537c40",
+          "#6cacdf",
+          "#d9d8d4"
+        ],
+        "line": "The everyday negative that looks like the place rather than a style: colour sits just under full strength everywhere except yellow and fresh green, which keep their weight, and the tones are left as the scene gave them. Red turns a step toward crimson and orange a step toward red; blue turns toward cyan and lightens, so a sky stays open, while magenta is quieted hardest and leans toward violet. Skin keeps its own warmth, a shade richer than the colour around it."
+      },
+      "description": "An honest photograph with a little more colour in it: whites stay white, shadows stay open, the corners stay as bright as the middle, and nothing is pushed toward a mood. It is the plain reading the rest of the catalogue departs from.",
+      "guidance": "When the light is already right and you want the photograph, not the recipe.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "tungsten",
+      "name": "Tungsten",
+      "film": {
+        "id": "tungsten-cine",
+        "name": "Tungsten Cine",
+        "palette": [
+          "#33383a",
+          "#af5341",
+          "#e7a36d",
+          "#5f7d3c",
+          "#3e8bb0",
+          "#eccdc2"
+        ],
+        "line": "Balanced for bulbs: blue is turned toward cyan and cyan lifted, so a window or a screen in a lamp-lit room comes out cold green rather than violet. The two ends pull apart — the dark parts lean faintly cool and sea-green while the bright parts go amber — so shade and lamplight separate instead of warming together as they do on Ember. Reds and oranges are raised only a little. Skin keeps its own colour and is eased where the light lands, so a face close to a lamp keeps its detail rather than burning out."
+      },
+      "description": "A room lit by bulbs comes out neutral — white walls white, skin normal — while the window and everything beyond that light turns cold blue. The lamps themselves bloom, and a face beside one keeps its detail instead of burning away.",
+      "guidance": "Rooms lit by bulbs; take it outside at midday and everything turns blue.",
+      "grain": {
+        "strength": 30,
+        "large": false
+      }
+    },
+    {
+      "id": "carbon",
+      "name": "Carbon Mono",
+      "film": {
+        "id": "silver-cool",
+        "name": "Silver Cool",
+        "palette": [
+          "#32393e",
+          "#797f84",
+          "#a7adb2",
+          "#696f74",
+          "#90969b",
+          "#d0d6db"
+        ],
+        "line": "A lightly cool grey: one even blue tint held flat across the dark, middle and bright parts alike, at a third of what Selenium Mono carries. Because the tint is even rather than turning with brightness, a recipe can pull it out entirely or leave it at full and the grey keeps its character either way. That is what the two recipes on it do, one hard and near-neutral, the other long and cool."
+      },
+      "description": "Black and white with real black in it: hard shadow against a bright wall, edges that stay edges, and nothing glowing anywhere. The grey sits close to neutral rather than cool, which is what separates it from Silver Mono on the same film.",
+      "guidance": "Architecture, hard shadow and anything with an edge worth keeping.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "silver",
+      "name": "Silver Mono",
+      "film": {
+        "id": "silver-cool",
+        "name": "Silver Cool",
+        "palette": [
+          "#32393e",
+          "#797f84",
+          "#a7adb2",
+          "#696f74",
+          "#90969b",
+          "#d0d6db"
+        ],
+        "line": "A lightly cool grey: one even blue tint held flat across the dark, middle and bright parts alike, at a third of what Selenium Mono carries. Because the tint is even rather than turning with brightness, a recipe can pull it out entirely or leave it at full and the grey keeps its character either way. That is what the two recipes on it do, one hard and near-neutral, the other long and cool."
+      },
+      "description": "Black and white that holds the brightest cloud and the darkest coat in one frame, in long, cool greys with soft edges. Nothing in it bites, the shadows stay open, and the film's blue-grey tone is left in rather than pulled out.",
+      "guidance": "Flat and overcast days, and any scene whose shadows have to stay open.",
+      "grain": {
+        "strength": 25,
+        "large": false
+      }
+    },
+    {
+      "id": "pastel",
+      "name": "Pastel 100",
+      "film": {
+        "id": "pastel-day",
+        "name": "Pastel Day",
+        "palette": [
+          "#3a3b3e",
+          "#a66457",
+          "#cca28c",
+          "#6b8055",
+          "#87a0d2",
+          "#d8d0d6"
+        ],
+        "line": "Everything lifted slightly and drained unevenly: green goes furthest, then purple, magenta, red and blue, while yellow is left almost alone — so a yellow wall keeps its colour while the rest of the frame goes to chalk. The bright end is tinted pink and fades away. The dark end is left completely untouched, which is what keeps it from going milky the way Dream Haze does."
+      },
+      "description": "Everything a shade lighter and quieter than it was, with a faint pink through the whites and bright areas that fade away rather than burn to white. Yellows keep more of themselves than anything else, so one warm object can still sing in a chalky frame.",
+      "guidance": "Soft daylight on pale subjects; strong colour in the scene is muted, never amplified.",
+      "grain": {
+        "strength": 15,
+        "large": false
+      }
+    },
+    {
+      "id": "meadow",
+      "name": "Meadow 200",
+      "film": {
+        "id": "meadow",
+        "name": "Meadow",
+        "palette": [
+          "#373939",
+          "#ad5343",
+          "#d49f71",
+          "#5f8433",
+          "#4589b9",
+          "#ded7c9"
+        ],
+        "line": "Foliage read warm: green turns toward yellow and gains weight, and the yellow-greens lighten, so leaves brighten rather than deepen. Almost nothing else moves — reds, oranges, cyans and magentas all sit where they started, and skin is lifted a touch with no change of colour. The sky darkens a little behind it all."
+      },
+      "description": "Grass and leaves become the brightest thing in the frame and lean yellow-warm rather than cold, so a field lightens instead of deepening. Blades and branches stay separate from one another instead of merging into a single mass, and the sky above them holds.",
+      "guidance": "Open country in summer; the two stops of headroom are there to hold the sky.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "verdant",
+      "name": "Verdant Chrome",
+      "film": {
+        "id": "verdant",
+        "name": "Verdant",
+        "palette": [
+          "#363a3b",
+          "#aa5546",
+          "#c89a74",
+          "#007237",
+          "#488cbe",
+          "#d8d7d4"
+        ],
+        "line": "Green runs to its limit, turns toward blue and darkens — deep, cold foliage, the opposite of Meadow's light warm leaves. The yellow-greens gain a great deal, while red, orange, purple and magenta are each pulled back, so a green frame has nothing competing in it. Nothing protects skin, so a face simply sits under whatever the greens are doing."
+      },
+      "description": "Green goes deep, cold and heavy rather than bright, leaving foliage darker than the sky behind it. Inside that mass the individual branches stay readable, and nothing red or orange in the frame is allowed to compete with the green.",
+      "guidance": "Dense green under strong light; in overcast it turns heavy.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "rust",
+      "name": "Rust Neg",
+      "film": {
+        "id": "rust",
+        "name": "Rust",
+        "palette": [
+          "#393537",
+          "#b84832",
+          "#e59c6e",
+          "#677a39",
+          "#5a77aa",
+          "#e5d4ca"
+        ],
+        "line": "Red and orange converge on each other and both gain weight, so the whole warm end of the frame collapses into one oxidised colour. Green swings toward yellow and loses its life, which turns foliage olive, and blue is held right down. Everything from yellow round to magenta is trimmed and the dark parts are warmed too, so there is nothing cool left to balance it."
+      },
+      "description": "Dry ground, old paint and corroded metal: the warm end of the frame collapses into one oxidised colour and greens turn olive and strawy. Blue is held right down, so nothing anywhere in the picture reads as fresh or cool.",
+      "guidance": "Dry ground, old paint and rusted metal in low sun.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "dusk",
+      "name": "Dusk 400",
+      "film": {
+        "id": "dusk",
+        "name": "Dusk",
+        "palette": [
+          "#33383f",
+          "#ab5258",
+          "#cc9779",
+          "#438156",
+          "#5377b3",
+          "#e0d0d6"
+        ],
+        "line": "All the work is at the violet end: purples turn toward blue and gain weight, magentas turn toward red and gain more, while reds, oranges and greens are trimmed away. Blue darkens and goes further toward purple low down, so the top of a sky separates from the bottom of it. The dark parts turn blue-violet against pink highlights, and faces cool along with the frame."
+      },
+      "description": "The sky twenty minutes after sunset: pink and violet held in the cloud, the top of the sky separating cleanly from the bottom, the whole gradient smooth rather than stepped. The ground underneath stays readable instead of sinking into mud.",
+      "guidance": "The half hour either side of sunset, with sky in the frame.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "nightshade",
+      "name": "Nightshade 800",
+      "film": {
+        "id": "nightshade",
+        "name": "Nightshade",
+        "palette": [
+          "#31363f",
+          "#a95459",
+          "#c99a73",
+          "#468156",
+          "#4276b5",
+          "#ccd8d6"
+        ],
+        "line": "The darkest sky here: blue is deepened, strengthened, and goes bluer still low in the frame, under the strongest purple in the set. The dark parts are made denser and turned violet, with cool highlights set against them. Skin is the one warm thing left, so a face still reads against a frame that has gone blue everywhere else."
+      },
+      "description": "A cold street after dark: the sky goes deep blue, the dark stays dark, and only the lamps themselves bloom. Grain sits visibly across the whole frame, and a face keeps just enough warmth to read against everything else that has gone blue.",
+      "guidance": "Streets after dark away from warm light; it renders a tungsten scene cold on purpose.",
+      "grain": {
+        "strength": 40,
+        "large": true
+      }
+    },
+    {
+      "id": "magic",
+      "name": "Magic Hour",
+      "film": {
+        "id": "magic-hour",
+        "name": "Magic Hour",
+        "palette": [
+          "#3d3735",
+          "#b74923",
+          "#e9a366",
+          "#6b7a2e",
+          "#5b7ebc",
+          "#ead2b9"
+        ],
+        "line": "Yellow is the strongest colour here and turns toward orange, over a warmth that runs through the dark, middle and bright parts alike — the heaviest golden cast in the set. Skin is deliberately taken the other way, held back and pulled toward red, so a face does not turn orange under all of it. Blue keeps its colour but loses its brightness, so a sky goes deep while staying blue."
+      },
+      "description": "Shot into low sun: gold runs through everything the light touches and the sun keeps its shape instead of flaring into a white hole. Faces are deliberately held back from the warmth, so a person stays the right colour while the field around them turns.",
+      "guidance": "Shoot into low sun; it is built for backlight, not for overhead light.",
+      "grain": {
+        "strength": 20,
+        "large": false
+      }
+    },
+    {
+      "id": "neon",
+      "name": "Neon Night",
+      "film": {
+        "id": "neon-night",
+        "name": "Neon Night",
+        "palette": [
+          "#293338",
+          "#bf452d",
+          "#d29b6c",
+          "#39855a",
+          "#4e7ec4",
+          "#d8d6d3"
+        ],
+        "line": "Built on three colours at once — red, magenta and cyan all pushed hard — while the yellows are held back, so a sign separates from the street it is lighting. The dark parts are deepened and turned blue, and a bright source eases off early enough to keep its colour rather than burning to white. Skin barely moves, so faces stay ordinary between the signs."
+      },
+      "description": "Lit signs keep their colour instead of burning to white in the middle, and what they spill onto wet pavement comes back coloured too. Between them the dark is hard and empty, and faces stay ordinary so the signs are the only loud thing in the frame.",
+      "guidance": "Lit signs and wet pavement; it needs a coloured light source to work on.",
+      "grain": {
+        "strength": 40,
+        "large": true
+      }
+    },
+    {
+      "id": "acid",
+      "name": "Acid Cross",
+      "film": {
+        "id": "acid-cross",
+        "name": "Acid Cross",
+        "palette": [
+          "#2d2c36",
+          "#c45337",
+          "#e2b050",
+          "#1c895e",
+          "#6d7bc6",
+          "#dddeb5"
+        ],
+        "line": "Every colour has moved, and moved the same way round: grass toward blue-green, a red door toward orange, a blue wall toward purple. Magenta alone turns back against the others, which is what makes a picture read as a roll developed wrong rather than a deliberate look. Nothing here protects faces, and it is the hardest of the colour films, so skin moves and hardens with everything else."
+      },
+      "description": "Every colour has slid to the one next door — grass toward blue-green, a red door toward orange, a blue wall toward purple — and faces slide with them. Whites pick up a green tinge, the shadows pool magenta, and the whole thing reads as a roll developed wrong rather than a treatment.",
+      "guidance": "A deliberate effect, best on plain subjects and flat light that can absorb the shift.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "sepia",
+      "name": "Sepia Mono",
+      "film": {
+        "id": "sepia-mono",
+        "name": "Sepia Mono",
+        "palette": [
+          "#46372b",
+          "#8b7a6c",
+          "#b6a99d",
+          "#7b6b5d",
+          "#a19184",
+          "#ded3c7"
+        ],
+        "line": "Warm-toned black and white, and the tone turns yellower as the picture gets lighter: brown in the dark parts easing to a lighter warmth at the top. The dark end is lifted rather than deepened and the middle is barely firmed, so it reads as a print rather than as a negative. The exact mirror of Selenium Mono, which runs the same movement the other way and deepens its dark end instead."
+      },
+      "description": "A warm-toned print: brown through the dark parts, easing to a lighter warmth as the picture brightens. The middle greys sit where a print's do rather than a negative's, and the whole image reads as something that has aged.",
+      "guidance": "Still subjects and old surfaces; the toning reads as age, so it argues with a modern scene.",
+      "grain": {
+        "strength": 25,
+        "large": false
+      }
+    },
+    {
+      "id": "haze",
+      "name": "Dream Haze 400",
+      "film": {
+        "id": "dream-haze",
+        "name": "Dream Haze",
+        "palette": [
+          "#444243",
+          "#a06d65",
+          "#caa79c",
+          "#697a5a",
+          "#819ab9",
+          "#dcccd0"
+        ],
+        "line": "Half the colour is simply gone, greens and blues furthest, and the dark end is lifted so nothing in the frame reaches black. It is the softest and palest film here: a bright sky turns to paper and the picture loses both its ends. Skin is cut back less than everything around it, so a face stays the most coloured thing left."
+      },
+      "description": "Light spreads out of the bright parts and keeps going, so the whole frame glows and the dark parts never close. Colour drops to about half of what it was, and skin is the last thing still holding any — pale and smooth in a picture that has given up.",
+      "guidance": "Backlight and pale subjects; it will fog a night scene into nothing.",
+      "grain": {
+        "strength": 15,
+        "large": false
+      }
+    },
+    {
+      "id": "scarlet",
+      "name": "Scarlet Sky Mono",
+      "film": {
+        "id": "scarlet-mono",
+        "name": "Scarlet Mono",
+        "palette": [
+          "#313131",
+          "#bababa",
+          "#d9d9d9",
+          "#515151",
+          "#5d5d5d",
+          "#d7d7d7"
+        ],
+        "line": "Black and white through a red filter, and the strongest one here: a clear blue sky comes off near-black and cloud stands clear of it. Reds and oranges are lifted further while cyans, blues and purples come down. It lightens skin a good deal, which flatters some faces and erases the texture of others — and on a hazy or pale sky it collapses, because there is nothing left for a filter to separate."
+      },
+      "description": "A near-black sky with white cloud standing clear of it, foliage gone dark, and skin a good deal lighter than you expect. It is the most graphic photograph in the catalogue: shapes first, tones second.",
+      "guidance": "Blue sky with cloud in it; on an overcast day the filter has nothing to separate.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "fern",
+      "name": "Fern Mono 200",
+      "film": {
+        "id": "fern-mono",
+        "name": "Fern Mono",
+        "palette": [
+          "#353535",
+          "#535353",
+          "#919191",
+          "#9e9e9e",
+          "#7e7e7e",
+          "#d8d8d8"
+        ],
+        "line": "Black and white through a green filter: leaves and grass open up bright while the sky, and the cloud in it, both come down toward grey. Reds and oranges are pushed the other way, which darkens skin just as surely as it lightens a hedge."
+      },
+      "description": "Black and white that turns the usual around: a hedge comes out bright against a dark house and leaves keep their veins, while the sky settles to mid-grey. Where Scarlet Sky Mono blackens a sky to make cloud, this lifts the greenery and lets the sky come down to meet it.",
+      "guidance": "Anything green and structured; it darkens faces by about half a stop, so not portraits.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "grit",
+      "name": "Grit 1600",
+      "film": {
+        "id": "grit-mono",
+        "name": "Grit Mono",
+        "palette": [
+          "#2b2b2b",
+          "#838383",
+          "#b0b0b0",
+          "#707070",
+          "#9b9b9b",
+          "#d7d7d7"
+        ],
+        "line": "The hardest black and white here at both ends: the dark parts denser than on any other, the middle pushed as far as it goes, and the bright end running straight into white with no easing. There is no toning of any kind — a neutral grey with nowhere to hide in it. Its mild yellow filter bites harder here than anywhere else, so skies come down furthest."
+      },
+      "description": "Blacks and whites with very little between them, coarse grain over all of it, and corners that close in on the frame. A face becomes a shape rather than a set of tones, and the bright end runs straight into white with no easing.",
+      "guidance": "Low light you would otherwise not bother shooting; it destroys a gentle scene.",
+      "grain": {
+        "strength": 75,
+        "large": true
+      }
+    },
+    {
+      "id": "matte",
+      "name": "Soft Matte 400",
+      "film": {
+        "id": "matte-mono",
+        "name": "Matte Mono",
+        "palette": [
+          "#424242",
+          "#7a7a7a",
+          "#a8a8a8",
+          "#6c6c6c",
+          "#8f8f8f",
+          "#d6d6d6"
+        ],
+        "line": "The softest black and white at both ends: the dark parts lifted so nothing reaches black, the middle damped, the bright end eased away. No toning at all — a plain neutral grey, and the only thing it does firmly is refuse to close up. Its mild yellow filter barely registers, so a sky comes down less here than on any other stock."
+      },
+      "description": "Black and white that refuses to be dramatic: grey where another recipe would give black, detail hanging on everywhere, and no extra bite put into the edges. The one monochrome here that leaves a scene exactly as quiet as it found it.",
+      "guidance": "Flat or shaded light where the shadows still have to read; it will not put bite back into a dull scene.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "selenium",
+      "name": "Selenium Mono",
+      "film": {
+        "id": "selenium-mono",
+        "name": "Selenium Mono",
+        "palette": [
+          "#2a3846",
+          "#70818f",
+          "#a2aeb8",
+          "#60717f",
+          "#8998a4",
+          "#ccd7de"
+        ],
+        "line": "Cool-toned black and white whose colour moves with brightness: violet in the dark parts, easing through blue-violet to a plainer blue as the picture lightens. The dark end is deepened and the middle firmed, so it closes up the way a print does. It is the mirror of Sepia Mono, the same movement of tone run the other way round, and far more strongly toned than Silver Cool."
+      },
+      "description": "A cool-toned print: blue-violet sits strongest in the dark parts and eases toward a plainer blue as the picture lightens. It is Sepia Mono read cold — the same movement of tone, run the other way round.",
+      "guidance": "Cold light and quiet subjects; the toning is easily lost in a warm scene.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "snowglass",
+      "name": "Snowglass 100",
+      "film": {
+        "id": "frost-chrome",
+        "name": "Frost Chrome",
+        "palette": [
+          "#243137",
+          "#bb4a4d",
+          "#cd9a6f",
+          "#388754",
+          "#3793d9",
+          "#d6d5d2"
+        ],
+        "line": "The second slide film, and the cold one. Shadows take a real blue-cyan cast rather than a hint of one, whites stay clean, and yellow is pulled back so a winter scene does not warm up on its own. Red stays crisp instead of turning orange, and cyan is the colour it pushes hardest — ice, water, glass and sky separate from each other instead of merging into one pale grey. Skin is given a little back so a face in cold light does not go bloodless."
+      },
+      "description": "A cold slide film worked the way winter asks: no headroom spent, so the shadows stay clean, and the highlights held back so snow and cloud keep their edges instead of running together. Blue is pushed hardest, which is what separates ice from water from sky. Skin is given a little back, so a face in this light does not go bloodless.",
+      "guidance": "Cold light with something white in it — snow, cloud, water. It has nothing to give a warm scene.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "sunday",
+      "name": "Sunday Room 200",
+      "film": {
+        "id": "rose-neg",
+        "name": "Rose Neg",
+        "palette": [
+          "#424041",
+          "#ad5047",
+          "#d7a888",
+          "#5b7c4a",
+          "#6c90c3",
+          "#dccfc7"
+        ],
+        "line": "Built around people. Red and orange are left almost where they are, so lips and warm clothing keep their colour, while magenta is pulled down and green held back so nothing behind a face competes with it. Skin loses a little of its colour and gains a little light, and its bright side turns soft early, which is what keeps a lit cheek creamy instead of orange. Shadows open rather than deepen and the whole picture sits gently, so a face in hard light still has somewhere to live. It works the same way on fur."
+      },
+      "description": "A portrait recipe and nothing else. The bright end is pulled well back and the dark end opened, so a face has room at both ends, and the whole picture is deliberately soft — no edge put back, nothing sharpened. The warmth is a room's rather than the sun's. It works the same way on an animal.",
+      "guidance": "People indoors, in window light or a warm lamp. Not for a landscape, which it will leave flat.",
+      "grain": {
+        "strength": 20,
+        "large": false
+      }
+    },
+    {
+      "id": "petal",
+      "name": "Petal Morning 100",
+      "film": {
+        "id": "bloom-neg",
+        "name": "Bloom Neg",
+        "palette": [
+          "#3b3f42",
+          "#b15f54",
+          "#d2a27c",
+          "#648a45",
+          "#71a8d5",
+          "#ddd5cd"
+        ],
+        "line": "Built for new growth. Young leaves are lifted and given colour rather than deepened, so a spring hedge reads as light passing through it instead of a mass of dark green. Pinks and pale yellows are kept light, blue is pulled toward cyan so a sky stays airy, and the bright end turns soft early — the creamy edge on a white petal. Skin is left where it is. The whole picture sits gently, which is why it suits the months when the light is thin and nothing wants to be forced."
+      },
+      "description": "Built for the weeks when the light is thin. Young leaves are lifted rather than deepened, pinks and pale yellows stay light, and the sky keeps its air. Nothing is forced — the softness is the point, and a scene with strong colour in it will simply be left gentle.",
+      "guidance": "New growth in soft light. Strong sun or deep summer green gives it nothing to do.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "harvest",
+      "name": "Harvest 400",
+      "film": {
+        "id": "rust",
+        "name": "Rust",
+        "palette": [
+          "#393537",
+          "#b84832",
+          "#e59c6e",
+          "#677a39",
+          "#5a77aa",
+          "#e5d4ca"
+        ],
+        "line": "Red and orange converge on each other and both gain weight, so the whole warm end of the frame collapses into one oxidised colour. Green swings toward yellow and loses its life, which turns foliage olive, and blue is held right down. Everything from yellow round to magenta is trimmed and the dark parts are warmed too, so there is nothing cool left to balance it."
+      },
+      "description": "Autumn, and the work is in the greens: leaves turn toward olive while the warm colours gather into one deep rust, so a turning tree reads as a single mass of colour against a darker sky. Two whole stages of headroom are spent holding a low sun, and the grain is there because the season is not a clean one.",
+      "guidance": "Turning leaves under low sun. In full summer green it just looks tired.",
+      "grain": {
+        "strength": 35,
+        "large": false
+      }
+    },
+    {
+      "id": "ferry",
+      "name": "Night Ferry 800",
+      "film": {
+        "id": "neon-night",
+        "name": "Neon Night",
+        "palette": [
+          "#293338",
+          "#bf452d",
+          "#d29b6c",
+          "#39855a",
+          "#4e7ec4",
+          "#d8d6d3"
+        ],
+        "line": "Built on three colours at once — red, magenta and cyan all pushed hard — while the yellows are held back, so a sign separates from the street it is lighting. The dark parts are deepened and turned blue, and a bright source eases off early enough to keep its colour rather than burning to white. Skin barely moves, so faces stay ordinary between the signs."
+      },
+      "description": "Humid neon. The blacks are lifted rather than crushed, the glow is let run, and the grain is coarse — a night that is warm and close rather than sharp. Reds and signage carry; the edge is taken off so the air between you and the lights is part of the picture.",
+      "guidance": "Dense signage after dark, ideally with water or wet ground to carry it. A dry, clean night gives it nothing to glow on.",
+      "grain": {
+        "strength": 60,
+        "large": true
+      },
+      "scene": true
+    },
+    {
+      "id": "electric",
+      "name": "Electric Rain 800",
+      "film": {
+        "id": "nightshade",
+        "name": "Nightshade",
+        "palette": [
+          "#31363f",
+          "#a95459",
+          "#c99a73",
+          "#468156",
+          "#4276b5",
+          "#ccd8d6"
+        ],
+        "line": "The darkest sky here: blue is deepened, strengthened, and goes bluer still low in the frame, under the strongest purple in the set. The dark parts are made denser and turned violet, with cool highlights set against them. Skin is the one warm thing left, so a face still reads against a frame that has gone blue everywhere else."
+      },
+      "description": "The other kind of night: colder, cleaner and sharper. Blacks close up instead of lifting, the light is read as colder so LED signage comes out blue-white rather than amber, and the edges are pushed so wet streets stay crisp. The glow is kept short, and the grain is finer than its warmer neighbour's.",
+      "guidance": "Cool signage and wet streets after dark. Under warm lamps it will fight the light rather than use it.",
+      "grain": {
+        "strength": 40,
+        "large": true
+      }
+    },
+    {
+      "id": "quarter",
+      "name": "Old Quarter 200",
+      "film": {
+        "id": "harbour-cool",
+        "name": "Harbour Cool",
+        "palette": [
+          "#32393e",
+          "#ac545c",
+          "#cb9c72",
+          "#3e8256",
+          "#2792c6",
+          "#ded7c9"
+        ],
+        "line": "Cyan runs to its limit and brightens, and blue is turned toward it and deepened, so water and sky end up the strongest and most coloured things in the frame. Orange, yellow and purple are each pulled back, and nothing protects skin, so a face goes quiet with them. The tone is barely touched — the colour does all the work."
+      },
+      "description": "Old streets in the middle of the day. Yellow walls go to mustard, greens toward moss, reds fade back toward brick, and the blacks are lifted so the humidity in the air stays in the picture. The whole frame is warmed a touch without being turned orange.",
+      "guidance": "Aged walls, shutters and tile under daylight. On a modern street there is nothing here for it to age.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "sunwash",
+      "name": "Sunwash 200",
+      "film": {
+        "id": "daylight-cine",
+        "name": "Daylight Cine",
+        "palette": [
+          "#30393c",
+          "#ad5545",
+          "#d9a074",
+          "#5d7d3c",
+          "#5f88c6",
+          "#e4d4c8"
+        ],
+        "line": "Cool shadows, warm highlights, and a face sitting between them: the dark parts go faintly blue-green while the bright parts go golden, so the two ends of the frame disagree. Skin is the only thing protected — a little richer, a little brighter, and eased where the light lands, so a cheek in the sun keeps its detail. Everything else is trimmed back, so only the ends of the picture are coloured."
+      },
+      "description": "Summer remembered rather than summer seen. The highlights are pulled down until they go soft, the shadows open, the colour comes off a little, and the warmth goes up — the look of a holiday photograph that has sat in a drawer. Soft throughout, with a little grain in it; nothing here is sharp.",
+      "guidance": "Bright open daylight you want to feel older than it is. It will take the bite off a scene that needed it.",
+      "grain": {
+        "strength": 30,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "windowface",
+      "name": "Window Face 400",
+      "film": {
+        "id": "rose-neg",
+        "name": "Rose Neg",
+        "palette": [
+          "#424041",
+          "#ad5047",
+          "#d7a888",
+          "#5b7c4a",
+          "#6c90c3",
+          "#dccfc7"
+        ],
+        "line": "Built around people. Red and orange are left almost where they are, so lips and warm clothing keep their colour, while magenta is pulled down and green held back so nothing behind a face competes with it. Skin loses a little of its colour and gains a little light, and its bright side turns soft early, which is what keeps a lit cheek creamy instead of orange. Shadows open rather than deepen and the whole picture sits gently, so a face in hard light still has somewhere to live. It works the same way on fur."
+      },
+      "description": "One person beside a window and the rest of the room falling away. The highlight is spent holding the glass rather than the face, so the bright side keeps its edge and the shadow side keeps its detail; skin is lifted a little and held there, and the room's greens are kept behind it. Daylight through a window is cooler than a room's own bulbs, and this is set for that.",
+      "guidance": "A face beside a window, lit from one side. It needs the falloff — a face lit evenly gives it nothing to do.",
+      "grain": {
+        "strength": 15,
+        "large": false
+      }
+    },
+    {
+      "id": "whisker",
+      "name": "Whisker 200",
+      "film": {
+        "id": "rose-neg",
+        "name": "Rose Neg",
+        "palette": [
+          "#424041",
+          "#ad5047",
+          "#d7a888",
+          "#5b7c4a",
+          "#6c90c3",
+          "#dccfc7"
+        ],
+        "line": "Built around people. Red and orange are left almost where they are, so lips and warm clothing keep their colour, while magenta is pulled down and green held back so nothing behind a face competes with it. Skin loses a little of its colour and gains a little light, and its bright side turns soft early, which is what keeps a lit cheek creamy instead of orange. Shadows open rather than deepen and the whole picture sits gently, so a face in hard light still has somewhere to live. It works the same way on fur."
+      },
+      "description": "Built for fur, which asks the two hardest things at once: hold a white coat before it burns out, and open a black one before it fills in. Both are pushed as far as they go here. The fine texture is lifted rather than smoothed away — fur without it reads as one grey mass — and the greens are kept low so a bank of grass does not take the animal sitting on it.",
+      "guidance": "Animals in soft light — indoors, or open shade. Hard sun defeats the highlight hold it is built around.",
+      "grain": {
+        "strength": 20,
+        "large": false
+      }
+    },
+    {
+      "id": "lakemist",
+      "name": "Lake Mist 400",
+      "film": {
+        "id": "harbour-cool",
+        "name": "Harbour Cool",
+        "palette": [
+          "#32393e",
+          "#ac545c",
+          "#cb9c72",
+          "#3e8256",
+          "#2792c6",
+          "#ded7c9"
+        ],
+        "line": "Cyan runs to its limit and brightens, and blue is turned toward it and deepened, so water and sky end up the strongest and most coloured things in the frame. Orange, yellow and purple are each pulled back, and nothing protects skin, so a face goes quiet with them. The tone is barely touched — the colour does all the work."
+      },
+      "description": "Cold humid morning on water, where the far bank is a suggestion rather than a line. Everything that would give the picture an edge is taken away so the film's own blue can be the subject: nothing in the frame goes fully black, colour is held close to grey, and the air between you and the far side is left in. Nothing darkens at the corners, because mist has no edge.",
+      "guidance": "Fog, water and early light. A scene with real blacks in it will look broken rather than soft.",
+      "grain": {
+        "strength": 0,
+        "large": false
+      }
+    },
+    {
+      "id": "latesupper",
+      "name": "Late Supper 800",
+      "film": {
+        "id": "tungsten-cine",
+        "name": "Tungsten Cine",
+        "palette": [
+          "#33383a",
+          "#af5341",
+          "#e7a36d",
+          "#5f7d3c",
+          "#3e8bb0",
+          "#eccdc2"
+        ],
+        "line": "Balanced for bulbs: blue is turned toward cyan and cyan lifted, so a window or a screen in a lamp-lit room comes out cold green rather than violet. The two ends pull apart — the dark parts lean faintly cool and sea-green while the bright parts go amber — so shade and lamplight separate instead of warming together as they do on Ember. Reds and oranges are raised only a little. Skin keeps its own colour and is eased where the light lands, so a face close to a lamp keeps its detail rather than burning out."
+      },
+      "description": "A table at the end of the night, lit by whatever bulbs the room has. Sauce stays red and broth stays gold while the cold end of the spectrum is pushed out of the way, which is what makes a warm room read as warm rather than orange. The headroom is spent on the white of a bowl, and the correction stopped a shade short so the food does not turn. The grain is there the way a fast film's is indoors — present, not coarse.",
+      "guidance": "Food and people under warm indoor light after dark. Daylight kills it — the blue push leaves a window dead.",
+      "grain": {
+        "strength": 40,
+        "large": true
+      }
+    },
+    {
+      "id": "nightmarket",
+      "name": "Night Market 800",
+      "film": {
+        "id": "tungsten-cine",
+        "name": "Tungsten Cine",
+        "palette": [
+          "#33383a",
+          "#af5341",
+          "#e7a36d",
+          "#5f7d3c",
+          "#3e8bb0",
+          "#eccdc2"
+        ],
+        "line": "Balanced for bulbs: blue is turned toward cyan and cyan lifted, so a window or a screen in a lamp-lit room comes out cold green rather than violet. The two ends pull apart — the dark parts lean faintly cool and sea-green while the bright parts go amber — so shade and lamplight separate instead of warming together as they do on Ember. Reds and oranges are raised only a little. Skin keeps its own colour and is eased where the light lands, so a face close to a lamp keeps its detail rather than burning out."
+      },
+      "description": "The same stock outdoors and loud. The dark between stalls is left dark, what the bulbs reach is opened right up, and the bulbs themselves are allowed to flare. The picture is softened for smoke and humid air, and the colour is let run further than anywhere else here. Mixed light is assumed — tungsten, fluorescent and LED in one frame — so the balance sits between them rather than on any one. The grain is coarse, as it is on any fast film pushed into a dark street.",
+      "guidance": "Bare bulbs, steam and signage after dark. It needs a light source in the frame; without one the glow has nothing to do.",
+      "grain": {
+        "strength": 60,
+        "large": true
+      }
+    },
+    {
+      "id": "stillair",
+      "name": "Still Air 100",
+      "film": {
+        "id": "memoir-chrome",
+        "name": "Memoir Chrome",
+        "palette": [
+          "#333537",
+          "#a15a59",
+          "#c4957c",
+          "#527147",
+          "#77aed0",
+          "#d6d4d1"
+        ],
+        "line": "The quiet slide film, the one a magazine story is printed on: colour held down everywhere except orange, which keeps its full weight, and every warm colour turned a step toward red. Blue turns toward cyan and lightens rather than deepening, and purple and magenta are pulled back hardest, so a sky reads as air and a neon sign loses its shout. Skin is quieted a little, the dark end closes to a deep black, and the brightest whites ease off softly instead of burning out."
+      },
+      "description": "Memoir Chrome with the blue drawn out and a light grain laid on. A clear sky settles to a soft grey-blue and a white cloud turns to cream, while brick and terracotta deepen to a dusky red and glass goes teal. Colour runs a little fuller than the film's own, but the brightest parts are held well back and the picture sits on the dim side, so it wants more light than the scene seems to need. Edges and fine detail are softened, and a light, fine grain lies over everything, with a faint glow at bright edges and corners darkened barely at all.",
+      "guidance": "Sunny streets and warm brick in good light. Give it a little more light than the camera asks for, or the frame comes out dim and grey; on a dull day it only turns flat.",
+      "grain": {
+        "strength": 30,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "ordinaryday",
+      "name": "Ordinary Day 200",
+      "film": {
+        "id": "diary-neg",
+        "name": "Diary Neg",
+        "palette": [
+          "#3a3c3e",
+          "#b45d63",
+          "#cc9d77",
+          "#537c40",
+          "#6cacdf",
+          "#d9d8d4"
+        ],
+        "line": "The everyday negative that looks like the place rather than a style: colour sits just under full strength everywhere except yellow and fresh green, which keep their weight, and the tones are left as the scene gave them. Red turns a step toward crimson and orange a step toward red; blue turns toward cyan and lightens, so a sky stays open, while magenta is quieted hardest and leans toward violet. Skin keeps its own warmth, a shade richer than the colour around it."
+      },
+      "description": "Diary Neg with the colour turned up and the shadows opened. Greens and yellows come forward fresh and lively, reds stay a deep crimson, a blue sky still lightens toward cyan, and skin keeps its warmth. The whole frame is nudged a shade warmer, the dark end lifts so the shade under trees reads as soft grey rather than black, and the bright parts stay bright and clear. There is no grain at all: a clean everyday picture, a touch soft, with only a faint glow and the lightest darkening at the corners.",
+      "guidance": "Everyday daylight — errands, tree-lined streets, the people you know — when the day should look a little brighter and cleaner than it felt. Not for moody scenes: it opens every shadow.",
+      "grain": {
+        "strength": 25,
+        "large": false
+      }
+    },
+    {
+      "id": "lastorders",
+      "name": "Midnight Club 100",
+      "film": {
+        "id": "butter-neg",
+        "name": "Butter Neg",
+        "palette": [
+          "#373a34",
+          "#b24f39",
+          "#cdaa6d",
+          "#607729",
+          "#658eac",
+          "#d7d5c1"
+        ],
+        "line": "The warm snapshot negative, scanned the way a corner photo lab once printed it: everything light and middle turns toward butter yellow with a faint green in it, so white walls, paper and shirts go cream rather than orange. Skin turns a warm golden peach rather than pink or orange, a step less yellow than the walls behind it, and its brightest part eases down softly. Red stays rich and keeps its place, orange leans toward gold, green goes olive, and blue and cyan are quieted toward navy and teal. The darkest end stays deep and turns faintly cool, so a dark suit reads as navy against the warm room. Where Peach Neg and Amber Neg warm toward orange, this one warms toward yellow."
+      },
+      "description": "Butter Neg aimed at a face lit hard from the camera in a small room at night — the snapshot from the end of a dinner. Walls, menus and a white shirt go cream, skin turns golden, and the bright patch where the light lands on a cheek or a forehead is eased down rather than burnt white. Reds on a sign keep their weight, a dark jacket reads as navy, and the black stays deep with a cool edge. The picture is a touch soft and free of grain, with a glow on whatever the light hits hardest and corners that darken the way a room falls away behind someone.",
+      "guidance": "People at close range after dark — a table, a bar, a friend lit by the camera's own light. It wants a face in the frame; a daylight landscape only turns yellow.",
+      "grain": {
+        "strength": 30,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "shoebox",
+      "name": "Shoebox 400",
+      "film": {
+        "id": "diary-neg",
+        "name": "Diary Neg",
+        "palette": [
+          "#3a3c3e",
+          "#b45d63",
+          "#cc9d77",
+          "#537c40",
+          "#6cacdf",
+          "#d9d8d4"
+        ],
+        "line": "The everyday negative that looks like the place rather than a style: colour sits just under full strength everywhere except yellow and fresh green, which keep their weight, and the tones are left as the scene gave them. Red turns a step toward crimson and orange a step toward red; blue turns toward cyan and lightens, so a sky stays open, while magenta is quieted hardest and leans toward violet. Skin keeps its own warmth, a shade richer than the colour around it."
+      },
+      "description": "Diary Neg as a roll left too long in a drawer. Colour thins to a dusty, faded echo of itself, a white sky sinks to a warm pinkish grey and pale walls take on a faint lilac, while the darks stay dark. The brightest parts sag instead of shining, so the whole picture sits dim and flat unless it is given plenty of light. Detail goes soft, and a light, soft-edged grain lies over everything, with a soft glow around bright edges and corners gently darkened. Nothing looks new; it looks found.",
+      "guidance": "Bright days and ordinary streets you want to look years old. Give it much more light than the camera asks for; in dim light it turns muddy.",
+      "grain": {
+        "strength": 35,
+        "large": true
+      },
+      "scene": true
+    },
+    {
+      "id": "neg1998",
+      "name": "1998 Neg",
+      "film": {
+        "id": "afterglow-neg",
+        "name": "Afterglow Neg",
+        "palette": [
+          "#3e3d3d",
+          "#a85947",
+          "#c79569",
+          "#547546",
+          "#71aed9",
+          "#dbd3c6"
+        ],
+        "line": "A negative like a print that has spent years in an album: the brightest parts warm to a soft amber, the darkest ones lift a little off black, and the brightest whites ease down softly instead of burning out. Colour is held back almost everywhere, green and magenta most, so foliage goes quiet rather than fresh. Blue alone keeps its full weight, turning toward cyan and lightening, so a sky stays open and clear. Red turns a step toward orange and reads as brick, and yellow leans toward amber. Skin keeps its own warmth."
+      },
+      "description": "Afterglow Neg as a snapshot from a late-nineties summer. The whole picture leans warm with a faint olive tinge, so a cream wall turns khaki, brown paper goes golden and a pale window frame goes sage, while red flowers and warm colours stay full and rich. The darks lift to a soft brown-grey instead of black and the bright parts glow without going harsh, so the frame reads gentle rather than punchy. Edges and fine detail are softened, and a light, fine grain lies over everything, with a faint glow at bright edges and corners gently darkened.",
+      "guidance": "Bright days out: streets, sunlit walls, flowers, friends outdoors. Give it a third to a full stop more light than the camera asks for; underexposed, the colour goes muddy and the shadows turn flat and brown.",
+      "grain": {
+        "strength": 25,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "folio",
+      "name": "Folio 100",
+      "film": {
+        "id": "lost-summer-neg",
+        "name": "Lost Summer Neg",
+        "palette": [
+          "#303538",
+          "#b9614f",
+          "#d7a480",
+          "#51775f",
+          "#99bcdb",
+          "#e0d5d0"
+        ],
+        "line": "A hard, dry negative, like a summer print that has lost its colour but kept its bite: the tones are steep, so shadows close down deep and bright parts come up clean, and colour drains out of soft, dull colours while strong ones keep most of their weight. Hues move rather than just fade. Red turns toward orange and reads as brick, yellow leans toward orange, green swings toward teal, and cyan turns toward blue and alone keeps its full strength. Blue leans toward cyan and lightens, so a sky stays pale and open. The shadows go colourless with a faint teal cast and the brightest parts warm slightly toward peach. Skin keeps more colour than anything around it."
+      },
+      "description": "Lost Summer Neg as an everyday summer roll. Colour stays quiet and slightly faded: a clear blue sky pales almost to a soft grey, green roofs go grey-teal, a red shopfront turns toward vermilion and a pink wall toward salmon, while white walls stay clean with only a faint warmth. The tones sit soft and even, with bright walls held back from glare and the shadows opened a little, and edges and fine detail are softened, with no grain at all: skies and plain walls stay smooth. A faint glow sits at bright edges and the corners are gently darkened.",
+      "guidance": "Everyday summer days: streets, errands, trips and friends outdoors in good light. Under hard midday sun with a bright sky, raise the dynamic range to DR200 to hold the brightest parts. Expose as the camera asks or up to two-thirds of a stop brighter; darker than that, the colour goes muddy.",
+      "grain": {
+        "strength": 25,
+        "large": false
+      }
+    },
+    {
+      "id": "cityneg",
+      "name": "City Neg 400",
+      "film": {
+        "id": "lost-summer-neg",
+        "name": "Lost Summer Neg",
+        "palette": [
+          "#303538",
+          "#b9614f",
+          "#d7a480",
+          "#51775f",
+          "#99bcdb",
+          "#e0d5d0"
+        ],
+        "line": "A hard, dry negative, like a summer print that has lost its colour but kept its bite: the tones are steep, so shadows close down deep and bright parts come up clean, and colour drains out of soft, dull colours while strong ones keep most of their weight. Hues move rather than just fade. Red turns toward orange and reads as brick, yellow leans toward orange, green swings toward teal, and cyan turns toward blue and alone keeps its full strength. Blue leans toward cyan and lightens, so a sky stays pale and open. The shadows go colourless with a faint teal cast and the brightest parts warm slightly toward peach. Skin keeps more colour than anything around it."
+      },
+      "description": "Lost Summer Neg pushed toward a warm city afternoon. Colour runs full: red cloth and lanterns go a deep, rich red, skin turns warm and golden, and awnings, fruit and signs keep their weight, while a clear sky pales to a soft, warm grey and the strong blue chrome holds blue shirts and signs dark. The brightest parts are pulled well back so white walls and sky never glare, and the shadows sit a step deeper, so doorways and shopfronts keep their weight. Fine detail is softened a little, edges keep their bite, and a light, fine grain lies over everything, with a faint glow at bright edges and corners gently darkened.",
+      "guidance": "Streets, markets and people out in the city by day, in sun or open shade. Expose as the camera asks; the held-back highlights leave room for bright walls and sky. In deep shade or at dusk lower the shadow a step so the dark parts do not close up.",
+      "grain": {
+        "strength": 35,
+        "large": false
+      },
+      "scene": true
+    },
+    {
+      "id": "underpass",
+      "name": "Underpass 400",
+      "film": {
+        "id": "olive-neg",
+        "name": "Olive Neg",
+        "palette": [
+          "#254227",
+          "#ab5700",
+          "#d19722",
+          "#337e22",
+          "#479695",
+          "#d4d4be"
+        ],
+        "line": "The night negative printed under a flickering tube light: a green that lives in the dark and middle of the frame, so grey walls, tiles and floors turn a deep bottle green while the brightest parts stay a pale green-tinged cream. Skin does not follow the room into green; it turns yellow and olive-gold, a warm glow against the green, and even a face in shade stays golden rather than grey. Brown cloth and wood keep their weight and lean toward olive, red leans toward orange, and blue and purple are quieted almost away. The darkest end stays deep with green in it, and the whole picture sits soft and a little flat, like a film scene lit from overhead. Where Verdant turns foliage green and Butter Neg warms toward yellow, this one turns the room green and the people gold."
+      },
+      "description": "Olive Neg aimed at a person under strip lights after dark — a subway passage, a stairwell, a late corridor. Walls, tiles and the floor go green, the dark parts stay green with them, and the face turns yellow and olive-gold with a small shine where the light catches it, standing warm against the room. A brown jacket keeps its richness, blacks stay deep, and the brightest light eases into a pale cream instead of a hard white. The picture opens soft and a little flat and free of grain, with a faint glow on the lights and corners that darken like the edge of a film frame.",
+      "guidance": "One person under ceiling light at night — a passage, a stair, a bus stop, a late room. It wants a face in the frame and no other strong colour; in daylight it only turns everything olive.",
+      "grain": {
+        "strength": 30,
+        "large": false
+      },
+      "scene": true
+    }
+  ],
+  "scene": [
+    {
+      "slug": "meadow",
+      "label": "Meadow 200",
+      "custom": false
+    },
+    {
+      "slug": "verdant",
+      "label": "Verdant Chrome",
+      "custom": false
+    },
+    {
+      "slug": "rust",
+      "label": "Rust Neg",
+      "custom": false
+    },
+    {
+      "slug": "dusk",
+      "label": "Dusk 400",
+      "custom": false
+    },
+    {
+      "slug": "acid",
+      "label": "Acid Cross",
+      "custom": false
+    },
+    {
+      "slug": "scarlet",
+      "label": "Scarlet Sky Mono",
+      "custom": false
+    },
+    {
+      "slug": "snowglass",
+      "label": "Snowglass 100",
+      "custom": false
+    },
+    {
+      "slug": "petal",
+      "label": "Petal Morning 100",
+      "custom": false
+    },
+    {
+      "slug": "ferry",
+      "label": "Night Ferry 800",
+      "custom": false
+    },
+    {
+      "slug": "quarter",
+      "label": "Old Quarter 200",
+      "custom": false
+    },
+    {
+      "slug": "sunwash",
+      "label": "Sunwash 200",
+      "custom": false
+    },
+    {
+      "slug": "stillair",
+      "label": "Still Air 100",
+      "custom": false
+    },
+    {
+      "slug": "lastorders",
+      "label": "Midnight Club 100",
+      "custom": false
+    },
+    {
+      "slug": "shoebox",
+      "label": "Shoebox 400",
+      "custom": false
+    },
+    {
+      "slug": "neg1998",
+      "label": "1998 Neg",
+      "custom": false
+    },
+    {
+      "slug": "cityneg",
+      "label": "City Neg 400",
+      "custom": false
+    },
+    {
+      "slug": "underpass",
+      "label": "Underpass 400",
+      "custom": false
+    },
+    {
+      "slug": "film-toffee-neg",
+      "label": "Toffee Neg",
+      "custom": false,
+      "film": true
+    },
+    {
+      "slug": "classicneg",
+      "label": "ClassicNeg",
+      "custom": true
+    },
+    {
+      "slug": "fc200",
+      "label": "FC200",
+      "custom": true
+    }
+  ]
+}

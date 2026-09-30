@@ -16,7 +16,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/home/home.css">
+<link rel="stylesheet" href="/home/home.css?v=2">
 <script>
 // Before first paint: when motion will run, its start states apply now (not after load), and each
 // pinned chapter reserves its scroll length until home.js swaps that for the real pin (no shift).
@@ -45,6 +45,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 <header class="site-nav">
   <a class="brand" href="/"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
   <nav>
+    <a href="/recipes/">Recipes</a>
     <a href="/diary/">Diary</a>
     <a href="/vi/" hreflang="vi" lang="vi">Tiếng Việt</a>
     <button class="sound-toggle" type="button" aria-pressed="false" aria-label="Sound on" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="none"/><g class="waves"><path d="M15.5 9a4.2 4.2 0 0 1 0 6"/><path d="M18 6.5a7.8 7.8 0 0 1 0 11"/></g><g class="mute"><path d="M16 9.5l5 5M21 9.5l-5 5"/></g></svg></button>
@@ -237,6 +238,16 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
     </div>
   </section>
 
+  <section id="ch3b" class="chapter ch-recipes-teaser" data-chapter="ch3b_recipes">
+    <div class="pin">
+      <p class="kicker">The recipes</p>
+      <h2>What a recipe is</h2>
+      <p class="rteaser-body">A film character plus the darkroom decisions around it. Every recipe Fonder ships, taken apart on one frame — and one scene developed through them all.</p>
+      <p class="swatch-line" aria-hidden="true"><i style="background:#30393c"></i><i style="background:#ad5545"></i><i style="background:#d9a074"></i><i style="background:#5d7d3c"></i><i style="background:#5f88c6"></i><i style="background:#e4d4c8"></i></p>
+      <a class="btn" href="/recipes/">Browse the recipes</a>
+    </div>
+  </section>
+
   <section id="ch4" class="chapter ch-ticket" data-chapter="ch4_ticket">
     <div class="pin">
       <div class="printer" aria-hidden="true"></div>
@@ -252,7 +263,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentEl
 </main>
 <footer class="site-footer">
   <p>Made in Hà Nội by Trung Hai.</p>
-  <nav><a href="/diary/">Diary</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+  <nav><a href="/recipes/">Recipes</a><a href="/diary/">Diary</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
 </footer>
 </body>
 </html>
