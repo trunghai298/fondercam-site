@@ -136,7 +136,7 @@
     gsap.set(q('.kel-pos'), { xPercent: 40 });   // Daylight's 5500 K on the 2500–10000 K bar
     gsap.set(q('.gr-pos'), { xPercent: 30 });
     tl = gsap.timeline({
-      scrollTrigger: { trigger: '#ch1 .phone', start: 'center center', end: '+=160%', scrub: 0.6, pin: '#ch1 .pin' },
+      scrollTrigger: { trigger: '#ch1 .phone', start: 'center center', end: '+=260%', scrub: 0.6, pin: '#ch1 .pin' },
       onUpdate: () => { update(); sounds(); },
     });
     const vf = all('.cam-vf img.vf');
