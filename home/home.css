@@ -44,7 +44,11 @@ a{color:var(--accent);text-underline-offset:3px}
 .brand{display:flex;gap:10px;align-items:center;color:var(--ink);text-decoration:none;font:600 18px var(--display)}
 .brand img{border-radius:7px;background:none}
 .site-nav nav{display:flex;gap:16px;align-items:center;font-size:14px}
-.site-nav nav a{color:var(--muted);text-decoration:none}
+.site-nav nav a{color:var(--muted);text-decoration:none;white-space:nowrap}
+/* Narrow phones: the Vietnamese labels are longer, so the nav tightens rather than breaking a label in two. */
+@media (max-width:400px){ .site-nav nav{gap:12px} }
+@media (max-width:380px){ .site-nav{padding-inline:12px} .site-nav nav{gap:10px;font-size:13px} .brand{gap:8px} }
+@media (max-width:340px){ .brand{font-size:0;gap:0} }  /* the mark alone; the name stays in the link for screen readers */
 .sound-toggle{display:grid;place-items:center;width:36px;height:36px;padding:0;color:var(--muted);background:none;border:1px solid rgba(255,255,255,.2);border-radius:99px;cursor:pointer}
 .sound-toggle[hidden]{display:grid!important;visibility:hidden}  /* keeps its box until home.js offers it: no nav shift */
 .sound-toggle .waves{display:none}
