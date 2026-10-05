@@ -1,7 +1,7 @@
 {
   "meta_title": "Fonder — a film camera for iPhone",
   "meta_description": "Fonder is a film camera for iPhone: {{film_count}} films, recipes you set like a camera, and Film Roll — shoot a roll, then develop it.",
-  "nav_home": "Home", "nav_diary": "Diary", "nav_privacy": "Privacy", "nav_terms": "Terms",
+  "nav_home": "Home", "nav_diary": "Diary", "nav_privacy": "Privacy", "nav_terms": "Terms", "nav_support": "Support",
   "lang_switch_label": "Tiếng Việt", "lang_bar_text": "Xem trang này bằng tiếng Việt?", "lang_bar_yes": "Xem tiếng Việt", "lang_bar_no": "Đóng",
   "sound_on": "Sound on", "sound_off": "Sound off",
   "consent_text": "This site uses Google Analytics to count visits. OK?", "consent_ok": "OK", "consent_no": "No thanks",
