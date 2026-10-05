@@ -261,6 +261,7 @@ def render_page(template, strings, cfg, lang):
         "alt_lang": "vi" if lang == "en" else "en",
         "recipes_href": "/recipes/" if lang == "en" else "/vi/recipes/",
         "diary_href": "/diary/" if lang == "en" else "/vi/diary/",
+        "support_href": "/support/" if lang == "en" else "/vi/support/",
         "action_html": action_html(cfg, strings),
         "fan_html": fan_html(strings),
         "sheet_html": sheet_html(),
