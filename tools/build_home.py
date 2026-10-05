@@ -326,7 +326,8 @@ def check_images(root, budget=3_200_000, long_edge=1600):
 
 
 CONSENT_PAGES = ["index.html", "vi/index.html", "diary/index.html", "vi/diary/index.html",
-                 "recipes/index.html", "vi/recipes/index.html", "privacy/index.html", "terms/index.html"]
+                 "recipes/index.html", "vi/recipes/index.html", "privacy/index.html", "terms/index.html",
+                 "support/index.html", "vi/support/index.html"]
 
 
 def check_consent(root, cfg):

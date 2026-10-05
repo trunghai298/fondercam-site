@@ -1,7 +1,8 @@
 # fondercam.online
 
 Static site for the Fonder iPhone app, served by GitHub Pages:
-landing page, development diary (`/diary/`), privacy policy (`/privacy/`) and terms of use (`/terms/`).
+landing page, development diary (`/diary/`), privacy policy (`/privacy/`), terms of use (`/terms/`)
+and support (`/support/`, `/vi/support/`; hand-written, like the two legal pages).
 
 The diary is generated from `diary/entries/*.json` by `python3 tools/build_diary.py`;
 see `diary/README.md`.
