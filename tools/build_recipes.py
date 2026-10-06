@@ -876,8 +876,8 @@ def render_page(data, dims, occasions, lang, tr, label_tr, cat_vi=None):
 <meta property="og:title" content="{esc(tr("meta.title", "Recipes \u00b7 Fonder"))}">
 <meta property="og:description" content="{esc(tr("meta.og_description", "A film character plus the darkroom decisions around it: every recipe Fonder ships, taken apart on one frame."))}">
 <meta property="og:image" content="https://fondercam.online/img/recipes/hero/after-1600.jpg">
-<link rel="icon" href="/icon.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/icon.png?v=2">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>{vn_preload}
 <link rel="stylesheet" href="/home/home.css?v=3">
