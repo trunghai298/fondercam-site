@@ -95,7 +95,7 @@ CUSTOM_DISPLAY = {"fujicolor c200": "FC200", "classic negative": "ClassicNeg"}
 # Faces stay off the site, so these cards show the recipe rendered over the shared no-face
 # frame instead — through the app's own pipeline at the sample strength, never a substitute
 # grade. Checked by eye and by Vision face detection over img/recipes/samples/.
-FACE_SAMPLES = {"amber", "sunday", "velour", "windowface"}
+FACE_SAMPLES = {"amber", "sunday", "velour"}
 
 # The anatomy renders tools/siterender/main.swift writes, in card order (see SLIDER_CARDS).
 ANATOMY_SLUGS = ["neutral", "film", "wb", "highlight", "shadow", "colour", "chrome", "dr",

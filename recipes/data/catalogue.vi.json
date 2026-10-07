@@ -148,10 +148,6 @@
       "description": "Mùa hè trong ký ức. Vùng sáng được giảm cho dịu, vùng tối được nâng, màu sắc nhạt đi đôi chút và tông ấm tăng lên, gợi một tấm ảnh kỳ nghỉ cất lâu trong ngăn kéo. Tổng thể mềm mại với một chút hạt phim, không nhấn vào độ sắc nét.",
       "guidance": "Cảnh ban ngày sáng rõ mà bạn muốn tạo cảm giác hoài niệm. Công thức sẽ làm dịu cả những cảnh vốn cần độ sắc và tương phản mạnh."
     },
-    "windowface": {
-      "description": "Một người bên cửa sổ, phần còn lại của căn phòng lùi vào tối. Vùng sáng được giữ cho khung cửa chứ không phải cho khuôn mặt, nên bên sáng vẫn còn nét và bên tối vẫn còn chi tiết; da được nâng lên một chút rồi giữ nguyên ở đó, và màu xanh lá trong phòng bị đẩy ra sau. Ánh sáng ban ngày qua cửa kính lạnh hơn đèn trong nhà, và công thức này được đặt cho thứ ánh sáng đó.",
-      "guidance": "Khuôn mặt bên cửa sổ, được chiếu sáng từ một phía. Công thức cần độ chuyển từ sáng sang tối; khuôn mặt được chiếu sáng đều sẽ ít thấy hiệu quả."
-    },
     "whisker": {
       "description": "Làm cho lông thú, thứ đòi hỏi hai điều khó nhất cùng lúc: giữ bộ lông trắng trước khi nó cháy, và mở bộ lông đen trước khi nó bết lại. Ở đây cả hai đều được đẩy đến hết mức. Phần chi tiết nhỏ được nâng lên thay vì bị làm mượt đi — lông mà thiếu nó thì chỉ còn là một mảng xám — và màu xanh lá được giữ thấp để bãi cỏ không lấn át con vật ngồi trên đó.",
       "guidance": "Động vật dưới ánh sáng dịu, trong nhà hoặc bóng râm thoáng. Nắng gắt dễ vượt quá khả năng giữ chi tiết vùng sáng của công thức."
