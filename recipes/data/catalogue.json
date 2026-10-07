@@ -863,29 +863,6 @@
       "scene": true
     },
     {
-      "id": "windowface",
-      "name": "Window Face 400",
-      "film": {
-        "id": "rose-neg",
-        "name": "Rose Neg",
-        "palette": [
-          "#424041",
-          "#ad5047",
-          "#d7a888",
-          "#5b7c4a",
-          "#6c90c3",
-          "#dccfc7"
-        ],
-        "line": "Built around people. Red and orange are left almost where they are, so lips and warm clothing keep their colour, while magenta is pulled down and green held back so nothing behind a face competes with it. Skin loses a little of its colour and gains a little light, and its bright side turns soft early, which is what keeps a lit cheek creamy instead of orange. Shadows open rather than deepen and the whole picture sits gently, so a face in hard light still has somewhere to live. It works the same way on fur."
-      },
-      "description": "One person beside a window and the rest of the room falling away. The highlight is spent holding the glass rather than the face, so the bright side keeps its edge and the shadow side keeps its detail; skin is lifted a little and held there, and the room's greens are kept behind it. Daylight through a window is cooler than a room's own bulbs, and this is set for that.",
-      "guidance": "A face beside a window, lit from one side. It needs the falloff — a face lit evenly gives it nothing to do.",
-      "grain": {
-        "strength": 15,
-        "large": false
-      }
-    },
-    {
       "id": "whisker",
       "name": "Whisker 200",
       "film": {
