@@ -91,10 +91,11 @@ INSET = 112, 75, 2800, 1866   # x, y, w, h: a centred 3:2 window inside the cont
 # An explicit map, so nothing else ever rides in on a loosened name filter.
 CUSTOM_DISPLAY = {"fujicolor c200": "FC200", "classic negative": "ClassicNeg"}
 
-# Recipes whose bundled app sample has a person's face in it (the owner's portrait frames).
-# Faces stay off the site, so these cards show the recipe rendered over the shared no-face
+# Recipes whose bundled app sample is a portrait (the owner's portrait frames). A face
+# close up stays off the site, so these cards show the recipe rendered over the shared no-face
 # frame instead — through the app's own pipeline at the sample strength, never a substitute
-# grade. Checked by eye and by Vision face detection over img/recipes/samples/.
+# grade. Checked by eye over img/recipes/samples/. A street frame with people small in it
+# (Nightshade 800, Underpass 400) is shown as the app shows it, by the owner's decision.
 FACE_SAMPLES = {"amber", "sunday", "velour"}
 
 # The anatomy renders tools/siterender/main.swift writes, in card order (see SLIDER_CARDS).
@@ -417,7 +418,7 @@ TEXT_CARDS = [
      "no picture — it needs lamps, not noon"),
     ("Protect skin", "Holds faces back from the film's strongest colour moves, so a bold palette does not "
      "walk over skin. It needs a face in frame to show itself.",
-     "no picture — it needs a face, and faces stay off this site"),
+     "no picture — it needs a face close up, and no photograph here has one"),
     ("Film dials — Drift, Bleed, Compress", "Three dials on the film itself: Drift leans the whole character "
      "further its own way or back toward neutral, Bleed lets neighbouring colours cross-talk like dye layers "
      "do, and Compress fades the deepest shadows the way a print lifts them.",
