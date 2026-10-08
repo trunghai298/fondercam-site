@@ -631,21 +631,16 @@ def catalogue_section(data, dims, occasions, tr, lang, cat_vi=None):
 # not a recipe: its facts come from the app's film description (the same source --sync
 # reads), and its picture is its existing scene-viewer render — nothing new is derived.
 FEATURED = [
-    {"id": "ordinaryday", "name": "Ordinary Day 200", "img": "samples/ordinaryday.jpg",
-     "intro": "Diary Neg with the colour turned up and the shadows opened — the recipe for days "
-              "that do not announce themselves. It makes the day a little brighter and cleaner "
-              "than it felt, without turning it into a style.",
-     "best": "Everyday daylight — errands, tree-lined streets, the people you know. Not for "
-             "moody scenes: it opens every shadow.",
-     "look": [("Colour", "Greens and yellows come forward fresh and lively, reds stay a deep "
-               "crimson, and a blue sky still lightens toward cyan. The whole frame sits a shade "
-               "warmer, and skin keeps its own warmth."),
-              ("Contrast", "Gentle. The picture is a touch soft, with only a faint glow and the "
-               "lightest darkening at the corners."),
+    {"id": "noon", "name": "Noon Neg", "img": "samples/noon.jpg",
+     "intro": "The plain reading the rest of the catalogue departs from, on Diary Neg: an honest "
+              "photograph with a little more colour in it, and nothing pushed toward a mood.",
+     "best": "Days when the light is already right and you want the photograph, not the recipe.",
+     "look": [("Colour", "A little fuller than the scene and no further. Whites stay white."),
+              ("Contrast", "Even from edge to edge: the corners stay as bright as the middle."),
               ("Grain", "None. A clean frame."),
-              ("Highlights", "Left bright and clear — nothing is pulled down for mood."),
-              ("Shadows", "Opened, so the shade under trees reads as soft grey rather than black.")],
-     "when": "The day should look a little brighter than it felt."},
+              ("Highlights", "Held back, so a sunlit wall keeps its surface instead of glaring."),
+              ("Shadows", "Left open, so shade stays readable rather than closing up.")],
+     "when": "The light is already doing the work."},
     {"id": "summer", "name": "Summer Chrome", "img": "samples/summer.jpg",
      "intro": "The strong-sun chrome, built on Daylight Cine: shadows cool while highlights warm, "
               "so the two ends of the frame disagree — and a face sits protected between them.",
@@ -674,22 +669,22 @@ FEATURED = [
                "than burning to white."),
               ("Shadows", "Lifted rather than crushed, deepened and turned blue.")],
      "when": "The air is thick and every shop is still lit."},
-    {"id": "lastorders", "name": "Midnight Club 100", "img": "samples/lastorders.jpg",
-     "intro": "Butter Neg aimed at a face lit hard from the camera in a small room at night — "
-              "the snapshot from the end of a dinner, printed the way a corner photo lab once "
-              "printed it.",
-     "best": "People at close range after dark — a table, a bar, a friend lit by the camera's "
-             "own light. It wants a face in the frame; a daylight landscape only turns yellow.",
-     "look": [("Colour", "Everything light turns toward butter: walls, menus and a white shirt "
-               "go cream, skin turns golden, reds on a sign keep their weight, and a dark "
-               "jacket reads as navy."),
-              ("Contrast", "Soft in the middle, deep at the bottom — the corners darken the way "
-               "a room falls away behind someone."),
-              ("Grain", "None. A touch soft and free of grain."),
-              ("Highlights", "The bright patch where the light lands on a cheek or a forehead "
-               "is eased down rather than burnt white."),
-              ("Shadows", "Deep, with a cool edge — navy rather than brown.")],
-     "when": "One more picture before everyone goes home."},
+    {"id": "folio", "name": "Folio 100", "img": "samples/folio.jpg",
+     "intro": "Lost Summer Neg as an everyday summer roll: colour kept quiet and slightly faded, "
+              "tones soft and even, the kind of roll that covers a whole ordinary week.",
+     "best": "Everyday summer days — streets, errands, trips and friends outdoors in good light. "
+             "Under hard midday sun with a bright sky, raise the dynamic range to hold the "
+             "brightest parts.",
+     "look": [("Colour", "A clear blue sky pales almost to a soft grey, green roofs go grey-teal, "
+               "a red shopfront turns toward vermilion and a pink wall toward salmon. White "
+               "walls stay clean, with only a faint warmth."),
+              ("Contrast", "Soft and even, with edges and fine detail eased and the corners "
+               "gently darkened."),
+              ("Grain", "Fine — 25, small. Light enough that skies and plain walls stay calm."),
+              ("Highlights", "Bright walls are held back from glare, with a faint glow at their "
+               "edges."),
+              ("Shadows", "Opened a little.")],
+     "when": "Nothing special is happening and you want to keep it anyway."},
     {"id": None, "name": "Toffee Neg", "img": "scene/film-toffee-neg-1080.jpg",
      "occasion": "For photos that feel found, not taken.", "kind": "The film",
      "scene": "film-toffee-neg",

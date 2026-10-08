@@ -19,8 +19,8 @@ fits them to 3:2 and encodes them.
   python3 tools/roll_images.py --still RENDER_DIR
 
 Encodes chapter 1's Still-mode phone (img/home/still/): the viewfinder frames 01..07.png (600x900 from
-Hai's own X-T3 JPEG IMG_0303.jpg, a portrait 2:3 frame, decoded as the app imports a JPEG: no measured
-light, so the scene is taken as daylight), rendered by FilmKit through the
+01-sample.png, a generated image Hai supplied, not a photograph: a 9:16 frame cut to 2:3, decoded as
+the app imports a picture: no measured light, so the scene is taken as daylight), rendered by FilmKit through the
 catalogue's recipes at the camera's default strength: Summer Chrome, Ha Noi Chrome, Amber 400, Still
 Air 100, then Still Air 100 at WB 3200K, at 7000K, and at 7000K with Grain 75) and the recipe
 strip's swatches sw-<look id>.png.
