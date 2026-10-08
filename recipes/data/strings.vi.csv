@@ -5,7 +5,7 @@ meta.og_description,"A film character plus the darkroom decisions around it: eve
 nav.home,Home,Trang chủ,Trang chủ
 nav.recipes,Recipes,Công thức,Công thức
 nav.diary,Diary,Nhật ký,Nhật ký
-footer.line,"Made in Hà Nội by Trung Hai. Every photograph on this page is the owner's own frame, rendered through Fonder.","Được Trung Hai tạo nên tại Hà Nội. Mọi bức ảnh trên trang này đều là khung hình của chính tác giả, được xử lý qua Fonder.",Được Trung Hai tạo nên tại Hà Nội. Mọi bức ảnh trên trang này đều do chính tác giả chụp và được xử lý bằng Fonder.
+footer.line,Made in Hà Nội by Trung Hai. Every picture on this page is rendered through Fonder. The recipe samples are illustrations; the rest are the owner's own frames.,Được Trung Hai tạo nên tại Hà Nội. Mọi bức ảnh trên trang này đều được xử lý bằng Fonder. Ảnh mẫu của các công thức chỉ mang tính minh họa; những ảnh còn lại do chính tác giả chụp.,Được Trung Hai tạo nên tại Hà Nội. Mọi bức ảnh trên trang này đều được xử lý bằng Fonder. Ảnh mẫu của các công thức chỉ mang tính minh họa; những ảnh còn lại do chính tác giả chụp.
 consent.text,This site uses Google Analytics to count visits. OK?,Trang này dùng Google Analytics để đếm lượt truy cập. Đồng ý?,Trang này dùng Google Analytics để đếm lượt truy cập. Đồng ý?
 consent.ok,OK,Đồng ý,Đồng ý
 consent.no,No thanks,Không,Không
@@ -187,9 +187,9 @@ before.anatomy_line,Want to see what each setting actually does?,Muốn xem từ
 before.anatomy_link,"Every control, shown honestly →","Mọi điều khiển, được cho xem trung thực →","Mọi điều khiển, được cho xem trung thực →"
 catalogue.kicker,The catalogue,Danh mục,Danh mục
 catalogue.title,Every recipe that ships,Mọi công thức có trong ứng dụng,Tất cả công thức có trong Fonder
-catalogue.lead,"All {n} of them — each with its film's palette line (six memory colours run through that film's own maths, the way the app draws it) and its grain, on a sample from the owner's own rolls.","Đủ cả {n} công thức — mỗi cái kèm dải màu của chất phim (sáu màu ký ức chạy qua đúng phép toán của phim ấy, như cách ứng dụng vẽ) và chất hạt của nó, trên một tấm ảnh mẫu từ chính những cuộn phim của tác giả.","Đủ cả {n} công thức — mỗi công thức đi kèm dải màu của màu phim nền, chất hạt và một ảnh mẫu từ chính những cuộn phim của tác giả."
+catalogue.lead,"All {n} of them — each with its film's palette line (six memory colours run through that film's own maths, the way the app draws it) and its grain, on a sample image with the recipe applied. Sample images are illustrations.","Đủ cả {n} công thức — mỗi công thức đi kèm dải màu của màu phim nền, chất hạt và một ảnh mẫu đã áp công thức. Ảnh mẫu chỉ mang tính minh họa.","Đủ cả {n} công thức — mỗi công thức đi kèm dải màu của màu phim nền, chất hạt và một ảnh mẫu đã áp công thức. Ảnh mẫu chỉ mang tính minh họa."
 catalogue.card_scene,See it on the shared scene,Xem trên khung cảnh chung,Xem trên khung cảnh chung
-catalogue.alt_template,Sample photograph developed with {name},Ảnh mẫu tráng bằng {name},Ảnh mẫu tráng bằng {name}
+catalogue.alt_template,Sample image developed with {name},Ảnh mẫu tráng bằng {name},Ảnh mẫu tráng bằng {name}
 grain.label,Grain,Hạt phim,Hạt phim
 grain.off,off,tắt,tắt
 grain.small,small,nhỏ,nhỏ

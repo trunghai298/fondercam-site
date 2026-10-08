@@ -597,7 +597,7 @@ def catalogue_section(data, dims, occasions, tr, lang, cat_vi=None):
             if not look_vi.get("description") or not look_vi.get("guidance"):
                 raise BuildError(f"catalogue.vi.json is missing description/guidance for {r['id']!r}")
             desc, guidance = look_vi["description"], look_vi["guidance"]
-        alt = tr("catalogue.alt_template", "Sample photograph developed with {name}").replace("{name}", r["name"])
+        alt = tr("catalogue.alt_template", "Sample image developed with {name}").replace("{name}", r["name"])
         cards.append(f"""<article class="recipe-card" id="r-{esc(r['id'])}">
         <img src="/img/recipes/samples/{esc(r['id'])}.jpg" width="{w}" height="{h}"
           alt="{esc(alt)}" loading="lazy" decoding="async">
@@ -610,7 +610,7 @@ def catalogue_section(data, dims, occasions, tr, lang, cat_vi=None):
           {scene_chip}
         </div></article>""")
     n = len(data["recipes"])
-    lead = tr("catalogue.lead", "All {n} of them — each with its film's palette line (six memory colours run through that film's own maths, the way the app draws it) and its grain, on a sample from the owner's own rolls.").replace("{n}", str(n))
+    lead = tr("catalogue.lead", "All {n} of them — each with its film's palette line (six memory colours run through that film's own maths, the way the app draws it) and its grain, on a sample image with the recipe applied. Sample images are illustrations.").replace("{n}", str(n))
     return f"""
   <section id="rc4" class="chapter rc-catalogue" data-chapter="rc4_catalogue">
     <div class="wrap">
@@ -889,7 +889,7 @@ def render_page(data, dims, occasions, lang, tr, label_tr, cat_vi=None):
 <main>{hero_section(dims, tr)}{find_section(tr)}{anatomy_section(dims, tr, label_tr)}{scene_section(data, dims, tr)}{build_section(tr)}{featured_section(data, dims, occasions, tr, lang)}{choose_section(data, tr)}{before_section(tr)}{catalogue_section(data, dims, occasions, tr, lang, cat_vi)}{manifesto_section(tr)}{cta_section(tr, lang)}
 </main>
 <footer class="site-footer">
-  <p>{esc(tr("footer.line", "Made in H\u00e0 N\u1ed9i by Trung Hai. Every photograph on this page is the owner's own frame, rendered through Fonder."))}</p>
+  <p>{esc(tr("footer.line", "Made in H\u00e0 N\u1ed9i by Trung Hai. Every picture on this page is rendered through Fonder. The recipe samples are illustrations; the rest are the owner's own frames."))}</p>
   <nav><a href="{ch["home"]}">{esc(tr("nav.home", "Home"))}</a><a href="{ch["self"]}">{esc(tr("nav.recipes", "Recipes"))}</a><a href="{ch["diary"]}">{esc(tr("nav.diary", "Diary"))}</a><a href="/privacy/">{esc(ch["privacy"])}</a><a href="/terms/">{esc(ch["terms"])}</a></nav>
 </footer>
 <div class="consent-bar" hidden>
