@@ -49,7 +49,7 @@ edit the sources below, then rebuild.
   "`<Recipe Name>[ on Roll] <NNNN>`.JPG" exports of the same frame. New exports dropped in that
   folder join the "one scene" strip on the next sync; names that match no shipped recipe are
   skipped. Sync builds the app's FilmKit package with `tools/siterender/` added, so the anatomy
-  pairs and the four no-face sample stand-ins are real renders through the app's own graph.
+  pairs (and any no-face sample stand-ins listed in `FACE_SAMPLES`) are real renders through the app's own graph.
   Needs swift, sips, ffmpeg and exiftool; every output is stripped of metadata.
 - **Build / check:** `python3 tools/build_recipes.py` writes the page from the snapshot;
   `--check` verifies the snapshot, the images (EXIF, size, budget) and that the page is
