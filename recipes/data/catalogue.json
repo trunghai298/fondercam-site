@@ -1143,6 +1143,29 @@
         "large": false
       },
       "scene": true
+    },
+    {
+      "id": "kioskflash",
+      "name": "Kiosk Flash 400",
+      "film": {
+        "id": "kiosk-neg",
+        "name": "Kiosk Neg",
+        "palette": [
+          "#333a39",
+          "#b1493f",
+          "#d7a076",
+          "#48794e",
+          "#69a1cd",
+          "#d9d7d4"
+        ],
+        "line": "A roll from a pocket camera, developed and scanned at the corner shop: green has settled into the dark parts of the frame while the bright parts stay clean and white. Reds run rich, blue leans toward teal, and greens and purples are held back, so a red sign or a red shirt is the loudest thing in the picture. Skin is lifted a little and left close to its own colour. It is made for a flash fired close to a person."
+      },
+      "description": "Kiosk Neg with a flash fired close to a person — the pocket-camera snapshot. The face and whatever is nearest come up bright and clean, a white shirt goes fully white, and the dark behind them takes a green cast. Reds stay rich, blue leans teal, and skin keeps close to its own colour. A fine grain sits over the frame, with a light darkening at the corners.",
+      "guidance": "People at arm's length with the flash on — in shade, at dusk or after dark. Stand within a metre or so; further away the flash has little to give, and in open sun it barely shows.",
+      "grain": {
+        "strength": 30,
+        "large": false
+      }
     }
   ],
   "scene": [

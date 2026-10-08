@@ -933,7 +933,9 @@ def check_names(text, where):
 
 # The budget covers true-2x variants for a 21-state scene viewer whose big renditions load
 # only when picked; the page's initial load is the hero pair plus lazy images on approach.
-def check_images(budget=16_500_000, long_edge=2200):
+# It also has to hold one lazy card image per shipped recipe: raised from 16.5 MB when the
+# fiftieth recipe's sample arrived with 17 KB of room left.
+def check_images(budget=16_700_000, long_edge=2200):
     total = 0
     for path in sorted(IMG.rglob("*.jpg")):
         data = path.read_bytes()
