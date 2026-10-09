@@ -83,7 +83,7 @@ build.title,The same dials are on the camera,Những nút chỉnh ấy nằm nga
 build.lead,"Every setting above is a control in the app, not a preset you are locked out of. Start from any shipped recipe, turn the dials while the viewfinder answers, and save what you land on as your own — the two custom looks in the scene above were made exactly this way.","Mọi thiết lập phía trên đều là một điều khiển trong ứng dụng, không phải preset đóng kín với bạn. Bắt đầu từ bất kỳ công thức có sẵn nào, xoay các nút trong khi khung ngắm trả lời, rồi lưu điểm bạn dừng lại thành công thức của riêng mình — hai phong cách tự tạo trong khung cảnh phía trên được làm đúng theo cách này.","Mọi thiết lập phía trên đều là điều khiển thật trong ứng dụng, không phải preset khóa sẵn. Bắt đầu từ bất kỳ công thức nào, chỉnh các nút và nhìn khung ngắm thay đổi ngay theo thời gian thực, rồi lưu lại thành công thức của riêng bạn."
 build.cap1,1 · Start from any film or recipe and shoot with it.,1 · Bắt đầu từ bất kỳ màu phim hay công thức nào và chụp với nó.,1 · Bắt đầu từ bất kỳ màu phim hay công thức nào và chụp với nó.
 build.cap2,"2 · Dial the darkroom: tone, balance, grain, glow — live on the viewfinder.","2 · Chỉnh phòng tối: sắc độ, cân bằng trắng, hạt, quầng sáng — hiện trực tiếp trên khung ngắm.","2 · Tinh chỉnh sắc độ, cân bằng trắng, hạt và quầng sáng — thấy ngay trên khung ngắm."
-build.cap3,"3 · Save it to Mine, and share it as plain text anyone can paste back in.","3 · Lưu vào mục Của tôi, và chia sẻ dưới dạng văn bản mà ai cũng dán lại được.","3 · Lưu vào mục Của tôi, và chia sẻ dưới dạng văn bản mà ai cũng dán lại được."
+build.cap3,"3 · Save it to Mine, and share it as a QR code another phone can scan.","3 · Lưu vào mục Của tôi, và chia sẻ bằng mã QR để máy khác quét.","3 · Lưu vào mục Của tôi, và chia sẻ bằng mã QR để máy khác quét."
 build.mock.recipe,Recipe,Công thức,Công thức
 build.mock.film,Film,Phim,Phim
 build.mock.tone,Tone,Sắc độ,Sắc độ
@@ -96,7 +96,7 @@ build.mock.save_as,Save as new recipe,Lưu thành công thức mới,Lưu thành
 build.mock.name,Name,Tên,Tên
 build.mock.base,Base,Gốc,Gốc
 build.mock.share,Share,Chia sẻ,Chia sẻ
-build.mock.share_how,As text or QR,Dạng văn bản hoặc QR,Dạng văn bản hoặc QR
+build.mock.share_how,By QR code,Bằng mã QR,Bằng mã QR
 build.mock.yours,Toffee Neg · yours,Toffee Neg · của bạn,Toffee Neg · của bạn
 build.mock.grain_v,30 · small,30 · nhỏ,30 · nhỏ
 featured.kicker,Read five closely,Đọc kỹ năm cái tên,Nhìn kỹ năm lựa chọn

@@ -562,9 +562,9 @@ def build_frames(tr):
           <div class="b-rows">
             <p><span>{m("name", "Name")}</span><span class="b-val">Sunday Flyover</span></p>
             <p><span>{m("base", "Base")}</span><span class="b-val">Toffee Neg</span></p>
-            <p><span>{m("share", "Share")}</span><span class="b-val">{m("share_how", "As text or QR")}</span></p>
+            <p><span>{m("share", "Share")}</span><span class="b-val">{m("share_how", "By QR code")}</span></p>
           </div>
-        </div><figcaption>{esc(tr("build.cap3", "3 · Save it to Mine, and share it as plain text anyone can paste back in."))}</figcaption></figure>
+        </div><figcaption>{esc(tr("build.cap3", "3 · Save it to Mine, and share it as a QR code another phone can scan."))}</figcaption></figure>
       </div>"""
 
 
