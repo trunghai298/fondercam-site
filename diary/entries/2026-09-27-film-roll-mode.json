@@ -3,7 +3,7 @@
   "chapter": "film-roll",
   "title": "Film Roll: load, shoot blind, develop",
   "body": [
-    "Film Roll is the third mode on the pill, next to Still and Cine. You pick a film (every film is available) and a roll of 12, 24 or 36 exposures. The roll stays locked to that film until it's developed. While shooting you see either negatives or no preview at all, and the last-shot tile only plays the film advancing.",
+    "Film Roll is the third mode on the pill, next to Still and Cine. You pick a film (the free films, or every film with “Unlock everything”) and a roll of 12, 24 or 36 exposures. The roll stays locked to that film until it's developed. While shooting you see either negatives or no preview at all, and the last-shot tile only plays the film advancing.",
     "When the roll is finished, you develop it. You choose a border (none, weathered or scanned) and, if you like, a date stamp from each frame's capture time. The stamp is drawn as amber seven-segment digits with a soft glow, the way old compact cameras printed it, in four formats such as `'26 9 27` or `27 9 '26 14:32`.",
     "Every roll develops under one lab recipe, the same for every film, tuned for what a good lab scan would give:",
     {
