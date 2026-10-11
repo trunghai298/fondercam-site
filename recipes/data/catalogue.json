@@ -1166,6 +1166,29 @@
         "strength": 30,
         "large": false
       }
+    },
+    {
+      "id": "goldenterrace",
+      "name": "Golden Terrace 100",
+      "film": {
+        "id": "terracotta-chrome",
+        "name": "Terracotta Chrome",
+        "palette": [
+          "#343435",
+          "#b34f47",
+          "#d7a371",
+          "#6a7000",
+          "#4c7f91",
+          "#d6d5cf"
+        ],
+        "line": "A slide film for old towns in direct sun, and it takes the blue out to make room for the warm colours. Sky and sea are pulled from blue to a quiet grey-teal and set a little darker, while brick, roof tile and ochre walls stay full and turn slightly golden. Greens go olive and stay dark, and reds and magentas keep their strength. Shade closes almost to black with a faint brown warmth in it, and whites settle at a soft cream instead of glaring. A blue door or blue paint goes grey along with the sky."
+      },
+      "description": "Terracotta Chrome in direct sun, kept crisp. The sky and the sea settle to a grey-teal, a little darker than they were, and brick, roof tile and ochre walls stand out full and slightly golden against them. Greens turn olive and stay dark, reds stay vivid, and shade goes nearly black with a faint brown warmth. Whites settle at a soft cream and never glare. Detail is crisp, with a light, fine grain over the frame and corners darkened only slightly.",
+      "guidance": "Old streets, rooftops, walls and water in direct sun, best when the sun is low. A blue door or blue paint goes grey along with the sky, a frame that is all grass turns heavily olive, and it has not been tuned for faces.",
+      "grain": {
+        "strength": 15,
+        "large": false
+      }
     }
   ],
   "scene": [
