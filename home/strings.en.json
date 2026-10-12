@@ -17,7 +17,7 @@
   "ch1_kicker": "01 · Shoot",
   "ch1_title": "Pick a film. Then forget about it.",
   "ch1_lead": "Load the look you want before the moment happens. Set it once. Then shoot.",
-  "ch1_body": "Still mode opens on a recipe, with the white balance and exposure in the corners of the frame. Pick a recipe on any of {{film_count}} films, then set it like a camera: white balance, dynamic range, grain, colour. Still and Roll.",
+  "ch1_body": "Still mode opens on a recipe, with the white balance and exposure in the corners of the frame. Pick a recipe, or any of {{film_count}} films, then set it like a camera: white balance, dynamic range, grain, colour. Still and Roll.",
   "ch1_modes_html": "<span>Still</span><span>Roll</span>",
   "cam_still": "Still",
   "cam_roll": "Roll",
