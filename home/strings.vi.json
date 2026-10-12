@@ -27,7 +27,7 @@
   "ch1_kicker": "01 · Chụp",
   "ch1_title": "Chọn một màu phim. Rồi quên nó đi.",
   "ch1_lead": "Chọn trước cảm giác bạn muốn cho bức ảnh, rồi cứ thế mà chụp.",
-  "ch1_body": "Chế độ Still mở cùng một công thức, với cân bằng trắng và phơi sáng ngay ở các góc khung hình. Chọn công thức từ bất kỳ màu phim nào trong {{film_count}} màu phim, rồi chỉnh như trên máy ảnh: cân bằng trắng, dải tương phản, hạt phim và màu sắc. Dùng cho cả Still và Roll.",
+  "ch1_body": "Chế độ Still mở cùng một công thức, với cân bằng trắng và phơi sáng ngay ở các góc khung hình. Chọn một công thức, hoặc bất kỳ màu phim nào trong {{film_count}} màu phim, rồi chỉnh như trên máy ảnh: cân bằng trắng, dải tương phản, hạt phim và màu sắc. Dùng cho cả Still và Roll.",
   "ch1_modes_html": "<span>Ảnh</span><span>Cuộn phim</span>",
   "cam_still": "Ảnh",
   "cam_roll": "Cuộn phim",
