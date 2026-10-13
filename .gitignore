@@ -1,3 +1,6 @@
 .superpowers/
 __pycache__/
 docs/superpowers/
+# Source photos for the challenge keep the camera's metadata, so only the day's text is tracked.
+challenge/days/*
+!challenge/days/*.txt

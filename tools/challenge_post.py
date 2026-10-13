@@ -279,8 +279,9 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
         if not wanted:
             say(f"Day {args.day} is already posted: {', '.join(f'{k} {v}' for k, v in done.items() if k != 'at')}")
             return 0
-        day_files = [f"challenge/days/{key}.txt", *(f"challenge/days/{s.name}" for s in sources),
-                     *(path for pair in paths for path in pair)]
+        # The source photos stay on this machine: they still carry what the camera wrote into them
+        # (time, and the place when location is on). Only the prepared copies, which have none, go out.
+        day_files = [f"challenge/days/{key}.txt", *(path for pair in paths for path in pair)]
         if args.dry_run:
             if args.publish:
                 say(f"Dry run: would commit and push {', '.join(day_files)}.")
