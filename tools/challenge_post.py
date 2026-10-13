@@ -37,6 +37,9 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://fondercam.online"
 DAYS = 30
 SIGN_OFF = "iPhone 16 Pro + Fonder."
+# Instagram's caption ends with these, after an empty line. Threads uses its topic tag instead.
+# Five is the most Instagram counts: the brand's own tag, then what the photo is, then who made it.
+INSTAGRAM_HASHTAGS = "#fondercam #filmlook #shotoniphone #iphonephotography #indiedev"
 TOPIC_TAG = "FonderCam"
 THREADS_LIMIT = 500
 # Threads takes a photo up to 1440 px wide; the same long edge is plenty for Instagram.
@@ -77,8 +80,9 @@ def caption(day, recipe, lines):
 
 
 def instagram_caption(recipe, lines):
-    """The challenge is counted on Threads only, so Instagram's caption opens with the recipe alone."""
-    return "\n".join([recipe, *lines, SIGN_OFF])
+    """The challenge is counted on Threads only, so Instagram's caption opens with the recipe alone.
+    It ends with the hashtags, which Threads does not carry."""
+    return "\n".join([recipe, *lines, SIGN_OFF, "", INSTAGRAM_HASHTAGS])
 
 
 # The photos

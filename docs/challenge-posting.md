@@ -23,7 +23,9 @@ Meta's documentation and not from a run. What is not confirmed is listed at the 
 
 2. **Dry run:** `python3 tools/challenge_post.py 7 --dry-run`. It prints both posts exactly as
    they will read, writes the two public photos to `img/challenge/`, and posts nothing. The
-   challenge is counted on Threads only, so Instagram's caption opens with the recipe alone.
+   challenge is counted on Threads only, so Instagram's caption opens with the recipe alone. It
+   ends with the hashtags, set as `INSTAGRAM_HASHTAGS` in the script; Threads carries its topic
+   tag instead.
 
    ```
    Threads:
@@ -37,6 +39,8 @@ Meta's documentation and not from a run. What is not confirmed is listed at the 
    this one was made for autumn.
    warm light, dry tones, and that soft seasonal feeling.
    iPhone 16 Pro + Fonder.
+
+   #fondercam #filmlook #shotoniphone #iphonephotography #indiedev
    ```
 
 3. **Publish and post, from `main`:**

@@ -49,9 +49,17 @@ class DayFileTests(unittest.TestCase):
         self.assertEqual(text, "Day 06/30 — Harvest 400\nthis one was made for autumn.\n"
                                "warm light, dry tones, and that soft seasonal feeling.\niPhone 16 Pro + Fonder.")
 
-    def test_instagram_caption_has_no_day_count(self):
+    def test_instagram_caption_has_no_day_count_and_ends_with_the_hashtags(self):
         text = c.instagram_caption("Harvest 400", ["this one was made for autumn."])
-        self.assertEqual(text, "Harvest 400\nthis one was made for autumn.\niPhone 16 Pro + Fonder.")
+        self.assertEqual(text, "Harvest 400\nthis one was made for autumn.\niPhone 16 Pro + Fonder.\n\n#fondercam #filmlook #shotoniphone #iphonephotography #indiedev")
+
+    def test_instagram_has_three_to_five_hashtags(self):
+        tags = c.INSTAGRAM_HASHTAGS.split()
+        self.assertTrue(3 <= len(tags) <= 5, "Instagram counts no more than five")
+        self.assertTrue(all(tag.startswith("#") for tag in tags)); self.assertEqual(len(set(tags)), len(tags))
+
+    def test_threads_caption_has_no_hashtags(self):
+        self.assertNotIn("#", c.caption(6, "Harvest 400", ["this one was made for autumn."]))
 
     def test_day_must_be_in_the_challenge(self):
         for day in (0, 31, -1):
@@ -201,7 +209,8 @@ class RunTests(unittest.TestCase):
         sent = {u.rsplit("/", 1)[1]: p for m, u, p in api.calls if u.endswith(("/threads", "/media"))}
         self.assertEqual(sent["threads"]["text"], "Day 06/30 — Harvest 400\nthis one was made for autumn.\niPhone 16 Pro + Fonder.")
         # The challenge is counted on Threads only.
-        self.assertEqual(sent["media"]["caption"], "Harvest 400\nthis one was made for autumn.\niPhone 16 Pro + Fonder.")
+        self.assertEqual(sent["media"]["caption"],
+                         "Harvest 400\nthis one was made for autumn.\niPhone 16 Pro + Fonder.\n\n#fondercam #filmlook #shotoniphone #iphonephotography #indiedev")
 
     def test_a_day_already_posted_is_not_posted_again(self):
         self.run_it(["6"], FakeAPI())
