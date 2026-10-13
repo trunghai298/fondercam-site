@@ -132,7 +132,9 @@ curl "https://graph.threads.net/refresh_access_token?grant_type=th_refresh_token
   accepted.
 - **The Threads token generator.** If the use case's settings do not offer one, the token comes
   from Meta's authorisation window instead (documented under Threads API, Get started).
-- **Carousels.** Posts of several photos use Meta's carousel calls on both platforms; they are
-  covered by tests against a stand-in, not by a real post.
+- **Carousels.** Posts of several photos use Meta's carousel calls on both platforms. A first
+  real Threads carousel was refused because the script joined the items while Threads was still
+  fetching them; the script now waits until every item reads `FINISHED`. No carousel has gone
+  out since, on either platform.
 - **The topic tag.** The script sends `Film Photography` as `topic_tag`, which Meta's Threads
   documentation describes; it has not been tried.

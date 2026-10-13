@@ -7,8 +7,9 @@ import challenge_post as c
 
 class FakeAPI:
     """Stands in for Meta: records every call and answers the way the two APIs do."""
-    def __init__(self, status="FINISHED"):
+    def __init__(self, status="FINISHED", item_states=()):
         self.calls, self.status, self.threads, self.media = [], status, 0, 0
+        self.item_states = list(item_states)   # what a carousel item answers first; FINISHED after that
 
     def __call__(self, method, url, params=None):
         self.calls.append((method, url, dict(params or {})))
@@ -21,6 +22,9 @@ class FakeAPI:
             return {"id": f"I-item{self.media}" if (params or {}).get("is_carousel_item") else "I-container"}
         if url.endswith("/media_publish"): return {"id": "I-post"}
         if "I-container" in url: return {"status_code": self.status}
+        if "-item" in url:
+            state = self.item_states.pop(0) if self.item_states else "FINISHED"
+            return {"status": state} if "T-item" in url else {"status_code": state}
         raise AssertionError(f"unexpected call {method} {url}")
 
     def posts(self): return [u.rsplit("/", 1)[1] for m, u, _ in self.calls if m == "POST"]
@@ -126,6 +130,26 @@ class PostingTests(unittest.TestCase):
         items = [p for m, u, p in api.calls if u.endswith("/media")]
         self.assertEqual(items[1], {"image_url": "https://x/2.jpg", "is_carousel_item": "true", "access_token": "it"})
         self.assertEqual(items[2], {"media_type": "CAROUSEL", "children": "I-item1,I-item2", "caption": "caption", "access_token": "it"})
+
+
+    def test_a_carousel_is_joined_only_once_every_item_is_finished(self):
+        # Meta refuses to join items it is still fetching, which is what a real Threads post met.
+        for post, joined in ((c.post_threads, "T-post"), (c.post_instagram, "I-post")):
+            api, waits = FakeAPI(item_states=["IN_PROGRESS", "FINISHED", "FINISHED", "IN_PROGRESS"]), []
+            self.assertEqual(post(ENV, ["https://x/1.jpg", "https://x/2.jpg"], "caption", api, waits.append), joined)
+            carousel = next(i for i, (m, u, p) in enumerate(api.calls) if p.get("media_type") == "CAROUSEL")
+            asked = [u for m, u, p in api.calls[:carousel] if m == "GET"]
+            self.assertEqual(len(asked), 6, "both items are asked about three times before the carousel is made")
+            self.assertEqual(waits[:2], [5, 5])
+
+    def test_a_carousel_item_that_fails_or_never_finishes_stops_the_post(self):
+        for post in (c.post_threads, c.post_instagram):
+            for states in (["ERROR"], ["IN_PROGRESS"] * 100):
+                api = FakeAPI(item_states=states)
+                with self.assertRaises(c.ChallengeError):
+                    post(ENV, ["https://x/1.jpg", "https://x/2.jpg"], "caption", api, lambda s: None)
+                self.assertFalse(any(p.get("media_type") == "CAROUSEL" for m, u, p in api.calls))
+                self.assertFalse(any("publish" in u for m, u, p in api.calls))
 
 
 class RunTests(unittest.TestCase):

@@ -180,6 +180,21 @@ def url_is_live(url):
         return False
 
 
+def wait_for_items(api, items, field, token, request, sleep):
+    """Holds until Meta has fetched every carousel item. Joining items it is still fetching is
+    refused as 'children invalid', so ask every five seconds, for no more than two minutes."""
+    for attempt in range(24):
+        states = [request("GET", f"{api}/{item}?" + urllib.parse.urlencode({"fields": field, "access_token": token}))[field]
+                  for item in items]
+        if all(state == "FINISHED" for state in states):
+            return
+        failed = [state for state in states if state not in ("FINISHED", "IN_PROGRESS")]
+        if failed:
+            raise ChallengeError(f"a photo could not be taken for the carousel: its status is {failed[0]}")
+        sleep(5)
+    raise ChallengeError("the carousel's photos were still being fetched after two minutes; nothing was published")
+
+
 def post_threads(env, image_urls, text, request, sleep):
     """One photo is a post of its own; several are a carousel of item containers."""
     user, token = env["FONDER_THREADS_USER_ID"], env["FONDER_THREADS_TOKEN"]
@@ -191,6 +206,7 @@ def post_threads(env, image_urls, text, request, sleep):
         items = [request("POST", f"{THREADS_API}/{user}/threads",
                          {"media_type": "IMAGE", "image_url": url, "is_carousel_item": "true", "access_token": token})["id"]
                  for url in image_urls]
+        wait_for_items(THREADS_API, items, "status", token, request, sleep)
         container = request("POST", f"{THREADS_API}/{user}/threads",
                             {"media_type": "CAROUSEL", "children": ",".join(items), **words})["id"]
     sleep(30)   # Meta's recommended wait before publishing a container
@@ -206,6 +222,7 @@ def post_instagram(env, image_urls, text, request, sleep):
         items = [request("POST", f"{INSTAGRAM_API}/{user}/media",
                          {"image_url": url, "is_carousel_item": "true", "access_token": token})["id"]
                  for url in image_urls]
+        wait_for_items(INSTAGRAM_API, items, "status_code", token, request, sleep)
         container = request("POST", f"{INSTAGRAM_API}/{user}/media",
                             {"media_type": "CAROUSEL", "children": ",".join(items), "caption": text, "access_token": token})["id"]
     # Meta's guidance: ask once a minute, for no more than five minutes.
