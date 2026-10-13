@@ -35,10 +35,14 @@ Meta's documentation and not from a run. What is not confirmed is listed at the 
    `source ~/.fonder-challenge.env && python3 tools/challenge_post.py 7 --publish`
 
    Meta fetches a photo from a public address, so the day's photos have to be on `main`, which
-   is what fondercam.online serves. `--publish` commits exactly the day's files (the text, the
-   source photos and the prepared photos under `img/challenge/`), pushes them to `main`, waits
+   is what fondercam.online serves. `--publish` commits exactly the day's files (the text and
+   the prepared photos under `img/challenge/`), pushes them to `main`, waits
    up to ten minutes for the site to show them, posts to Threads and then Instagram, and
    commits and pushes `challenge/posted.json`. It refuses to run from any other branch.
+
+   The photos you put in `challenge/days/` are never committed, and `.gitignore` keeps them out:
+   they still carry what the camera wrote into them, which can include where the photo was
+   taken. The prepared copies have that removed.
 
    Without `--publish` the script touches no git: it posts only once the photos already answer
    on fondercam.online, and says which files to push if they do not.

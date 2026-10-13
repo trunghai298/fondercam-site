@@ -212,7 +212,7 @@ class RunTests(unittest.TestCase):
         code, out = self.run_it(["6", "--publish"], api, live=None)   # live only once pushed
         self.assertEqual(code, 0, out)
         writes = [g for g in self.git if g[0] in ("add", "commit", "push")]
-        self.assertEqual(writes[0], ("add", "--", "challenge/days/06.txt", "challenge/days/06.jpg",
+        self.assertEqual(writes[0], ("add", "--", "challenge/days/06.txt",
                                      "img/challenge/day-06.jpg", "img/challenge/day-06-ig.jpg"))
         self.assertEqual(writes[1], ("commit", "-m", "feat(challenge): day 06 photos"))
         self.assertEqual(writes[2], ("push", "origin", "main"))
@@ -220,6 +220,21 @@ class RunTests(unittest.TestCase):
         # The log of what was posted is published too, so the next run on any machine knows.
         self.assertEqual(writes[3:], [("add", "--", "challenge/posted.json"),
                                       ("commit", "-m", "chore(challenge): day 06 posted"), ("push", "origin", "main")])
+
+    def test_publish_never_stages_a_source_photo(self):
+        # A source photo still carries the camera's metadata, which can include where it was taken.
+        (self.root / "challenge/days/06-2.heic").write_bytes(b"x")
+        code, out = self.run_it(["6", "--publish"], FakeAPI(), live=None)
+        self.assertEqual(code, 0, out)
+        staged = [path for g in self.git if g[0] == "add" for path in g[2:]]
+        self.assertIn("img/challenge/day-06-2.jpg", staged)
+        photos = [path for path in staged if path.startswith("challenge/days/") and not path.endswith(".txt")]
+        self.assertEqual(photos, [], "only the day's text may be staged from challenge/days/")
+
+    def test_the_repository_ignores_source_photos(self):
+        rules = (c.ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()
+        self.assertIn("challenge/days/*", rules)
+        self.assertIn("!challenge/days/*.txt", rules)
 
     def test_publish_is_refused_off_main_where_a_push_would_publish_nothing(self):
         api = FakeAPI()
