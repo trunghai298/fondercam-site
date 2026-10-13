@@ -58,6 +58,42 @@ Meta's documentation and not from a run. What is not confirmed is listed at the 
    `--publish` pushes straight to `main` with no pull request. That is a choice made each time
    by typing the flag; leave it off to publish the photos through a pull request instead.
 
+## Posting on a schedule
+
+GitHub posts the day that is due at **20:00 Hanoi time** every day
+(`.github/workflows/challenge-post.yml`), so the Mac can be off. GitHub may start a scheduled
+run some minutes late.
+
+1. **Prepare a day ahead, from `main`:** put its text and photos in `challenge/days/`, read the
+   dry run, then
+
+   `python3 tools/challenge_post.py 8 --prepare`
+
+   It prepares the photos, commits the day's text and prepared photos, pushes them to `main`,
+   waits for fondercam.online to show them, and posts nothing. It needs no tokens. Like
+   `--publish`, it pushes straight to `main` with no pull request. Run it again after changing
+   the text and it pushes the change.
+
+2. **Which day is due:** the lowest-numbered day that has its text on `main` and is not yet
+   posted to both Threads and Instagram. One day goes out per run, so three days prepared at
+   once go out on three evenings, in order. A day prepared after 20:00 goes out the next evening.
+
+3. **The run** is `python3 tools/challenge_post.py --due`. It posts the day, then commits and
+   pushes `challenge/posted.json`. When nothing is due it does nothing and succeeds. When a post
+   is refused the run fails, GitHub sends its usual failure email, and the next run tries the
+   same day again; a day that reached Threads but not Instagram is finished on Instagram only.
+
+To post without waiting for 20:00, start the workflow by hand: Actions → Challenge post → Run
+workflow. To hold a prepared day back, turn the workflow off there (⋯ → Disable workflow).
+
+The scheduled run reads four repository secrets, named exactly as the environment variables
+below: Settings → Secrets and variables → Actions → New repository secret. They are the same
+four values as in `~/.fonder-challenge.env`, without the quotes. The tokens last 60 days; when
+they are renewed, the secrets have to be replaced too.
+
+Because the scheduled run pushes the log, `--publish`, `--prepare` and `--due` all begin by
+pulling `main`.
+
 A day in `posted.json` is not posted twice. `--only threads` or `--only instagram` posts to one
 and leaves the other for a later run; `--force` posts a day again.
 

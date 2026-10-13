@@ -1,0 +1,37 @@
+name: Challenge post
+
+# Posts the next prepared day of the 30-day challenge to Threads and Instagram.
+# A day is prepared on a Mac with `python3 tools/challenge_post.py NN --prepare`;
+# docs/challenge-posting.md has the routine.
+
+on:
+  schedule:
+    # 20:00 in Hanoi (UTC+7). GitHub may start a scheduled run some minutes late.
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # the run pushes challenge/posted.json to main
+
+concurrency:
+  group: challenge-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    # A scheduled run only ever starts from main; this also stops a manual run from another branch.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Post the day that is due
+        env:
+          FONDER_THREADS_USER_ID: ${{ secrets.FONDER_THREADS_USER_ID }}
+          FONDER_THREADS_TOKEN: ${{ secrets.FONDER_THREADS_TOKEN }}
+          FONDER_IG_USER_ID: ${{ secrets.FONDER_IG_USER_ID }}
+          FONDER_IG_TOKEN: ${{ secrets.FONDER_IG_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python3 tools/challenge_post.py --due

@@ -60,6 +60,8 @@ edit the sources below, then rebuild.
 
 `python3 tools/challenge_post.py <day> [--dry-run]` posts one day of the challenge to Threads and
 Instagram from `challenge/days/NN.txt` and `NN.jpg`, publishing the photo under `img/challenge/`.
+`<day> --prepare` puts a day on the site without posting it, and a scheduled workflow posts the
+day that is due at 20:00 Hanoi time with `--due`.
 `docs/challenge-posting.md` has the daily routine and the one-time Meta app setup. It needs sips
 and ffmpeg, and four values in the environment that are never committed.
 

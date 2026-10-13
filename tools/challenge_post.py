@@ -5,6 +5,8 @@ Usage (from the repository root):
   python3 tools/challenge_post.py 6 --dry-run     # prepare the photos, print everything, post nothing
   python3 tools/challenge_post.py 6               # post day 6 to Threads, then Instagram
   python3 tools/challenge_post.py 6 --only threads
+  python3 tools/challenge_post.py 8 --prepare     # put day 8 on the site for the scheduled run; post nothing
+  python3 tools/challenge_post.py --due           # post the next prepared day (what the scheduled run does)
 
 A day is a text file and its photos in challenge/days: NN.txt and NN.jpg, then NN-2.jpg,
 NN-3.jpg for a post of several photos (.jpeg, .png and .heic also work).
@@ -127,6 +129,26 @@ def source_photos(root, day):
     if not found:
         raise ChallengeError(f"no photo for day {day}: challenge/days/{day:02d}.jpg (or .jpeg, .png, .heic) is missing")
     return found
+
+
+def prepared_count(root, day):
+    """How many prepared photos the day has under img/challenge/, each with its Instagram copy."""
+    count = 0
+    for plain, padded in public_paths(day, MOST_PHOTOS):
+        if not ((root / plain).exists() and (root / padded).exists()):
+            break
+        count += 1
+    return count
+
+
+def due_day(root, log):
+    """The lowest-numbered day that has its text in challenge/days/ and is not yet posted to both.
+    One day goes out per scheduled run, so days prepared ahead go out in order, a day apart."""
+    for day in range(1, DAYS + 1):
+        posted = log.get(f"{day:02d}", {})
+        if (root / f"challenge/days/{day:02d}.txt").exists() and not ("threads" in posted and "instagram" in posted):
+            return day
+    return None
 
 
 def photo_size(source):
@@ -258,6 +280,8 @@ def publish(git, files, message):
     main, so a push from anywhere else would publish nothing."""
     git("add", "--", *files)
     git("commit", "-m", message)
+    # main may have moved since the run began: the scheduled run and this machine both push to it.
+    git("pull", "--rebase", "--autostash", "origin", "main")
     git("push", "origin", "main")
 
 
@@ -266,30 +290,61 @@ def publish(git, files, message):
 def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=print,
         prepare=prepare_photos, is_live=url_is_live, git=None):
     parser = argparse.ArgumentParser(description="Post one day of the 30-day challenge to Threads and Instagram.")
-    parser.add_argument("day", type=int)
+    parser.add_argument("day", type=int, nargs="?")
     parser.add_argument("--dry-run", action="store_true", help="prepare the photos and print the post; post nothing")
     parser.add_argument("--only", choices=("threads", "instagram"), help="post to one of the two")
     parser.add_argument("--force", action="store_true", help="post again a day the log says is posted")
     parser.add_argument("--publish", action="store_true",
                         help="commit the day's files and push them to main, wait for the site, then post")
+    parser.add_argument("--prepare", action="store_true",
+                        help="commit the day's files and push them to main for the scheduled run; post nothing")
+    parser.add_argument("--due", action="store_true",
+                        help="post the next prepared day that is not posted yet; takes no day")
     args = parser.parse_args(argv)
     root = Path(root)
-    key = f"{args.day:02d}"
     try:
-        day_file = root / f"challenge/days/{key}.txt"
-        if not day_file.exists():
-            raise ChallengeError(f"no text for day {args.day}: challenge/days/{key}.txt is missing")
-        recipe, lines = parse_day(day_file.read_text(encoding="utf-8"))
-        text = caption(args.day, recipe, lines)
-        instagram_text = instagram_caption(recipe, lines)
-        sources = source_photos(root, args.day)
-        paths = public_paths(args.day, len(sources))
-        prepare(sources, [(root / plain, root / padded) for plain, padded in paths])
-        urls = public_urls(args.day, len(sources))
-        threads_urls, instagram_urls = [u[0] for u in urls], [u[1] for u in urls]
-
+        if args.due and (args.day is not None or args.prepare or args.publish or args.force):
+            raise ChallengeError("--due picks the day itself: give it no day, and none of --prepare, --publish, --force")
+        if args.prepare and (args.publish or args.only or args.force):
+            raise ChallengeError("--prepare posts nothing, so it takes none of --publish, --only, --force")
+        if not args.due and args.day is None:
+            raise ChallengeError("give a day, or --due to post the next prepared day")
+        pushes = (args.publish or args.prepare or args.due) and not args.dry_run
+        if pushes:
+            git = git or run_git(root)
+            if git("rev-parse", "--abbrev-ref", "HEAD") != "main":
+                raise ChallengeError("--publish, --prepare and --due work from main only: the site is served "
+                                     "from main, so a push from another branch would publish nothing")
+            # The log of what is posted is pushed by whichever machine posted; read the latest.
+            git("pull", "--rebase", "--autostash", "origin", "main")
         log_file = root / "challenge/posted.json"
         log = json.loads(log_file.read_text(encoding="utf-8")) if log_file.exists() else {}
+        day = due_day(root, log) if args.due else args.day
+        if day is None:
+            say("Nothing is due: every prepared day is posted.")
+            return 0
+        key = f"{day:02d}"
+        day_file = root / f"challenge/days/{key}.txt"
+        if not day_file.exists():
+            raise ChallengeError(f"no text for day {day}: challenge/days/{key}.txt is missing")
+        recipe, lines = parse_day(day_file.read_text(encoding="utf-8"))
+        text = caption(day, recipe, lines)
+        instagram_text = instagram_caption(recipe, lines)
+        if args.due:
+            # The scheduled run has no source photos and no sips: it posts what --prepare pushed.
+            count = prepared_count(root, day)
+            if not count:
+                raise ChallengeError(f"day {day} has its text but no prepared photos under img/challenge/: "
+                                     f"run this with {day} --prepare")
+        else:
+            sources = source_photos(root, day)
+            count = len(sources)
+        paths = public_paths(day, count)
+        if not args.due:
+            prepare(sources, [(root / plain, root / padded) for plain, padded in paths])
+        urls = public_urls(day, count)
+        threads_urls, instagram_urls = [u[0] for u in urls], [u[1] for u in urls]
+
         done = {} if args.force else log.get(key, {})
         wanted = [name for name in ("threads", "instagram") if args.only in (None, name) and name not in done]
         live = {url: is_live(url) for url in threads_urls + instagram_urls}
@@ -304,22 +359,22 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
             for url in group:
                 say(f"{label + ' photo:':17}{url}  ({'live' if live[url] else 'not live yet'})")
         if not wanted:
-            say(f"Day {args.day} is already posted: {', '.join(f'{k} {v}' for k, v in done.items() if k != 'at')}")
+            say(f"Day {day} is already posted: {', '.join(f'{k} {v}' for k, v in done.items() if k != 'at')}")
             return 0
         # The source photos stay on this machine: they still carry what the camera wrote into them
         # (time, and the place when location is on). Only the prepared copies, which have none, go out.
         day_files = [f"challenge/days/{key}.txt", *(path for pair in paths for path in pair)]
         if args.dry_run:
-            if args.publish:
+            if args.publish or args.prepare:
                 say(f"Dry run: would commit and push {', '.join(day_files)}.")
-            say(f"Dry run: would post to {' then '.join(wanted)}. Nothing was posted.")
+            if args.prepare:
+                say("Dry run: --prepare posts nothing.")
+            else:
+                say(f"Dry run: would post to {' then '.join(wanted)}. Nothing was posted.")
             return 0
-        if args.publish:
-            git = git or run_git(root)
-            if git("rev-parse", "--abbrev-ref", "HEAD") != "main":
-                raise ChallengeError("--publish works from main only: the site is served from main, "
-                                     "so a push from another branch would publish nothing")
-            if not all(live.values()):
+        if args.publish or args.prepare:
+            # --prepare also pushes a change to the text alone, which the live photos would not show.
+            if not all(live.values()) or (args.prepare and git("status", "--porcelain", "--", *day_files)):
                 publish(git, day_files, f"feat(challenge): day {key} photos")
                 say("Pushed the day's files; waiting for fondercam.online to show them.")
                 # GitHub Pages usually takes a minute or two; ask every 20 seconds for ten minutes.
@@ -328,6 +383,13 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
                     if all(live.values()):
                         break
                     sleep(20)
+        if args.prepare:
+            if not all(live.values()):
+                raise ChallengeError("the day's files are pushed but fondercam.online does not show the photos yet; "
+                                     "the scheduled run will refuse the day until it does")
+            say(f"Day {day} is prepared and live. Nothing was posted: the scheduled run posts the next "
+                "prepared day that is not posted yet.")
+            return 0
         if not all(live.values()):
             files = ", ".join(path for pair in paths for path in pair)
             raise ChallengeError(f"the photos are not live on fondercam.online yet: commit and push {files}, "
@@ -339,17 +401,23 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
             raise ChallengeError(f"missing {', '.join(missing)}: see docs/challenge-posting.md")
 
         entry = dict(log.get(key, {}))
-        for name in wanted:
-            post = post_threads(env, threads_urls, text, request, sleep) if name == "threads" \
-                else post_instagram(env, instagram_urls, instagram_text, request, sleep)
-            entry[name] = post
-            entry["at"] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
-            # Written after each post, so a failure on the second never loses the first.
-            log[key] = entry
-            log_file.write_text(json.dumps(log, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-            say(f"Posted to {name}: {post}")
-        if args.publish:
-            publish(git, ["challenge/posted.json"], f"chore(challenge): day {key} posted")
+        posted = []
+        try:
+            for name in wanted:
+                post = post_threads(env, threads_urls, text, request, sleep) if name == "threads" \
+                    else post_instagram(env, instagram_urls, instagram_text, request, sleep)
+                entry[name] = post
+                entry["at"] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+                # Written after each post, so a failure on the second never loses the first.
+                log[key] = entry
+                log_file.write_text(json.dumps(log, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+                posted.append(name)
+                say(f"Posted to {name}: {post}")
+        finally:
+            # Pushed even when the second post fails: the scheduled run starts from a fresh copy
+            # each time, and without the log it would post the first one again.
+            if posted and (args.publish or args.due):
+                publish(git, ["challenge/posted.json"], f"chore(challenge): day {key} posted")
         return 0
     except ChallengeError as error:
         say(f"challenge_post: {error}")

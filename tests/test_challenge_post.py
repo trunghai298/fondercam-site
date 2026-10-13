@@ -167,12 +167,13 @@ class RunTests(unittest.TestCase):
 
     def tearDown(self): self.tmp.cleanup()
 
-    def run_it(self, argv, api, live=True, env=ENV, branch="main"):
+    def run_it(self, argv, api, live=True, env=ENV, branch="main", changed=""):
         out = []
         self.git = []
         def git(*args):
             self.git.append(args)
             if args[:2] == ("rev-parse", "--abbrev-ref"): return branch
+            if args[0] == "status": return changed
             if args[0] == "push": self.pushed = True
             return ""
         code = c.run(argv, root=self.root, env=env, request=api, sleep=lambda s: None, say=out.append,
@@ -290,6 +291,126 @@ class RunTests(unittest.TestCase):
     def test_a_missing_day_says_which_file_it_wants(self):
         code, out = self.run_it(["7", "--dry-run"], FakeAPI())
         self.assertEqual(code, 1); self.assertIn("challenge/days/07.txt", out)
+
+
+class ScheduledTests(unittest.TestCase):
+    """A day is prepared ahead on a Mac; the scheduled run on GitHub posts whichever day is due."""
+    setUp, tearDown, run_it = RunTests.setUp, RunTests.tearDown, RunTests.run_it
+
+    def prepared_day(self, day, photos=1, text="Harvest 400\n\nthis one was made for autumn.\n"):
+        (self.root / f"challenge/days/{day:02d}.txt").write_text(text, encoding="utf-8")
+        for plain, padded in c.public_paths(day, photos):
+            for path in (plain, padded):
+                (self.root / path).parent.mkdir(parents=True, exist_ok=True)
+                (self.root / path).write_bytes(b"prepared")
+
+    def writes(self): return [g for g in self.git if g[0] in ("add", "commit", "push")]
+
+    def test_the_due_day_is_the_lowest_prepared_day_not_posted_to_both(self):
+        for day in (7, 9, 8): self.prepared_day(day)
+        (self.root / "challenge/days/06.txt").unlink()
+        self.assertEqual(c.due_day(self.root, {}), 7)
+        self.assertEqual(c.due_day(self.root, {"07": {"threads": "t", "instagram": "i"}}), 8)
+        self.assertEqual(c.due_day(self.root, {"07": {"threads": "t"}}), 7, "Instagram is still owed for day 7")
+        done = {f"{d:02d}": {"threads": "t", "instagram": "i"} for d in (7, 8, 9)}
+        self.assertIsNone(c.due_day(self.root, done))
+
+    def test_due_posts_the_prepared_day_without_its_source_photos(self):
+        (self.root / "challenge/days/06.txt").unlink(); (self.root / "challenge/days/06.jpg").unlink()
+        self.prepared_day(8, photos=2); self.prepared_day(9)
+        api = FakeAPI()
+        code, out = self.run_it(["--due"], api)
+        self.assertEqual(code, 0, out)
+        self.assertEqual(self.prepared, [], "the scheduled run has no sips and no source photos")
+        sent = [p["image_url"] for m, u, p in api.calls if u.endswith("/threads") and "image_url" in p]
+        self.assertEqual(sent, ["https://fondercam.online/img/challenge/day-08.jpg",
+                                "https://fondercam.online/img/challenge/day-08-2.jpg"])
+        log = json.loads((self.root / "challenge/posted.json").read_text())
+        self.assertEqual(sorted(log), ["08"], "one day per run")
+        self.assertEqual(self.writes(), [("add", "--", "challenge/posted.json"),
+                                         ("commit", "-m", "chore(challenge): day 08 posted"), ("push", "origin", "main")])
+
+    def test_due_does_nothing_when_every_prepared_day_is_posted(self):
+        (self.root / "challenge/posted.json").write_text(json.dumps({"06": {"threads": "t", "instagram": "i"}}))
+        api = FakeAPI()
+        code, out = self.run_it(["--due"], api)
+        self.assertEqual(code, 0); self.assertEqual(api.calls, []); self.assertEqual(self.writes(), [])
+        self.assertIn("Nothing is due", out)
+
+    def test_due_finishes_a_day_that_reached_only_one_platform(self):
+        self.prepared_day(6)
+        (self.root / "challenge/posted.json").write_text(json.dumps({"06": {"threads": "T-old"}}))
+        api = FakeAPI()
+        code, out = self.run_it(["--due"], api)
+        self.assertEqual(code, 0, out)
+        self.assertEqual(api.posts(), ["media", "media_publish"])
+        log = json.loads((self.root / "challenge/posted.json").read_text())
+        self.assertEqual(log["06"]["threads"], "T-old")
+
+    def test_due_refuses_a_day_whose_photos_are_missing_or_not_live(self):
+        api = FakeAPI()
+        code, out = self.run_it(["--due"], api)   # day 6 has its text, but nothing under img/challenge/
+        self.assertEqual(code, 1); self.assertEqual(api.calls, []); self.assertIn("6 --prepare", out)
+        self.prepared_day(6)
+        code, out = self.run_it(["--due"], api, live=False)
+        self.assertEqual(code, 1); self.assertEqual(api.calls, []); self.assertIn("not live", out)
+
+    def test_due_takes_no_day_and_works_from_main_only(self):
+        self.prepared_day(6)
+        api = FakeAPI()
+        self.assertEqual(self.run_it(["6", "--due"], api)[0], 1)
+        self.assertEqual(self.run_it(["--due"], api, branch="feat/something")[0], 1)
+        self.assertEqual(self.run_it([], api)[0], 1)
+        self.assertEqual(api.calls, [])
+
+    def test_the_log_is_pushed_even_when_the_second_post_fails(self):
+        # Without it the next scheduled run, starting from a fresh copy, would post to Threads again.
+        self.prepared_day(6)
+        api = FakeAPI(status="ERROR")
+        code, out = self.run_it(["--due"], api)
+        self.assertEqual(code, 1)
+        log = json.loads((self.root / "challenge/posted.json").read_text())
+        self.assertEqual(log["06"]["threads"], "T-post"); self.assertNotIn("instagram", log["06"])
+        self.assertEqual(self.writes()[-1], ("push", "origin", "main"))
+        self.assertIn(("add", "--", "challenge/posted.json"), self.writes())
+
+    def test_a_run_that_pushes_reads_the_latest_log_first(self):
+        self.prepared_day(6)
+        self.run_it(["--due"], FakeAPI())
+        self.assertEqual(self.git[:2], [("rev-parse", "--abbrev-ref", "HEAD"),
+                                        ("pull", "--rebase", "--autostash", "origin", "main")])
+
+    def test_prepare_pushes_the_days_files_and_posts_nothing(self):
+        api = FakeAPI()
+        code, out = self.run_it(["6", "--prepare"], api, live=None, changed="?? challenge/days/06.txt")
+        self.assertEqual(code, 0, out)
+        self.assertEqual(api.calls, [], "--prepare never calls Meta")
+        self.assertEqual(self.writes(), [("add", "--", "challenge/days/06.txt", "img/challenge/day-06.jpg", "img/challenge/day-06-ig.jpg"),
+                                         ("commit", "-m", "feat(challenge): day 06 photos"), ("push", "origin", "main")])
+        self.assertFalse((self.root / "challenge/posted.json").exists())
+        self.assertIn("Nothing was posted", out)
+
+    def test_prepare_pushes_a_change_to_the_text_alone(self):
+        code, out = self.run_it(["6", "--prepare"], FakeAPI(), live=True, changed=" M challenge/days/06.txt")
+        self.assertEqual(code, 0, out)
+        self.assertEqual(self.writes()[-1], ("push", "origin", "main"))
+
+    def test_prepare_with_nothing_new_pushes_nothing(self):
+        code, out = self.run_it(["6", "--prepare"], FakeAPI(), live=True)
+        self.assertEqual(code, 0, out); self.assertEqual(self.writes(), [])
+
+    def test_prepare_does_not_mix_with_posting_flags(self):
+        for extra in ("--publish", "--force", "--only=threads"):
+            self.assertEqual(self.run_it(["6", "--prepare", extra], FakeAPI())[0], 1)
+        self.assertEqual(self.writes(), [])
+
+    def test_the_workflow_runs_due_at_eight_in_the_evening_in_hanoi_with_the_four_secrets(self):
+        workflow = (c.ROOT / ".github/workflows/challenge-post.yml").read_text(encoding="utf-8")
+        self.assertIn('cron: "0 13 * * *"', workflow)   # 13:00 UTC is 20:00 in Hanoi
+        self.assertIn("python3 tools/challenge_post.py --due", workflow)
+        for name in c.SECRETS:
+            self.assertIn(f"{name}: ${{{{ secrets.{name} }}}}", workflow)
+        self.assertNotIn("pull_request", workflow, "a pull request must never run with the tokens")
 
 
 if __name__ == "__main__":
