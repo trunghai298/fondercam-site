@@ -21,11 +21,19 @@ Meta's documentation and not from a run. What is not confirmed is listed at the 
    warm light, dry tones, and that soft seasonal feeling.
    ```
 
-2. **Dry run:** `python3 tools/challenge_post.py 7 --dry-run`. It prints the post exactly as it
-   will read, writes the two public photos to `img/challenge/`, and posts nothing.
+2. **Dry run:** `python3 tools/challenge_post.py 7 --dry-run`. It prints both posts exactly as
+   they will read, writes the two public photos to `img/challenge/`, and posts nothing. The
+   challenge is counted on Threads only, so Instagram's caption opens with the recipe alone.
 
    ```
+   Threads:
    Day 07/30 — Harvest 400
+   this one was made for autumn.
+   warm light, dry tones, and that soft seasonal feeling.
+   iPhone 16 Pro + Fonder.
+
+   Instagram:
+   Harvest 400
    this one was made for autumn.
    warm light, dry tones, and that soft seasonal feeling.
    iPhone 16 Pro + Fonder.
@@ -136,5 +144,6 @@ curl "https://graph.threads.net/refresh_access_token?grant_type=th_refresh_token
   real Threads carousel was refused because the script joined the items while Threads was still
   fetching them; the script now waits until every item reads `FINISHED`. No carousel has gone
   out since, on either platform.
-- **The topic tag.** The script sends `Film Photography` as `topic_tag`, which Meta's Threads
-  documentation describes; it has not been tried.
+- **The topic tag.** The script sends `FonderCam` as `topic_tag`, the tag of the FonderCam
+  community on Threads that the challenge posts are building. No post has been made with this
+  setting yet, so whether the tag alone places a post in the community is not confirmed.
