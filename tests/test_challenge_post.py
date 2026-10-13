@@ -49,6 +49,10 @@ class DayFileTests(unittest.TestCase):
         self.assertEqual(text, "Day 06/30 — Harvest 400\nthis one was made for autumn.\n"
                                "warm light, dry tones, and that soft seasonal feeling.\niPhone 16 Pro + Fonder.")
 
+    def test_instagram_caption_has_no_day_count(self):
+        text = c.instagram_caption("Harvest 400", ["this one was made for autumn."])
+        self.assertEqual(text, "Harvest 400\nthis one was made for autumn.\niPhone 16 Pro + Fonder.")
+
     def test_day_must_be_in_the_challenge(self):
         for day in (0, 31, -1):
             with self.assertRaises(c.ChallengeError): c.caption(day, "Harvest 400", ["a line."])
@@ -98,7 +102,7 @@ class PostingTests(unittest.TestCase):
         self.assertEqual(post, "T-post")
         self.assertEqual(api.calls[0], ("POST", "https://graph.threads.net/v1.0/111/threads",
                                         {"media_type": "IMAGE", "image_url": "https://x/day.jpg", "text": "caption",
-                                         "topic_tag": "Film Photography", "access_token": "tt"}))
+                                         "topic_tag": "FonderCam", "access_token": "tt"}))
         self.assertEqual(api.calls[1], ("POST", "https://graph.threads.net/v1.0/111/threads_publish",
                                         {"creation_id": "T-container", "access_token": "tt"}))
         self.assertEqual(waits, [30], "Meta recommends about 30 seconds before publishing")
@@ -124,7 +128,7 @@ class PostingTests(unittest.TestCase):
         items = [p for m, u, p in api.calls if u.endswith("/threads")]
         self.assertEqual(items[0], {"media_type": "IMAGE", "image_url": "https://x/1.jpg", "is_carousel_item": "true", "access_token": "tt"})
         self.assertEqual(items[2], {"media_type": "CAROUSEL", "children": "T-item1,T-item2", "text": "caption",
-                                    "topic_tag": "Film Photography", "access_token": "tt"})
+                                    "topic_tag": "FonderCam", "access_token": "tt"})
         api = FakeAPI()
         self.assertEqual(c.post_instagram(ENV, ["https://x/1.jpg", "https://x/2.jpg"], "caption", api, lambda s: None), "I-post")
         items = [p for m, u, p in api.calls if u.endswith("/media")]
@@ -193,6 +197,10 @@ class RunTests(unittest.TestCase):
         self.assertEqual(api.posts(), ["threads", "threads_publish", "media", "media_publish"])
         log = json.loads((self.root / "challenge/posted.json").read_text())
         self.assertEqual(log["06"]["threads"], "T-post"); self.assertEqual(log["06"]["instagram"], "I-post")
+        sent = {u.rsplit("/", 1)[1]: p for m, u, p in api.calls if u.endswith(("/threads", "/media"))}
+        self.assertEqual(sent["threads"]["text"], "Day 06/30 — Harvest 400\nthis one was made for autumn.\niPhone 16 Pro + Fonder.")
+        # The challenge is counted on Threads only.
+        self.assertEqual(sent["media"]["caption"], "Harvest 400\nthis one was made for autumn.\niPhone 16 Pro + Fonder.")
 
     def test_a_day_already_posted_is_not_posted_again(self):
         self.run_it(["6"], FakeAPI())

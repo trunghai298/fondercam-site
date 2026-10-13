@@ -35,7 +35,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://fondercam.online"
 DAYS = 30
 SIGN_OFF = "iPhone 16 Pro + Fonder."
-TOPIC_TAG = "Film Photography"
+TOPIC_TAG = "FonderCam"
 THREADS_LIMIT = 500
 # Threads takes a photo up to 1440 px wide; the same long edge is plenty for Instagram.
 LONG_EDGE = 1440
@@ -72,6 +72,11 @@ def caption(day, recipe, lines):
     if len(text) > THREADS_LIMIT:
         raise ChallengeError(f"the post is {len(text)} characters; Threads allows {THREADS_LIMIT}")
     return text
+
+
+def instagram_caption(recipe, lines):
+    """The challenge is counted on Threads only, so Instagram's caption opens with the recipe alone."""
+    return "\n".join([recipe, *lines, SIGN_OFF])
 
 
 # The photos
@@ -276,6 +281,7 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
             raise ChallengeError(f"no text for day {args.day}: challenge/days/{key}.txt is missing")
         recipe, lines = parse_day(day_file.read_text(encoding="utf-8"))
         text = caption(args.day, recipe, lines)
+        instagram_text = instagram_caption(recipe, lines)
         sources = source_photos(root, args.day)
         paths = public_paths(args.day, len(sources))
         prepare(sources, [(root / plain, root / padded) for plain, padded in paths])
@@ -288,7 +294,11 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
         wanted = [name for name in ("threads", "instagram") if args.only in (None, name) and name not in done]
         live = {url: is_live(url) for url in threads_urls + instagram_urls}
 
+        say("Threads:")
         say(text)
+        say("")
+        say("Instagram:")
+        say(instagram_text)
         say("")
         for label, group in (("Threads", threads_urls), ("Instagram", instagram_urls)):
             for url in group:
@@ -331,7 +341,7 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
         entry = dict(log.get(key, {}))
         for name in wanted:
             post = post_threads(env, threads_urls, text, request, sleep) if name == "threads" \
-                else post_instagram(env, instagram_urls, text, request, sleep)
+                else post_instagram(env, instagram_urls, instagram_text, request, sleep)
             entry[name] = post
             entry["at"] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
             # Written after each post, so a failure on the second never loses the first.
