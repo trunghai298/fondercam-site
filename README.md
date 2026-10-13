@@ -56,6 +56,13 @@ edit the sources below, then rebuild.
   current, without the app repo. Real stock and simulation names are refused here as on the
   homepage.
 
+## The 30-day challenge
+
+`python3 tools/challenge_post.py <day> [--dry-run]` posts one day of the challenge to Threads and
+Instagram from `challenge/days/NN.txt` and `NN.jpg`, publishing the photo under `img/challenge/`.
+`docs/challenge-posting.md` has the daily routine and the one-time Meta app setup. It needs sips
+and ffmpeg, and four values in the environment that are never committed.
+
 ## Analytics
 
 Google Analytics 4 (`ga4` in `config.json`) runs only after a visitor says OK on the banner: `home/consent.js`
