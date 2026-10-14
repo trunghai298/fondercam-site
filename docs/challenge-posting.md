@@ -101,6 +101,35 @@ pulling `main`.
 A day in `posted.json` is not posted twice. `--only threads` or `--only instagram` posts to one
 and leaves the other for a later run; `--force` posts a day again.
 
+## Posts that are not challenge days
+
+An announcement, such as a new diary entry, is posted with the same tool, with no "Day NN/30"
+header and no sign-off. A post is a folder in `challenge/posts/`, named like `2026-10-14-diary`:
+
+```
+challenge/posts/2026-10-14-diary/
+  post.txt         posted to Threads exactly as written (500 characters at most)
+  instagram.txt    optional: Instagram's caption exactly as written
+  01-exit.jpg      the photos, 1 to 10, in filename order
+  02-bus.jpg
+```
+
+Without `instagram.txt`, Instagram gets `post.txt`, an empty line, then the hashtags. Only the
+`.txt` files are tracked; `.gitignore` keeps the photos out, as it does for a day's.
+
+```
+python3 tools/challenge_post.py --post 2026-10-14-diary --dry-run
+source ~/.fonder-challenge.env && python3 tools/challenge_post.py --post 2026-10-14-diary --publish
+```
+
+The photos are prepared the same way as a day's and written to `img/posts/2026-10-14-diary/` as
+`01.jpg` and `01-ig.jpg`, `02.jpg` and `02-ig.jpg`, and so on. `--publish` works as it does for a
+day: from `main` only, it commits the `.txt` files and the prepared photos, pushes, waits for
+fondercam.online, posts, then pushes the log. The post is logged in `challenge/posted.json`
+under `post/2026-10-14-diary`, which the scheduled run never reads, so a post never changes
+which day is due. `--only` and `--force` work as they do for a day; `--post` takes no day, and
+neither `--due` nor `--prepare`.
+
 ## The two photos
 
 - `day-NN.jpg` is for Threads: the photo at up to 1440 px on its long edge.

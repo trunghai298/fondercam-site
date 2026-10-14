@@ -422,5 +422,179 @@ class ScheduledTests(unittest.TestCase):
         self.assertNotIn("pull_request", workflow, "a pull request must never run with the tokens")
 
 
+class PostTests(unittest.TestCase):
+    """A post that is not a challenge day: challenge/posts/NAME/ with post.txt and its photos."""
+    NAME = "2026-10-14-diary"
+    TEXT = "Two recipes came from reference pictures.\n\nThe diary has the whole story.\n"
+    HASHTAGS = "#fondercam #filmlook #shotoniphone #iphonephotography #indiedev"
+
+    def setUp(self):
+        RunTests.setUp(self)
+        self.folder = self.root / f"challenge/posts/{self.NAME}"
+        self.folder.mkdir(parents=True)
+        (self.folder / "post.txt").write_text(self.TEXT, encoding="utf-8")
+        (self.folder / "02-bus.jpg").write_bytes(b"second")
+        (self.folder / "01-exit.jpg").write_bytes(b"first")
+
+    tearDown, run_it = RunTests.tearDown, RunTests.run_it
+
+    def writes(self): return [g for g in self.git if g[0] in ("add", "commit", "push")]
+
+    def test_threads_gets_post_txt_as_written(self):
+        threads, instagram = c.post_captions(self.TEXT)
+        self.assertEqual(threads, "Two recipes came from reference pictures.\n\nThe diary has the whole story.")
+        self.assertNotIn("Day", threads); self.assertNotIn(c.SIGN_OFF, threads)
+
+    def test_without_instagram_txt_instagram_gets_the_post_and_the_hashtags(self):
+        _, instagram = c.post_captions(self.TEXT)
+        self.assertEqual(instagram, "Two recipes came from reference pictures.\n\nThe diary has the whole story.\n\n" + self.HASHTAGS)
+
+    def test_instagram_txt_is_instagrams_caption_as_written(self):
+        _, instagram = c.post_captions(self.TEXT, "A caption of its own.\n#fondercam\n")
+        self.assertEqual(instagram, "A caption of its own.\n#fondercam")
+
+    def test_a_post_too_long_for_threads_or_empty_is_refused(self):
+        with self.assertRaises(c.ChallengeError) as caught: c.post_captions("x" * 501)
+        self.assertIn("Threads allows 500", str(caught.exception))
+        self.assertEqual(c.post_captions("x" * 500)[0], "x" * 500)
+        for text in ("", "  \n\n"):
+            with self.assertRaises(c.ChallengeError): c.post_captions(text)
+
+    def test_photos_are_every_photo_in_the_folder_in_filename_order(self):
+        (self.folder / "03-card.HEIC").write_bytes(b"third")
+        (self.folder / "instagram.txt").write_text("caption", encoding="utf-8")
+        (self.folder / "notes.md").write_text("not a photo", encoding="utf-8")
+        self.assertEqual([p.name for p in c.post_photos(self.root, self.NAME)], ["01-exit.jpg", "02-bus.jpg", "03-card.HEIC"])
+
+    def test_a_post_needs_one_to_ten_photos(self):
+        for photo in self.folder.glob("*.jpg"): photo.unlink()
+        with self.assertRaises(c.ChallengeError) as caught: c.post_photos(self.root, self.NAME)
+        self.assertIn(f"challenge/posts/{self.NAME}", str(caught.exception))
+        for i in range(11): (self.folder / f"{i:02d}.png").write_bytes(b"x")
+        with self.assertRaises(c.ChallengeError): c.post_photos(self.root, self.NAME)
+
+    def test_public_paths_are_numbered_under_img_posts(self):
+        self.assertEqual(c.post_public_paths(self.NAME, 2),
+                         [(f"img/posts/{self.NAME}/01.jpg", f"img/posts/{self.NAME}/01-ig.jpg"),
+                          (f"img/posts/{self.NAME}/02.jpg", f"img/posts/{self.NAME}/02-ig.jpg")])
+
+    def test_a_name_that_is_not_a_folder_slug_is_refused(self):
+        for name in ("../days", "a/b", "", "Diary Post", ".hidden"):
+            code, out = self.run_it(["--post", name, "--dry-run"], FakeAPI())
+            self.assertEqual(code, 1, name); self.assertIn("slug", out)
+
+    def test_a_missing_post_says_which_file_it_wants(self):
+        code, out = self.run_it(["--post", "2026-10-15-nothing", "--dry-run"], FakeAPI())
+        self.assertEqual(code, 1); self.assertIn("challenge/posts/2026-10-15-nothing/post.txt", out)
+
+    def test_post_refuses_a_day_due_and_prepare(self):
+        for argv in (["6", "--post", self.NAME], ["--post", self.NAME, "--due"], ["--post", self.NAME, "--prepare"]):
+            api = FakeAPI()
+            code, out = self.run_it(argv, api)
+            self.assertEqual(code, 1, argv); self.assertIn("--post", out)
+            self.assertEqual(api.calls, []); self.assertEqual(self.writes(), [])
+            self.assertEqual(self.prepared, [])
+
+    def test_dry_run_prints_both_captions_and_the_urls_and_posts_nothing(self):
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME, "--dry-run"], api)
+        self.assertEqual(code, 0, out)
+        self.assertEqual(api.calls, [], "a dry run never calls Meta")
+        self.assertIn("Threads:\nTwo recipes came from reference pictures.\n\nThe diary has the whole story.\n", out)
+        self.assertIn("Instagram:\nTwo recipes came from reference pictures.\n\nThe diary has the whole story.\n\n" + self.HASHTAGS, out)
+        for url in (f"https://fondercam.online/img/posts/{self.NAME}/01.jpg", f"https://fondercam.online/img/posts/{self.NAME}/02-ig.jpg"):
+            self.assertIn(url, out)
+        self.assertNotIn("Day ", out)
+        self.assertFalse((self.root / "challenge/posted.json").exists())
+
+    def test_a_post_goes_out_as_one_carousel_on_each_and_is_logged_under_its_own_key(self):
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME], api)
+        self.assertEqual(code, 0, out)
+        sources, outputs = self.prepared[0]
+        self.assertEqual([p.name for p in sources], ["01-exit.jpg", "02-bus.jpg"])
+        self.assertEqual([p.relative_to(self.root).as_posix() for pair in outputs for p in pair],
+                         [path for pair in c.post_public_paths(self.NAME, 2) for path in pair])
+        self.assertEqual(api.posts(), ["threads", "threads", "threads", "threads_publish",
+                                       "media", "media", "media", "media_publish"])
+        carousels = {u.rsplit("/", 1)[1]: p for m, u, p in api.calls if p.get("media_type") == "CAROUSEL"}
+        self.assertEqual(carousels["threads"]["text"], "Two recipes came from reference pictures.\n\nThe diary has the whole story.")
+        self.assertEqual(carousels["media"]["caption"],
+                         "Two recipes came from reference pictures.\n\nThe diary has the whole story.\n\n" + self.HASHTAGS)
+        items = [p["image_url"] for m, u, p in api.calls if p.get("is_carousel_item")]
+        self.assertEqual(items, [f"https://fondercam.online/img/posts/{self.NAME}/01.jpg",
+                                 f"https://fondercam.online/img/posts/{self.NAME}/02.jpg",
+                                 f"https://fondercam.online/img/posts/{self.NAME}/01-ig.jpg",
+                                 f"https://fondercam.online/img/posts/{self.NAME}/02-ig.jpg"])
+        log = json.loads((self.root / "challenge/posted.json").read_text())
+        self.assertEqual(sorted(log), [f"post/{self.NAME}"])
+        self.assertEqual(log[f"post/{self.NAME}"]["threads"], "T-post")
+        self.assertEqual(log[f"post/{self.NAME}"]["instagram"], "I-post")
+        self.assertIn("at", log[f"post/{self.NAME}"])
+
+    def test_instagram_txt_is_sent_as_written(self):
+        (self.folder / "instagram.txt").write_text("Instagram's own words.\n", encoding="utf-8")
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME, "--only", "instagram"], api)
+        self.assertEqual(code, 0, out)
+        carousel = next(p for m, u, p in api.calls if p.get("media_type") == "CAROUSEL")
+        self.assertEqual(carousel["caption"], "Instagram's own words.")
+        self.assertEqual(api.posts()[-1], "media_publish")
+        self.assertNotIn("threads", api.posts())
+
+    def test_a_post_already_posted_is_not_posted_again_unless_forced(self):
+        self.run_it(["--post", self.NAME], FakeAPI())
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME], api)
+        self.assertEqual(code, 0); self.assertEqual(api.calls, []); self.assertIn("already posted", out)
+        code, out = self.run_it(["--post", self.NAME, "--force", "--only", "threads"], api)
+        self.assertEqual(code, 0, out); self.assertEqual(api.posts()[-1], "threads_publish")
+
+    def test_a_logged_post_never_changes_which_day_is_due(self):
+        log = {f"post/{self.NAME}": {"threads": "t", "instagram": "i"}, "post/06": {"threads": "t", "instagram": "i"}}
+        self.assertEqual(c.due_day(self.root, log), c.due_day(self.root, {}))
+        self.assertEqual(c.due_day(self.root, log), 6)
+        # Posted for real, then the scheduled run still posts day 6.
+        self.run_it(["--post", self.NAME], FakeAPI())
+        for plain, padded in c.public_paths(6):
+            for path in (plain, padded):
+                (self.root / path).parent.mkdir(parents=True, exist_ok=True); (self.root / path).write_bytes(b"prepared")
+        api = FakeAPI()
+        code, out = self.run_it(["--due"], api)
+        self.assertEqual(code, 0, out)
+        self.assertIn("Day 06/30", next(p for m, u, p in api.calls if u.endswith("/threads"))["text"])
+        self.assertEqual(sorted(json.loads((self.root / "challenge/posted.json").read_text())), ["06", f"post/{self.NAME}"])
+
+    def test_publish_commits_exactly_the_posts_files_waits_then_posts(self):
+        (self.folder / "instagram.txt").write_text("caption", encoding="utf-8")
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME, "--publish"], api, live=None)   # live only once pushed
+        self.assertEqual(code, 0, out)
+        folder, img = f"challenge/posts/{self.NAME}", f"img/posts/{self.NAME}"
+        self.assertEqual(self.writes(), [
+            ("add", "--", f"{folder}/post.txt", f"{folder}/instagram.txt",
+             f"{img}/01.jpg", f"{img}/01-ig.jpg", f"{img}/02.jpg", f"{img}/02-ig.jpg"),
+            ("commit", "-m", f"feat(challenge): {self.NAME} photos"), ("push", "origin", "main"),
+            ("add", "--", "challenge/posted.json"),
+            ("commit", "-m", f"chore(challenge): {self.NAME} posted"), ("push", "origin", "main")])
+        self.assertEqual(api.posts()[-1], "media_publish")
+
+    def test_publish_is_refused_off_main(self):
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME, "--publish"], api, live=False, branch="feat/something")
+        self.assertEqual(code, 1); self.assertEqual(api.calls, []); self.assertEqual(self.writes(), [])
+
+    def test_without_publish_a_post_that_is_not_live_is_refused(self):
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME], api, live=False)
+        self.assertEqual(code, 1); self.assertEqual(api.calls, []); self.assertIn("not live", out)
+        self.assertEqual(self.git, [])
+
+    def test_the_repository_ignores_a_posts_source_photos(self):
+        rules = (c.ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()
+        self.assertIn("challenge/posts/*/*", rules)
+        self.assertIn("!challenge/posts/*/*.txt", rules)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -4,3 +4,6 @@ docs/superpowers/
 # Source photos for the challenge keep the camera's metadata, so only the day's text is tracked.
 challenge/days/*
 !challenge/days/*.txt
+# The same for a post that is not a challenge day: only its .txt files are tracked.
+challenge/posts/*/*
+!challenge/posts/*/*.txt
