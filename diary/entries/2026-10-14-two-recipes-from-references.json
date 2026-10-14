@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-14",
+  "chapter": "recipes",
+  "title": "Two recipes from reference pictures",
+  "body": [
+    "Two recipes joined the catalogue this week, both made the same way: from a handful of reference pictures of a look I liked, set by eye over several rounds rather than fitted to a camera render.",
+    "The reference pictures are other people's photographs, so they stay on my desk. To have something fair to test on, I generated frames of the same kinds of scenes in plain, ungraded colour, then tuned each recipe until those frames read like the references. One of those frames became each recipe's sample.",
+    {
+      "table": {
+        "head": [
+          "Recipe",
+          "Film",
+          "Made for"
+        ],
+        "rows": [
+          [
+            "Morning Bus 400",
+            "Butter Neg",
+            "A person in the shade of a bright day: a full stop brighter with the highlights held, the film's cast eased and the balance warmed"
+          ],
+          [
+            "Last Exit 800",
+            "Olive Neg",
+            "People in white under tunnel or car-park lights at night: more than a stop darker, the walls sinking to bottle green while a shirt or a dress stays bright"
+          ]
+        ]
+      }
+    },
+    "Last Exit needed one fix the references never showed. A white shirt's glow bled red into the black tie beside it and turned it maroon, so its halation now starts only on the brightest lights. Lamps and headlights still glow, and the tie stays black.",
+    "Each recipe says in its guidance what it does badly. Morning Bus brightens everything, so a frame that is already light can look washed out. Last Exit takes the whole picture down, so a frame that is already dim falls to black."
+  ],
+  "images": [
+    {
+      "file": "img/22-morning-bus-400.jpg",
+      "alt": "An empty train carriage in low sun twice: above with Morning Bus 400, below in natural colour.",
+      "caption": "A generated train carriage, not a photograph: Morning Bus 400 above, at the camera's default strength, and natural colour below."
+    },
+    {
+      "file": "img/23-last-exit-800.jpg",
+      "alt": "A couple in wedding clothes at a tunnel railing, with a car's headlights coming round the bend, twice: above with Last Exit 800, below in natural colour.",
+      "caption": "A generated road tunnel, not a photograph, and the couple are not real people: Last Exit 800 above, at the camera's default strength, and natural colour below."
+    }
+  ]
+}
