@@ -60,7 +60,9 @@
 ## Look
 
 The page's styles are in `diary/diary.css` (fonts from `/fonts`, tokens and header/footer
-as on the homepage). The page is English only.
+as on the homepage). The diary is built in two languages: English at `/diary/` and
+Vietnamese at `/vi/diary/`, with the same structure string for string. The Vietnamese
+comes from the owner's translations in `diary/strings.vi.csv`.
 
 ## Order
 
