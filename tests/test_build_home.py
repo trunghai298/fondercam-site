@@ -158,8 +158,8 @@ class PageTests(unittest.TestCase):
                 self.assertIn(f'id="ch{i}"', page)
 
     def test_film_count_filled(self):
-        self.assertIn("41 films", self.en)
-        self.assertIn("41 màu phim", self.vi)
+        self.assertIn("42 films", self.en)
+        self.assertIn("42 màu phim", self.vi)
 
     def test_action_slot_filled(self):
         self.assertIn("https://www.instagram.com/fonder.app", self.en)
