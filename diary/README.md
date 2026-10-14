@@ -41,14 +41,21 @@
    add `{"id": "...", "title": "...", "intro": "optional one line"}` to that list; chapters
    appear in the order they are listed there.
 
-4. **Build** from the repository root, then commit `diary/index.html` with the rest:
+4. **Build** from the repository root, then commit `diary/index.html`, `vi/diary/index.html`,
+   `index.html` and `vi/index.html` with the rest:
 
    ```sh
    python3 tools/build_diary.py
+   python3 tools/build_home.py
+   python3 -m unittest discover -s tests
    ```
 
-   It needs only Python 3. It stops with a message if an entry names an unknown chapter,
-   has no date, or points at a missing image.
+   `build_diary.py` writes both diary pages. It needs only Python 3, and it stops with a
+   message if an entry names an unknown chapter, has no date, points at a missing image, or
+   has a string with no row in `diary/strings.vi.csv`. `build_home.py` rebuilds the homepage,
+   whose diary cards list the newest entries. Skipping it leaves the live homepage leading
+   with the previous entry. The tests catch that (`test_pages_are_current`), and this repo
+   has no CI to run them for you.
 
 ## Look
 
