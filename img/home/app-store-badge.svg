@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 52" width="156" height="52" role="img" aria-label="Stand-in: replace with Apple's Download on the App Store badge">
+  <!-- STAND-IN, NOT APPLE'S ART. Replace this file with Apple's official "Download on the App Store" badge before this branch is merged. -->
+  <rect x="1" y="1" width="154" height="50" rx="8" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="78" y="23" text-anchor="middle" font-family="monospace" font-size="10" fill="#c0392b">BADGE STAND-IN</text>
+  <text x="78" y="38" text-anchor="middle" font-family="monospace" font-size="8" fill="#c0392b">replace before merging</text>
+</svg>

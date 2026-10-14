@@ -1,9 +1,9 @@
 {
-  "stage": "follow",
+  "stage": "appstore",
   "filmCount": 41,
   "instagram": "https://www.instagram.com/fonder.app",
   "threads": "https://www.threads.com/@fonder.app",
   "testflight": "",
-  "appstore": "",
+  "appstore": "https://apps.apple.com/app/id0000000000",
   "ga4": "G-XY9H5LMRP0"
 }

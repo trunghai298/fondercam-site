@@ -105,7 +105,8 @@ def action_html(cfg, s):
     if stage == "testflight":
         return (f'<p class="action-buttons">{_link(cfg["testflight"], s["action_testflight"], "btn btn-primary")}</p>'
                 f'<p class="action-body">{html.escape(s["action_testflight_note"])}</p>')
-    return (f'<a class="badge" href="{html.escape(cfg["appstore"])}" rel="noopener" target="_blank">'
+    return (f'<p class="action-title">{html.escape(s["action_follow_title"])}</p>'
+            f'<a class="badge" href="{html.escape(cfg["appstore"])}" rel="noopener" target="_blank">'
             f'<img src="/img/home/app-store-badge.svg" width="156" height="52" alt="{html.escape(s["action_appstore_alt"])}"></a>')
 
 

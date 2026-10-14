@@ -1,3 +1,4 @@
+import html
 import json, re, sys, unittest
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,7 +34,8 @@ class ConfigTests(unittest.TestCase):
             b.validate_config(dict(BASE, filmCount="39"))
     def test_repo_config_is_valid(self):
         cfg = b.load_config(ROOT / "config.json")
-        self.assertEqual(cfg["stage"], "follow")
+        self.assertEqual(cfg["stage"], "appstore")
+        self.assertTrue(cfg["appstore"].startswith("https://apps.apple.com/"))
         self.assertEqual(cfg["instagram"], "https://www.instagram.com/fonder.app")
         self.assertEqual(cfg["threads"], "https://www.threads.com/@fonder.app")
 
@@ -126,6 +128,7 @@ class ActionTests(unittest.TestCase):
         h = b.action_html(dict(BASE, stage="appstore", appstore="https://apps.apple.com/app/id1"), S)
         self.assertIn('href="https://apps.apple.com/app/id1"', h)
         self.assertIn('alt="Download on the App Store"', h)
+        self.assertIn(f'<p class="action-title">{S["action_follow_title"]}</p><a class="badge"', h)
     def test_external_links_are_safe(self):
         h = b.action_html(dict(BASE), S)
         self.assertEqual(h.count('rel="noopener"'), h.count("<a "))
@@ -162,8 +165,13 @@ class PageTests(unittest.TestCase):
         self.assertIn("41 màu phim", self.vi)
 
     def test_action_slot_filled(self):
-        self.assertIn("https://www.instagram.com/fonder.app", self.en)
-        self.assertIn("Vẫn còn những tấm ảnh bạn chưa chụp.", self.vi)
+        link = b.load_config(ROOT / "config.json")["appstore"]
+        for page in (self.en, self.vi):
+            self.assertIn(f'<a class="badge" href="{html.escape(link)}"', page)
+        self.assertIn('alt="Download on the App Store"', self.en)
+        self.assertIn('alt="Tải về trên App Store"', self.vi)
+        self.assertIn("There are photos you haven’t taken yet.</p><a class=\"badge\"", self.en)
+        self.assertIn("Vẫn còn những tấm ảnh bạn chưa chụp.</p><a class=\"badge\"", self.vi)
 
     def test_every_image_sized_and_described(self):
         for page in (self.en, self.vi):
