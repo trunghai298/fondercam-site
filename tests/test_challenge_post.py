@@ -90,16 +90,16 @@ class ImageTests(unittest.TestCase):
         self.assertEqual(c.public_urls(6, 2)[1], ("https://fondercam.online/img/challenge/day-06-2.jpg",
                                                   "https://fondercam.online/img/challenge/day-06-2-ig.jpg"))
 
-    def test_a_post_of_several_photos_shares_one_instagram_shape(self):
-        # A 3:2 photo and its nearly square recipe card: Instagram would crop the card to the
-        # photo's shape, so both sit on the card's shape and the photo is padded.
+    def test_a_post_of_several_photos_shares_the_first_photos_instagram_shape(self):
+        # A 3:2 photo then its nearly square recipe card: Instagram shows every photo of a post in
+        # the first one's shape, so the photo keeps its own and the card is padded out to it.
         photo, card = (1440, 960), (1440, 1363)
         aspect = c.carousel_aspect([photo, card])
-        self.assertAlmostEqual(aspect, 1440 / 1363)
-        self.assertEqual(c.instagram_canvas(*card, aspect), card)
-        self.assertEqual(c.instagram_canvas(*photo, aspect), (1440, 1363))
+        self.assertAlmostEqual(aspect, 1.5)
+        self.assertEqual(c.instagram_canvas(*photo, aspect), photo)
+        self.assertEqual(c.instagram_canvas(*card, aspect), (2044, 1363))
         self.assertIsNone(c.carousel_aspect([photo]), "one photo keeps its own shape")
-        # A very tall photo in the set pulls every one to 4:5, the tallest Instagram takes.
+        # A first photo taller than Instagram takes is still padded to 4:5, and the rest follow it.
         self.assertAlmostEqual(c.carousel_aspect([(1000, 1500), (1440, 960)]), 0.8)
 
 

@@ -137,9 +137,9 @@ neither `--due` nor `--prepare`.
   photo (Fonder's 2:3) is centred on a white 4:5 canvas; a photo already inside the range is the
   same picture.
 
-In a post of several photos Instagram crops every photo to the shape of the first, so all of
-them are put on one shared shape, the tallest among them: a 3:2 photo beside its squarer recipe
-card gets white bands above and below, and the card is not cut.
+In a post of several photos Instagram shows every photo in the shape of the first, so the first
+keeps its own shape and the rest are padded out to it: a 3:2 photo stays as it is, and the
+squarer recipe card after it gets white bands left and right, so the card is not cut.
 
 Both are JPEG with the metadata removed, so no location or device data is published.
 
