@@ -115,9 +115,9 @@ def instagram_canvas(width, height, aspect=None):
 
 
 def carousel_aspect(sizes):
-    """One shape for every photo of a post. Instagram crops a post's photos to its first one,
-    so they are all padded to the tallest shape among them and nothing is cut off."""
-    return min(max(w / h, IG_TALLEST) for w, h in sizes) if len(sizes) > 1 else None
+    """One shape for every photo of a post. Instagram shows a post's photos in its first one's
+    shape, so the first keeps its own (as far as Instagram allows) and the rest are padded to it."""
+    return min(max(sizes[0][0] / sizes[0][1], IG_TALLEST), IG_WIDEST) if len(sizes) > 1 else None
 
 
 def public_paths(day, count=1):
