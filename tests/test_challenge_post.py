@@ -1,4 +1,4 @@
-import json, sys, tempfile, unittest
+import json, shutil, subprocess, sys, tempfile, unittest
 from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
@@ -101,6 +101,25 @@ class ImageTests(unittest.TestCase):
         self.assertIsNone(c.carousel_aspect([photo]), "one photo keeps its own shape")
         # A first photo taller than Instagram takes is still padded to 4:5, and the rest follow it.
         self.assertAlmostEqual(c.carousel_aspect([(1000, 1500), (1440, 960)]), 0.8)
+
+    @unittest.skipUnless(shutil.which("sips") and shutil.which("ffmpeg"), "needs sips and ffmpeg")
+    def test_a_camera_photo_stored_sideways_comes_out_upright_and_unsquashed(self):
+        # Cameras often store a portrait photo as landscape pixels with an EXIF tag saying to turn it.
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            plain = tmp / "plain.jpg"
+            subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i", "color=red:s=60x40",
+                            "-frames:v", "1", str(plain)], check=True)
+            # An Exif segment whose only entry is Orientation 6: turn 90° clockwise to display.
+            tiff = b"MM\0*\0\0\0\x08" + b"\0\x01" + b"\x01\x12\0\x03\0\0\0\x01\0\x06\0\0" + b"\0\0\0\0"
+            exif = b"Exif\0\0" + tiff
+            jpeg = plain.read_bytes()
+            sideways = tmp / "sideways.jpg"
+            sideways.write_bytes(jpeg[:2] + b"\xff\xe1" + (len(exif) + 2).to_bytes(2, "big") + exif + jpeg[2:])
+            out, out_ig = tmp / "out.jpg", tmp / "out-ig.jpg"
+            c.prepare_photos([sideways], [(out, out_ig)])
+            self.assertEqual(c.photo_size(out), (40, 60))
+            self.assertEqual(c.photo_size(out_ig), (48, 60), "padded out to 4:5, not squashed")
 
 
 class PostingTests(unittest.TestCase):

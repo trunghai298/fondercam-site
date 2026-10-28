@@ -180,26 +180,39 @@ def photo_size(source):
 
 def prepare_photos(sources, outputs):
     """Writes the two public files for each photo: resized, as JPEG, with no metadata."""
-    sizes = [scaled(*photo_size(source), LONG_EDGE) for source in sources]
-    aspect = carousel_aspect(sizes)
-    for source, (width, height), (plain, padded) in zip(sources, sizes, outputs):
-        canvas_w, canvas_h = instagram_canvas(width, height, aspect)
-        plain.parent.mkdir(parents=True, exist_ok=True)
-        # sips reads HEIC and applies the photo's rotation; ffmpeg then resizes, pads and drops the metadata.
-        upright = plain.with_suffix(".tmp.jpg")
-        try:
-            subprocess.run(["sips", "-s", "format", "jpeg", "-s", "formatOptions", "100", str(source), "--out", str(upright)],
-                           capture_output=True, check=True)
+    uprights = []
+    try:
+        for source, (plain, _) in zip(sources, outputs):
+            plain.parent.mkdir(parents=True, exist_ok=True)
+            # sips reads HEIC; it keeps a camera's EXIF rotation as a tag, which ffmpeg applies when it
+            # writes the PNG. Every size is read from the PNG, so a photo stored sideways is not squashed.
+            converted, upright = plain.with_suffix(".tmp.jpg"), plain.with_suffix(".tmp.png")
+            uprights.append(upright)
+            try:
+                subprocess.run(["sips", "-s", "format", "jpeg", "-s", "formatOptions", "100", str(source), "--out", str(converted)],
+                               capture_output=True, check=True)
+                subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(converted), str(upright)], check=True)
+            except subprocess.CalledProcessError as error:
+                raise ChallengeError(f"could not prepare {source.name}: {error.cmd[0]} failed")
+            finally:
+                converted.unlink(missing_ok=True)
+        sizes = [scaled(*photo_size(upright), LONG_EDGE) for upright in uprights]
+        aspect = carousel_aspect(sizes)
+        for source, upright, (width, height), (plain, padded) in zip(sources, uprights, sizes, outputs):
+            canvas_w, canvas_h = instagram_canvas(width, height, aspect)
+            # ffmpeg resizes, pads and drops the metadata.
             base = ["ffmpeg", "-v", "error", "-y", "-i", str(upright), "-map_metadata", "-1", "-q:v", "2"]
-            subprocess.run([*base, "-vf", f"scale={width}:{height}:flags=lanczos", str(plain)], check=True)
-            if (canvas_w, canvas_h) == (width, height):
-                shutil.copyfile(plain, padded)   # already a shape Instagram takes
-            else:
-                subprocess.run([*base, "-vf", f"scale={width}:{height}:flags=lanczos,"
-                                              f"pad={canvas_w}:{canvas_h}:(ow-iw)/2:(oh-ih)/2:color={PAD_COLOUR}", str(padded)], check=True)
-        except subprocess.CalledProcessError as error:
-            raise ChallengeError(f"could not prepare {source.name}: {error.cmd[0]} failed")
-        finally:
+            try:
+                subprocess.run([*base, "-vf", f"scale={width}:{height}:flags=lanczos", str(plain)], check=True)
+                if (canvas_w, canvas_h) == (width, height):
+                    shutil.copyfile(plain, padded)   # already a shape Instagram takes
+                else:
+                    subprocess.run([*base, "-vf", f"scale={width}:{height}:flags=lanczos,"
+                                                  f"pad={canvas_w}:{canvas_h}:(ow-iw)/2:(oh-ih)/2:color={PAD_COLOUR}", str(padded)], check=True)
+            except subprocess.CalledProcessError as error:
+                raise ChallengeError(f"could not prepare {source.name}: {error.cmd[0]} failed")
+    finally:
+        for upright in uprights:
             upright.unlink(missing_ok=True)
 
 
