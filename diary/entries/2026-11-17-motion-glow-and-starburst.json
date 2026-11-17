@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-17",
+  "chapter": "halation-starburst-grain",
+  "title": "Motion Glow, and Starburst fixed",
+  "body": [
+    "**Motion Glow** is a new free recipe effect, modelled on the motion setting of Lightroom's Glow. The bright parts of a photo leave a see-through trail of light along a line, one way or both ways, so lamps, signs and headlights look caught in motion.",
+    "It has Lightroom's controls (Glow, Range, Spread, Warmth, Direction and Softness) and a Trail switch. A trail keeps the colour of the light that made it and fades with distance, brightest at the light itself. It's built at up to sixteen times coarser resolution along the line, but nothing is resampled across it, so at Softness 0 a trail stays a fine, crisp line.",
+    "Testing it showed that Starburst, the rays on bright lamps, had hardly ever appeared. Every picture is clamped to white before Starburst runs, but the stage measured how far a lamp went past white, as if highlights kept their raw headroom. At the standard threshold a blown lamp scored almost nothing, in the viewfinder, a HEIF or a JPEG. The tests hadn't caught it because they used a threshold where the two measures happen to agree.",
+    "Starburst now measures a lamp against the room between its threshold and white, so a blown lamp counts fully at any threshold. Its rays show in the viewfinder and in every format, and a ProRAW lamp at high DR stays about where it was."
+  ]
+}

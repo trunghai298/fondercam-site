@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-28",
+  "chapter": "recipes",
+  "title": "One recipe on several photos",
+  "body": [
+    "Two small changes this week, both about choosing a recipe less often. The first is a **Recent** chip in the recipe filters, between All and My Recipes. It lists the last eight recipes I used, newest first, and the camera now reopens on the last one instead of Summer Chrome. A use is a shutter press or Apply in the editor; trying a tile doesn't count.",
+    "The second is a **Recipe** button in the Photos selection bar. Choose a few photos, tap it, and a sheet opens on the last recipe used, with its strength, grain and settings. I can swipe through the chosen photos in its preview, compare any of them with the original using the split divider, and then apply the recipe to all of them at once.",
+    {
+      "list": [
+        "Each photo is re-graded one at a time and keeps its own crop and border.",
+        "The sheet counts the photos actually done, and says how many it had to skip, such as a photo whose original was cleared to save space.",
+        "A paid recipe opens the paywall, and closing it brings the selection and the sheet back where they were."
+      ]
+    }
+  ]
+}
