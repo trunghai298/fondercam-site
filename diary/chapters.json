@@ -54,6 +54,16 @@
     "intro": "A third camera mode: load a film, shoot the roll without seeing it, then develop."
   },
   {
+    "id": "bracketing",
+    "title": "Bracketing",
+    "intro": "One press of the shutter, several photos of the same moment."
+  },
+  {
+    "id": "lab",
+    "title": "Lab",
+    "intro": "The editor's space for edits that go further than a recipe."
+  },
+  {
     "id": "website",
     "title": "The website"
   }

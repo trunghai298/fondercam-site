@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-09",
+  "chapter": "bracketing",
+  "title": "BKT: one press, three photos",
+  "body": [
+    "Cameras have long had bracketing: one press of the shutter saves several versions of the same moment. Fonder now has its own in Still mode, called BKT. There are four kinds, picked on a new Bracketing page.",
+    {
+      "table": {
+        "head": [
+          "Kind",
+          "What changes across the three photos"
+        ],
+        "rows": [
+          [
+            "Recipe",
+            "The recipe: the one in the viewfinder and two picked on the page. One exposure, developed three ways."
+          ],
+          [
+            "AE",
+            "The exposure: three real exposures a stop apart, at −1, 0 and +1 EV."
+          ],
+          [
+            "ISO",
+            "The noise: the same brightness, with the ISO halved, kept and doubled and the shutter speed changed to match."
+          ],
+          [
+            "DR",
+            "The dynamic range: one exposure developed at DR100, DR200 and DR400, to choose afterwards how much highlight detail to keep."
+          ]
+        ]
+      }
+    },
+    "Recipe and DR bracketing fire the sensor once, so their three photos come from one original. Each photo still has its own file, but on the iPhone's storage the copies share the first one's data, so a bracketed moment takes one photo's worth of space. AE and ISO take three real exposures in one burst, with the flash off.",
+    "On the DR page, each tile is the current recipe rendered live at that setting, with red stripes where the photo would have no highlight detail left. BKT is part of the paid unlock, and works in Still only."
+  ]
+}
