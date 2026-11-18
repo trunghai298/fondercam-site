@@ -1,0 +1,5 @@
+I've been building a film camera app, Fonder, and this week it learned to blur.
+
+Tap what should stay sharp, pick an aperture, and the rest falls away the way a fast lens would draw it. The depth is read from the photo itself, on the phone, and the lights behind open into round discs. Chrome 50 and a little grain go on last, so the grain sits over the blur like it would on a negative.
+
+If you shoot wide open on real glass: does the falloff look right to you, or does it give itself away?

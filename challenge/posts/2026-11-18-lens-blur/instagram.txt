@@ -1,0 +1,9 @@
+The blur used to be decided the moment you pressed the shutter. Now it can wait.
+
+Lens Blur in Fonder: tap what should stay sharp, choose your aperture, and everything else falls away like a wide-open lens. It reads the depth of your photo on the phone, and small lights in the background open into round, warm bokeh.
+
+The recipe goes on last. Here it's Chrome 50 with some grain: colour at its heaviest, greens that go deep, and the grain sitting over the blur the way it would on a real negative.
+
+Lab → Lens → Blur, in Fonder Pro.
+
+#fondercam #filmlook #bokeh #iphonephotography #lensblur
