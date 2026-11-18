@@ -7,9 +7,10 @@ import challenge_post as c
 
 class FakeAPI:
     """Stands in for Meta: records every call and answers the way the two APIs do."""
-    def __init__(self, status="FINISHED", item_states=()):
+    def __init__(self, status="FINISHED", item_states=(), video_states=()):
         self.calls, self.status, self.threads, self.media = [], status, 0, 0
         self.item_states = list(item_states)   # what a carousel item answers first; FINISHED after that
+        self.video_states = list(video_states)   # what a Threads video container answers first; FINISHED after that
 
     def __call__(self, method, url, params=None):
         self.calls.append((method, url, dict(params or {})))
@@ -22,6 +23,9 @@ class FakeAPI:
             return {"id": f"I-item{self.media}" if (params or {}).get("is_carousel_item") else "I-container"}
         if url.endswith("/media_publish"): return {"id": "I-post"}
         if "I-container" in url: return {"status_code": self.status}
+        if "T-container" in url:
+            state = self.video_states.pop(0) if self.video_states else "FINISHED"
+            return {"status": state, "error_message": "bad codec"} if state == "ERROR" else {"status": state}
         if "-item" in url:
             state = self.item_states.pop(0) if self.item_states else "FINISHED"
             return {"status": state} if "T-item" in url else {"status_code": state}
@@ -183,6 +187,87 @@ class PostingTests(unittest.TestCase):
                 self.assertFalse(any("publish" in u for m, u, p in api.calls))
 
 
+class VideoPostingTests(unittest.TestCase):
+    """A video goes out as a Threads video and an Instagram Reel, each published only once Meta has
+    processed it."""
+    def test_threads_posts_a_video_once_meta_has_processed_it(self):
+        api, waits = FakeAPI(video_states=["IN_PROGRESS", "FINISHED"]), []
+        post = c.post_threads(ENV, ["https://x/01.mp4"], "caption", api, waits.append, topic="Photographers of Threads", video=True)
+        self.assertEqual(post, "T-post")
+        self.assertEqual(api.calls[0], ("POST", "https://graph.threads.net/v1.0/111/threads",
+                                        {"media_type": "VIDEO", "video_url": "https://x/01.mp4", "text": "caption",
+                                         "topic_tag": "Photographers of Threads", "access_token": "tt"}))
+        gets = [u for m, u, _ in api.calls if m == "GET"]
+        self.assertEqual(len(gets), 2, "asked until it is FINISHED")
+        self.assertIn("fields=status%2Cerror_message", gets[0])
+        self.assertEqual(api.calls[-1], ("POST", "https://graph.threads.net/v1.0/111/threads_publish",
+                                         {"creation_id": "T-container", "access_token": "tt"}))
+
+    def test_a_threads_video_that_fails_or_never_finishes_is_not_published(self):
+        for states in (["ERROR"], ["IN_PROGRESS"] * 100):
+            api = FakeAPI(video_states=states)
+            with self.assertRaises(c.ChallengeError) as caught:
+                c.post_threads(ENV, ["https://x/01.mp4"], "caption", api, lambda s: None, video=True)
+            self.assertNotIn("threads_publish", api.posts())
+        self.assertIn("still processing", str(caught.exception))
+        api = FakeAPI(video_states=["ERROR"])
+        with self.assertRaises(c.ChallengeError) as caught:
+            c.post_threads(ENV, ["https://x/01.mp4"], "caption", api, lambda s: None, video=True)
+        self.assertIn("ERROR", str(caught.exception))
+        self.assertIn("bad codec", str(caught.exception), "Meta's own reason is passed on")
+
+    def test_instagram_posts_a_reel_shared_to_the_feed_with_the_ai_label(self):
+        api = FakeAPI()
+        post = c.post_instagram(ENV, ["https://x/01.mp4"], "caption", api, lambda s: None, video=True, ai_generated=True)
+        self.assertEqual(post, "I-post")
+        self.assertEqual(api.calls[0], ("POST", "https://graph.instagram.com/222/media",
+                                        {"media_type": "REELS", "video_url": "https://x/01.mp4", "caption": "caption",
+                                         "share_to_feed": "true", "is_ai_generated": "true", "access_token": "it"}))
+        self.assertEqual(api.calls[-1], ("POST", "https://graph.instagram.com/222/media_publish",
+                                         {"creation_id": "I-container", "access_token": "it"}))
+
+    def test_the_ai_label_goes_on_a_photo_post_too_and_on_nothing_unasked(self):
+        api = FakeAPI()
+        c.post_instagram(ENV, ["https://x/a.jpg"], "caption", api, lambda s: None, ai_generated=True)
+        self.assertEqual(api.calls[0][2].get("is_ai_generated"), "true")
+        api = FakeAPI()
+        c.post_instagram(ENV, ["https://x/a.jpg"], "caption", api, lambda s: None)
+        self.assertNotIn("is_ai_generated", api.calls[0][2])
+
+    def test_a_reel_is_given_ten_minutes_to_process(self):
+        api = FakeAPI(status="IN_PROGRESS")
+        with self.assertRaises(c.ChallengeError):
+            c.post_instagram(ENV, ["https://x/01.mp4"], "caption", api, lambda s: None, video=True)
+        self.assertEqual(len([u for m, u, _ in api.calls if m == "GET"]), 10)
+        self.assertNotIn("media_publish", api.posts())
+
+    @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"), "needs ffmpeg")
+    def test_prepare_video_makes_an_h264_mp4_at_most_1080_wide_with_no_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source, out = Path(tmp) / "clip.mov", Path(tmp) / "img/posts/x/01.mp4"
+            subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i", "testsrc=size=1206x2432:rate=60:duration=1",
+                            "-metadata", "location=+21.0285+105.8542/", "-metadata", "title=on the street",
+                            "-c:v", "libx264", "-pix_fmt", "yuv420p", str(source)], check=True)
+            c.prepare_video(source, out)
+            probe = json.loads(subprocess.run(["ffprobe", "-v", "error", "-print_format", "json", "-show_format", "-show_streams",
+                                               str(out)], check=True, capture_output=True, text=True).stdout)
+            video = [s for s in probe["streams"] if s["codec_type"] == "video"][0]
+            self.assertEqual((video["codec_name"], video["width"], video["pix_fmt"]), ("h264", 1080, "yuv420p"))
+            self.assertEqual(video["height"] % 2, 0)
+            tags = {k.lower() for k in probe["format"].get("tags", {})}
+            self.assertFalse(tags & {"location", "title", "com.apple.quicktime.location.iso6709"}, tags)
+
+    @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"), "needs ffmpeg")
+    def test_a_video_longer_than_threads_takes_is_refused(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source = Path(tmp) / "long.mov"
+            subprocess.run(["ffmpeg", "-v", "error", "-f", "lavfi", "-i", "color=size=16x16:rate=1:duration=301",
+                            "-c:v", "libx264", "-pix_fmt", "yuv420p", str(source)], check=True)
+            with self.assertRaises(c.ChallengeError) as caught:
+                c.prepare_video(source, Path(tmp) / "out.mp4")
+            self.assertIn("5 minutes", str(caught.exception))
+
+
 class RunTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -190,7 +275,7 @@ class RunTests(unittest.TestCase):
         (self.root / "challenge/days").mkdir(parents=True)
         (self.root / "challenge/days/06.txt").write_text("Harvest 400\n\nthis one was made for autumn.\n", encoding="utf-8")
         (self.root / "challenge/days/06.jpg").write_bytes(b"not really a photo")
-        self.prepared = []
+        self.prepared, self.clips = [], []
 
     def tearDown(self): self.tmp.cleanup()
 
@@ -204,7 +289,7 @@ class RunTests(unittest.TestCase):
             if args[0] == "push": self.pushed = True
             return ""
         code = c.run(argv, root=self.root, env=env, request=api, sleep=lambda s: None, say=out.append,
-                     prepare=lambda *a: self.prepared.append(a),
+                     prepare=lambda *a: self.prepared.append(a), prepare_clip=lambda *a: self.clips.append(a),
                      is_live=lambda url: live if live is not None else getattr(self, "pushed", False), git=git)
         return code, "\n".join(out)
 
@@ -617,3 +702,89 @@ class PostTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class VideoPostTests(unittest.TestCase):
+    """A post whose folder holds one video: a Threads video in the community topic.txt names, and
+    an Instagram Reel, labelled AI-generated when ai-generated.txt is there."""
+    NAME = "2026-11-18-lens-blur"
+    TOPIC = "Photographers of Threads"
+    URL = f"https://fondercam.online/img/posts/{NAME}/01.mp4"
+
+    def setUp(self):
+        RunTests.setUp(self)
+        self.folder = self.root / f"challenge/posts/{self.NAME}"
+        self.folder.mkdir(parents=True)
+        (self.folder / "post.txt").write_text("It learned to blur.\n", encoding="utf-8")
+        (self.folder / "instagram.txt").write_text("It learned to blur.\n\n#fondercam\n", encoding="utf-8")
+        (self.folder / "topic.txt").write_text(self.TOPIC + "\n", encoding="utf-8")
+        (self.folder / "ai-generated.txt").write_text("The photo in the demo is a generated image.\n", encoding="utf-8")
+        (self.folder / "01-demo.mov").write_bytes(b"not really a video")
+
+    tearDown, run_it = RunTests.tearDown, RunTests.run_it
+
+    def test_a_video_post_goes_out_as_a_video_on_both_with_its_topic_and_label(self):
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME], api)
+        self.assertEqual(code, 0, out)
+        self.assertEqual(self.prepared, [], "no photo to prepare")
+        source, output = self.clips[0]
+        self.assertEqual((source.name, output.relative_to(self.root).as_posix()), ("01-demo.mov", f"img/posts/{self.NAME}/01.mp4"))
+        self.assertEqual(api.posts(), ["threads", "threads_publish", "media", "media_publish"])
+        threads = api.calls[0][2]
+        self.assertEqual((threads["media_type"], threads["video_url"], threads["topic_tag"], threads["text"]),
+                         ("VIDEO", self.URL, self.TOPIC, "It learned to blur."))
+        reel = [p for m, u, p in api.calls if u.endswith("/media")][0]
+        self.assertEqual((reel["media_type"], reel["video_url"], reel["share_to_feed"], reel["is_ai_generated"], reel["caption"]),
+                         ("REELS", self.URL, "true", "true", "It learned to blur.\n\n#fondercam"))
+        log = json.loads((self.root / "challenge/posted.json").read_text())
+        self.assertEqual((log[f"post/{self.NAME}"]["threads"], log[f"post/{self.NAME}"]["instagram"]), ("T-post", "I-post"))
+
+    def test_without_topic_txt_threads_gets_the_fondercam_topic_and_without_the_label_file_no_label(self):
+        (self.folder / "topic.txt").unlink()
+        (self.folder / "ai-generated.txt").unlink()
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME], api)
+        self.assertEqual(code, 0, out)
+        self.assertEqual(api.calls[0][2]["topic_tag"], "FonderCam")
+        self.assertNotIn("is_ai_generated", [p for m, u, p in api.calls if u.endswith("/media")][0])
+
+    def test_a_topic_is_one_to_fifty_characters_with_no_period_or_ampersand(self):
+        for bad in ("Photo & Video", "photos.daily", "x" * 51, "  "):
+            (self.folder / "topic.txt").write_text(bad, encoding="utf-8")
+            code, out = self.run_it(["--post", self.NAME, "--dry-run"], FakeAPI())
+            self.assertEqual(code, 1, bad)
+            self.assertIn("topic.txt", out)
+
+    def test_a_post_takes_one_video_and_nothing_else(self):
+        (self.folder / "02-still.jpg").write_bytes(b"a photo")
+        code, out = self.run_it(["--post", self.NAME, "--dry-run"], FakeAPI())
+        self.assertEqual(code, 1)
+        self.assertIn("one video and nothing else", out)
+        (self.folder / "02-still.jpg").unlink()
+        (self.folder / "02-more.mp4").write_bytes(b"another video")
+        code, out = self.run_it(["--post", self.NAME, "--dry-run"], FakeAPI())
+        self.assertEqual(code, 1)
+        self.assertIn("one video and nothing else", out)
+
+    def test_dry_run_shows_the_video_the_topic_and_the_label_and_posts_nothing(self):
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME, "--dry-run"], api)
+        self.assertEqual(code, 0, out)
+        self.assertEqual(api.calls, [])
+        self.assertIn(f"Threads video:   {self.URL}", out)
+        self.assertIn(f"Instagram video: {self.URL}", out)
+        self.assertIn(f"Threads topic:   {self.TOPIC}", out)
+        self.assertIn("AI label:", out)
+        self.assertIn("add it in the Threads app", out)
+
+    def test_publish_commits_the_video_once_with_the_texts_and_never_the_source(self):
+        api = FakeAPI()
+        code, out = self.run_it(["--post", self.NAME, "--publish"], api, live=None)
+        self.assertEqual(code, 0, out)
+        added = [g for g in self.git if g[0] == "add"][0]
+        files = list(added[2:])
+        self.assertEqual(files.count(f"img/posts/{self.NAME}/01.mp4"), 1)
+        for name in ("post.txt", "instagram.txt", "topic.txt", "ai-generated.txt"):
+            self.assertIn(f"challenge/posts/{self.NAME}/{name}", files)
+        self.assertFalse(any(f.endswith(".mov") for f in files), "the phone's own file never leaves the Mac")

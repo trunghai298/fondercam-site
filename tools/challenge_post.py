@@ -17,6 +17,9 @@ The "Day NN/30" header and the sign-off are added here.
 A post that is not a challenge day is a folder, challenge/posts/NAME/: post.txt is posted to
 Threads exactly as written, instagram.txt (if there is one) is Instagram's caption as written,
 and every photo in the folder goes out in filename order. Its photos go to img/posts/NAME/.
+A folder may instead hold one video (.mov or .mp4), which goes out as a Threads video and an
+Instagram Reel, as img/posts/NAME/01.mp4. topic.txt names the Threads topic (a community's tag)
+in place of FonderCam, and ai-generated.txt asks Instagram to label the post AI-generated.
 
 Each photo is written to img/challenge/ in two sizes. Meta's APIs fetch a photo from a public
 address, so those files have to be live on fondercam.online before anything is posted:
@@ -54,6 +57,14 @@ LONG_EDGE = 1440
 IG_TALLEST, IG_WIDEST = 4 / 5, 1.91
 PAD_COLOUR = "white"
 PHOTO_TYPES = (".jpg", ".jpeg", ".png", ".heic")
+VIDEO_TYPES = (".mov", ".mp4")
+# A video is re-encoded for both platforms: H.264 and AAC, at most 1080 px wide. A phone's screen
+# recording comes to about 9 MB a minute this way, small enough to serve from the site.
+VIDEO_WIDTH = 1080
+# Threads takes a video up to five minutes long; a Reel may be longer.
+LONGEST_VIDEO = 300
+# Threads' rules for a topic tag: 1 to 50 characters, and no period or ampersand.
+TOPIC_LIMIT = 50
 # Both platforms take up to this many photos in one post.
 MOST_PHOTOS = 10
 THREADS_API = "https://graph.threads.net/v1.0"
@@ -248,6 +259,61 @@ def post_public_paths(name, count):
     return [(f"img/posts/{name}/{i:02d}.jpg", f"img/posts/{name}/{i:02d}-ig.jpg") for i in range(1, count + 1)]
 
 
+def post_video(root, name):
+    """The post's one video, or None for a post of photos. A video goes out alone: neither
+    platform mixes a video with photos in one post the way this script posts them."""
+    folder = root / f"challenge/posts/{name}"
+    videos = sorted(path for path in folder.iterdir() if path.suffix.lower() in VIDEO_TYPES)
+    if not videos:
+        return None
+    if len(videos) > 1 or any(path.suffix.lower() in PHOTO_TYPES for path in folder.iterdir()):
+        raise ChallengeError(f"post {name} has a video, so it takes one video and nothing else: "
+                             f"leave one .mov or .mp4 in challenge/posts/{name}/")
+    return videos[0]
+
+
+def video_public_path(name):
+    """The re-encoded video, served to both platforms from the same address."""
+    return f"img/posts/{name}/01.mp4"
+
+
+def post_topic(root, name):
+    """The Threads topic for the post: topic.txt as written, or FonderCam without one."""
+    file = root / f"challenge/posts/{name}/topic.txt"
+    if not file.exists():
+        return TOPIC_TAG
+    topic = file.read_text(encoding="utf-8").strip()
+    if not 1 <= len(topic) <= TOPIC_LIMIT or "." in topic or "&" in topic:
+        raise ChallengeError(f"challenge/posts/{name}/topic.txt must name a topic of 1 to {TOPIC_LIMIT} characters "
+                             f"with no period or ampersand; it has {topic!r}")
+    return topic
+
+
+def video_seconds(source):
+    done = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(source)],
+                          capture_output=True, text=True)
+    if done.returncode != 0:
+        raise ChallengeError(f"ffprobe could not read {source.name}: {done.stderr.strip()[:200]}")
+    return float(done.stdout.strip())
+
+
+def prepare_video(source, output):
+    """The video for both platforms: H.264 and AAC in an MP4, at most 1080 px wide at its own frame
+    rate, with the index first so Meta can read it as it fetches. Every metadata tag is dropped:
+    a phone's recording carries the time and, with location on, the place."""
+    seconds = video_seconds(source)
+    if seconds > LONGEST_VIDEO:
+        raise ChallengeError(f"{source.name} runs {seconds:.0f} s; Threads takes a video of up to 5 minutes")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    done = subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(source), "-map_metadata", "-1",
+                           "-map", "0:v:0", "-map", "0:a:0?", "-vf", f"scale='min({VIDEO_WIDTH},iw)':-2",
+                           "-c:v", "libx264", "-preset", "slow", "-crf", "23", "-pix_fmt", "yuv420p",
+                           "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-movflags", "+faststart", str(output)],
+                          capture_output=True, text=True)
+    if done.returncode != 0:
+        raise ChallengeError(f"ffmpeg could not prepare {source.name}: {done.stderr.strip()[:300]}")
+
+
 # Meta
 
 def http(method, url, params=None):
@@ -284,11 +350,33 @@ def wait_for_items(api, items, field, token, request, sleep):
     raise ChallengeError("the carousel's photos were still being fetched after two minutes; nothing was published")
 
 
-def post_threads(env, image_urls, text, request, sleep):
-    """One photo is a post of its own; several are a carousel of item containers."""
+def wait_for_video(api, container, token, request, sleep):
+    """Holds until Threads has processed a video container: publishing one still IN_PROGRESS is
+    refused. Asks every ten seconds, for no more than five minutes."""
+    for attempt in range(30):
+        answer = request("GET", f"{api}/{container}?" + urllib.parse.urlencode(
+            {"fields": "status,error_message", "access_token": token}))
+        if answer["status"] == "FINISHED":
+            return
+        if answer["status"] != "IN_PROGRESS":
+            raise ChallengeError(f"Threads could not take the video: its status is {answer['status']}"
+                                 + (f" ({answer['error_message']})" if answer.get("error_message") else ""))
+        sleep(10)
+    raise ChallengeError("Threads was still processing the video after five minutes; nothing was published there")
+
+
+def post_threads(env, urls, text, request, sleep, topic=TOPIC_TAG, video=False):
+    """One photo is a post of its own; several are a carousel of item containers; a video is one
+    video container, published once Threads has processed it. `topic` is the post's topic tag:
+    a community's tag puts it in that community."""
     user, token = env["FONDER_THREADS_USER_ID"], env["FONDER_THREADS_TOKEN"]
-    words = {"text": text, "topic_tag": TOPIC_TAG, "access_token": token}
-    if len(image_urls) == 1:
+    image_urls = urls
+    words = {"text": text, "topic_tag": topic, "access_token": token}
+    if video:
+        container = request("POST", f"{THREADS_API}/{user}/threads",
+                            {"media_type": "VIDEO", "video_url": urls[0], **words})["id"]
+        wait_for_video(THREADS_API, container, token, request, sleep)
+    elif len(image_urls) == 1:
         container = request("POST", f"{THREADS_API}/{user}/threads",
                             {"media_type": "IMAGE", "image_url": image_urls[0], **words})["id"]
     else:
@@ -302,20 +390,29 @@ def post_threads(env, image_urls, text, request, sleep):
     return request("POST", f"{THREADS_API}/{user}/threads_publish", {"creation_id": container, "access_token": token})["id"]
 
 
-def post_instagram(env, image_urls, text, request, sleep):
+def post_instagram(env, urls, text, request, sleep, video=False, ai_generated=False):
+    """A photo, a carousel, or a video as a Reel shared to the feed. `ai_generated` sets
+    Instagram's own AI label on the post (`is_ai_generated`, on the container it publishes)."""
     user, token = env["FONDER_IG_USER_ID"], env["FONDER_IG_TOKEN"]
-    if len(image_urls) == 1:
+    image_urls = urls
+    label = {"is_ai_generated": "true"} if ai_generated else {}
+    if video:
         container = request("POST", f"{INSTAGRAM_API}/{user}/media",
-                            {"image_url": image_urls[0], "caption": text, "access_token": token})["id"]
+                            {"media_type": "REELS", "video_url": urls[0], "caption": text, "share_to_feed": "true",
+                             **label, "access_token": token})["id"]
+    elif len(image_urls) == 1:
+        container = request("POST", f"{INSTAGRAM_API}/{user}/media",
+                            {"image_url": image_urls[0], "caption": text, **label, "access_token": token})["id"]
     else:
         items = [request("POST", f"{INSTAGRAM_API}/{user}/media",
                          {"image_url": url, "is_carousel_item": "true", "access_token": token})["id"]
                  for url in image_urls]
         wait_for_items(INSTAGRAM_API, items, "status_code", token, request, sleep)
         container = request("POST", f"{INSTAGRAM_API}/{user}/media",
-                            {"media_type": "CAROUSEL", "children": ",".join(items), "caption": text, "access_token": token})["id"]
-    # Meta's guidance: ask once a minute, for no more than five minutes.
-    for attempt in range(5):
+                            {"media_type": "CAROUSEL", "children": ",".join(items), "caption": text, **label,
+                             "access_token": token})["id"]
+    # Meta's guidance: ask once a minute, for no more than five minutes; a Reel gets ten.
+    for attempt in range(10 if video else 5):
         status = request("GET", f"{INSTAGRAM_API}/{container}?" + urllib.parse.urlencode(
             {"fields": "status_code", "access_token": token}))["status_code"]
         if status == "FINISHED":
@@ -323,7 +420,8 @@ def post_instagram(env, image_urls, text, request, sleep):
         if status != "IN_PROGRESS":
             raise ChallengeError(f"Instagram could not take the post: the container's status is {status}")
         sleep(60)
-    raise ChallengeError("Instagram was still processing the post after five minutes; nothing was published there")
+    raise ChallengeError(f"Instagram was still processing the post after {'ten' if video else 'five'} minutes; "
+                         "nothing was published there")
 
 
 # The site
@@ -350,7 +448,7 @@ def publish(git, files, message):
 # The run
 
 def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=print,
-        prepare=prepare_photos, is_live=url_is_live, git=None):
+        prepare=prepare_photos, prepare_clip=prepare_video, is_live=url_is_live, git=None):
     parser = argparse.ArgumentParser(description="Post one day of the 30-day challenge, or a post from "
                                                  "challenge/posts/, to Threads and Instagram.")
     parser.add_argument("day", type=int, nargs="?")
@@ -389,17 +487,27 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
             git("pull", "--rebase", "--autostash", "origin", "main")
         log_file = root / "challenge/posted.json"
         log = json.loads(log_file.read_text(encoding="utf-8")) if log_file.exists() else {}
+        video = False
         if args.post is not None:
             # Logged under its own key, which due_day never reads, so a post never moves the challenge on.
             key, title, noun, subject = f"post/{args.post}", f"Post {args.post}", "post", args.post
             folder = f"challenge/posts/{args.post}"
             if not (root / folder / "post.txt").exists():
                 raise ChallengeError(f"no text for post {args.post}: {folder}/post.txt is missing")
-            texts = [f"{folder}/{file}" for file in ("post.txt", "instagram.txt") if (root / folder / file).exists()]
-            text, instagram_text = post_captions(*((root / file).read_text(encoding="utf-8") for file in texts))
-            sources = post_photos(root, args.post)
-            paths = post_public_paths(args.post, len(sources))
+            captions = [f"{folder}/{file}" for file in ("post.txt", "instagram.txt") if (root / folder / file).exists()]
+            text, instagram_text = post_captions(*((root / file).read_text(encoding="utf-8") for file in captions))
+            texts = captions + [f"{folder}/{file}" for file in ("topic.txt", "ai-generated.txt") if (root / folder / file).exists()]
+            topic = post_topic(root, args.post)
+            ai_generated = (root / folder / "ai-generated.txt").exists()
+            clip = post_video(root, args.post)
+            if clip is not None:
+                video, sources = True, [clip]
+                paths = [(video_public_path(args.post), video_public_path(args.post))]
+            else:
+                sources = post_photos(root, args.post)
+                paths = post_public_paths(args.post, len(sources))
         else:
+            topic, ai_generated, video = TOPIC_TAG, False, False
             day = due_day(root, log) if args.due else args.day
             if day is None:
                 say("Nothing is due: every prepared day is posted.")
@@ -423,7 +531,9 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
                 sources = source_photos(root, day)
                 count = len(sources)
             paths = public_paths(day, count)
-        if not args.due:
+        if video:
+            prepare_clip(sources[0], root / paths[0][0])
+        elif not args.due:
             prepare(sources, [(root / plain, root / padded) for plain, padded in paths])
         urls = site_urls(paths)
         threads_urls, instagram_urls = [u[0] for u in urls], [u[1] for u in urls]
@@ -438,15 +548,23 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
         say("Instagram:")
         say(instagram_text)
         say("")
+        kind = "video" if video else "photo"
         for label, group in (("Threads", threads_urls), ("Instagram", instagram_urls)):
             for url in group:
-                say(f"{label + ' photo:':17}{url}  ({'live' if live[url] else 'not live yet'})")
+                say(f"{label + ' ' + kind + ':':17}{url}  ({'live' if live[url] else 'not live yet'})")
+        say(f"{'Threads topic:':17}{topic}")
+        if ai_generated:
+            say("AI label:        Instagram gets its label through the API; Threads has none, so add it "
+                "in the Threads app straight after posting.")
+        if video and (root / paths[0][0]).exists():
+            prepared = root / paths[0][0]
+            say(f"{'Video:':17}{video_seconds(prepared):.1f} s, {prepared.stat().st_size / 1_048_576:.1f} MB")
         if not wanted:
             say(f"{title} is already posted: {', '.join(f'{k} {v}' for k, v in done.items() if k != 'at')}")
             return 0
         # The source photos stay on this machine: they still carry what the camera wrote into them
         # (time, and the place when location is on). Only the prepared copies, which have none, go out.
-        tracked_files = [*texts, *(path for pair in paths for path in pair)]
+        tracked_files = list(dict.fromkeys([*texts, *(path for pair in paths for path in pair)]))
         if args.dry_run:
             if args.publish or args.prepare:
                 say(f"Dry run: would commit and push {', '.join(tracked_files)}.")
@@ -474,7 +592,7 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
                 "prepared day that is not posted yet.")
             return 0
         if not all(live.values()):
-            files = ", ".join(path for pair in paths for path in pair)
+            files = ", ".join(dict.fromkeys(path for pair in paths for path in pair))
             raise ChallengeError(f"the photos are not live on fondercam.online yet: commit and push {files}, "
                                  "wait for the site, then run this again")
         needed = [name for name in SECRETS
@@ -487,8 +605,8 @@ def run(argv, root=ROOT, env=os.environ, request=http, sleep=time.sleep, say=pri
         posted = []
         try:
             for name in wanted:
-                post = post_threads(env, threads_urls, text, request, sleep) if name == "threads" \
-                    else post_instagram(env, instagram_urls, instagram_text, request, sleep)
+                post = post_threads(env, threads_urls, text, request, sleep, topic=topic, video=video) if name == "threads" \
+                    else post_instagram(env, instagram_urls, instagram_text, request, sleep, video=video, ai_generated=ai_generated)
                 entry[name] = post
                 entry["at"] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
                 # Written after each post, so a failure on the second never loses the first.

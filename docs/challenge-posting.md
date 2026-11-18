@@ -130,6 +130,34 @@ under `post/2026-10-14-diary`, which the scheduled run never reads, so a post ne
 which day is due. `--only` and `--force` work as they do for a day; `--post` takes no day, and
 neither `--due` nor `--prepare`.
 
+### A video, a community and the AI label
+
+A post's folder can hold one video instead of photos, a `.mov` or `.mp4` (for instance a screen
+recording from the phone). It goes out alone, as a Threads video and an Instagram Reel shared to
+the feed. A video with photos beside it, or a second video, is refused.
+
+```
+challenge/posts/2026-11-18-lens-blur/
+  post.txt           Threads, as written (500 characters at most)
+  instagram.txt      Instagram's caption, as written
+  topic.txt          optional: the Threads topic, a community's tag, instead of FonderCam
+  ai-generated.txt   optional: asks Instagram to label the post AI-generated; its text is a note to yourself
+  01-demo.mov        the video
+```
+
+- **The video** is re-encoded with ffmpeg to `img/posts/NAME/01.mp4`: H.264 and AAC, at most 1080 px
+  wide, at its own frame rate, every metadata tag dropped (a phone's recording carries the time
+  and the place), the index first. Both platforms fetch that one file. A screen recording comes
+  to about 9 MB a minute. Threads takes up to 5 minutes, so a longer video is refused.
+- **Processing.** Each platform processes a video before it can be published. The script asks
+  Threads every ten seconds for up to five minutes, and Instagram once a minute for up to ten,
+  and publishes only once each says `FINISHED`.
+- **The topic.** `topic.txt` is sent as Threads' `topic_tag`: 1 to 50 characters, no period or
+  ampersand. A community's tag puts the post in that community.
+- **The AI label.** With `ai-generated.txt`, Instagram's container gets `is_ai_generated`, its own
+  label. Threads' API has no such field, so add the label in the Threads app straight after
+  posting. `--dry-run` says so.
+
 ## The two photos
 
 - `day-NN.jpg` is for Threads: the photo at up to 1440 px on its long edge.
@@ -146,7 +174,8 @@ Both are JPEG with the metadata removed, so no location or device data is publis
 ## What the script cannot do
 
 - **Music.** The APIs do not attach a song. A day that needs one is posted by hand.
-- **The AI label.** Not needed here: these are photographs.
+- **The AI label on Threads.** Its API has none. Instagram's is set by `ai-generated.txt`; on
+  Threads, add it in the app after posting. Not needed for the challenge's own photographs.
 
 ## One-time setup: the Meta developer app
 
