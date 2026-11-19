@@ -77,6 +77,7 @@ nav.toc a:hover{color:var(--accent)}
 .date{font:500 12px/1.4 var(--mono);color:var(--muted);margin:0}
 figure{margin:18px 0 22px}
 figure img{display:block;width:100%;height:auto;border-radius:4px;background:var(--plastic)}
+figure.embed iframe{display:block;width:100%;border:0;border-radius:4px;background:var(--plastic)}
 figcaption{font-size:14px;color:var(--muted);margin-top:8px;max-width:66ch}
 @media (min-width:760px){
   figure{margin-inline:calc(-1 * min(140px, (100vw - 712px) / 2))}

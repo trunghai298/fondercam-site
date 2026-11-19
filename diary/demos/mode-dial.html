@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mode dial · Fonder</title>
+<meta name="robots" content="noindex">
+<style>
+  @font-face { font-family: "Bricolage Grotesque"; font-weight: 600; font-display: swap; src: url(/fonts/bricolage-grotesque-600-opsz18-latin.woff2) format("woff2"); }
+  @font-face { font-family: "Be Vietnam Pro"; font-weight: 400; font-display: swap; src: url(/fonts/be-vietnam-pro-400-latin.woff2) format("woff2"); }
+  @font-face { font-family: "Be Vietnam Pro"; font-weight: 500; font-display: swap; src: url(/fonts/be-vietnam-pro-500-latin.woff2) format("woff2"); }
+  :root {
+    --ground: #1c1a18; --surface: #2d2b2b; --text: #f3f2f2; --muted: #bab6b6;
+    --accent: #e1ad66; --record: #e5483c;
+    --hair: rgba(255,255,255,.16); --hair2: rgba(255,255,255,.2);
+    --head: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --body: "Be Vietnam Pro", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --chrome: 0deg;
+    --page: #121110; --panel: #1a1816; --ink: #e9e6e3; --ink2: #a9a39e;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--body); }
+  body { -webkit-tap-highlight-color: transparent; }
+  .page { display: flex; min-height: 100vh; min-height: 100svh; }
+  .stage { position: relative; flex: 1 1 auto; min-width: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .panel { flex: 0 0 340px; padding: 20px 20px 28px; border-left: 1px solid var(--hair); background: var(--panel);
+           height: 100vh; height: 100svh; overflow-y: auto; font-size: 13px; line-height: 1.45; }
+  @media (max-width: 760px) {
+    .page { display: block; }
+    .stage { height: 100svh; }
+    .panel { height: auto; border-left: 0; border-top: 1px solid var(--hair); padding: 16px; }
+  }
+  .panel h1 { font-family: var(--head); font-size: 18px; font-weight: 600; margin: 0 0 4px; }
+  .panel h2 { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--ink2); margin: 18px 0 8px; font-weight: 500; }
+  .panel p { margin: 0 0 8px; color: var(--ink2); }
+  .panel ol { margin: 0; padding-left: 18px; color: var(--ink); }
+  .panel li { margin-bottom: 4px; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 34px; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .row label { flex: 1; cursor: pointer; }
+  .row select, .row button { background: #262321; color: var(--ink); border: 1px solid var(--hair); border-radius: 8px; padding: 5px 8px; font: inherit; }
+  .row input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--accent); }
+  #log { list-style: none; padding: 0; margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; color: var(--ink2); }
+  #log li { padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+  #log li:first-child { color: var(--ink); }
+  kbd { font-family: ui-monospace, Menlo, monospace; font-size: 11px; border: 1px solid var(--hair2); border-radius: 4px; padding: 0 4px; }
+
+  /* ---------- the phone: 402 x 874 points, the iPhone 16 Pro ---------- */
+  .phone { position: absolute; left: 50%; top: 50%; width: 402px; height: 874px; transform-origin: 50% 50%;
+           background: var(--ground); border-radius: 54px; overflow: hidden; box-shadow: 0 0 0 10px #0a0909, 0 30px 80px rgba(0,0,0,.6);
+           user-select: none; -webkit-user-select: none; touch-action: manipulation; font-family: var(--body); color: var(--text); }
+  .rot { transform: rotate(var(--chrome)); transition: transform .35s ease-in-out; }
+  .rm .rot { transition: none; }
+  .island { position: absolute; left: 50%; top: 11px; width: 124px; height: 36px; margin-left: -62px; border-radius: 20px; background: #000; z-index: 30; }
+  .status { position: absolute; top: 18px; left: 34px; right: 34px; display: flex; justify-content: space-between; font: 600 15px var(--body); }
+  .homebar { position: absolute; left: 50%; bottom: 8px; width: 140px; height: 5px; margin-left: -70px; border-radius: 3px; background: rgba(255,255,255,.75); z-index: 30; pointer-events: none; }
+
+  .topbar { position: absolute; top: 62px; left: 12px; right: 12px; height: 44px; display: flex; align-items: center; }
+  .iconbtn { width: 44px; height: 44px; display: grid; place-items: center; color: var(--text); background: none; border: 0; padding: 0; cursor: pointer; }
+  .iconbtn svg { width: 20px; height: 20px; }
+  .title { flex: 1; text-align: center; }
+  .title .t { font: 400 14px var(--head); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .title .s { font: 400 8px var(--body); letter-spacing: 1.3px; color: var(--accent); text-transform: uppercase; margin-top: 3px; }
+
+  .vf { position: absolute; top: 110px; left: 0; right: 0; height: 584px; display: grid; place-items: center; }
+  .frame { position: relative; width: 389px; height: 584px; overflow: hidden; background: #000; transition: height .35s ease; }
+  .frame.wide { height: 259px; }
+  .rm .frame { transition: none; }
+  .scene, .ghost { position: absolute; left: 50%; top: 50%; width: 720px; height: 720px; margin: -360px 0 0 -360px; }
+  .scene svg, .ghost svg { width: 100%; height: 100%; display: block; }
+  .ghost { opacity: 0; mix-blend-mode: screen; transition: opacity .3s; }
+  .ghost.on { opacity: .62; }
+  .ghost svg { transform: scaleX(-1) translate(40px, 30px) scale(1.15); }
+  .grid { position: absolute; inset: 0; pointer-events: none; }
+  .grid i { position: absolute; background: rgba(255,255,255,.22); }
+  .flash { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity .38s ease-out; }
+  .flash.on { opacity: 1; transition: none; }
+  .pill { position: absolute; left: 50%; display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; border-radius: 14px;
+          background: rgba(28,26,24,.72); border: 1px solid var(--hair); color: var(--accent); font: 500 12px var(--head); white-space: nowrap;
+          transform: translateX(-50%) rotate(var(--chrome)); transition: opacity .25s, transform .35s; }
+  .pill svg { width: 12px; height: 12px; }
+  .pill button { border: 0; background: none; color: var(--text); width: 22px; height: 22px; display: grid; place-items: center; cursor: pointer; padding: 0; margin-right: -6px; }
+  #badge { bottom: 38px; }
+  #badge.hidden { opacity: 0; pointer-events: none; }
+  #toast { top: 14px; color: var(--text); font: 400 11px var(--body); letter-spacing: 1.2px; text-transform: uppercase; opacity: 0; height: 26px; padding: 0 12px; pointer-events: none; }
+  #toast.on { opacity: 1; }
+  #rec { top: 14px; color: var(--text); font: 500 12px ui-monospace, Menlo, monospace; opacity: 0; }
+  #rec.on { opacity: 1; }
+  #rec b { width: 8px; height: 8px; border-radius: 50%; background: var(--record); display: inline-block; }
+
+  .readout { position: absolute; left: 50%; top: 50%; width: 360px; margin-left: -180px; text-align: center; pointer-events: none;
+             transform: translateY(-50%) rotate(var(--chrome)); opacity: 0; transition: opacity .25s ease-out, transform .35s ease-in-out;
+             text-shadow: 0 0 12px rgba(0,0,0,.65), 0 0 2px rgba(0,0,0,.5); }
+  .readout.on { opacity: 1; transition: opacity .12s ease-out, transform .35s ease-in-out; }
+  .readout .n { font: 300 40px/1.05 var(--head); color: var(--text); }
+  .readout .c { margin-top: 8px; font: 400 11px var(--body); letter-spacing: 2px; text-transform: uppercase; color: var(--text); }
+  .readout .c svg { width: 10px; height: 10px; vertical-align: -1px; margin-right: 4px; }
+  .readout.cancel .n { opacity: .45; }
+
+  .controls { position: absolute; left: 0; right: 0; top: 694px; height: 146px; transition: opacity .25s, transform .3s; }
+  .controls.hidden { opacity: 0; transform: translateY(40px); pointer-events: none; }
+  .rm .controls.hidden { transform: none; }
+  .actionrow { position: absolute; top: 12px; left: 12px; right: 12px; height: 44px; display: flex; gap: 4px; transition: opacity .18s; }
+  .actionrow .iconbtn { flex: 1; width: auto; }
+  .actionrow .gap { flex: 0 0 144px; }
+  .iconbtn.on { color: var(--accent); }
+  .bottombar { position: absolute; top: 62px; left: 30px; right: 30px; height: 76px; }
+  .tile { position: absolute; left: 0; top: 15px; width: 46px; height: 46px; border-radius: 8px; border: 1px solid var(--hair2); overflow: hidden;
+          background: var(--surface); display: grid; place-items: center; color: var(--muted); cursor: pointer; transition: opacity .18s; padding: 0; }
+  .tile .thumb { position: absolute; inset: 0; background: linear-gradient(160deg, #3b4d6d, #c47a57 60%, #2a1f1a); opacity: 0; }
+  .tile.has .thumb { opacity: 1; }
+  .tile .n { position: absolute; right: 3px; bottom: 2px; font: 600 10px var(--head); color: var(--text); text-shadow: 0 0 3px #000; }
+  .tile svg { width: 18px; height: 18px; position: relative; }
+  .canister { position: absolute; right: 0; top: 9px; width: 52px; height: 58px; display: grid; place-items: center; cursor: pointer; transition: opacity .18s; background: none; border: 0; padding: 0; color: var(--text); }
+  .canister svg { width: 34px; height: 50px; }
+  .counter { position: absolute; right: 0; top: 14px; width: 60px; text-align: right; font: 300 34px/1 var(--head); color: var(--text); font-variant-numeric: tabular-nums; }
+  .counter small { display: block; font: 400 8px var(--body); letter-spacing: 1.3px; color: var(--muted); margin-top: 4px; }
+  .dial-open .actionrow, .dial-open .tile, .dial-open .canister, .dial-open .counter { opacity: .3; }
+
+  /* the shutter and the dial, centred on (201, 794) */
+  #dial { position: absolute; left: 29px; top: 622px; width: 344px; height: 344px; pointer-events: none; z-index: 5; }
+  .shutter { position: absolute; left: 163px; top: 756px; width: 76px; height: 76px; z-index: 6; pointer-events: none; transition: transform .12s ease-out, opacity .18s; }
+  .shutter.pressed { transform: scale(.92); }
+  .shutter .ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--text); }
+  .shutter .disc { position: absolute; left: 7px; top: 7px; width: 62px; height: 62px; border-radius: 50%; background: var(--text); transition: all .3s cubic-bezier(.2,.8,.2,1); }
+  .shutter.cine .disc { background: var(--record); }
+  .shutter.cine.recording .disc { left: 23px; top: 23px; width: 30px; height: 30px; border-radius: 7px; }
+  .rm .shutter .disc { transition: none; }
+  .dial-open .shutter { opacity: .45; }
+  #hit { position: absolute; left: 127px; top: 720px; width: 148px; height: 148px; border-radius: 50%; z-index: 7; touch-action: none; cursor: grab; outline: none;
+         -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+  #hit:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
+  #center { position: absolute; left: 200px; top: 793px; width: 2px; height: 2px; pointer-events: none; }
+
+  /* the controls menu, much simplified */
+  .scrim { position: absolute; inset: 0; z-index: 8; display: none; }
+  .scrim.on { display: block; }
+  .menu { position: absolute; left: 0; right: 0; bottom: 0; z-index: 9; background: var(--ground); border-top: 1px solid var(--hair);
+          border-radius: 22px 22px 0 0; padding: 14px 14px 46px; transform: translateY(105%); transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+  .menu.on { transform: none; }
+  .rm .menu { transition: none; }
+  .menuhead { display: flex; align-items: center; justify-content: space-between; height: 32px; font: 500 13px var(--body); }
+  .menuhead button { background: none; border: 0; color: var(--text); width: 32px; height: 32px; cursor: pointer; font-size: 18px; }
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 4px; margin-top: 6px; }
+  .tiles button { background: none; border: 0; color: var(--text); display: grid; justify-items: center; gap: 6px; padding: 6px 0; cursor: pointer; font: 400 9px var(--body); letter-spacing: 1.2px; text-transform: uppercase; }
+  .tiles button i { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--hair2); display: grid; place-items: center; font-style: normal; font: 500 11px var(--head); letter-spacing: 0; }
+  .tiles button.centre i { border-color: var(--accent); color: var(--accent); }
+  .tiles button.on i { border-color: var(--accent); color: var(--accent); background: rgba(225,173,102,.08); }
+  .tiles .below { grid-column: 1 / -1; text-align: center; font: 400 9px var(--body); color: var(--muted); letter-spacing: 1.4px; text-transform: uppercase; border-top: 1px solid var(--hair); padding-top: 8px; margin-top: 2px; }
+  .seg { display: flex; border: 1px solid var(--hair); border-radius: 10px; overflow: hidden; margin: 10px 0; }
+  .seg button { flex: 1; height: 36px; background: none; border: 0; color: var(--muted); font: 500 12px var(--body); cursor: pointer; }
+  .seg button.on { background: rgba(225,173,102,.1); color: var(--accent); }
+  .slots { display: flex; gap: 8px; }
+  .slots div { flex: 1; height: 86px; border-radius: 10px; border: 1px solid var(--hair); display: flex; align-items: flex-end; padding: 6px; font: 400 9px var(--body); letter-spacing: 1px; text-transform: uppercase; }
+  .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+
+  .modal { position: absolute; inset: 0; z-index: 20; background: rgba(0,0,0,.6); display: none; align-items: flex-end; }
+  .modal.on { display: flex; }
+  .sheet { width: 100%; background: var(--ground); border-top: 1px solid var(--hair); border-radius: 22px 22px 0 0; padding: 22px 20px 48px; }
+  .sheet h3 { margin: 0 0 6px; font: 500 20px var(--head); }
+  .sheet p { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+  .sheet .btns { display: flex; gap: 8px; }
+  .sheet .btns button { flex: 1; height: 46px; border-radius: 12px; border: 1px solid var(--hair2); background: var(--surface); color: var(--text); font: 500 14px var(--body); cursor: pointer; }
+  .sheet .btns button.primary { background: var(--accent); color: var(--ground); border-color: var(--accent); }
+  .result { height: 300px; border-radius: 12px; overflow: hidden; position: relative; margin-bottom: 16px; background: #000; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="stage" id="stage">
+    <div class="phone" id="phone">
+      <div class="island"></div>
+      <div class="status"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+
+      <div class="topbar">
+        <button class="iconbtn rot" aria-label="Photos" data-msg="Photos (not in this prototype)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="14" height="13" rx="2"/><path d="M7 6V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/><path d="M3 16l4-4 4 4 3-2 3 3"/></svg></button>
+        <div class="title"><div class="t" id="title">Summer Chrome</div><div class="s" id="subtitle">Daylight Cine</div></div>
+        <button class="iconbtn rot" aria-label="Settings" data-msg="Settings (not in this prototype)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg></button>
+      </div>
+
+      <div class="vf">
+        <div class="frame" id="frame">
+          <div class="scene rot" id="scene"></div>
+          <div class="ghost rot" id="ghost"></div>
+          <div class="grid"><i style="left:33.33%;top:0;bottom:0;width:1px"></i><i style="left:66.66%;top:0;bottom:0;width:1px"></i><i style="top:33.33%;left:0;right:0;height:1px"></i><i style="top:66.66%;left:0;right:0;height:1px"></i></div>
+          <div class="pill" id="toast"></div>
+          <div class="pill" id="rec"><b></b><span id="rectime">00:00</span></div>
+          <div class="pill hidden" id="badge"></div>
+          <div class="readout" id="readout" aria-hidden="true"><div class="n" id="rn"></div><div class="c" id="rc"></div></div>
+          <div class="flash" id="flash"></div>
+        </div>
+      </div>
+
+      <div class="controls" id="controls">
+        <div class="actionrow">
+          <button class="iconbtn rot" id="flashbtn" aria-label="Flash"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M13 2L5 13.5h6L10 22l8-11.5h-6z"/></svg></button>
+          <div class="gap"></div>
+          <button class="iconbtn rot" id="morebtn" aria-label="More controls"></button>
+        </div>
+        <div class="bottombar">
+          <button class="tile" id="tile" aria-label="Last shot"><span class="thumb"></span><span class="n" id="tilen"></span></button>
+          <button class="canister rot" id="canister" aria-label="Recipe"><svg viewBox="0 0 34 50" fill="none"><rect x="5" y="9" width="24" height="36" rx="3" fill="#2f2b28" stroke="#6b625b"/><rect x="11" y="3" width="12" height="7" rx="1.5" fill="#4a4440"/><rect x="5" y="18" width="24" height="16" fill="#c9a15f"/><text x="17" y="29" text-anchor="middle" font-size="7" font-family="sans-serif" fill="#1c1a18" font-weight="700">SC</text></svg></button>
+          <div class="counter rot" id="counter" hidden></div>
+        </div>
+      </div>
+
+      <canvas id="dial" aria-hidden="true"></canvas>
+      <div class="shutter" id="shutter"><div class="ring"></div><div class="disc"></div></div>
+      <div id="hit" tabindex="0" role="slider" aria-label="Mode"></div>
+      <div id="center"></div>
+
+      <div class="scrim" id="scrim"></div>
+      <div class="menu" id="menu"></div>
+
+      <div class="modal" id="paywall"><div class="sheet">
+        <h3>Unlock Fonder</h3>
+        <p>Bracketing is part of the unlock. (A stand-in for the real paywall.)</p>
+        <div class="btns"><button id="pwno">Not now</button><button class="primary" id="pwyes">Unlock (prototype)</button></div>
+      </div></div>
+
+      <div class="modal" id="result"><div class="sheet">
+        <div class="result"><div class="scene" id="rs1" style="transform:none"></div><div class="ghost on" id="rs2"></div></div>
+        <div class="btns"><button id="rt1">Retake 1</button><button id="rt2">Retake 2</button><button class="primary" id="keep">Keep</button></div>
+      </div></div>
+
+      <div class="homebar"></div>
+    </div>
+  </div>
+
+  <aside class="panel">
+    <h1>The mode dial</h1>
+    <p>A web mock of Fonder's camera, to feel the dial round the shutter. It isn't the app's code: the clicks stand in for the phone's haptics (and a buzz on Android).</p>
+
+    <h2>Try it</h2>
+    <ol>
+      <li><b>Hold the ring</b> round the shutter (not the shutter) for a quarter of a second. The dial opens.</li>
+      <li><b>Turn</b>: slide your thumb sideways, as on the iPhone Camera's zoom dial. A thumb-width a mode, a click for each; the name lands in the viewfinder. Up and down does not turn it.</li>
+      <li><b>Let go</b> to select. To cancel, slide back to the dot, or slide well away from the dial first.</li>
+      <li><b>A quick tap</b> on the ring shows the dial for a moment; slide on it and it turns at once. A tap on the shutter shoots, in any mode.</li>
+      <li>Shoot in <b>DOUBLE</b>: after the first frame the dial is held until you keep or discard (the ✕).</li>
+    </ol>
+
+    <h2>Switches</h2>
+    <div class="row"><label for="o-unlocked">Unlocked (BKT is paid)</label><input type="checkbox" id="o-unlocked" checked></div>
+    <div class="row"><label for="o-orient">Phone</label>
+      <select id="o-orient"><option value="portrait" selected>Upright</option><option value="left">Turned left</option><option value="right">Turned right</option></select></div>
+    <div class="row"><label for="o-rm">Reduce Motion</label><input type="checkbox" id="o-rm"></div>
+    <div class="row"><label for="o-sound">Click sounds for haptics</label><input type="checkbox" id="o-sound" checked></div>
+    <div class="row"><label for="o-zones">Show touch zones</label><input type="checkbox" id="o-zones"></div>
+    <div class="row"><span>Start again</span><button id="o-reset">Reset</button></div>
+
+    <h2>Keyboard (stands in for VoiceOver)</h2>
+    <p><kbd>Tab</kbd> to the dial, then <kbd>↑</kbd> / <kbd>↓</kbd>: each step changes the mode at once and skips a locked BKT.</p>
+
+    <h2>What happened</h2>
+    <ul id="log"></ul>
+  </aside>
+</div>
+<div class="sr" id="live" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  // ---------- geometry, in points (iPhone 16 Pro) ----------
+  const C = 172;                 // the dial canvas's half-size (room for the cancel circle)
+  const SHUT_R = 42;             // a touch this close to the centre is the shutter's
+  const RING_R = 74;             // ... out to here, the ring's
+  const PT_PER_DETENT = 40;      // a sideways slide this long turns one mode (the app's)
+  const OPEN_R = 104;            // the open dial's edge
+  const CANCEL_R = OPEN_R + 60;  // let go past here and nothing changes
+  const STEP = 36;               // degrees between modes
+  const MAGNET = 10;             // a detent pulls within this many degrees
+  const END_MAX = 10;            // how far past an end the dial gives
+  const SLOP = 8;                // movement that ends a hold
+
+  const ALL = [
+    { id: 'double', label: 'DOUBLE', name: 'Double exposure', cap: () => 'Two frames on one negative' },
+    { id: 'bkt',    label: 'BKT',    name: 'Bracketing',      cap: () => 'One press, three photos', paid: true },
+    { id: 'still',  label: 'STILL',  name: 'Still',           cap: () => 'Single photos' },
+    { id: 'roll',   label: 'ROLL',   name: 'Roll',            cap: () => `${S.roll.film} · ${S.roll.shot} of ${S.roll.exp}` },
+  ];
+
+  const $ = id => document.getElementById(id);
+  const phone = $('phone'), stage = $('stage'), canvas = $('dial'), ctx = canvas.getContext('2d');
+  const hit = $('hit'), shutterEl = $('shutter');
+
+  const sysRM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const HEAD = getComputedStyle(document.documentElement).getPropertyValue('--head').trim();
+  const S = {
+    unlocked: true, showCine: false, requireHold: true, holdMs: 250, rest: 'all', orient: 'portrait',
+    rm: sysRM, sound: true, zones: false,
+    mode: 'still', de: 'off', kind: 'recipe', recording: false, recStart: 0, flash: 0,
+    roll: { film: 'Amber Neg', shot: 11, exp: 36 }, photos: 0, menu: null, modal: null,
+  };
+  const D = { s: 0, a: 0, rot: 0, raw: 0, idx: 0, startIdx: 0, lastX: 0, phase: 'idle', cancel: false,
+              atEnd: false, pressed: false, nudge: 0, notch: 0 };
+  let scale = 1, pointer = null, peekTimer = 0, readoutTimer = 0;
+
+  const modes = () => ALL.filter(m => !m.debug || S.showCine || S.mode === m.id);
+  const indexOf = id => modes().findIndex(m => m.id === id);
+  const current = () => modes()[indexOf(S.mode)];
+  const locked = m => m.paid && !S.unlocked;
+  const chromeAngle = () => S.orient === 'left' ? 90 : S.orient === 'right' ? -90 : 0;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const rad = d => d * Math.PI / 180;
+  const norm = d => ((d % 360) + 540) % 360 - 180;
+
+  // ---------- the scene in the viewfinder ----------
+  const sceneSVG = `<svg viewBox="0 0 720 720" preserveAspectRatio="xMidYMid slice"><defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f2c47"/><stop offset=".45" stop-color="#6b5a78"/><stop offset=".62" stop-color="#d98a5f"/><stop offset=".72" stop-color="#f2bd7e"/></linearGradient>
+    <radialGradient id="sun" cx=".6" cy=".66" r=".22"><stop offset="0" stop-color="#fff2cf" stop-opacity="1"/><stop offset=".25" stop-color="#ffc98a" stop-opacity=".7"/><stop offset="1" stop-color="#ffb070" stop-opacity="0"/></radialGradient>
+    <linearGradient id="street" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2c26"/><stop offset="1" stop-color="#120e0c"/></linearGradient></defs>
+    <rect width="720" height="720" fill="url(#sky)"/><rect width="720" height="720" fill="url(#sun)"/>
+    <path d="M0 470V300h60v-40h50v60h40V230h70v90h30v-50h60v200z" fill="#1b1517"/>
+    <path d="M430 470V260h40v-30h70v60h30v-80h60v70h40v-20h50v210z" fill="#191315"/>
+    <g fill="#ffcf8a" opacity=".8"><rect x="80" y="330" width="8" height="10"/><rect x="170" y="300" width="8" height="10"/><rect x="190" y="360" width="8" height="10"/><rect x="460" y="300" width="8" height="10"/><rect x="560" y="320" width="8" height="10"/><rect x="600" y="270" width="8" height="10"/></g>
+    <path d="M0 470h720v250H0z" fill="url(#street)"/><path d="M300 470l-120 250h360L420 470z" fill="#2a201c" opacity=".7"/>
+    <g fill="#0b0809"><circle cx="352" cy="430" r="13"/><path d="M336 446h32l8 70h-12l-4 70h-8l-4-50-4 50h-8l-4-70h-12z"/></g></svg>`;
+  $('scene').innerHTML = sceneSVG; $('ghost').innerHTML = sceneSVG; $('rs1').innerHTML = sceneSVG; $('rs2').innerHTML = sceneSVG;
+
+  // ---------- icons ----------
+  const ICON = {
+    more: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"/></svg>',
+    roll: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="7" width="12" height="13" rx="2"/><path d="M8 7V4h8a2 2 0 0 1 2 2v11"/></svg>',
+    de: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="3.5" width="7" height="7" rx="1"/><rect x="4" y="1" width="7" height="7" rx="1"/></svg>',
+    bkt: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 1l5 2.5L6 6 1 3.5z"/><path d="M1 6l5 2.5L11 6M1 8.5L6 11l5-2.5"/></svg>',
+    lock: '<svg viewBox="0 0 10 10" fill="currentColor"><rect x="1.5" y="4.5" width="7" height="5" rx="1"/><path d="M3 4.5V3a2 2 0 0 1 4 0v1.5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>',
+  };
+
+  // ---------- feedback: clicks for the haptics ----------
+  let ac = null;
+  function ensureAudio() {
+    if (!S.sound) return;
+    try { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) { ac = null; }
+  }
+  function click(freq, dur, gain, type = 'square') {
+    if (!ac || !S.sound) return;
+    const t = ac.currentTime, o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + dur + 0.02);
+  }
+  const buzz = p => { try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} };
+  function feedback(kind) {
+    switch (kind) {
+      case 'tick':   click(2600, 0.010, 0.05); buzz(5); D.notch = 1; break;           // a mode under the index
+      case 'engage': click(900, 0.030, 0.06, 'triangle'); buzz(12); break;           // the dial opens
+      case 'stop':   click(420, 0.045, 0.10); buzz([8, 16, 8]); break;              // an end
+      case 'land':   click(1500, 0.020, 0.07, 'triangle'); buzz(10); break;          // let go on a new mode
+      case 'refuse': click(260, 0.060, 0.10); setTimeout(() => click(260, 0.06, 0.1), 90); buzz([14, 30, 14]); break;
+      case 'shutter': click(160, 0.07, 0.12, 'triangle'); buzz(18); break;
+    }
+  }
+
+  // ---------- tweens ----------
+  const tweens = {};
+  function tween(key, from, to, ms, ease, set, done) {
+    cancelAnimationFrame(tweens[key] || 0);
+    if (ms <= 0) { set(to); draw(); done && done(); return; }
+    const t0 = performance.now();
+    const step = now => {
+      const t = clamp((now - t0) / ms, 0, 1);
+      set(lerp(from, to, ease(t))); draw();
+      if (t < 1) tweens[key] = requestAnimationFrame(step); else { tweens[key] = 0; done && done(); }
+    };
+    tweens[key] = requestAnimationFrame(step);
+  }
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const easeBack = t => { const c1 = 1.2, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+
+  function openDial() {
+    phone.classList.add('dial-open');
+    if (S.rm) tween('open', D.a, 1, 150, easeOut, v => D.a = v);
+    else tween('open', D.s, 1, 180, easeOut, v => D.s = v);
+  }
+  function closeDial() {
+    phone.classList.remove('dial-open');
+    if (S.rm) tween('open', D.a, 0, 150, easeOut, v => D.a = v);
+    else tween('open', D.s, 0, 200, easeInOut, v => D.s = v);
+  }
+  function settleTo(idx) {
+    const to = -idx * STEP;
+    D.raw = to; D.idx = idx;
+    if (S.rm) tween('rot', D.rot, to, 0, easeOut, v => D.rot = v);
+    else tween('rot', D.rot, to, 240, easeBack, v => D.rot = v);
+  }
+  function nudge() {
+    if (S.rm) return;
+    const t0 = performance.now();
+    const step = now => {
+      const t = clamp((now - t0) / 320, 0, 1);
+      D.nudge = 5 * Math.sin(t * Math.PI * 4) * (1 - t); draw();
+      if (t < 1) requestAnimationFrame(step); else { D.nudge = 0; draw(); }
+    };
+    requestAnimationFrame(step);
+  }
+
+  // ---------- the readout in the viewfinder ----------
+  function showReadout(name, cap, opts = {}) {
+    clearTimeout(readoutTimer);
+    $('rn').textContent = name;
+    $('rc').innerHTML = (opts.lock ? ICON.lock : '') + escapeHTML(cap);
+    $('readout').classList.toggle('cancel', !!opts.cancel);
+    $('readout').classList.add('on');
+  }
+  function hideReadout(after = 0) {
+    clearTimeout(readoutTimer);
+    readoutTimer = setTimeout(() => $('readout').classList.remove('on'), after);
+  }
+  function readoutForIndex() {
+    const m = modes()[D.idx];
+    if (D.cancel) { showReadout(modes()[D.startIdx].name, 'Release to cancel', { cancel: true }); return; }
+    if (locked(m)) showReadout(m.name, 'Part of the unlock', { lock: true });
+    else showReadout(m.name, m.cap());
+  }
+  const escapeHTML = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  // ---------- the dial's refusals ----------
+  function dialRefusal() {
+    if (S.recording) return 'Stop recording to change mode';
+    if (S.de === 'composing' || S.de === 'reviewing') return 'Finish the double exposure first';
+    return null;
+  }
+  function refuse(text) {
+    feedback('refuse'); nudge(); toast(text); log(`Refused: ${text}`); announce(text);
+  }
+
+  // ---------- touches ----------
+  function polar(e) {
+    const r = $('center').getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const dx = (e.clientX - cx) / scale, dy = (e.clientY - cy) / scale;
+    // x: sideways in the phone's own frame, so turned, the slide is still the phone's sideways.
+    // Turning uses only its changes (the app turns by the sideways slide, not the angle).
+    const a = rad(chromeAngle());
+    return { r: Math.hypot(dx, dy), ang: Math.atan2(dx, -dy) * 180 / Math.PI, x: dx * Math.cos(a) + dy * Math.sin(a) };
+  }
+
+  hit.addEventListener('pointerdown', e => {
+    if (pointer || S.menu || S.modal) return;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    ensureAudio();
+    const p = polar(e);
+    const peeking = D.phase === 'peek';
+    if (p.r > (peeking ? OPEN_R : RING_R)) return;   // a tap shows the dial: its whole face answers
+    e.preventDefault();
+    try { hit.setPointerCapture(e.pointerId); } catch (err) {}
+    if (p.r <= SHUT_R) {                       // the shutter's, as today: fires as the finger lifts
+      pointer = { id: e.pointerId, kind: 'shutter', inside: true };
+      shutterEl.classList.add('pressed');
+      return;
+    }
+    const refusal = dialRefusal();
+    if (peeking) { clearTimeout(peekTimer); }
+    pointer = { id: e.pointerId, kind: refusal ? 'refuse' : 'ring', refusal, sx: e.clientX, sy: e.clientY, lastX: p.x, startX: p.x, r: p.r, fired: false };
+    if (peeking && !refusal) {                 // already open from the tap: no second hold
+      pointer.fired = true;
+      D.pressed = true; engage('Turned from the peek');
+      return;
+    }
+    D.pressed = true; draw();
+    pointer.timer = setTimeout(() => {
+      if (!pointer) return;
+      pointer.fired = true;
+      if (pointer.kind === 'refuse') refuse(pointer.refusal);
+      else if (pointer.kind === 'ring') engage();
+    }, S.holdMs);
+  });
+
+  hit.addEventListener('pointermove', e => {
+    if (!pointer || e.pointerId !== pointer.id) return;
+    const p = polar(e);
+    if (pointer.kind === 'shutter') {
+      pointer.inside = p.r <= SHUT_R + 30;
+      shutterEl.classList.toggle('pressed', pointer.inside);
+      return;
+    }
+    if (pointer.kind === 'refuse') return;          // held: the refusal is said whatever the finger does
+    if (pointer.kind === 'ring') {
+      const dist = Math.hypot(e.clientX - pointer.sx, e.clientY - pointer.sy) / scale;
+      if (dist > SLOP) {
+        clearTimeout(pointer.timer);
+        const along = Math.abs(p.x - pointer.startX);
+        if (!S.requireHold && along >= dist * 0.6) {
+          engage(); turnTo(p);                   // the alternative: a sideways drag turns at once
+        } else {
+          pointer.kind = 'void';                 // moved before the hold: nothing happens
+        }
+      } else {
+        pointer.lastX = p.x;
+      }
+      return;
+    }
+    if (pointer.kind === 'turn') turnTo(p);
+  });
+
+  function endPointer(e, cancelled) {
+    if (!pointer || e.pointerId !== pointer.id) return;
+    const pt = pointer; pointer = null;
+    clearTimeout(pt.timer);
+    D.pressed = false;
+    if (pt.kind === 'shutter') {
+      shutterEl.classList.remove('pressed');
+      if (pt.inside && !cancelled) capture();
+      draw(); return;
+    }
+    if (pt.kind === 'refuse') { if (!pt.fired && !cancelled) refuse(pt.refusal); draw(); return; }
+    if (pt.kind === 'ring' || pt.kind === 'void') { if (!cancelled) peek(); else draw(); return; }
+    if (pt.kind === 'turn') release(cancelled);
+  }
+  hit.addEventListener('pointerup', e => endPointer(e, false));
+  hit.addEventListener('pointercancel', e => endPointer(e, true));
+  window.addEventListener('blur', () => { if (pointer) endPointer({ pointerId: pointer.id }, true); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden && pointer) endPointer({ pointerId: pointer.id }, true); });
+  hit.addEventListener('contextmenu', e => e.preventDefault());
+
+  function engage(how = 'Opened by the hold') {
+    clearTimeout(peekTimer);
+    D.phase = 'turning';
+    D.startIdx = indexOf(S.mode); D.idx = D.startIdx;
+    D.raw = -D.startIdx * STEP; D.rot = D.raw; D.cancel = false; D.atEnd = false;
+    D.lastX = pointer ? pointer.lastX : 0;
+    if (pointer) pointer.kind = 'turn';
+    feedback('engage'); openDial(); readoutForIndex();
+    log(how);
+  }
+
+  function turnTo(p) {
+    // The sideways slide, one mode per PT_PER_DETENT, the face following the thumb.
+    D.raw += (p.x - D.lastX) * STEP / PT_PER_DETENT;
+    D.lastX = p.x;
+    const n = modes().length, min = -(n - 1) * STEP, max = 0;
+    D.raw = clamp(D.raw, min - 30, max + 30);
+    const past = D.raw > max || D.raw < min;
+    if (past && !D.atEnd) feedback('stop');
+    D.atEnd = past;
+    const idx = Math.round(-clamp(D.raw, min, max) / STEP);
+    const cancel = p.r > CANCEL_R;
+    if (idx !== D.idx) { D.idx = idx; feedback('tick'); }
+    if (cancel !== D.cancel) { D.cancel = cancel; }
+    readoutForIndex();
+    D.rot = shown(D.raw, min, max);
+    draw();
+  }
+
+  // The angle drawn: the finger's, eased onto a detent within MAGNET of it, and giving a third as
+  // much past either end, at most END_MAX.
+  function shown(raw, min, max) {
+    if (raw > max) return max + Math.min((raw - max) / 3, END_MAX);
+    if (raw < min) return min - Math.min((min - raw) / 3, END_MAX);
+    const near = Math.round(raw / STEP) * STEP, off = raw - near;
+    if (Math.abs(off) < MAGNET) return near + Math.sign(off) * MAGNET * Math.pow(off / MAGNET, 2);
+    return raw;
+  }
+
+  function release(cancelled) {
+    const list = modes(), start = D.startIdx, target = list[D.idx];
+    D.phase = 'idle';
+    if (cancelled || D.cancel || D.idx === start) {
+      if (cancelled || D.cancel) log('Cancelled: nothing changed');
+      D.cancel = false;
+      settleTo(start); closeDial(); hideReadout(cancelled || D.idx !== start ? 0 : 250);
+      return;
+    }
+    if (locked(target)) {
+      settleTo(start); closeDial(); hideReadout(0);
+      log('Let go on a locked BKT: the paywall');
+      openPaywall();
+      return;
+    }
+    feedback('land');
+    settleTo(D.idx); closeDial();
+    applyMode(target.id, 'dial');
+    showReadout(target.name, target.cap()); hideReadout(600);
+  }
+
+  function peek() {
+    D.phase = 'peek';
+    openDial();
+    const m = current();
+    showReadout(m.name, 'Slide to turn');
+    log('Peek: a tap or an early drag on the ring; slide on it to turn');
+    clearTimeout(peekTimer);
+    peekTimer = setTimeout(() => {
+      if (D.phase !== 'peek') return;
+      D.phase = 'idle'; closeDial(); hideReadout(0);
+    }, 1200);
+  }
+
+  // ---------- keyboard, standing in for VoiceOver's adjustable ----------
+  hit.addEventListener('keydown', e => {
+    const dir = (e.key === 'ArrowUp' || e.key === 'ArrowRight') ? 1 : (e.key === 'ArrowDown' || e.key === 'ArrowLeft') ? -1 : 0;
+    if (!dir) return;
+    e.preventDefault(); ensureAudio();
+    const refusal = dialRefusal();
+    if (refusal) { refuse(refusal); return; }
+    const list = modes();
+    let j = indexOf(S.mode) + dir;
+    while (list[j] && locked(list[j])) j += dir;    // a locked mode is skipped, never named
+    if (!list[j]) { feedback('stop'); announce(`${current().name}, end of the dial`); return; }
+    if (applyMode(list[j].id, 'keyboard')) {
+      feedback('tick'); D.rot = D.raw = -j * STEP; D.idx = j; draw(); announce(list[j].name);
+    }
+  });
+
+  // ---------- the camera ----------
+  function applyMode(id, source) {
+    const from = S.mode;
+    if (from === id) return true;
+    const refusal = dialRefusal();
+    if (refusal) { refuse(refusal); return false; }
+    if (id === 'bkt' && !S.unlocked) { openPaywall(); return false; }
+    S.de = id === 'double' ? 'armed' : 'off';    // leaving a position turns it off
+    S.mode = id;
+    if (id === 'roll' && S.roll.shot >= S.roll.exp) S.roll.shot = 0;
+    renderChrome();
+    log(`${modeName(from)} → ${modeName(id)} (${source})`);
+    return true;
+  }
+  const modeName = id => ALL.find(m => m.id === id).name;
+
+  function capture() {
+    feedback('shutter');
+    if (S.mode === 'cine') {
+      S.recording = !S.recording; S.recStart = Date.now();
+      shutterEl.classList.toggle('recording', S.recording);
+      $('rec').classList.toggle('on', S.recording);
+      log(S.recording ? 'Recording' : 'Stopped');
+      renderChrome(); return;
+    }
+    flash();
+    if (S.mode === 'double') {
+      if (S.de === 'armed') { S.de = 'composing'; toast('Compose the second frame'); log('First frame taken: the dial is held'); }
+      else if (S.de === 'composing') { S.de = 'reviewing'; openModal('result'); log('Second frame: the result'); }
+      renderChrome(); return;
+    }
+    if (S.mode === 'roll') {
+      S.roll.shot = Math.min(S.roll.exp, S.roll.shot + 1);
+      if (S.roll.shot === S.roll.exp) toast('Roll complete');
+      renderChrome(); return;
+    }
+    const n = S.mode === 'bkt' ? 3 : 1;
+    S.photos += n;
+    $('tile').classList.add('has');
+    $('tilen').textContent = n > 1 ? '×3' : '';
+    log(n > 1 ? 'A press: three photos' : 'A photo');
+  }
+
+  function flash() {
+    const f = $('flash'); f.classList.add('on');
+    requestAnimationFrame(() => requestAnimationFrame(() => f.classList.remove('on')));
+  }
+
+  let toastTimer = 0;
+  function toast(text) {
+    const t = $('toast'); t.textContent = text; t.classList.add('on');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('on'), 1600);
+  }
+  const announce = text => { $('live').textContent = ''; setTimeout(() => $('live').textContent = text, 30); };
+
+  function log(text) {
+    const li = document.createElement('li');
+    const d = new Date();
+    li.textContent = `${String(d.getMinutes()).padStart(2, '0')}:${String(d.getSeconds()).padStart(2, '0')}  ${text}`;
+    const ul = $('log'); ul.prepend(li);
+    while (ul.children.length > 8) ul.lastChild.remove();
+  }
+
+  function renderChrome() {
+    const m = S.mode, roll = m === 'roll';
+    $('title').textContent = roll ? S.roll.film : 'Summer Chrome';
+    $('subtitle').textContent = roll ? `Roll · ${S.roll.exp} exp · Negatives` : 'Daylight Cine';
+    $('frame').classList.toggle('wide', roll);
+    $('toast').style.top = S.recording ? '50px' : '14px';   // a take's clock has the top centre
+    $('ghost').classList.toggle('on', S.de === 'composing');
+    shutterEl.classList.toggle('cine', m === 'cine');
+    if (m !== 'cine') { S.recording = false; shutterEl.classList.remove('recording'); $('rec').classList.remove('on'); }
+    $('canister').hidden = roll; $('counter').hidden = !roll;
+    $('counter').innerHTML = `${String(S.roll.shot).padStart(2, '0')}<small>of ${S.roll.exp}</small>`;
+    $('tile').innerHTML = roll
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="6" width="11" height="14" rx="2"/><path d="M8 6V3h8v3M16 10h3v6h-3"/></svg>'
+      : `<span class="thumb"></span><span class="n" id="tilen"></span>`;
+    $('tile').classList.toggle('has', !roll && S.photos > 0);
+    $('morebtn').innerHTML = roll ? ICON.roll : ICON.more;
+    $('morebtn').setAttribute('aria-label', roll ? 'Roll' : 'More controls');
+    const badge = $('badge');
+    if (S.de === 'armed' || S.de === 'composing') {
+      badge.innerHTML = `${ICON.de}<span>${S.de === 'armed' ? '1/2' : '2/2'}</span>` +
+        (S.de === 'composing' ? '<button id="discard" aria-label="Discard the first frame">✕</button>' : '');
+      badge.classList.remove('hidden');
+      const x = $('discard');
+      if (x) x.onclick = () => { S.de = 'armed'; toast('First frame discarded'); log('✕: first frame discarded'); renderChrome(); };
+      badge.onclick = null;
+    } else if (m === 'bkt') {
+      const txt = { recipe: 'BKT 3', ae: 'AE ±1', iso: 'ISO ±1', dr: 'DR 3' }[S.kind];
+      badge.innerHTML = `${ICON.bkt}<span>${txt}</span>`;
+      badge.classList.remove('hidden');
+      badge.onclick = () => { openMenu('bkt'); log('Badge: the Bracketing page'); };
+      badge.style.pointerEvents = 'auto';
+    } else {
+      badge.classList.add('hidden'); badge.onclick = null;
+    }
+    const list = modes(), i = indexOf(S.mode);
+    hit.setAttribute('aria-valuemin', '0'); hit.setAttribute('aria-valuemax', String(list.length - 1));
+    hit.setAttribute('aria-valuenow', String(i)); hit.setAttribute('aria-valuetext', current().name);
+    if (D.phase === 'idle') { D.rot = D.raw = -i * STEP; D.idx = i; }
+    draw();
+  }
+
+  // ---------- the menu, the paywall, the result ----------
+  const TILE = { grain: 'Grain', tone: 'Tone', wb: 'White bal', focus: 'Focus', recipe: 'Recipe', exposure: 'Exposure',
+                 border: 'Border', format: 'Format', guides: 'Guides', aspect: 'Aspect', flip: 'Flip', bkt: 'BKT' };
+  const GLYPH = { grain: '⋰', tone: '◐', wb: 'K', focus: '◎', recipe: '▤', exposure: '☀', border: '▣', format: 'RAW', guides: '#', aspect: '3:2', flip: '⟲', bkt: 'BKT' };
+  function gridFor(mode) {
+    if (mode === 'bkt') return { first: ['grain', 'tone', 'wb', 'bkt', 'recipe', 'exposure', 'border', 'format', 'focus'], below: ['guides', 'aspect', 'flip'] };
+    if (mode === 'cine') return { first: ['grain', 'tone', 'wb', 'exposure', 'recipe', 'focus', 'guides', 'aspect', 'flip'], below: [] };
+    return { first: ['grain', 'tone', 'wb', 'focus', 'recipe', 'exposure', 'border', 'format', 'guides'], below: ['aspect', 'flip'] };
+  }
+  function openMenu(page) {
+    S.menu = page || 'root';
+    const menu = $('menu');
+    if (S.menu === 'bkt') {
+      const kinds = [['recipe', 'Recipe'], ['ae', 'AE'], ['iso', 'ISO'], ['dr', 'DR']];
+      menu.innerHTML = `<div class="menuhead"><button id="mback" aria-label="Back">‹</button><span>Bracketing</span><button id="mclose" aria-label="Close">✕</button></div>
+        <div class="seg">${kinds.map(([k, l]) => `<button data-k="${k}" class="${S.kind === k ? 'on' : ''}">${l}</button>`).join('')}</div>
+        <div class="slots"><div style="background:linear-gradient(160deg,#3b4d6d,#c47a57)">Current</div><div style="background:linear-gradient(160deg,#4a5a3a,#d0b070)">2</div><div style="background:linear-gradient(160deg,#30303a,#9aa0b0)">3</div></div>
+        <div class="note">No switch here any more: bracketing is on while the dial is on BKT.</div>`;
+      menu.querySelectorAll('.seg button').forEach(b => b.onclick = () => { S.kind = b.dataset.k; openMenu('bkt'); renderChrome(); });
+      $('mback').onclick = () => S.mode === 'bkt' ? openMenu('root') : closeMenu();
+    } else {
+      const g = gridFor(S.mode);
+      const btn = k => `<button data-t="${k}" class="${k === 'recipe' ? 'centre' : ''} ${k === 'bkt' ? 'on' : ''}"><i>${GLYPH[k]}</i>${TILE[k]}</button>`;
+      menu.innerHTML = `<div class="menuhead"><span></span><span>${S.mode === 'bkt' ? 'Bracketing is on' : ''}</span><button id="mclose" aria-label="Close">✕</button></div>
+        <div class="tiles">${g.first.map(btn).join('')}${g.below.length ? `<div class="below">pulled up</div>${g.below.map(btn).join('')}` : ''}</div>`;
+      menu.querySelectorAll('.tiles button').forEach(b => b.onclick = () => {
+        if (b.dataset.t === 'bkt') openMenu('bkt'); else toast(`${TILE[b.dataset.t]} (not in this prototype)`);
+      });
+    }
+    $('mclose').onclick = closeMenu;
+    menu.classList.add('on'); $('scrim').classList.add('on'); $('controls').classList.add('hidden');
+    hit.style.visibility = 'hidden'; canvas.style.visibility = 'hidden'; shutterEl.style.visibility = 'hidden';
+  }
+  function closeMenu() {
+    S.menu = null;
+    $('menu').classList.remove('on'); $('scrim').classList.remove('on'); $('controls').classList.remove('hidden');
+    hit.style.visibility = ''; canvas.style.visibility = ''; shutterEl.style.visibility = '';
+  }
+  $('scrim').onclick = closeMenu;
+  $('morebtn').onclick = () => { if (S.mode === 'roll') toast('The roll (not in this prototype)'); else openMenu('root'); };
+  $('flashbtn').onclick = () => { S.flash = (S.flash + 1) % 3; $('flashbtn').classList.toggle('on', S.flash > 0); toast(['Flash off', 'Flash auto', 'Flash on'][S.flash]); };
+  $('canister').onclick = () => toast('Recipes and films (not in this prototype)');
+  $('tile').onclick = () => toast(S.mode === 'roll' ? 'The roll (not in this prototype)' : 'Last shot (not in this prototype)');
+  document.querySelectorAll('[data-msg]').forEach(b => b.onclick = () => toast(b.dataset.msg));
+
+  function openModal(id) { S.modal = id; $(id).classList.add('on'); }
+  function closeModal() { if (S.modal) $(S.modal).classList.remove('on'); S.modal = null; }
+  function openPaywall() { openModal('paywall'); }
+  $('pwno').onclick = () => { closeModal(); log('Paywall: not now'); };
+  $('pwyes').onclick = () => { closeModal(); S.unlocked = true; $('o-unlocked').checked = true; log('Unlocked'); renderChrome(); };
+  $('keep').onclick = () => { closeModal(); S.de = 'armed'; toast('Double exposure saved'); log('Keep: one photograph'); renderChrome(); };
+  $('rt1').onclick = () => { closeModal(); S.de = 'composing'; toast('Take the first frame again'); renderChrome(); };
+  $('rt2').onclick = () => { closeModal(); S.de = 'composing'; toast('Take the second frame again'); renderChrome(); };
+
+  setInterval(() => {
+    if (!S.recording) return;
+    const s = Math.floor((Date.now() - S.recStart) / 1000);
+    $('rectime').textContent = `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+  }, 250);
+
+  // ---------- drawing the dial ----------
+  function draw() {
+    const dpr = window.devicePixelRatio || 1, k = dpr * scale;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(k, 0, 0, k, 0, 0);
+    ctx.save();
+    ctx.translate(C, C);
+    ctx.rotate(rad(chromeAngle()));
+    const dim = S.recording ? 0.4 : 1;
+    if (S.rm) { drawDial(0, (1 - D.a) * dim); drawDial(1, D.a * dim); }
+    else drawDial(D.s, dim);
+    if (S.zones) drawZones();
+    ctx.restore();
+    // The index brightens for a moment on each click, and fades over the next few frames.
+    if (D.notch > 0 && !notchFrame) {
+      notchFrame = requestAnimationFrame(() => { notchFrame = 0; D.notch = Math.max(0, D.notch - 0.1); draw(); });
+    }
+  }
+  let notchFrame = 0;
+
+  function drawDial(s, alpha) {
+    if (alpha <= 0.002) return;
+    const list = modes();
+    const rot = D.rot + D.nudge;
+    const bandIn = lerp(45, 92, s), bandOut = lerp(55, 104, s);
+    ctx.save();
+    ctx.globalAlpha = alpha;
+
+    // The face, open only: dark, brushed in fine rings, lit from the top left.
+    if (s > 0.02) {
+      ctx.save();
+      ctx.globalAlpha = alpha * clamp(s * 1.6, 0, 1);
+      ctx.beginPath(); ctx.arc(0, 0, bandOut, 0, Math.PI * 2); ctx.arc(0, 0, 39, 0, Math.PI * 2, true);
+      const g = ctx.createRadialGradient(-20, -30, 10, 0, 0, bandOut);
+      g.addColorStop(0, '#2a2624'); g.addColorStop(0.7, '#171514'); g.addColorStop(1, '#0e0d0c');
+      ctx.fillStyle = g; ctx.fill();
+      ctx.lineWidth = 0.6;
+      for (let r = 42; r < bandIn - 1; r += 1.6) {
+        ctx.strokeStyle = (Math.round(r * 7) % 3 === 0) ? 'rgba(255,255,255,0.045)' : 'rgba(0,0,0,0.18)';
+        ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+      }
+      const sheen = ctx.createLinearGradient(-bandOut, -bandOut, bandOut * 0.3, bandOut * 0.3);
+      sheen.addColorStop(0, 'rgba(255,255,255,0.07)'); sheen.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = sheen;
+      ctx.beginPath(); ctx.arc(0, 0, bandIn, 0, Math.PI * 2); ctx.arc(0, 0, 39, 0, Math.PI * 2, true); ctx.fill();
+      ctx.restore();
+    }
+
+    // The knurled edge: it turns with the dial, so the ridges are seen to move.
+    const pitch = s > 0.5 ? 3 : 6;
+    const pressed = D.pressed && D.phase !== 'turning' ? 1 : 0;
+    if (s > 0.02) {
+      ctx.beginPath(); ctx.arc(0, 0, bandOut, 0, Math.PI * 2); ctx.arc(0, 0, bandIn, 0, Math.PI * 2, true);
+      const kg = ctx.createLinearGradient(0, -bandOut, 0, bandOut);
+      kg.addColorStop(0, '#3a3532'); kg.addColorStop(0.5, '#1d1a19'); kg.addColorStop(1, '#2a2624');
+      ctx.fillStyle = kg; ctx.fill();
+    }
+    ctx.lineWidth = s > 0.5 ? 1.1 : 1;
+    for (let a = 0; a < 360; a += pitch) {
+      const t = rad(a + (rot % pitch));
+      const sn = Math.sin(t), cs = -Math.cos(t);
+      if (s > 0.5) ctx.strokeStyle = (a / pitch) % 2 ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.20)';
+      else ctx.strokeStyle = `rgba(255,255,255,${0.20 + 0.25 * pressed})`;
+      ctx.beginPath(); ctx.moveTo(sn * (bandIn + 1.5), cs * (bandIn + 1.5)); ctx.lineTo(sn * (bandOut - 1.5), cs * (bandOut - 1.5)); ctx.stroke();
+    }
+    ctx.strokeStyle = `rgba(255,255,255,${s > 0.5 ? 0.12 : 0.16 + 0.2 * pressed})`; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(0, 0, bandIn, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, 0, bandOut, 0, Math.PI * 2); ctx.stroke();
+
+    // The labels: engraved, turning with the dial. At rest outside the band and small; open, inside
+    // the knurl and larger. The one at the index is amber at rest, on an amber plate when open.
+    const restA = clamp(1 - s / 0.4, 0, 1), openA = clamp((s - 0.5) / 0.5, 0, 1);
+    list.forEach((m, i) => {
+      const th = norm(i * STEP + rot);
+      const at = Math.abs(th);
+      if (restA > 0) {
+        let fade = at <= 70 ? 1 : at >= 100 ? 0 : 1 - (at - 70) / 30;
+        if (S.rest === 'current' && at > STEP / 2) fade = 0;
+        if (fade > 0) {
+          const isIdx = at < STEP / 2;
+          label(m, th, 66, 8.5, 1.2, isIdx ? '#e1ad66' : `rgba(186,182,182,0.9)`, restA * fade, false, 0);
+        }
+      }
+      if (openA > 0) {
+        const plate = D.cancel ? 0 : clamp(1 - at / 12, 0, 1);
+        label(m, th, 80, 11.5, 1.3, plate > 0.5 ? '#1c1a18' : 'rgba(236,233,230,0.9)', openA, true, plate);
+      }
+    });
+
+    // Where the turn started: a small dot on the face, under that mode.
+    if (s > 0.6 && D.phase === 'turning') {
+      const th = rad(D.startIdx * STEP + rot);
+      ctx.fillStyle = 'rgba(225,173,102,0.75)';
+      ctx.beginPath(); ctx.arc(Math.sin(th) * 64, -Math.cos(th) * 64, 2.2, 0, Math.PI * 2); ctx.fill();
+    }
+
+    // The index: fixed, amber, at the top, like the zoom ring's arrow.
+    const nr = lerp(73, 107, s), size = lerp(4.5, 6.5, s);
+    ctx.fillStyle = '#e1ad66';
+    ctx.globalAlpha = alpha * (0.85 + 0.15 * D.notch);
+    ctx.beginPath(); ctx.moveTo(-size, -nr - size * 1.2); ctx.lineTo(size, -nr - size * 1.2); ctx.lineTo(0, -nr); ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+
+  // One engraved label at angle th (clockwise from the index), its baseline along the dial.
+  function label(m, th, r, size, track, color, a, open, plate) {
+    if (a <= 0.01) return;
+    ctx.save();
+    ctx.globalAlpha *= a;
+    ctx.rotate(rad(th));
+    ctx.font = `${open ? 600 : 500} ${size}px ${HEAD}`;
+    const chars = [...m.label];
+    const widths = chars.map(c => ctx.measureText(c).width);
+    const lockW = locked(m) ? size * 0.9 + 3 : 0;
+    const w = widths.reduce((x, y) => x + y, 0) + track * (chars.length - 1) + lockW;
+    if (plate > 0) {
+      ctx.save();
+      ctx.globalAlpha *= plate;
+      ctx.fillStyle = '#e1ad66';
+      roundRect(-w / 2 - 6, -r - size * 0.5 - 4, w + 12, size + 8, 3); ctx.fill();
+      ctx.restore();
+    }
+    ctx.fillStyle = color;
+    ctx.textBaseline = 'middle';
+    let x = -w / 2;
+    chars.forEach((c, i) => { ctx.fillText(c, x, -r); x += widths[i] + track; });
+    if (lockW) {                                  // the lock a locked mode is engraved with
+      const lx = x + 2, ly = -r, u = size * 0.45;
+      ctx.fillRect(lx, ly - u * 0.2, u * 1.6, u * 1.2);
+      ctx.strokeStyle = color; ctx.lineWidth = Math.max(1, size / 10);
+      ctx.beginPath(); ctx.arc(lx + u * 0.8, ly - u * 0.2, u * 0.55, Math.PI, 0); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+  function drawZones() {
+    ctx.save();
+    ctx.setLineDash([3, 3]); ctx.lineWidth = 1;
+    [[SHUT_R, '#6fd3ff', 'shutter'], [RING_R, '#9cff8f', 'ring'], [CANCEL_R, '#ff7a7a', 'cancel']].forEach(([r, c, t]) => {
+      ctx.strokeStyle = c; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.stroke();
+      if (t) { ctx.fillStyle = c; ctx.font = '8px ui-monospace, Menlo, monospace'; ctx.fillText(t, r * 0.72, -r * 0.72); }
+    });
+    ctx.restore();
+  }
+
+  // ---------- fitting the phone to the window ----------
+  function layout() {
+    const W = stage.clientWidth, H = stage.clientHeight;
+    const land = S.orient !== 'portrait';
+    const bw = (land ? 874 : 402) + 28, bh = (land ? 402 : 874) + 28;
+    scale = Math.min(W / bw, H / bh, 1.25);
+    const phoneRot = -chromeAngle();             // turn the mock as the phone is held, so the chrome reads upright
+    phone.style.transform = `translate(-50%, -50%) rotate(${phoneRot}deg) scale(${scale})`;
+    phone.style.setProperty('--chrome', `${chromeAngle()}deg`);
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.round(2 * C * dpr * scale); canvas.height = canvas.width;
+    canvas.style.width = `${2 * C}px`; canvas.style.height = `${2 * C}px`;
+    draw();
+  }
+  window.addEventListener('resize', layout);
+
+  // ---------- the switches ----------
+  const bind = (id, fn) => $(id).addEventListener('change', e => { fn(e.target); renderChrome(); });
+  bind('o-unlocked', el => { S.unlocked = el.checked; if (!S.unlocked && S.mode === 'bkt') { S.mode = 'still'; log('Unlock gone: back to Still'); } });
+  bind('o-orient', el => { S.orient = el.value; layout(); });
+  bind('o-rm', el => { S.rm = el.checked; phone.classList.toggle('rm', S.rm); D.s = 0; D.a = 0; });
+  bind('o-sound', el => { S.sound = el.checked; if (S.sound) ensureAudio(); });
+  bind('o-zones', el => { S.zones = el.checked; });
+  $('o-reset').onclick = () => {
+    closeMenu(); closeModal();
+    Object.assign(S, { mode: 'still', de: 'off', kind: 'recipe', recording: false, photos: 0, roll: { film: 'Amber Neg', shot: 11, exp: 36 } });
+    D.phase = 'idle'; D.s = 0; D.a = 0; phone.classList.remove('dial-open'); hideReadout(0);
+    renderChrome(); log('Reset');
+  };
+
+  $('o-rm').checked = S.rm; phone.classList.toggle('rm', S.rm);
+  layout(); renderChrome();
+  log('Ready: hold the ring round the shutter');
+})();
+</script>
+</body>
+</html>

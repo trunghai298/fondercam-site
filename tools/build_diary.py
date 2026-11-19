@@ -98,7 +98,9 @@ def make_tr(lang, vi):
 
 
 def block(b, keybase, tr):
-    """One item of an entry's body: a paragraph string, or {"list"|"steps"|"table"|"note": ...}."""
+    """One item of an entry's body: a paragraph string, or {"list"|"steps"|"table"|"note"|"embed": ...}.
+    An embed is a live page of this site (an interactive prototype) shown in a lazy iframe, with
+    its caption and a link to open it on its own; its src must be a file in this repository."""
     if isinstance(b, str):
         return f"<p>{inline(tr(keybase, b))}</p>"
     if "list" in b:
@@ -118,6 +120,22 @@ def block(b, keybase, tr):
         return f'<div class="tablewrap"><table><thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>'
     if "note" in b:
         return f'<p class="note">{inline(tr(f"{keybase}.note", b["note"]))}</p>'
+    if "embed" in b:
+        e = b["embed"]
+        for key in ("src", "title", "caption"):
+            if not e.get(key):
+                fail(f"embed {e!r} needs '{key}'")
+        src = e["src"]
+        if not src.startswith("/") or not (ROOT / src.lstrip("/")).is_file():
+            fail(f"embed {src!r} is not a page in this repository")
+        # The page is published with the diary, so it is held to the same rule: no real film.
+        check_names((ROOT / src.lstrip("/")).read_text(encoding="utf-8"), f"embed {src}")
+        title = tr(f"{keybase}.title", e["title"])
+        cap = tr(f"{keybase}.cap", e["caption"])
+        open_it = tr("page.embed_open", PAGE_EN["page.embed_open"])
+        s = html.escape(src)
+        return (f'<figure class="embed"><iframe src="{s}" title="{html.escape(title)}" height="{int(e.get("height", 640))}" '
+                f'loading="lazy"></iframe><figcaption>{inline(cap)} <a href="{s}">{html.escape(open_it)}</a></figcaption></figure>')
     fail(f"unknown body block {b!r}")
 
 
@@ -171,6 +189,7 @@ PAGE_EN = {
     "page.about_p2": "Some photos used during development and local testing come from dpreview's public sample gallery. They're used only for testing on my own machines and aren't published here.",
     "page.about_p3": "CC, CN, RA and NN stand for the camera simulations each fitted film follows. The film names are Fonder's own.",
     "page.footer": "Made in Hà Nội by Trung Hai.",
+    "page.embed_open": "Open it full screen",
 }
 # Chrome that never came from the diary export: nav labels, the language toggle and the
 # consent banner, following the homepage's own strings for each language.

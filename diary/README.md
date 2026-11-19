@@ -26,7 +26,8 @@
        {"list": ["a bullet", "another"]},
        {"steps": ["a numbered step", "the next one"]},
        {"table": {"head": ["Column", "Column"], "rows": [["a", "b"]]}},
-       {"note": "A small grey line, e.g. under a table."}
+       {"note": "A small grey line, e.g. under a table."},
+       {"embed": {"src": "/diary/demos/your-page.html", "title": "What it is", "height": 700, "caption": "What to do with it."}}
      ],
      "images": [
        {"file": "img/your-image.jpg", "alt": "What is in the picture.", "caption": "What it shows and where it came from."}
@@ -35,7 +36,9 @@
    ```
 
    `images` is optional. Every image needs `alt` and `caption`; width and height are read
-   from the file.
+   from the file. An `embed` shows a live page of this site, such as an interactive prototype
+   kept in `diary/demos/`, in a lazy iframe with its caption and an "Open it full screen" link;
+   its `src` must be a file in this repository, and it needs `title` and `caption`.
 
 3. **Chapter.** `chapter` must be an `id` from `diary/chapters.json`. To start a new chapter,
    add `{"id": "...", "title": "...", "intro": "optional one line"}` to that list; chapters
