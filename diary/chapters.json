@@ -64,6 +64,11 @@
     "intro": "The editor's space for edits that go further than a recipe."
   },
   {
+    "id": "mode-dial",
+    "title": "The mode dial",
+    "intro": "Every way of shooting on one dial, round the shutter."
+  },
+  {
     "id": "website",
     "title": "The website"
   }
