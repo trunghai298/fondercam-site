@@ -1,0 +1,9 @@
+Fonder is ready for its first testers.
+
+I've spent months building a film camera for iPhone, the kind where you pick a recipe before you shoot and live with it. Now I need people who will actually take it out and tell me where it falls short.
+
+100 spots on TestFlight. It's free, and purchases in the beta cost nothing.
+
+https://testflight.apple.com/join/k1HEhVBk
+
+If something looks wrong, a screenshot and one line is all I need.
