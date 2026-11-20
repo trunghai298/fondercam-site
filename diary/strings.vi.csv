@@ -291,3 +291,57 @@ page.embed_open,Open it full screen,,Open it full screen
 2026-11-19-mode-dial.p6,"Then a tap showed the open dial, but sliding on it did nothing: it still wanted a hold, and only on the narrow ring. A tapped dial now turns at once.",,"Then a tap showed the open dial, but sliding on it did nothing: it still wanted a hold, and only on the narrow ring. A tapped dial now turns at once."
 2026-11-19-mode-dial.p7.title,"The mode dial, to try in the browser",,"The mode dial, to try in the browser"
 2026-11-19-mode-dial.p7.cap,"A web mock of the camera, not the app's code. Hold the ring round the shutter, or tap it, then slide sideways.",,"A web mock of the camera, not the app's code. Hold the ring round the shutter, or tap it, then slide sideways."
+
+2026-11-20-twelve-richer-recipes.title,Twelve recipes with more weight,,Twelve recipes with more weight
+2026-11-20-twelve-richer-recipes.p1,"I felt the recipes looked a bit pale. You could tell one from another side by side, but few of them read as film at a glance, so I went looking for why.",,"I felt the recipes looked a bit pale. You could tell one from another side by side, but few of them read as film at a glance, so I went looking for why."
+2026-11-20-twelve-richer-recipes.p2,"The numbers were plain once counted. Of the 53 recipes, 39 pulled the highlights down and 38 shot at DR200 or DR400, both of which flatten a picture. Colour at its highest setting added less than a fifth. And not one recipe used the two tools made for exactly this, HSL and Curves.",,"The numbers were plain once counted. Of the 53 recipes, 39 pulled the highlights down and 38 shot at DR200 or DR400, both of which flatten a picture. Colour at its highest setting added less than a fifth. And not one recipe used the two tools made for exactly this, HSL and Curves."
+2026-11-20-twelve-richer-recipes.p3,"So twelve new recipes are built the other way round. Each stands on a film already in the app, shoots at DR100, and carries a tone curve of its own with a toe and a shoulder, so blacks are black and the brightest parts roll off instead of clipping. All but the black and white one also use HSL to deepen greens and skies.",,"So twelve new recipes are built the other way round. Each stands on a film already in the app, shoots at DR100, and carries a tone curve of its own with a toe and a shoulder, so blacks are black and the brightest parts roll off instead of clipping. All but the black and white one also use HSL to deepen greens and skies."
+2026-11-20-twelve-richer-recipes.p4.h1,Recipe,,Recipe
+2026-11-20-twelve-richer-recipes.p4.h2,Film,,Film
+2026-11-20-twelve-richer-recipes.p4.h3,Made for,,Made for
+2026-11-20-twelve-richer-recipes.p4.r1c1,Holiday Roll 400,,Holiday Roll 400
+2026-11-20-twelve-richer-recipes.p4.r1c2,Amber Neg,,Amber Neg
+2026-11-20-twelve-richer-recipes.p4.r1c3,"Sun, people outdoors, gardens, travel",,"Sun, people outdoors, gardens, travel"
+2026-11-20-twelve-richer-recipes.p4.r2c1,Matinee 250,,Matinee 250
+2026-11-20-twelve-richer-recipes.p4.r2c2,Daylight Cine,,Daylight Cine
+2026-11-20-twelve-richer-recipes.p4.r2c3,An everyday look for daylight,,An everyday look for daylight
+2026-11-20-twelve-richer-recipes.p4.r3c1,Garden Party 160,,Garden Party 160
+2026-11-20-twelve-richer-recipes.p4.r3c2,Rose Neg,,Rose Neg
+2026-11-20-twelve-richer-recipes.p4.r3c3,People in soft daylight,,People in soft daylight
+2026-11-20-twelve-richer-recipes.p4.r4c1,Sunroom 200,,Sunroom 200
+2026-11-20-twelve-richer-recipes.p4.r4c2,Pollen Neg,,Pollen Neg
+2026-11-20-twelve-richer-recipes.p4.r4c3,"Bright days, yellow walls, lunch outside",,"Bright days, yellow walls, lunch outside"
+2026-11-20-twelve-richer-recipes.p4.r5c1,Shelf Print 200,,Shelf Print 200
+2026-11-20-twelve-richer-recipes.p4.r5c2,Toffee Neg,,Toffee Neg
+2026-11-20-twelve-richer-recipes.p4.r5c3,"Old streets, autumn, anything brown, brick or wood",,"Old streets, autumn, anything brown, brick or wood"
+2026-11-20-twelve-richer-recipes.p4.r6c1,Postcard 100,,Postcard 100
+2026-11-20-twelve-richer-recipes.p4.r6c2,Chrome Slide,,Chrome Slide
+2026-11-20-twelve-richer-recipes.p4.r6c3,"Clear days, travel, architecture, signs and paint",,"Clear days, travel, architecture, signs and paint"
+2026-11-20-twelve-richer-recipes.p4.r7c1,Monsoon Green 100,,Monsoon Green 100
+2026-11-20-twelve-richer-recipes.p4.r7c2,Verdant,,Verdant
+2026-11-20-twelve-richer-recipes.p4.r7c3,"Forest, garden, hills, rice fields",,"Forest, garden, hills, rice fields"
+2026-11-20-twelve-richer-recipes.p4.r8c1,Roof Tiles 100,,Roof Tiles 100
+2026-11-20-twelve-richer-recipes.p4.r8c2,Terracotta Chrome,,Terracotta Chrome
+2026-11-20-twelve-richer-recipes.p4.r8c3,"Rooftops, old walls, sun on warm stone",,"Rooftops, old walls, sun on warm stone"
+2026-11-20-twelve-richer-recipes.p4.r9c1,Back Lot 800,,Back Lot 800
+2026-11-20-twelve-richer-recipes.p4.r9c2,Tungsten Cine,,Tungsten Cine
+2026-11-20-twelve-richer-recipes.p4.r9c3,"Streets after dark, signs, a lit window",,"Streets after dark, signs, a lit window"
+2026-11-20-twelve-richer-recipes.p4.r10c1,Lantern Street 800,,Lantern Street 800
+2026-11-20-twelve-richer-recipes.p4.r10c2,Lantern Neg,,Lantern Neg
+2026-11-20-twelve-richer-recipes.p4.r10c3,"Night streets, stalls, lanterns, tail lights",,"Night streets, stalls, lanterns, tail lights"
+2026-11-20-twelve-richer-recipes.p4.r11c1,After Hours 400,,After Hours 400
+2026-11-20-twelve-richer-recipes.p4.r11c2,Ink Neg,,Ink Neg
+2026-11-20-twelve-richer-recipes.p4.r11c3,"Blue hour, rain, a city at dusk",,"Blue hour, rain, a city at dusk"
+2026-11-20-twelve-richer-recipes.p4.r12c1,Thunderhead 400,,Thunderhead 400
+2026-11-20-twelve-richer-recipes.p4.r12c2,Scarlet Mono,,Scarlet Mono
+2026-11-20-twelve-richer-recipes.p4.r12c3,"Skies, architecture, street in hard sun",,"Skies, architecture, street in hard sun"
+2026-11-20-twelve-richer-recipes.p5,"Stronger colour found a problem straight away. On test portraits the five warm recipes sent faces orange. Those five now keep most of the film's colour off a face and ease the orange band, so the room goes warm and the person in it does not.",,"Stronger colour found a problem straight away. On test portraits the five warm recipes sent faces orange. Those five now keep most of the film's colour off a face and ease the orange band, so the room goes warm and the person in it does not."
+2026-11-20-twelve-richer-recipes.p6,"Seven of the twelve are free and five come with the unlock, which makes 65 recipes, 50 of them free. Four films that had no recipe at all have their first one: Pollen Neg, Toffee Neg, Lantern Neg and Ink Neg.",,"Seven of the twelve are free and five come with the unlock, which makes 65 recipes, 50 of them free. Four films that had no recipe at all have their first one: Pollen Neg, Toffee Neg, Lantern Neg and Ink Neg."
+2026-11-20-twelve-richer-recipes.alt1,"A city at night seen from above, twelve times in a grid, each frame in different colour.",,"A city at night seen from above, twelve times in a grid, each frame in different colour."
+2026-11-20-twelve-richer-recipes.cap1,"One view, shot once through each new recipe. Row by row from the top left: Holiday Roll 400, Matinee 250, Garden Party 160; Sunroom 200, Shelf Print 200, Postcard 100; Monsoon Green 100, Roof Tiles 100, Back Lot 800; Lantern Street 800, After Hours 400, Thunderhead 400.",,"One view, shot once through each new recipe. Row by row from the top left: Holiday Roll 400, Matinee 250, Garden Party 160; Sunroom 200, Shelf Print 200, Postcard 100; Monsoon Green 100, Roof Tiles 100, Back Lot 800; Lantern Street 800, After Hours 400, Thunderhead 400."
+2026-11-20-twelve-richer-recipes.alt2,"Tower blocks and street trees at night, the sky deep teal and the lit windows amber.",,"Tower blocks and street trees at night, the sky deep teal and the lit windows amber."
+2026-11-20-twelve-richer-recipes.cap2,Lantern Street 800: the dark goes teal and whatever is lit burns amber.,,Lantern Street 800: the dark goes teal and whatever is lit burns amber.
+2026-11-20-twelve-richer-recipes.alt3,"The same night view with a navy sky and cool, blue-black trees.",,"The same night view with a navy sky and cool, blue-black trees."
+2026-11-20-twelve-richer-recipes.cap3,"After Hours 400: navy through the dark, with the lights left warm.",,"After Hours 400: navy through the dark, with the lights left warm."
+2026-11-20-twelve-richer-recipes.alt4,The same night view in hard black and white.,,The same night view in hard black and white.
+2026-11-20-twelve-richer-recipes.cap4,"Thunderhead 400: dense blacks, bright whites and a grain you can see.",,"Thunderhead 400: dense blacks, bright whites and a grain you can see."

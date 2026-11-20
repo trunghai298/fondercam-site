@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-20",
+  "chapter": "recipes",
+  "title": "Twelve recipes with more weight",
+  "body": [
+    "I felt the recipes looked a bit pale. You could tell one from another side by side, but few of them read as film at a glance, so I went looking for why.",
+    "The numbers were plain once counted. Of the 53 recipes, 39 pulled the highlights down and 38 shot at DR200 or DR400, both of which flatten a picture. Colour at its highest setting added less than a fifth. And not one recipe used the two tools made for exactly this, HSL and Curves.",
+    "So twelve new recipes are built the other way round. Each stands on a film already in the app, shoots at DR100, and carries a tone curve of its own with a toe and a shoulder, so blacks are black and the brightest parts roll off instead of clipping. All but the black and white one also use HSL to deepen greens and skies.",
+    {
+      "table": {
+        "head": [
+          "Recipe",
+          "Film",
+          "Made for"
+        ],
+        "rows": [
+          [
+            "Holiday Roll 400",
+            "Amber Neg",
+            "Sun, people outdoors, gardens, travel"
+          ],
+          [
+            "Matinee 250",
+            "Daylight Cine",
+            "An everyday look for daylight"
+          ],
+          [
+            "Garden Party 160",
+            "Rose Neg",
+            "People in soft daylight"
+          ],
+          [
+            "Sunroom 200",
+            "Pollen Neg",
+            "Bright days, yellow walls, lunch outside"
+          ],
+          [
+            "Shelf Print 200",
+            "Toffee Neg",
+            "Old streets, autumn, anything brown, brick or wood"
+          ],
+          [
+            "Postcard 100",
+            "Chrome Slide",
+            "Clear days, travel, architecture, signs and paint"
+          ],
+          [
+            "Monsoon Green 100",
+            "Verdant",
+            "Forest, garden, hills, rice fields"
+          ],
+          [
+            "Roof Tiles 100",
+            "Terracotta Chrome",
+            "Rooftops, old walls, sun on warm stone"
+          ],
+          [
+            "Back Lot 800",
+            "Tungsten Cine",
+            "Streets after dark, signs, a lit window"
+          ],
+          [
+            "Lantern Street 800",
+            "Lantern Neg",
+            "Night streets, stalls, lanterns, tail lights"
+          ],
+          [
+            "After Hours 400",
+            "Ink Neg",
+            "Blue hour, rain, a city at dusk"
+          ],
+          [
+            "Thunderhead 400",
+            "Scarlet Mono",
+            "Skies, architecture, street in hard sun"
+          ]
+        ]
+      }
+    },
+    "Stronger colour found a problem straight away. On test portraits the five warm recipes sent faces orange. Those five now keep most of the film's colour off a face and ease the orange band, so the room goes warm and the person in it does not.",
+    "Seven of the twelve are free and five come with the unlock, which makes 65 recipes, 50 of them free. Four films that had no recipe at all have their first one: Pollen Neg, Toffee Neg, Lantern Neg and Ink Neg."
+  ],
+  "images": [
+    {
+      "file": "img/26-twelve-recipes-one-view.jpg",
+      "alt": "A city at night seen from above, twelve times in a grid, each frame in different colour.",
+      "caption": "One view, shot once through each new recipe. Row by row from the top left: Holiday Roll 400, Matinee 250, Garden Party 160; Sunroom 200, Shelf Print 200, Postcard 100; Monsoon Green 100, Roof Tiles 100, Back Lot 800; Lantern Street 800, After Hours 400, Thunderhead 400."
+    },
+    {
+      "file": "img/27-lantern-street-800.jpg",
+      "alt": "Tower blocks and street trees at night, the sky deep teal and the lit windows amber.",
+      "caption": "Lantern Street 800: the dark goes teal and whatever is lit burns amber."
+    },
+    {
+      "file": "img/28-after-hours-400.jpg",
+      "alt": "The same night view with a navy sky and cool, blue-black trees.",
+      "caption": "After Hours 400: navy through the dark, with the lights left warm."
+    },
+    {
+      "file": "img/29-thunderhead-400.jpg",
+      "alt": "The same night view in hard black and white.",
+      "caption": "Thunderhead 400: dense blacks, bright whites and a grain you can see."
+    }
+  ]
+}
