@@ -1,0 +1,8 @@
+The lens in Fonder is open to try.
+
+Tap what should stay sharp, pick an aperture, and the street behind falls away. The lights open into round discs, and the grain goes on after the blur, so it sits over the soft parts the way it would on a negative.
+
+It's in the TestFlight beta now, free, about a hundred spots:
+https://testflight.apple.com/join/k1HEhVBk
+
+Try it on a photo with lights in the background and tell me where the edge gives itself away.
