@@ -1,0 +1,9 @@
+Fonder build 6 is out for testers.
+
+The big one is Blended double exposure. Take a photo of one clear subject, then a second of a scene, and Fonder blends the two inside the subject's outline on white.
+
+Also new: a 65:24 panoramic frame, the editor and Lab side by side on an open iPhone Duo, and a zoom ring that lands on the right lens every time.
+
+Thank you @hiroshiandhiscamera for the 65:24 idea. It was the right call.
+
+Tell me what breaks.
