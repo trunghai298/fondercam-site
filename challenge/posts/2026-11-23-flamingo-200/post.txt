@@ -1,0 +1,7 @@
+New recipe: Flamingo 200, inspired by the GTA VI trailers.
+
+That hour when the sky over the sea goes hot pink and orange, the palms turn to silhouettes and a neon sign comes on. I wanted the camera to see it that way, so I built a recipe for it on Fonder's Dusk film.
+
+Shadows go blue, lights get a soft glow, and faces stay warm without turning orange.
+
+It's free, and it lands in the next build.
