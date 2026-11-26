@@ -61,7 +61,10 @@ def inline(text):
     t = re.sub(r"`([^`]+)`", r"<code>\1</code>", t)
     t = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"(?<![\w*])\*([^*]+)\*(?![\w*])", r"<em>\1</em>", t)
-    t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", lambda m: f'<a href="{html.escape(m.group(2))}">{m.group(1)}</a>', t)
+    # The text is escaped above, so the address is unescaped before escaping it for the
+    # attribute: escaping it twice would turn a campaign link's & into &amp;amp;.
+    t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)",
+               lambda m: f'<a href="{html.escape(html.unescape(m.group(2)))}">{m.group(1)}</a>', t)
     return t
 
 

@@ -52,3 +52,16 @@ class EmbedTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class LinkTests(unittest.TestCase):
+    """A link's address is escaped once: a campaign link's & must reach the browser as &, or the
+    App Store reads the campaign as "amp;ct" and never counts it."""
+
+    def test_an_ampersand_in_a_link_is_escaped_once(self):
+        html_out = d.inline("[Here it is](https://apps.apple.com/app/id1?pt=2&ct=site-diary&mt=8).")
+        self.assertIn('href="https://apps.apple.com/app/id1?pt=2&amp;ct=site-diary&amp;mt=8"', html_out)
+        self.assertNotIn("&amp;amp;", html_out)
+
+    def test_the_text_around_a_link_is_still_escaped(self):
+        self.assertEqual(d.inline("A & B, [x](https://a.test/)"), 'A &amp; B, <a href="https://a.test/">x</a>')
