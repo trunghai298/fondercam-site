@@ -71,5 +71,10 @@
   {
     "id": "website",
     "title": "The website"
+  },
+  {
+    "id": "release",
+    "title": "Release",
+    "intro": "Fonder on the App Store."
   }
 ]

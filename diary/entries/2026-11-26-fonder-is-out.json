@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-26",
+  "chapter": "release",
+  "title": "Fonder is out",
+  "body": [
+    "Fonder 1.0 is on the App Store. I sent it to Apple on 25 November, they approved it the next morning, and it went live the same morning. [Here it is](https://apps.apple.com/app/apple-store/id6836679617?pt=129830809&ct=site-diary&mt=8).",
+    "What's in the first version:",
+    {
+      "list": [
+        "66 recipes on 41 films, and 51 of the recipes are free.",
+        "Four ways to shoot on the mode dial: Still, Film Roll, Bracket and Double exposure.",
+        "ProRAW on iPhones that support it, with each original kept for 30 days, so a photo can be developed again in another recipe.",
+        "The Lab, borders, recipe sharing, and a side-by-side layout on iPhone Duo.",
+        "No account, no analytics and no tracking. Photos stay on the phone."
+      ]
+    },
+    "The app is free to download. One purchase unlocks the other recipes, your own recipes, recipe import and sharing, bracketing and blended double exposure, and there is no subscription.",
+    "Cine video isn't in 1.0. It comes in a later release.",
+    "Thank you to everyone who tested the beta on TestFlight. A lot of what changed in the last month came from your reports."
+  ]
+}
