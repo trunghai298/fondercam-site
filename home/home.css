@@ -378,6 +378,8 @@ html.motion .roll-develop.is-on{opacity:1}
 .action-title{font:700 26px/1.1 var(--display);margin:6px 0 0}
 .action-body{margin:0;color:#5d5246}
 .action-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0 0}
+.action .badge{display:inline-block;margin:8px 0 0;line-height:0}
+.action .badge img{background:none}
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:99px;background:var(--paper-ink);color:#fffdf7;text-decoration:none;font-weight:500;
   box-shadow:0 3px 0 #000;transition:transform .08s,box-shadow .08s}
 .btn:active{transform:translateY(2px);box-shadow:0 1px 0 #000}

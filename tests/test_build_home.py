@@ -33,7 +33,9 @@ class ConfigTests(unittest.TestCase):
             b.validate_config(dict(BASE, filmCount="39"))
     def test_repo_config_is_valid(self):
         cfg = b.load_config(ROOT / "config.json")
-        self.assertEqual(cfg["stage"], "follow")
+        # Fonder 1.0 went live on 26 Nov 2026: the page offers the App Store.
+        self.assertEqual(cfg["stage"], "appstore")
+        self.assertEqual(cfg["appstore"], "https://apps.apple.com/us/app/fonder-film-camera/id6836679617")
         self.assertEqual(cfg["instagram"], "https://www.instagram.com/fonder.app")
         self.assertEqual(cfg["threads"], "https://www.threads.com/@fonder.app")
 
@@ -162,8 +164,10 @@ class PageTests(unittest.TestCase):
         self.assertIn("42 màu phim", self.vi)
 
     def test_action_slot_filled(self):
-        self.assertIn("https://www.instagram.com/fonder.app", self.en)
-        self.assertIn("Vẫn còn những tấm ảnh bạn chưa chụp.", self.vi)
+        for page, alt in ((self.en, "Download on the App Store"), (self.vi, "Tải về trên App Store")):
+            self.assertIn('data-stage="appstore"', page)
+            self.assertIn('href="https://apps.apple.com/us/app/fonder-film-camera/id6836679617"', page)
+            self.assertIn(f'src="/img/home/app-store-badge.svg" width="156" height="52" alt="{alt}"', page)
 
     def test_every_image_sized_and_described(self):
         for page in (self.en, self.vi):
