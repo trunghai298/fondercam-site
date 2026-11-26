@@ -25,7 +25,8 @@ import sys
 import tempfile
 from pathlib import Path
 
-from build_home import FORBIDDEN as HOME_FORBIDDEN, BuildError, jpeg_size, load_occasions
+from build_home import (FORBIDDEN as HOME_FORBIDDEN, APP_BANNER_HEAD, BuildError, app_banner_html,
+                        banner_strings, jpeg_size, load_occasions)
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "recipes/data/catalogue.json"
@@ -874,6 +875,7 @@ def render_page(data, dims, occasions, lang, tr, label_tr, cat_vi=None):
 <meta property="og:image" content="https://fondercam.online/img/recipes/hero/after-1600.jpg">
 <link rel="icon" href="/icon.png?v=2">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+{APP_BANNER_HEAD}
 <link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>{vn_preload}
 <link rel="stylesheet" href="/home/home.css?v=3">
@@ -882,6 +884,7 @@ def render_page(data, dims, occasions, lang, tr, label_tr, cat_vi=None):
 <script defer src="/home/consent.js"></script>
 </head>
 <body>
+{app_banner_html(banner_strings(lang))}
 <header class="site-nav">
   <a class="brand" href="{ch["home"]}"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
   <nav><a href="{ch["self"]}" aria-current="page">{esc(tr("nav.recipes", "Recipes"))}</a><a href="{ch["diary"]}">{esc(tr("nav.diary", "Diary"))}</a><a href="{ch["toggle_href"]}" hreflang="{ch["toggle_lang"]}" lang="{ch["toggle_lang"]}">{esc(ch["toggle_label"])}</a></nav>

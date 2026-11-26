@@ -14,6 +14,42 @@
 <meta property="og:image" content="https://fondercam.online/img/recipes/hero/after-1600.jpg">
 <link rel="icon" href="/icon.png?v=2">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+<meta name="apple-itunes-app" content="app-id=6836679617">
+<script>
+// The site's App Store bar shows unless this visitor closed it, or is in Safari on an iPhone or iPad
+// (an iPad asking for the desktop site says Macintosh, but has touch), where Apple's own banner shows.
+// Anything there that looks like Safari counts as Safari: both banners at once is worse than Apple's
+// alone. Other browsers and in-app browsers (Instagram, Threads, Facebook) never show Apple's.
+(() => {
+  const KEY = 'fonder-app-banner';
+  const decide = (ua, touchPoints, storage) => {
+    const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && touchPoints > 1);
+    const other = /CriOS|FxiOS|EdgiOS|OPiOS|OPT\/|GSA\/|DuckDuckGo|Ddg\/|FBAN|FBAV|Instagram|Barcelona|Line\//.test(ua);
+    if (ios && /Safari\//.test(ua) && !other) return 'apple';
+    let closed = null;
+    try { closed = storage ? storage.getItem(KEY) : null; } catch (e) { /* blocked: show it */ }
+    return closed ? 'closed' : 'show';
+  };
+  window.FonderAppBanner = { key: KEY, decide };
+  let storage = null;
+  try { storage = window.localStorage; } catch (e) { /* blocked */ }
+  if (decide(navigator.userAgent, navigator.maxTouchPoints || 0, storage) !== 'show') return;
+  const root = document.documentElement;
+  root.classList.add('show-app-banner');
+  addEventListener('click', (e) => {
+    const bar = e.target.closest && e.target.closest('.app-banner');
+    if (!bar || !e.target.closest('.app-banner-close')) return;
+    const hadFocus = bar.contains(document.activeElement);
+    root.classList.remove('show-app-banner');
+    try { storage.setItem(KEY, 'closed'); } catch (err) { /* blocked: it shows again next visit */ }
+    // Keyboard focus moves on to the header, not back to the top of the page.
+    const next = hadFocus && bar.nextElementSibling && bar.nextElementSibling.querySelector('a[href]');
+    if (next) next.focus();
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();   // the homepage's pins move up with the page
+  });
+})();
+</script>
+<link rel="stylesheet" href="/home/app-banner.css">
 <link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-vietnamese.woff2" as="font" type="font/woff2" crossorigin>
@@ -23,6 +59,7 @@
 <script defer src="/home/consent.js"></script>
 </head>
 <body>
+<aside class="app-banner" aria-label="App Store"><a class="app-banner-link" href="https://apps.apple.com/app/apple-store/id6836679617?pt=129830809&amp;ct=site-banner&amp;mt=8" target="_blank" rel="noopener"><img src="/icon.png?v=2" width="36" height="36" alt="" aria-hidden="true"><span class="app-banner-text"><b>Tải về trên App Store</b><span>Máy ảnh màu phim cho iPhone</span></span><span class="app-banner-get">Get</span></a><button class="app-banner-close" type="button" aria-label="Đóng"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button></aside>
 <header class="site-nav">
   <a class="brand" href="/vi/"><img src="/img/home/brand-56.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
   <nav><a href="/vi/recipes/" aria-current="page">Công thức</a><a href="/vi/diary/">Nhật ký</a><a href="/recipes/" hreflang="en" lang="en">English</a></nav>

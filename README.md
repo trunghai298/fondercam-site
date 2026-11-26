@@ -65,6 +65,23 @@ day that is due at 20:00 Hanoi time with `--due`.
 `docs/challenge-posting.md` has the daily routine and the one-time Meta app setup. It needs sips
 and ffmpeg, and four values in the environment that are never committed.
 
+## App Store banner
+
+Every page offers the app at the top. In Safari on iPhone and iPad, Apple's Smart App Banner shows its own
+Get/Open bar from `<meta name="apple-itunes-app" content="app-id=6836679617">`. Every other browser (desktop,
+Android, other iOS browsers, Instagram/Threads/Facebook's in-app browsers) gets the site's own bar above the
+header instead, linking the `site-banner` campaign (`ct=site-banner`) in a new tab. The bar can be closed, and
+the choice is remembered in `localStorage` (`fonder-app-banner`). Anything on iOS that looks like Safari gets
+only Apple's banner, never both.
+
+- **Source:** `APP_BANNER_HEAD` (the meta, a small head script that decides before first paint, and the
+  stylesheet link) and `app_banner_html()` in `tools/build_home.py`. The look is `home/app-banner.css`, and the
+  copy is the `banner_*` keys of `home/strings.*.json`. The home, diary and recipes builders insert both
+  parts. The hand-written pages (privacy, terms, and support in both languages) carry copies, which
+  `build_home.py --check` holds to the source.
+- **Tests:** `python3 tools/shots.py --app-banner` runs `tests/app_banner.html`: the decision for each
+  browser, and the bar's link, position and close on a real page.
+
 ## Analytics
 
 Google Analytics 4 (`ga4` in `config.json`) runs only after a visitor says OK on the banner: `home/consent.js`

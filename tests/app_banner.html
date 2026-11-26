@@ -1,0 +1,69 @@
+<!doctype html><meta charset="utf-8">
+<pre id="out"></pre>
+<iframe id="page" src="about:blank" width="1280" height="700"></iframe>
+<script>
+// The App Store bar's decision (APP_BANNER_HEAD in tools/build_home.py, inlined in every page's head),
+// then the bar itself on a real page: shown, above the nav, linking the campaign, and closed for good.
+const KEY = 'fonder-app-banner';
+const results = [];
+const check = (name, got, want) => results.push(`${got === want ? 'ok' : 'FAIL'} ${name}${got === want ? '' : ` (got ${got}, want ${want})`}`);
+const frame = document.getElementById('page');
+const load = (src) => new Promise((resolve) => { frame.onload = () => resolve(frame.contentWindow); frame.src = src; });
+
+const UA = {
+  iphoneSafari: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1',
+  ipadSafari: 'Mozilla/5.0 (iPad; CPU OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1',
+  ipadDesktopSafari: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Safari/605.1.15',
+  iphoneChrome: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/131.0.6778.73 Mobile/15E148 Safari/604.1',
+  iphoneFirefox: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/132.0 Mobile/15E148 Safari/605.1.15',
+  instagram: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 357.0.0.25.101 (iPhone15,3; iOS 18_1; en_US; en)',
+  threads: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Barcelona 357.0.0.20.100 (iPhone15,3; iOS 18_1; en_US; en)',
+  facebook: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [FBAN/FBIOS;FBAV/490.0.0.31.110;FBBV/1;FBDV/iPhone15,3;FBMD/iPhone;FBSN/iOS;FBSV/18.1]',
+  androidChrome: 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36',
+  macSafari: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Safari/605.1.15',
+  desktopChrome: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+};
+const mem = (v) => ({ getItem: (k) => (k === KEY ? v : null), setItem() {} });
+const broken = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); } };
+
+(async () => {
+  try { localStorage.removeItem(KEY); } catch (e) {}
+  const w = await load('/terms/');
+  const f = w.FonderAppBanner.decide;
+  check('Safari on iPhone: Apple\'s banner', f(UA.iphoneSafari, 5, mem(null)), 'apple');
+  check('Safari on iPad: Apple\'s banner', f(UA.ipadSafari, 5, mem(null)), 'apple');
+  check('Safari on iPad asking for the desktop site: Apple\'s banner', f(UA.ipadDesktopSafari, 5, mem(null)), 'apple');
+  check('Safari on iPhone, even after closing ours: Apple\'s banner', f(UA.iphoneSafari, 5, mem('closed')), 'apple');
+  check('Safari on a Mac: ours', f(UA.macSafari, 0, mem(null)), 'show');
+  check('Chrome on iPhone: ours', f(UA.iphoneChrome, 5, mem(null)), 'show');
+  check('Firefox on iPhone: ours', f(UA.iphoneFirefox, 5, mem(null)), 'show');
+  check('Instagram\'s browser: ours', f(UA.instagram, 5, mem(null)), 'show');
+  check('Threads\' browser: ours', f(UA.threads, 5, mem(null)), 'show');
+  check('Facebook\'s browser: ours', f(UA.facebook, 5, mem(null)), 'show');
+  check('Chrome on Android: ours', f(UA.androidChrome, 5, mem(null)), 'show');
+  check('Chrome on a desktop: ours', f(UA.desktopChrome, 0, mem(null)), 'show');
+  check('closed before: nothing', f(UA.desktopChrome, 0, mem('closed')), 'closed');
+  check('storage blocked: ours', f(UA.desktopChrome, 0, broken), 'show');
+  check('no storage: ours', f(UA.desktopChrome, 0, null), 'show');
+
+  const d = w.document;
+  const bar = d.querySelector('.app-banner');
+  check('the bar shows on a first visit', w.getComputedStyle(bar).display, 'block');
+  check('the bar sits above the nav', bar.getBoundingClientRect().bottom <= d.querySelector('nav.top').getBoundingClientRect().top, true);
+  check('the bar is at the top of the window', Math.round(bar.getBoundingClientRect().top), 0);
+  const link = bar.querySelector('a');
+  check('the bar links the site-banner campaign', link.href, 'https://apps.apple.com/app/apple-store/id6836679617?pt=129830809&ct=site-banner&mt=8');
+  check('the link opens a new tab', `${link.target} ${link.rel}`, '_blank noopener');
+  const close = bar.querySelector('button.app-banner-close');
+  check('the close button is named', !!close.getAttribute('aria-label'), true);
+  close.focus();
+  close.click();
+  check('closing hides the bar', w.getComputedStyle(bar).display, 'none');
+  check('closing is remembered', localStorage.getItem(KEY), 'closed');
+  check('focus moves on to the nav', d.activeElement === d.querySelector('nav.top a'), true);
+  const again = await load('/terms/');
+  check('a closed bar stays closed', again.getComputedStyle(again.document.querySelector('.app-banner')).display, 'none');
+  try { localStorage.removeItem(KEY); } catch (e) {}
+  document.getElementById('out').textContent = results.join('\n');
+})().catch((e) => { document.getElementById('out').textContent = `FAIL ${e}`; });
+</script>

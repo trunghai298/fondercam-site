@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build_home import FORBIDDEN
+from build_home import FORBIDDEN, APP_BANNER_HEAD, app_banner_html, banner_strings
 
 ROOT = Path(__file__).resolve().parent.parent
 DIARY = ROOT / "diary"
@@ -262,12 +262,14 @@ def render(chapters, entries, lang, vi):
 <link rel="alternate" hreflang="x-default" href="https://fondercam.online/diary/">
 <link rel="icon" href="/icon.png?v=2">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+{APP_BANNER_HEAD}
 <link rel="preload" href="/fonts/bricolage-grotesque-700-opsz72-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/be-vietnam-pro-400-latin.woff2" as="font" type="font/woff2" crossorigin>{vn_preload}
 <link rel="stylesheet" href="/diary/diary.css">
 <script defer src="/home/consent.js"></script>
 </head>
 <body>
+{app_banner_html(banner_strings(lang))}
 <header class="site-nav">
   <a class="brand" href="{ch["home_href"]}"><img src="/icon.png" width="28" height="28" alt="" aria-hidden="true">Fonder</a>
   <nav><a href="{self_href}" aria-current="page">{html.escape(ch["nav_diary"])}</a><a href="{ch["toggle_href"]}" hreflang="{ch["toggle_lang"]}" lang="{ch["toggle_lang"]}">{html.escape(ch["toggle_label"])}</a></nav>

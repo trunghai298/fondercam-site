@@ -4,6 +4,7 @@
   --overflow PATH WIDTH   print "overflow: none" or the offending elements
   --lang-bar              print the tests/lang_bar.html results
   --consent               print the tests/consent.html results (home/consent.js's decision)
+  --app-banner            print the tests/app_banner.html results (the App Store bar's decision and close)
   --matrix OUTDIR         screenshot every chapter: 390/1280 × en/vi × motion/reduce × js/nojs
 """
 import base64, json, os, re, shutil, socket, struct, subprocess, sys, time, urllib.request
@@ -39,6 +40,14 @@ def overflow(path, width):
 
 def consent():
     dom = chrome("--virtual-time-budget=3000", "--dump-dom", f"{BASE}/tests/consent.html")
+    import html
+    m = re.search(r'<pre id="out">(.*?)</pre>', dom, re.S)
+    return html.unescape(m.group(1)) if m else "no output"
+
+
+def app_banner():
+    # The page loads a site page in an iframe twice, so it gets more virtual time than the consent check.
+    dom = chrome("--virtual-time-budget=6000", "--dump-dom", f"{BASE}/tests/app_banner.html")
     import html
     m = re.search(r'<pre id="out">(.*?)</pre>', dom, re.S)
     return html.unescape(m.group(1)) if m else "no output"
@@ -183,6 +192,8 @@ if __name__ == "__main__":
         print(with_server(lambda: overflow(a[1], int(a[2]))))
     elif a[:1] == ["--consent"]:
         print(with_server(consent))
+    elif a[:1] == ["--app-banner"]:
+        print(with_server(app_banner))
     elif a[:1] == ["--lang-bar"]:
         print(with_server(lang_bar))
     elif a[:1] == ["--matrix"]:

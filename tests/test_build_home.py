@@ -199,6 +199,13 @@ class BrowserTests(unittest.TestCase):
         self.assertNotIn("FAIL", out)
         self.assertEqual(out.count("ok "), 8, out)
 
+    def test_app_banner_decision_and_bar(self):
+        import subprocess
+        out = subprocess.run([sys.executable, str(ROOT / "tools/shots.py"), "--app-banner"],
+                             capture_output=True, text=True, check=True).stdout
+        self.assertNotIn("FAIL", out)
+        self.assertEqual(out.count("ok "), 25, out)
+
     def test_nothing_overflows_at_390_in_vietnamese(self):
         import subprocess
         out = subprocess.run([sys.executable, str(ROOT / "tools/shots.py"), "--overflow", "/vi/", "390"],
@@ -284,6 +291,99 @@ class ViPagesTests(unittest.TestCase):
         vi = (ROOT / "vi/index.html").read_text(encoding="utf-8")
         self.assertIn('href="/vi/recipes/"', vi)
         self.assertIn('href="/vi/diary/"', vi)
+
+
+class AppBannerTests(unittest.TestCase):
+    """The App Store banner on every page: Apple's Smart App Banner meta for Safari on iPhone and iPad,
+    and the site's own bar above the header for every other browser, linking the site-banner campaign."""
+    HREF = 'href="https://apps.apple.com/app/apple-store/id6836679617?pt=129830809&amp;ct=site-banner&amp;mt=8"'
+
+    @classmethod
+    def setUpClass(cls):
+        cls.pages = {rel: (ROOT / rel).read_text(encoding="utf-8") for rel in b.CONSENT_PAGES}
+
+    @staticmethod
+    def bar(page):
+        return re.search(r'<aside class="app-banner".*?</aside>', page, re.S).group(0)
+
+    def test_every_page_passes_the_check(self):
+        b.check_app_banner(ROOT)
+
+    def test_the_smart_app_banner_meta_is_in_every_head_once(self):
+        for rel, page in self.pages.items():
+            head, body = page.split("</head>", 1)
+            self.assertEqual(head.count('<meta name="apple-itunes-app" content="app-id=6836679617">'), 1, rel)
+            self.assertNotIn("apple-itunes-app", body, rel)
+
+    def test_the_bar_links_the_site_banner_campaign_escaped_once(self):
+        self.assertEqual(b.APP_BANNER_HREF,
+                         "https://apps.apple.com/app/apple-store/id6836679617?pt=129830809&ct=site-banner&mt=8")
+        for rel, page in self.pages.items():
+            bar = self.bar(page)
+            self.assertIn(f'{self.HREF} target="_blank" rel="noopener"', bar, rel)
+            self.assertNotIn("&amp;amp;", bar, rel)
+
+    def test_the_bar_comes_before_the_header(self):
+        for rel, page in self.pages.items():
+            body = page.split("<body", 1)[1]
+            header = min(i for i in (body.find('<header class="site-nav">'), body.find('<nav class="top">')) if i >= 0)
+            self.assertLess(body.index('<aside class="app-banner"'), header, rel)
+
+    def test_the_bar_and_its_close_button_are_named(self):
+        for rel, page in self.pages.items():
+            s = b.banner_strings("vi" if rel.startswith("vi/") else "en")
+            bar = self.bar(page)
+            self.assertTrue(bar.startswith('<aside class="app-banner" aria-label="App Store">'), rel)
+            self.assertIn(f'<button class="app-banner-close" type="button" aria-label="{s["banner_close"]}">', bar, rel)
+            self.assertRegex(bar, r'<img src="/icon\.png\?v=2" width="\d+" height="\d+" alt="" aria-hidden="true">')
+
+    def test_vietnamese_reuses_reviewed_strings(self):
+        vi = json.loads((ROOT / "home/strings.vi.json").read_text(encoding="utf-8"))
+        self.assertEqual(vi["banner_title"], vi["action_appstore_alt"])   # the badge's "Tải về trên App Store"
+        self.assertEqual(vi["banner_close"], vi["lang_bar_no"])           # the language bar's "Đóng"
+        self.assertIn(f'<div class="eyebrow">Fonder · {vi["banner_sub"]}</div>',
+                      (ROOT / "vi/support/index.html").read_text(encoding="utf-8"))   # the support page's eyebrow
+        for rel in ("vi/index.html", "vi/diary/index.html", "vi/recipes/index.html", "vi/support/index.html"):
+            self.assertIn("<b>Tải về trên App Store</b>", self.pages[rel], rel)
+
+    def test_the_bar_stays_hidden_until_the_head_script_shows_it(self):
+        css = (ROOT / "home/app-banner.css").read_text(encoding="utf-8")
+        self.assertIn(".app-banner{display:none}", css)
+        self.assertIn("html.show-app-banner .app-banner{display:block}", css)
+        self.assertIn("root.classList.add('show-app-banner')", b.APP_BANNER_HEAD)
+        # Nothing from another site: the only address in either is the SVG namespace of the sprocket holes.
+        addresses = set(re.findall(r"https?://[^\s\"')]+", css + b.APP_BANNER_HEAD))
+        self.assertEqual(addresses, {"http://www.w3.org/2000/svg"})
+
+    def _copy_site(self, root):
+        import shutil
+        for rel in b.CONSENT_PAGES + ["home/strings.en.json", "home/strings.vi.json"]:
+            (root / rel).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(ROOT / rel, root / rel)
+
+    def test_check_refuses_a_page_without_the_bar_or_the_meta(self):
+        import tempfile
+        for rel, cut in (("privacy/index.html", r'<aside class="app-banner".*?</aside>'),
+                         ("terms/index.html", r'<meta name="apple-itunes-app"[^>]*>')):
+            with tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                self._copy_site(root)
+                page = root / rel
+                page.write_text(re.sub(cut, "", page.read_text(encoding="utf-8"), count=1, flags=re.S), encoding="utf-8")
+                with self.assertRaisesRegex(b.BuildError, re.escape(rel)):
+                    b.check_app_banner(root)
+
+    def test_check_refuses_a_bar_in_the_wrong_language(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            self._copy_site(root)
+            page = root / "vi/support/index.html"
+            en_bar = b.app_banner_html(b.banner_strings("en"))
+            page.write_text(re.sub(r'<aside class="app-banner".*?</aside>', lambda m: en_bar,
+                                   page.read_text(encoding="utf-8"), flags=re.S), encoding="utf-8")
+            with self.assertRaisesRegex(b.BuildError, "vi/support/index.html"):
+                b.check_app_banner(root)
 
 
 class SliderTests(unittest.TestCase):

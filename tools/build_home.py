@@ -109,6 +109,74 @@ def action_html(cfg, s):
             f'<img src="/img/home/app-store-badge.svg" width="156" height="52" alt="{html.escape(s["action_appstore_alt"])}"></a>')
 
 
+# The App Store banner, on every page. In Safari on iPhone and iPad, Apple's Smart App Banner (the
+# apple-itunes-app meta) shows its own Get/Open bar; everywhere else the site shows its own bar above
+# the header, linking the site-banner campaign. The diary and recipes builders take both parts from
+# here, the hand-written pages carry copies, and --check holds every page to them (check_app_banner).
+APP_ID = "6836679617"
+APP_BANNER_HREF = f"https://apps.apple.com/app/apple-store/id{APP_ID}?pt=129830809&ct=site-banner&mt=8"
+
+# The head's part: the meta, the bar's look (home/app-banner.css) and the script that decides, before
+# first paint, whether this visitor sees the bar, so it never pops in and shifts the page afterwards.
+APP_BANNER_HEAD = rf"""<meta name="apple-itunes-app" content="app-id={APP_ID}">
+<script>
+// The site's App Store bar shows unless this visitor closed it, or is in Safari on an iPhone or iPad
+// (an iPad asking for the desktop site says Macintosh, but has touch), where Apple's own banner shows.
+// Anything there that looks like Safari counts as Safari: both banners at once is worse than Apple's
+// alone. Other browsers and in-app browsers (Instagram, Threads, Facebook) never show Apple's.
+(() => {{
+  const KEY = 'fonder-app-banner';
+  const decide = (ua, touchPoints, storage) => {{
+    const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && touchPoints > 1);
+    const other = /CriOS|FxiOS|EdgiOS|OPiOS|OPT\/|GSA\/|DuckDuckGo|Ddg\/|FBAN|FBAV|Instagram|Barcelona|Line\//.test(ua);
+    if (ios && /Safari\//.test(ua) && !other) return 'apple';
+    let closed = null;
+    try {{ closed = storage ? storage.getItem(KEY) : null; }} catch (e) {{ /* blocked: show it */ }}
+    return closed ? 'closed' : 'show';
+  }};
+  window.FonderAppBanner = {{ key: KEY, decide }};
+  let storage = null;
+  try {{ storage = window.localStorage; }} catch (e) {{ /* blocked */ }}
+  if (decide(navigator.userAgent, navigator.maxTouchPoints || 0, storage) !== 'show') return;
+  const root = document.documentElement;
+  root.classList.add('show-app-banner');
+  addEventListener('click', (e) => {{
+    const bar = e.target.closest && e.target.closest('.app-banner');
+    if (!bar || !e.target.closest('.app-banner-close')) return;
+    const hadFocus = bar.contains(document.activeElement);
+    root.classList.remove('show-app-banner');
+    try {{ storage.setItem(KEY, 'closed'); }} catch (err) {{ /* blocked: it shows again next visit */ }}
+    // Keyboard focus moves on to the header, not back to the top of the page.
+    const next = hadFocus && bar.nextElementSibling && bar.nextElementSibling.querySelector('a[href]');
+    if (next) next.focus();
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();   // the homepage's pins move up with the page
+  }});
+}})();
+</script>
+<link rel="stylesheet" href="/home/app-banner.css">"""
+
+_CLOSE_ICON = ('<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>')
+
+
+def banner_strings(lang, root=None):
+    """The bar's copy: the banner_* keys of the homepage's strings for that language."""
+    s = json.loads((Path(root if root is not None else ROOT) / f"home/strings.{lang}.json").read_text(encoding="utf-8"))
+    return {k: s[k] for k in ("banner_title", "banner_sub", "banner_get", "banner_close")}
+
+
+def app_banner_html(s):
+    """The site's bar, placed right before the page's header. The whole bar is one link to the
+    App Store (a new tab); the close button sits beside it, since a button can't be inside a link."""
+    e = lambda key: html.escape(s[key], quote=True)
+    return (f'<aside class="app-banner" aria-label="App Store">'
+            f'<a class="app-banner-link" href="{html.escape(APP_BANNER_HREF)}" target="_blank" rel="noopener">'
+            f'<img src="/icon.png?v=2" width="36" height="36" alt="" aria-hidden="true">'
+            f'<span class="app-banner-text"><b>{e("banner_title")}</b><span>{e("banner_sub")}</span></span>'
+            f'<span class="app-banner-get">{e("banner_get")}</span></a>'
+            f'<button class="app-banner-close" type="button" aria-label="{e("banner_close")}">{_CLOSE_ICON}</button>'
+            f'</aside>')
+
+
 # Chapter 3's prints, in fan order: (file in img/home/prints, the film it was shot on).
 # tools/roll_images.py makes the files from the source renders.
 FAN_PRINTS = [("01", "Dusk"), ("02", "Dusk"), ("03", "Dusk"),
@@ -266,6 +334,8 @@ def render_page(template, strings, cfg, lang):
         "fan_html": fan_html(strings),
         "sheet_html": sheet_html(),
         "font_preload_html": font_preload_html(lang),
+        "app_banner_head_html": APP_BANNER_HEAD,
+        "app_banner_html": app_banner_html(strings),
         "cam_vf_html": cam_vf_html(),
         "cam_strip_html": cam_strip_html(),
         "cam_recent_html": cam_recent_html(),
@@ -349,6 +419,20 @@ def check_consent(root, cfg):
             raise BuildError(f"{rel} has no consent banner with named OK and No buttons")
 
 
+def check_app_banner(root):
+    """Every page (the same list as the consent check) offers the app the same way: the head's meta,
+    script and stylesheet exactly as APP_BANNER_HEAD, and the bar in the page's own language."""
+    for rel in CONSENT_PAGES:
+        page = (Path(root) / rel).read_text(encoding="utf-8")
+        head = page.split("</head>", 1)[0]
+        if head.count('<meta name="apple-itunes-app"') != 1 or APP_BANNER_HEAD not in head:
+            raise BuildError(f"{rel} does not carry the App Store banner's head (tools/build_home.py APP_BANNER_HEAD)")
+        m = re.search(r'<html lang="([a-z]+)"', page)
+        lang = m.group(1) if m else "en"
+        if page.count('<aside class="app-banner"') != 1 or app_banner_html(banner_strings(lang, root)) not in page:
+            raise BuildError(f"{rel} does not carry the App Store bar in {lang} (tools/build_home.py app_banner_html)")
+
+
 def main(argv):
     check = "--check" in argv
     try:
@@ -366,6 +450,12 @@ def main(argv):
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content, encoding="utf-8")
+    if check:
+        # After the staleness check, so a page that only needs rebuilding says so first.
+        try:
+            check_app_banner(ROOT)
+        except BuildError as e:
+            sys.exit(f"build_home: {e}")
     print("build_home: " + ("pages are current" if check else f"wrote {', '.join(pages)}"))
 
 
