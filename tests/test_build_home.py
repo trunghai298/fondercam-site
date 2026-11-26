@@ -35,7 +35,7 @@ class ConfigTests(unittest.TestCase):
         cfg = b.load_config(ROOT / "config.json")
         # Fonder 1.0 went live on 26 Nov 2026: the page offers the App Store.
         self.assertEqual(cfg["stage"], "appstore")
-        self.assertEqual(cfg["appstore"], "https://apps.apple.com/us/app/fonder-film-camera/id6836679617")
+        self.assertEqual(cfg["appstore"], "https://apps.apple.com/app/apple-store/id6836679617?pt=129830809&ct=site-home&mt=8")
         self.assertEqual(cfg["instagram"], "https://www.instagram.com/fonder.app")
         self.assertEqual(cfg["threads"], "https://www.threads.com/@fonder.app")
 
@@ -166,7 +166,8 @@ class PageTests(unittest.TestCase):
     def test_action_slot_filled(self):
         for page, alt in ((self.en, "Download on the App Store"), (self.vi, "Tải về trên App Store")):
             self.assertIn('data-stage="appstore"', page)
-            self.assertIn('href="https://apps.apple.com/us/app/fonder-film-camera/id6836679617"', page)
+            # The site-home campaign link, so App Store Connect counts the site's downloads.
+            self.assertIn('href="https://apps.apple.com/app/apple-store/id6836679617?pt=129830809&amp;ct=site-home&amp;mt=8"', page)
             self.assertIn(f'src="/img/home/app-store-badge.svg" width="156" height="52" alt="{alt}"', page)
 
     def test_every_image_sized_and_described(self):
