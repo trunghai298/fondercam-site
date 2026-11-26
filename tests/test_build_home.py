@@ -351,9 +351,9 @@ class AppBannerTests(unittest.TestCase):
         self.assertIn(".app-banner{display:none}", css)
         self.assertIn("html.show-app-banner .app-banner{display:block}", css)
         self.assertIn("root.classList.add('show-app-banner')", b.APP_BANNER_HEAD)
-        # Nothing from another site: the only address in either is the SVG namespace of the sprocket holes.
-        addresses = set(re.findall(r"https?://[^\s\"')]+", css + b.APP_BANNER_HEAD))
-        self.assertEqual(addresses, {"http://www.w3.org/2000/svg"})
+        # Nothing from another site: neither the look nor the script names any address.
+        self.assertEqual(re.findall(r"https?://[^\s\"')]+", css + b.APP_BANNER_HEAD), [])
+        self.assertNotIn("url(", css)
 
     def _copy_site(self, root):
         import shutil
